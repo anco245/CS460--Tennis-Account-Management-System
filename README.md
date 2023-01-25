@@ -1,3 +1,3 @@
 # CS460-Project
 
-Teenis Club management system
+Tennis Club management system
