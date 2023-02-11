@@ -5,16 +5,16 @@ USE courtsystem;
 CREATE TABLE directory (
     firstName VARCHAR(50) NOT NULL,
     lastName VARCHAR(50) NOT NULL,
-	age VARCHAR(5) NOT NULL,
+    age VARCHAR(5) NOT NULL,
     address VARCHAR(60) NOT NULL,
     phone VARCHAR(50) NOT NULL,
     email VARCHAR(50) NOT NULL,
-	username VARCHAR(50) NOT NULL PRIMARY KEY,
+    username VARCHAR(50) NOT NULL PRIMARY KEY,
     pword VARCHAR(50) NOT NULL
 );
 
 CREATE TABLE reservation (
-	courtNum int NOT NULL PRIMARY KEY,
+    courtNum int NOT NULL PRIMARY KEY,
     username VARCHAR(50),
     resTime datetime,
     isRes bool NOT NULL,
