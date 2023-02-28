@@ -59,16 +59,16 @@ public class homeScreen {
 				
 				System.out.println(database.domain);
 				
-				if(database.domain.equals("gmail"))
+				if(database.domain.equals("tennis"))
 				{
-					window.setTitle("Member Home Screen");
-					layout.getChildren().addAll(text, btn2, btn4);
-				} else if (database.domain.equals("tennis")) {
 					window.setTitle("Treasurer / Chairman Home Screen");
 					layout.getChildren().addAll(text, btn1, btn2, btn3);
 				} else if (database.domain.equals("admin")) {
 					window.setTitle("Administrator Home Screen");
 					layout.getChildren().addAll(text);
+				} else {
+					window.setTitle("Member Home Screen");
+					layout.getChildren().addAll(text, btn2, btn4);
 				}
 				
 				//scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
