@@ -33,7 +33,6 @@ public class database {
 	// ---String number = email.substring(email.lastIndexOf("@") + 1);
 	
 	
-	
 	//Removes a person's information from the database
 	public static void delete(String u)
 	{

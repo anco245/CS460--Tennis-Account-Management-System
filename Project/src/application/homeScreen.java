@@ -12,60 +12,57 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 public class homeScreen {
-	//Need to make this a global variable, because btn is 
-		//used in both the start and handle methods
-		public static Button addToDatabase;
-		public static Button viewDirectory;
-		public static Button editDatabase;
-		//Button btn4;
-		
-		public static void display() {
-			try {
+	public static void display() {
+		try {
 				
-				Stage window = new Stage();
-				Text text = new Text();
-				VBox layout = new VBox(10);
-				Scene scene = new Scene(layout, 400, 400);	
+			Stage window = new Stage();
+			Text text = new Text();
+			VBox layout = new VBox(10);
+			Scene scene = new Scene(layout, 400, 400);	
 				
-				//Gets the name of the person who just logged in
-				//And adds a greeting
-				String str = database.person;
-				text.setText("Welcome " + str + "!");
+			Button addToDatabase;
+			Button viewDirectory;
+			Button editDatabase;
 				
-				//Makes it so that you can't click away 
-				// from this window. 
-				window.initModality(Modality.APPLICATION_MODAL);
+			//Gets the name of the person who just logged in
+			//And adds a greeting
+			String str = database.person;
+			text.setText("Welcome " + str + "!");
 				
-				addToDatabase = new Button("Add to database");
-				viewDirectory = new Button("Look at directory");
-				editDatabase = new Button("Edit Database");
+			//Makes it so that you can't click away 
+			// from this window. 
+			window.initModality(Modality.APPLICATION_MODAL);
 				
-				viewDirectory.setOnAction(e -> database.display(1));
-				editDatabase.setOnAction(e -> database.display(2));
+			addToDatabase = new Button("Add to database");
+			viewDirectory = new Button("Look at directory");
+			editDatabase = new Button("Edit Database");
 				
-				System.out.println(database.domain);
+			viewDirectory.setOnAction(e -> database.display(1));
+			editDatabase.setOnAction(e -> database.display(2));
 				
-				//Checks the email domain of the account that's logged in
-				//Depending on which account, it should display different
-				//functions
-				if(database.domain.equals("tennis"))
-				{
-					window.setTitle("Treasurer / Chairman Home Screen");
-					layout.getChildren().addAll(text, addToDatabase, viewDirectory, editDatabase);
-				} else if (database.domain.equals("admin")) {
-					window.setTitle("Administrator Home Screen");
-					layout.getChildren().addAll(text);
-				} else {
-					window.setTitle("Member Home Screen");
-					layout.getChildren().addAll(text, viewDirectory);
-				}
+			System.out.println(database.domain);
 				
-				//scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
-				window.setScene(scene);
-				window.showAndWait();
-				
-			} catch(Exception e) {
-				e.printStackTrace();
+			//Checks the email domain of the account that's logged in
+			//Depending on which account, it should display different
+			//functions
+			if(database.domain.equals("tennis"))
+			{
+				window.setTitle("Treasurer / Chairman Home Screen");
+				layout.getChildren().addAll(text, addToDatabase, viewDirectory, editDatabase);
+			} else if (database.domain.equals("admin")) {
+				window.setTitle("Administrator Home Screen");
+				layout.getChildren().addAll(text);
+			} else {
+				window.setTitle("Member Home Screen");
+				layout.getChildren().addAll(text, viewDirectory);
 			}
+				
+			//scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
+			window.setScene(scene);
+			window.showAndWait();
+				
+		} catch(Exception e) {
+			e.printStackTrace();
 		}
+	}
 }
