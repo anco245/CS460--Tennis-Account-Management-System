@@ -10,14 +10,15 @@ CREATE TABLE directory (
     phone VARCHAR(50) NOT NULL,
     email VARCHAR(50) NOT NULL,
 	username VARCHAR(50) NOT NULL PRIMARY KEY,
-    pword VARCHAR(50) NOT NULL
+    pword VARCHAR(50) NOT NULL,
+    verified BOOLEAN NOT NULL DEFAULT false
 );
 
 CREATE TABLE reservation (
-	courtNum int NOT NULL PRIMARY KEY,
+	courtNum INT NOT NULL PRIMARY KEY,
     username VARCHAR(50),
     resTime datetime,
-    isRes bool NOT NULL,
+    isRes BOOLEAN NOT NULL,
     FOREIGN KEY (username) REFERENCES directory(username) 
 		ON DELETE CASCADE
 );

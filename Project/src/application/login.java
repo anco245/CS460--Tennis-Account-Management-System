@@ -18,6 +18,7 @@ public class login extends Application implements EventHandler<ActionEvent>{
 	public static String name = "";
 	public static String pass = "";
 	
+	
 	public void start(Stage primaryStage) throws Exception {
 		// TODO Auto-generated method stub
 		
@@ -25,7 +26,6 @@ public class login extends Application implements EventHandler<ActionEvent>{
 			VBox layout = new VBox(10);
 			Scene scene = new Scene(layout, 400, 400);
 			Text text = new Text();
-			
 			window = primaryStage;
 			
 			TextField username = new TextField();
@@ -38,17 +38,22 @@ public class login extends Application implements EventHandler<ActionEvent>{
 			
 			Button submit = new Button("Submit");
 			
-			//text.setText("You need to enter both a username and password");
-			
 			submit.setOnAction(e -> {
+				
+				//Takes what's in the username and password textfields
+				//and puts them into the name and pass variables.
 				name = username.getText();
 				pass = password.getText();
-							
+					
+				//If the username and password match an account
+				//in the database then show the homescreen
 				if(database.login(name, pass))
 				{
 					window.close();
 					homeScreen.display();
 				} else {
+					
+					//Error
 					text.setText("Wrong Username and Password");
 				}
 				
@@ -56,10 +61,11 @@ public class login extends Application implements EventHandler<ActionEvent>{
 			});
 			
 			Button newAccount = new Button("Make a new Account");
-			newAccount.setOnAction(e -> database.display(4));
+			newAccount.setOnAction(e -> database.display(3));
 			
+			//Doesn't do anything yet
 			Button resetPass = new Button("Reset password");
-			resetPass.setOnAction(e -> database.display(0));
+			//resetPass.setOnAction(e -> database.display(4));
 			
 			layout.getChildren().addAll(username, password, submit, newAccount, resetPass);
 			
