@@ -28,16 +28,11 @@ public class database {
 	public static String username = "root";
 	public static String password = "sqlpass";
 	public static String url = "jdbc:mysql://localhost:3306/courtsystem";
-
-	//Used for extracting the domain from the given email in the database
-	// ---String number = email.substring(email.lastIndexOf("@") + 1);
-	
 	
 	//Removes a person's information from the database
 	public static void delete(String u)
 	{
 		try (Connection connection = DriverManager.getConnection(url, username, password)) {
-				
 			
 			//Not sure if this works yet
 			PreparedStatement preparedStatement = 
@@ -58,7 +53,7 @@ public class database {
 	public static void getData(String userName)
 	{
 		try (Connection connection = DriverManager.getConnection(url, username, password)) {
-			// Beginning of query
+
 			PreparedStatement preparedStatement = 
 					connection.prepareStatement("SELECT * FROM directory WHERE username = ?");
 			
@@ -76,10 +71,8 @@ public class database {
 				String p = resultSet.getString("pword");
 					
 					all = all + fname + " " + lname + "  " + age + "  " + addr + "  " + 
-					phone + "  " + email + "\n";
-					
+					phone + "  " + email + "\n";	
 			}
-			
 		} catch (SQLException e) {
 			throw new IllegalStateException("Cannot connect the database!", e);
 		}
@@ -156,6 +149,7 @@ public class database {
 				{
 					String em = resultSet.getString("email");
 					
+					//Used for extracting the domain from the given email in the database
 					domain = em.substring(em.lastIndexOf("@") + 1);
 					
 					person = resultSet.getString("firstName") + " " + 
@@ -233,10 +227,7 @@ public class database {
 			
 			getData("0");
 			text.setText(all);
-			//text.setX(50); 
-		    //text.setY(50); 
 			
-			//Error here
 			layout.getChildren().addAll(exit);
 			
 		} else if (n == 2) {
@@ -256,8 +247,7 @@ public class database {
 						inputEmail, inputPass);
 						
 				window.close();
-						
-				});
+			});
 			
 			layout.getChildren().addAll(fieldfName, fieldlName, fieldAge, fieldAddr, 
 					fieldPhone, fieldUsername, fieldPass);
@@ -289,9 +279,8 @@ public class database {
 //					
 //				}
 				
-				window.close();
-						
-				});
+				window.close();	
+			});
 
 			layout.getChildren().addAll(fieldfName, fieldlName, fieldAge, fieldAddr, 
 					fieldPhone, fieldEmail, fieldUsername, fieldPass, submit);

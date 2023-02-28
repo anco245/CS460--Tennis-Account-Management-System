@@ -18,10 +18,7 @@ public class login extends Application implements EventHandler<ActionEvent>{
 	public static String name = "";
 	public static String pass = "";
 	
-	
 	public void start(Stage primaryStage) throws Exception {
-		// TODO Auto-generated method stub
-		
 		try {
 			VBox layout = new VBox(10);
 			Scene scene = new Scene(layout, 400, 400);
@@ -52,8 +49,6 @@ public class login extends Application implements EventHandler<ActionEvent>{
 					window.close();
 					homeScreen.display();
 				} else {
-					
-					//Error
 					text.setText("Wrong Username and Password");
 				}
 				
