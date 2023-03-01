@@ -43,6 +43,9 @@ public class database {
 			//Executing Query
 			preparedStatement.executeUpdate();
 			
+			preparedStatement.close();
+			connection.close();
+			
 		} catch (SQLException e) {
 			throw new IllegalStateException("Cannot connect the database!", e);
 		}
@@ -73,6 +76,11 @@ public class database {
 					all = all + fname + " " + lname + "  " + age + "  " + addr + "  " + 
 					phone + "  " + email + "\n";	
 			}
+			
+			preparedStatement.close();
+			resultSet.close();
+			connection.close();
+			
 		} catch (SQLException e) {
 			throw new IllegalStateException("Cannot connect the database!", e);
 		}
@@ -102,6 +110,9 @@ public class database {
 			//Executing Query
 			preparedStatement.executeUpdate();
 			
+			preparedStatement.close();
+			connection.close();
+			
 		} catch (SQLException e) {
 			throw new IllegalStateException("Cannot connect the database!", e);
 		}
@@ -123,6 +134,9 @@ public class database {
 			
 			//Executing Query
 			preparedStatement.executeUpdate();
+			
+			preparedStatement.close();
+			connection.close();
 			
 		} catch (SQLException e) {
 			throw new IllegalStateException("Cannot connect the database!", e);
@@ -158,6 +172,10 @@ public class database {
 					return true;
 				}
 			}
+			
+			preparedStatement.close();
+			resultSet.close();
+			connection.close();
 			
 			return false;
 
