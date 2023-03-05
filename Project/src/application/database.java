@@ -54,32 +54,57 @@ public class database {
 	
 	//str should = variable name in database if specific or 0 if everything
 	public static void getData(String userName)
-	{
+	{	
 		try (Connection connection = DriverManager.getConnection(url, username, password)) {
-
-			PreparedStatement preparedStatement = 
-					connection.prepareStatement("SELECT * FROM directory WHERE username = ?");
 			
-			preparedStatement.setString(1, userName);
-				
-			ResultSet resultSet = preparedStatement.executeQuery();
-				
-			while(resultSet.next()) {
-				String fname = resultSet.getString("firstName");
-				String lname = resultSet.getString("lastName");
-				String age = resultSet.getString("age");
-				String addr = resultSet.getString("address");
-				String phone = resultSet.getString("phone");
-				String email = resultSet.getString("email") + ".com";
-				String p = resultSet.getString("pword");
+			if(userName == "0")
+			{
+				PreparedStatement preparedStatement = 
+						connection.prepareStatement("SELECT * FROM directory");
 					
-					all = all + fname + " " + lname + "  " + age + "  " + addr + "  " + 
-					phone + "  " + email + "\n";	
+				ResultSet resultSet = preparedStatement.executeQuery();
+					
+				while(resultSet.next()) {
+					String fname = resultSet.getString("firstName");
+					String lname = resultSet.getString("lastName");
+					String age = resultSet.getString("age");
+					String addr = resultSet.getString("address");
+					String phone = resultSet.getString("phone");
+					String email = resultSet.getString("email") + ".com";
+					String p = resultSet.getString("pword");
+						
+						all = all + fname + " " + lname + "  " + age + "  " + addr + "  " + 
+						phone + "  " + email + "\n";	
+				}
+				
+				preparedStatement.close();
+				resultSet.close();
+				connection.close();
+			} else {
+				PreparedStatement preparedStatement = 
+						connection.prepareStatement("SELECT * FROM directory WHERE username = ?");
+				
+				preparedStatement.setString(1, userName);
+					
+				ResultSet resultSet = preparedStatement.executeQuery();
+					
+				while(resultSet.next()) {
+					String fname = resultSet.getString("firstName");
+					String lname = resultSet.getString("lastName");
+					String age = resultSet.getString("age");
+					String addr = resultSet.getString("address");
+					String phone = resultSet.getString("phone");
+					String email = resultSet.getString("email") + ".com";
+					String p = resultSet.getString("pword");
+						
+						all = all + fname + " " + lname + "  " + age + "  " + addr + "  " + 
+						phone + "  " + email + "\n";	
+				}
+				
+				preparedStatement.close();
+				resultSet.close();
+				connection.close();
 			}
-			
-			preparedStatement.close();
-			resultSet.close();
-			connection.close();
 			
 		} catch (SQLException e) {
 			throw new IllegalStateException("Cannot connect the database!", e);

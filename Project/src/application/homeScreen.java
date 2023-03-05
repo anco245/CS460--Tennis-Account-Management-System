@@ -20,10 +20,6 @@ public class homeScreen {
 			VBox layout = new VBox(10);
 			Scene scene = new Scene(layout, 400, 400);	
 				
-			Button addToDatabase;
-			Button viewDirectory;
-			Button editDatabase;
-				
 			//Gets the name of the person who just logged in
 			//And adds a greeting
 			String str = database.person;
@@ -32,12 +28,35 @@ public class homeScreen {
 			//Makes it so that you can't click away 
 			// from this window. 
 			window.initModality(Modality.APPLICATION_MODAL);
-				
-			addToDatabase = new Button("Add to database");
-			viewDirectory = new Button("Look at directory");
-			editDatabase = new Button("Edit Database");
-				
-			viewDirectory.setOnAction(e -> database.display(1));
+			
+			Button addToDatabase = new Button("Add to database");
+			Button viewDirectory = new Button("Look at directory");
+			Button editDatabase = new Button("Edit Database");
+			
+			viewDirectory.setOnAction(new EventHandler<ActionEvent>() {
+			    @Override public void handle(ActionEvent e) {
+			        Stage window = new Stage();
+			        Button exit = new Button("Exit");
+			        Text text = new Text();
+					VBox layout = new VBox(10);
+					Scene scene = new Scene(layout, 400, 400);
+					
+					window.initModality(Modality.APPLICATION_MODAL);
+					
+					exit.setOnAction(x -> window.close());
+					
+			        database.all = "";
+					
+					database.getData("0");
+					text.setText(database.all);
+					
+					layout.getChildren().addAll(text, exit);
+					
+					window.setScene(scene);
+					window.showAndWait();
+			    }
+			});
+			
 			editDatabase.setOnAction(e -> database.display(2));
 				
 			System.out.println(database.domain);
