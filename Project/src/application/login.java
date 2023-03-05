@@ -10,6 +10,7 @@ import javafx.scene.control.ProgressIndicator;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 public class login extends Application implements EventHandler<ActionEvent>{
@@ -17,6 +18,15 @@ public class login extends Application implements EventHandler<ActionEvent>{
 	Stage window;
 	public static String name = "";
 	public static String pass = "";
+	
+	public static String inputfName = "";
+	public static String inputlName = "";
+	public static String inputUser = "";
+	public static String inputPass = "";
+	public static String inputAddr = "";
+	public static String inputEmail = "";
+	public static String inputPhone = "";
+	public static String inputAge = "";
 	
 	public void start(Stage primaryStage) throws Exception {
 		try {
@@ -46,8 +56,13 @@ public class login extends Application implements EventHandler<ActionEvent>{
 				//in the database then show the homescreen
 				if(database.login(name, pass))
 				{
-					window.close();
-					homeScreen.display();
+					if(database.verified(name))
+					{
+						window.close();
+						homeScreen.display();
+					} else {
+						text.setText("Your account hasn't been verified by the chairmen yet.");
+					}
 				} else {
 					text.setText("Wrong Username and Password");
 				}
@@ -56,18 +71,79 @@ public class login extends Application implements EventHandler<ActionEvent>{
 			});
 			
 			Button newAccount = new Button("Make a new Account");
-			newAccount.setOnAction(e -> database.display(3));
+			newAccount.setOnAction(new EventHandler<ActionEvent>() {
+			    @Override public void handle(ActionEvent e) {
+			        Stage window = new Stage();
+			        Button submit = new Button("Submit and Exit");
+			        Text text = new Text();
+					VBox layout = new VBox(10);
+					Scene scene = new Scene(layout, 400, 400);
+					
+					TextField fieldfName = new TextField();
+					fieldfName.setPromptText("Enter first name");
+					//makes it so that you can see the prompt if hovering over it
+					fieldfName.setFocusTraversable(false);
+					
+					TextField fieldlName = new TextField();
+					fieldlName.setPromptText("Enter last name");
+					fieldlName.setFocusTraversable(false);
+					
+					TextField fieldAge = new TextField();
+					fieldAge.setPromptText("Enter age");
+					//makes it so that you can see the prompt if hovering over it
+					fieldAge.setFocusTraversable(false);
+					
+					TextField fieldEmail = new TextField();
+					fieldEmail.setPromptText("Enter e-mail");
+					fieldEmail.setFocusTraversable(false);
+					
+					TextField fieldUsername = new TextField();
+					fieldUsername.setPromptText("Enter username");
+					fieldUsername.setFocusTraversable(false);
+					
+					TextField fieldPass = new TextField();
+					fieldPass.setPromptText("Enter password");
+					fieldPass.setFocusTraversable(false);
+					
+					TextField fieldAddr = new TextField();
+					fieldAddr.setPromptText("Enter address");
+					fieldAddr.setFocusTraversable(false);
+					
+					TextField fieldPhone = new TextField();
+					fieldPhone.setPromptText("Enter phone number");
+					fieldPhone.setFocusTraversable(false);
+					
+					window.setTitle("New Account");
+					
+					submit.setOnAction(x -> {
+						inputfName = fieldfName.getText();
+						inputlName = fieldlName.getText();
+						inputAge = fieldAge.getText();
+						inputAddr = fieldAddr.getText();
+						inputPhone = fieldPhone.getText();
+						inputEmail = fieldEmail.getText();
+						inputEmail = inputEmail.substring(0, inputEmail.length() - 4);
+						inputUser = fieldUsername.getText();
+						inputPass = fieldPass.getText();
+						
+						database.nAccount(inputfName, inputlName, inputAge, inputAddr, inputPhone, 
+								inputEmail, inputUser, inputPass);
+						
+						window.close();	
+					});
+
+					layout.getChildren().addAll(fieldfName, fieldlName, fieldAge, fieldAddr, 
+							fieldPhone, fieldEmail, fieldUsername, fieldPass, submit);
+					
+					window.setScene(scene);
+					window.showAndWait();
+				}});
 			
-			//Doesn't do anything yet
-			Button resetPass = new Button("Reset password");
-			//resetPass.setOnAction(e -> database.display(4));
-			
-			layout.getChildren().addAll(username, password, submit, newAccount, resetPass);
+			layout.getChildren().addAll(username, password, submit, newAccount);
 			
 			primaryStage.setTitle("Login");
 			primaryStage.setScene(scene);
 			primaryStage.show();
-			
 		} catch(Exception e) {
 			e.printStackTrace();
 		}

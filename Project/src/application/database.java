@@ -11,15 +11,6 @@ import javafx.event.EventHandler;
 
 public class database {
 	
-	public static String inputfName = "";
-	public static String inputlName = "";
-	public static String inputUser = "";
-	public static String inputPass = "";
-	public static String inputAddr = "";
-	public static String inputPhone = "";
-	public static String inputAge = "";
-	public static String inputEmail = "";
-	
 	public static String domain = "";
 	
 	public static String all = "";
@@ -28,6 +19,35 @@ public class database {
 	public static String username = "root";
 	public static String password = "sqlpass";
 	public static String url = "jdbc:mysql://localhost:3306/courtsystem";
+	
+	public static boolean verified(String u)
+	{
+		try (Connection connection = DriverManager.getConnection(url, username, password)) {
+			
+			//Not sure if this works yet
+			PreparedStatement preparedStatement = 
+			connection.prepareStatement("SELECT verified FROM directory WHERE username = ?");
+			
+			preparedStatement.setString(1, u);
+		
+			//Executing Query
+			ResultSet resultSet = preparedStatement.executeQuery();
+			
+			Boolean v = false;
+			
+			if(resultSet.next())
+				v = resultSet.getBoolean("verified");
+			
+			preparedStatement.close();
+			resultSet.close();
+			connection.close();
+			
+			return v;
+			
+		} catch (SQLException e) {
+			throw new IllegalStateException("Cannot connect the database!", e);
+		}
+	}
 	
 	//Removes a person's information from the database
 	public static void delete(String u)
@@ -118,7 +138,7 @@ public class database {
 			
 			PreparedStatement preparedStatement = 
 					connection.prepareStatement("INSERT INTO directory "
-							+ "VALUES(?, ?, ?, ?, ?, ?, ?, ?)");
+							+ "VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?)");
 			
 			String first = fname.substring(0, 1).toUpperCase() + fname.substring(1);
 			String last = lname.substring(0, 1).toUpperCase() + lname.substring(1);
@@ -131,12 +151,21 @@ public class database {
 			preparedStatement.setString(6, email);
 			preparedStatement.setString(7, u);
 			preparedStatement.setString(8, p);
+			preparedStatement.setBoolean(9, false);
+			
+			System.out.println("Made it here");
 			
 			//Executing Query
 			preparedStatement.executeUpdate();
 			
+			System.out.println("Made it 2 here");
+			
 			preparedStatement.close();
+			
+			System.out.println("Made it 3 here");
 			connection.close();
+			
+			System.out.println("Made it 4 here");
 			
 		} catch (SQLException e) {
 			throw new IllegalStateException("Cannot connect the database!", e);
@@ -263,77 +292,70 @@ public class database {
 		window.setMinWidth(400);
 		window.setMinHeight(400);
 		
-		if (n == 1) {
-			window.setTitle("Showing Database");
-			
-			all = "";
-			
-			getData("0");
-			text.setText(all);
-			
-			layout.getChildren().addAll(exit);
-			
-		} else if (n == 2) {
-			window.setTitle("Make changes");
-			
-			submit.setOnAction(e -> {
-				inputfName = fieldfName.getText();
-				inputlName = fieldlName.getText();
-				inputUser = fieldUsername.getText();
-				inputPass = fieldPass.getText();
-				inputAddr = fieldAddr.getText();
-				inputEmail = fieldEmail.getText();
-				inputPhone = fieldPhone.getText();
-				inputAge = fieldAge.getText();
-						
-				editData(inputfName, inputlName, inputAge, inputAddr, inputPhone, 
-						inputEmail, inputPass);
-						
-				window.close();
-			});
-			
-			layout.getChildren().addAll(fieldfName, fieldlName, fieldAge, fieldAddr, 
-					fieldPhone, fieldUsername, fieldPass);
-			
-		} else if (n == 3) {
-			window.setTitle("New Account");
-			
-			submit.setOnAction(e -> {
-				inputfName = fieldfName.getText();
-				inputlName = fieldlName.getText();
-				inputUser = fieldUsername.getText();
-				inputPass = fieldPass.getText();
-				inputAddr = fieldAddr.getText();
-				inputEmail = fieldEmail.getText();
-				inputEmail = inputEmail.substring(0, inputEmail.length() - 4);
-				inputPhone = fieldPhone.getText();
-				inputAge = fieldAge.getText();
+//		if (n == 1) {
+//			
+//			
+//		} else if (n == 2) {
+//			window.setTitle("Make changes");
+//			
+//			submit.setOnAction(e -> {
+//				inputfName = fieldfName.getText();
+//				inputlName = fieldlName.getText();
+//				inputUser = fieldUsername.getText();
+//				inputPass = fieldPass.getText();
+//				inputAddr = fieldAddr.getText();
+//				inputEmail = fieldEmail.getText();
+//				inputPhone = fieldPhone.getText();
+//				inputAge = fieldAge.getText();
+//						
+//				editData(inputfName, inputlName, inputAge, inputAddr, inputPhone, 
+//						inputEmail, inputPass);
+//						
+//				window.close();
+//			});
+//			
+//			layout.getChildren().addAll(fieldfName, fieldlName, fieldAge, fieldAddr, 
+//					fieldPhone, fieldUsername, fieldPass);
+//			
+//		} else if (n == 3) {
+//			window.setTitle("New Account");
+//			
+//			submit.setOnAction(e -> {
+//				inputfName = fieldfName.getText();
+//				inputlName = fieldlName.getText();
+//				inputUser = fieldUsername.getText();
+//				inputPass = fieldPass.getText();
+//				inputAddr = fieldAddr.getText();
+//				inputEmail = fieldEmail.getText();
+//				inputEmail = inputEmail.substring(0, inputEmail.length() - 4);
+//				inputPhone = fieldPhone.getText();
+//				inputAge = fieldAge.getText();
+//				
+//				nAccount(inputfName, inputlName, inputAge, inputAddr, inputPhone, 
+//						inputEmail, inputUser, inputPass);
+//				
+////				check if verified is 0 or 1
+////				if (1) {
+////					display homescreen
+////				} else {
+////					pop up message saying that the chairman has to approve their 
+////					new account. There's an ok button on the screen. When pressed
+////					it just takes the user back to the login screen.
+////					
+////				}
+//				
+//				window.close();	
+////			});
+//
+//			layout.getChildren().addAll(fieldfName, fieldlName, fieldAge, fieldAddr, 
+//					fieldPhone, fieldEmail, fieldUsername, fieldPass, submit);
+//		}
 				
-				nAccount(inputfName, inputlName, inputAge, inputAddr, inputPhone, 
-						inputEmail, inputUser, inputPass);
-				
-//				check if verified is 0 or 1
-//				if (1) {
-//					display homescreen
-//				} else {
-//					pop up message saying that the chairman has to approve their 
-//					new account. There's an ok button on the screen. When pressed
-//					it just takes the user back to the login screen.
-//					
-//				}
-				
-				window.close();	
-			});
-
-			layout.getChildren().addAll(fieldfName, fieldlName, fieldAge, fieldAddr, 
-					fieldPhone, fieldEmail, fieldUsername, fieldPass, submit);
-		}
-				
-		window.setScene(scene);
+		//window.setScene(scene);
 		
 		//displays window and then before returning to previous screen,
 		//waits for it to be closed
-		window.showAndWait();
+		//window.showAndWait();
 	}
 	
 }
