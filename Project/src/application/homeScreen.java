@@ -29,9 +29,9 @@ public class homeScreen {
 			// from this window. 
 			window.initModality(Modality.APPLICATION_MODAL);
 			
-			Button addToDatabase = new Button("Add to database");
 			Button viewDirectory = new Button("Look at directory");
-			Button editDatabase = new Button("Edit Database");
+			Button contactUs = new Button("Contact Us");
+			//Button editDatabase = new Button("Edit Database");
 			
 			viewDirectory.setOnAction(new EventHandler<ActionEvent>() {
 			    @Override public void handle(ActionEvent e) {
@@ -40,6 +40,8 @@ public class homeScreen {
 			        Text text = new Text();
 					VBox layout = new VBox(10);
 					Scene scene = new Scene(layout, 400, 400);
+					
+					window.setTitle("View Directory");
 					
 					window.initModality(Modality.APPLICATION_MODAL);
 					
@@ -57,23 +59,49 @@ public class homeScreen {
 			    }
 			});
 			
-			editDatabase.setOnAction(e -> database.display(2));
-				
-			System.out.println(database.domain);
+			contactUs.setOnAction(new EventHandler<ActionEvent>() {
+			    @Override public void handle(ActionEvent e) {
+			        Stage window = new Stage();
+			        Button exit = new Button("Exit");
+			        Text text = new Text();
+					VBox layout = new VBox(10);
+					Scene scene = new Scene(layout, 400, 400);
+					
+					window.setTitle("Contact Us");
+					
+					window.initModality(Modality.APPLICATION_MODAL);
+					
+					exit.setOnAction(x -> window.close());
+					
+			        String info = "Phone Number for Main Desk: 215-436-2231\n"
+			        		    + "Phone Number for Technical Support: 215-663-2133\n"
+			        		    + "Email for any questions: askquestion@tennis.com\n";
+	
+					text.setText(info);
+					
+					layout.getChildren().addAll(text, exit);
+					
+					window.setScene(scene);
+					window.showAndWait();
+			    }
+			});
 				
 			//Checks the email domain of the account that's logged in
 			//Depending on which account, it should display different
 			//functions
+			// if you're a tresurer / chairman you'll have an email with '@tennis.com'
+			// if you're an administrator, you'll have an email with '@admin.com'
+			// if you're a member, it'll be any other extension
 			if(database.domain.equals("tennis"))
 			{
 				window.setTitle("Treasurer / Chairman Home Screen");
-				layout.getChildren().addAll(text, addToDatabase, viewDirectory, editDatabase);
+				layout.getChildren().addAll(text, viewDirectory);
 			} else if (database.domain.equals("admin")) {
 				window.setTitle("Administrator Home Screen");
 				layout.getChildren().addAll(text);
 			} else {
 				window.setTitle("Member Home Screen");
-				layout.getChildren().addAll(text, viewDirectory);
+				layout.getChildren().addAll(text, viewDirectory, contactUs);
 			}
 				
 			//scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
