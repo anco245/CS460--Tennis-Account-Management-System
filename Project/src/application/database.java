@@ -20,19 +20,55 @@ public class database {
 	public static String password = "sqlpass";
 	public static String url = "jdbc:mysql://localhost:3306/courtsystem";
 	
+	
+	//Doesn't work yet
+	public static void approve()
+	{
+		try (Connection connection = DriverManager.getConnection(url, username, password)) {
+				PreparedStatement preparedStatement = 
+						connection.prepareStatement("SELECT * FROM directory");
+					
+				ResultSet resultSet = preparedStatement.executeQuery();
+					
+				while(resultSet.next()) {
+					String uname = resultSet.getString("username");
+					Boolean v = resultSet.getBoolean("verified");
+					
+					System.out.println("boolean: " + v);
+					
+					if(v==false)
+					{
+						System.out.println("entered");
+						PreparedStatement preparedStatement2 = 
+								connection.prepareStatement("UPDATE directory SET verified = ? "
+								+ "WHERE username = ?");
+						
+						preparedStatement2.setBoolean(1, true);
+						preparedStatement2.setString(2, uname);
+						preparedStatement2.close();
+					}
+				}
+						
+				preparedStatement.close();
+				resultSet.close();
+				connection.close();
+		} catch (SQLException e) {
+			throw new IllegalStateException("Cannot connect the database!", e);
+		}
+	}
+	
+	//Checks if account has been verified
 	public static boolean verified(String u)
 	{
 		try (Connection connection = DriverManager.getConnection(url, username, password)) {
 			
-			//Not sure if this works yet
 			PreparedStatement preparedStatement = 
 			connection.prepareStatement("SELECT verified FROM directory WHERE username = ?");
 			
 			preparedStatement.setString(1, u);
-		
-			//Executing Query
-			ResultSet resultSet = preparedStatement.executeQuery();
 			
+			ResultSet resultSet = preparedStatement.executeQuery();
+		
 			Boolean v = false;
 			
 			if(resultSet.next())
@@ -49,7 +85,9 @@ public class database {
 		}
 	}
 	
+	
 	//Removes a person's information from the database
+	//Only available to chairman
 	public static void delete(String u)
 	{
 		try (Connection connection = DriverManager.getConnection(url, username, password)) {
@@ -60,7 +98,6 @@ public class database {
 			
 			preparedStatement.setString(1, u);
 		
-			//Executing Query
 			preparedStatement.executeUpdate();
 			
 			preparedStatement.close();
@@ -131,6 +168,7 @@ public class database {
 		}
 	}
 	
+	
 	//Creates a new Account
 	public static void nAccount(String fname, String lname, String age, String addr, 
 			String phone, String email, String u, String p) {
@@ -153,25 +191,17 @@ public class database {
 			preparedStatement.setString(8, p);
 			preparedStatement.setBoolean(9, false);
 			
-			System.out.println("Made it here");
-			
-			//Executing Query
 			preparedStatement.executeUpdate();
-			
-			System.out.println("Made it 2 here");
-			
+
 			preparedStatement.close();
-			
-			System.out.println("Made it 3 here");
 			connection.close();
-			
-			System.out.println("Made it 4 here");
 			
 		} catch (SQLException e) {
 			throw new IllegalStateException("Cannot connect the database!", e);
 		}
 	}
 
+	
 	//Not sure how to do this yet
 	//Should take username, the value you want to change, and the original value
 	public static void editData(String fname, String lname, String age, String addr, 
@@ -186,7 +216,6 @@ public class database {
 			//preparedStatement.setString(1, age);
 			//preparedStatement.setString(2, u);
 			
-			//Executing Query
 			preparedStatement.executeUpdate();
 			
 			preparedStatement.close();
@@ -197,18 +226,18 @@ public class database {
 		}
 	}
 	
+	
 	//Loops through database to find where both username and password are used together
 	//Also saves the domain of their email, to later determine which type of account this is
 	public static boolean login(String user, String pass)
 	{
 		try (Connection connection = DriverManager.getConnection(url, username, password)) {
-			// Beginning of query
-			
+
 			PreparedStatement preparedStatement = 
 					connection.prepareStatement("SELECT * FROM directory");
 						
 			ResultSet resultSet = preparedStatement.executeQuery();
-						
+			
 			while(resultSet.next()) {
 				String uname = resultSet.getString("username");
 				String pword = resultSet.getString("pword");
@@ -236,126 +265,6 @@ public class database {
 		} catch (SQLException e) {
 			throw new IllegalStateException("Cannot connect the database!", e);
 		}
-	}
-	
-	public static void display(int n) {
-
-		Stage window = new Stage();
-		Text text = new Text();
-		VBox layout = new VBox(10);
-		Scene scene = new Scene(layout);
-		
-		Button submit = new Button("Submit and exit");
-		Button exit = new Button("Exit");
-		exit.setOnAction(e -> window.close());
-
-		TextField fieldfName = new TextField();
-		fieldfName.setPromptText("Enter first name");
-		//makes it so that you can see the prompt if hovering over it
-		fieldfName.setFocusTraversable(false);
-		
-		TextField fieldlName = new TextField();
-		fieldlName.setPromptText("Enter last name");
-		fieldlName.setFocusTraversable(false);
-		
-		TextField fieldAge = new TextField();
-		fieldAge.setPromptText("Enter age");
-		//makes it so that you can see the prompt if hovering over it
-		fieldAge.setFocusTraversable(false);
-		
-		TextField fieldEmail = new TextField();
-		fieldEmail.setPromptText("Enter e-mail");
-		fieldEmail.setFocusTraversable(false);
-		
-		TextField fieldUsername = new TextField();
-		fieldUsername.setPromptText("Enter username");
-		fieldUsername.setFocusTraversable(false);
-		
-		TextField fieldPass = new TextField();
-		fieldPass.setPromptText("Enter password");
-		fieldPass.setFocusTraversable(false);
-		
-		TextField fieldAddr = new TextField();
-		fieldAddr.setPromptText("Enter address");
-		fieldAddr.setFocusTraversable(false);
-		
-		TextField fieldPhone = new TextField();
-		fieldPhone.setPromptText("Enter phone number");
-		fieldPhone.setFocusTraversable(false);
-		
-		layout.getChildren().add(text);
-		
-		//makes it go that you can't leave the new window until
-		//it's taken care of
-		window.initModality(Modality.APPLICATION_MODAL);
-		
-		window.setMinWidth(400);
-		window.setMinHeight(400);
-		
-//		if (n == 1) {
-//			
-//			
-//		} else if (n == 2) {
-//			window.setTitle("Make changes");
-//			
-//			submit.setOnAction(e -> {
-//				inputfName = fieldfName.getText();
-//				inputlName = fieldlName.getText();
-//				inputUser = fieldUsername.getText();
-//				inputPass = fieldPass.getText();
-//				inputAddr = fieldAddr.getText();
-//				inputEmail = fieldEmail.getText();
-//				inputPhone = fieldPhone.getText();
-//				inputAge = fieldAge.getText();
-//						
-//				editData(inputfName, inputlName, inputAge, inputAddr, inputPhone, 
-//						inputEmail, inputPass);
-//						
-//				window.close();
-//			});
-//			
-//			layout.getChildren().addAll(fieldfName, fieldlName, fieldAge, fieldAddr, 
-//					fieldPhone, fieldUsername, fieldPass);
-//			
-//		} else if (n == 3) {
-//			window.setTitle("New Account");
-//			
-//			submit.setOnAction(e -> {
-//				inputfName = fieldfName.getText();
-//				inputlName = fieldlName.getText();
-//				inputUser = fieldUsername.getText();
-//				inputPass = fieldPass.getText();
-//				inputAddr = fieldAddr.getText();
-//				inputEmail = fieldEmail.getText();
-//				inputEmail = inputEmail.substring(0, inputEmail.length() - 4);
-//				inputPhone = fieldPhone.getText();
-//				inputAge = fieldAge.getText();
-//				
-//				nAccount(inputfName, inputlName, inputAge, inputAddr, inputPhone, 
-//						inputEmail, inputUser, inputPass);
-//				
-////				check if verified is 0 or 1
-////				if (1) {
-////					display homescreen
-////				} else {
-////					pop up message saying that the chairman has to approve their 
-////					new account. There's an ok button on the screen. When pressed
-////					it just takes the user back to the login screen.
-////					
-////				}
-//				
-//				window.close();	
-////			});
-//
-//			layout.getChildren().addAll(fieldfName, fieldlName, fieldAge, fieldAddr, 
-//					fieldPhone, fieldEmail, fieldUsername, fieldPass, submit);
-//		}
-				
-		//window.setScene(scene);
-		
-		//displays window and then before returning to previous screen,
-		//waits for it to be closed
-		//window.showAndWait();
 	}
 	
 }

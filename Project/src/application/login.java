@@ -90,7 +90,6 @@ public class login extends Application implements EventHandler<ActionEvent>{
 					
 					TextField fieldAge = new TextField();
 					fieldAge.setPromptText("Enter age");
-					//makes it so that you can see the prompt if hovering over it
 					fieldAge.setFocusTraversable(false);
 					
 					TextField fieldEmail = new TextField();
@@ -152,7 +151,7 @@ public class login extends Application implements EventHandler<ActionEvent>{
 	@Override
 	public void handle(ActionEvent primaryStage) {
 		// TODO Auto-generated method stub
-		homeScreen.display();
+		
 	}
 	
 	//This makes it the first screen that you see; what everything else is based on

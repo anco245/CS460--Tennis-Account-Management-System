@@ -31,7 +31,11 @@ public class homeScreen {
 			
 			Button viewDirectory = new Button("Look at directory");
 			Button contactUs = new Button("Contact Us");
+			Button exit = new Button("Exit");
+			Button approve = new Button("Approve New Accounts");
 			//Button editDatabase = new Button("Edit Database");
+			
+			approve.setOnAction(e -> database.approve());
 			
 			viewDirectory.setOnAction(new EventHandler<ActionEvent>() {
 			    @Override public void handle(ActionEvent e) {
@@ -84,7 +88,7 @@ public class homeScreen {
 					window.setScene(scene);
 					window.showAndWait();
 			    }
-			});
+			});	
 				
 			//Checks the email domain of the account that's logged in
 			//Depending on which account, it should display different
@@ -92,11 +96,11 @@ public class homeScreen {
 			// if you're a tresurer / chairman you'll have an email with '@tennis.com'
 			// if you're an administrator, you'll have an email with '@admin.com'
 			// if you're a member, it'll be any other extension
-			if(database.domain.equals("tennis"))
+			if(database.domain.equals("tennis.com"))
 			{
 				window.setTitle("Treasurer / Chairman Home Screen");
-				layout.getChildren().addAll(text, viewDirectory);
-			} else if (database.domain.equals("admin")) {
+				layout.getChildren().addAll(text, viewDirectory, approve);
+			} else if (database.domain.equals("admin.com")) {
 				window.setTitle("Administrator Home Screen");
 				layout.getChildren().addAll(text);
 			} else {
