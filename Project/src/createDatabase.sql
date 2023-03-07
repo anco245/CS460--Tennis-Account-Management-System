@@ -37,3 +37,18 @@ VALUES (4, FALSE);
 
 INSERT INTO reservation (courtNum, isRes)
 VALUES (5, FALSE);
+
+INSERT INTO reservation (courtNum, isRes)
+VALUES (6, FALSE);
+
+INSERT INTO reservation (courtNum, isRes)
+VALUES (7, FALSE);
+
+INSERT INTO reservation (courtNum, isRes)
+VALUES (8, FALSE);
+
+INSERT INTO reservation (courtNum, isRes)
+VALUES (9, FALSE);
+
+INSERT INTO reservation (courtNum, isRes)
+VALUES (10, FALSE);

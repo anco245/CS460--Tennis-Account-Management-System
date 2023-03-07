@@ -21,6 +21,28 @@ public class database {
 	public static String url = "jdbc:mysql://localhost:3306/courtsystem";
 	
 	
+	//Overload for types datetime, int, string, booleans
+	public static void edit(String toUpdate, String key, boolean updateValue)
+	{
+		try (Connection connection = DriverManager.getConnection(url, username, password)) {
+			
+			PreparedStatement preparedStatement = 
+			connection.prepareStatement("UPDATE directory SET ? = ? WHERE username = ?");
+			
+			preparedStatement.setString(1, toUpdate);
+			preparedStatement.setBoolean(1, updateValue);
+			preparedStatement.setString(1, key);
+			
+			
+			preparedStatement.close();
+			connection.close();
+			
+		} catch (SQLException e) {
+			throw new IllegalStateException("Cannot connect the database!", e);
+		}
+	}
+	
+	
 	//Doesn't work yet
 	public static void approve()
 	{
@@ -34,18 +56,9 @@ public class database {
 					String uname = resultSet.getString("username");
 					Boolean v = resultSet.getBoolean("verified");
 					
-					System.out.println("boolean: " + v);
-					
 					if(v==false)
 					{
-						System.out.println("entered");
-						PreparedStatement preparedStatement2 = 
-								connection.prepareStatement("UPDATE directory SET verified = ? "
-								+ "WHERE username = ?");
-						
-						preparedStatement2.setBoolean(1, true);
-						preparedStatement2.setString(2, uname);
-						preparedStatement2.close();
+						edit("verified", uname, true);
 					}
 				}
 						
@@ -193,31 +206,6 @@ public class database {
 			
 			preparedStatement.executeUpdate();
 
-			preparedStatement.close();
-			connection.close();
-			
-		} catch (SQLException e) {
-			throw new IllegalStateException("Cannot connect the database!", e);
-		}
-	}
-
-	
-	//Not sure how to do this yet
-	//Should take username, the value you want to change, and the original value
-	public static void editData(String fname, String lname, String age, String addr, 
-			String phone, String u, String p) {
-		
-		try (Connection connection = DriverManager.getConnection(url, username, password)) {
-			
-			PreparedStatement preparedStatement = 
-					connection.prepareStatement("UPDATE directory SET age = ? "
-							+ "WHERE username = ?");
-			
-			//preparedStatement.setString(1, age);
-			//preparedStatement.setString(2, u);
-			
-			preparedStatement.executeUpdate();
-			
 			preparedStatement.close();
 			connection.close();
 			
