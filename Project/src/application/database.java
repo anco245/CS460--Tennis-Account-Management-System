@@ -22,20 +22,9 @@ public class database {
 	
 	
 	//Overload for types datetime, int, string, booleans
-	public static void edit(String toUpdate, String key, boolean updateValue)
+	public static void edit(String toUpdate, boolean updateValue, String key)
 	{
 		try (Connection connection = DriverManager.getConnection(url, username, password)) {
-			
-			PreparedStatement preparedStatement = 
-			connection.prepareStatement("UPDATE directory SET ? = ? WHERE username = ?");
-			
-			preparedStatement.setString(1, toUpdate);
-			preparedStatement.setBoolean(1, updateValue);
-			preparedStatement.setString(1, key);
-			
-			
-			preparedStatement.close();
-			connection.close();
 			
 		} catch (SQLException e) {
 			throw new IllegalStateException("Cannot connect the database!", e);
@@ -58,7 +47,14 @@ public class database {
 					
 					if(v==false)
 					{
-						edit("verified", uname, true);
+						PreparedStatement p2 = 
+							connection.prepareStatement("UPDATE directory SET verified = ? WHERE username = ?");
+								
+						p2.setBoolean(1, true);
+						p2.setString(2, uname);
+								
+						p2.executeUpdate();
+						p2.close();
 					}
 				}
 						
