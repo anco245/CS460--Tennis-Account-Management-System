@@ -222,6 +222,7 @@ public class database {
 					String em = resultSet.getString("email");
 					
 					//Used for extracting the domain from the given email in the database
+					//will give back @gmail.com, @admin.com, @tennis.com
 					domain = em.substring(em.lastIndexOf("@") + 1);
 					
 					//makes it so that the first letters of the first and last name are capital

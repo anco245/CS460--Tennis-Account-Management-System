@@ -32,9 +32,17 @@ public class homeScreen {
 			Button viewDirectory = new Button("Look at directory");
 			Button contactUs = new Button("Contact Us");
 			Button exit = new Button("Exit");
+			
+			//Buttons don't do anything yet
 			Button approve = new Button("Approve New Accounts");
 			Button backToLogin = new Button("Back to Login");
-			
+			Button makeRes = new Button("Make a Reservation");
+			Button addGuest = new Button("Add Guest");
+			Button remove = new Button("Remove Account");
+			Button notifyPay = new Button("Notify Members of Late Payment / View Directory");
+			Button viewInfo = new Button("View Peronal Information");
+			Button checkUpdates = new Button("Check for Updates");
+			Button addEvent = new Button("Add an Event");
 			
 			//Somehow need to show the login screen
 			backToLogin.setOnAction(e -> {
@@ -105,13 +113,17 @@ public class homeScreen {
 			if(database.domain.equals("tennis.com"))
 			{
 				window.setTitle("Treasurer / Chairman Home Screen");
-				layout.getChildren().addAll(text, viewDirectory, approve, backToLogin);
+				layout.getChildren().addAll(text, notifyPay, addEvent, remove, approve, viewInfo, 
+						backToLogin);
+				
 			} else if (database.domain.equals("admin.com")) {
 				window.setTitle("Administrator Home Screen");
-				layout.getChildren().addAll(text, backToLogin);
+				layout.getChildren().addAll(text, checkUpdates, backToLogin);
+				
 			} else {
 				window.setTitle("Member Home Screen");
-				layout.getChildren().addAll(text, viewDirectory, contactUs, backToLogin);
+				layout.getChildren().addAll(text, viewDirectory, makeRes, addGuest, viewInfo, contactUs, 
+						backToLogin);
 			}
 				
 			//scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
