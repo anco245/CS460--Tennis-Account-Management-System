@@ -32,9 +32,9 @@ public class homeScreen {
 			Button viewDirectory = new Button("Look at directory");
 			Button contactUs = new Button("Contact Us");
 			Button exit = new Button("Exit");
-			
-			//Buttons don't do anything yet
 			Button approve = new Button("Approve New Accounts");
+			
+			//Doesn't do anything yet
 			Button backToLogin = new Button("Back to Login");
 			Button makeRes = new Button("Make a Reservation");
 			Button addGuest = new Button("Add Guest");
@@ -49,6 +49,8 @@ public class homeScreen {
 				
 			});
 			
+			//Approves all accounts waiting to be verified
+			//Need to make it so that you can select which ones you want to verify
 			approve.setOnAction(e -> database.approve());
 			
 			viewDirectory.setOnAction(new EventHandler<ActionEvent>() {

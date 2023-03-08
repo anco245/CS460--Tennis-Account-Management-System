@@ -31,7 +31,8 @@ public class database {
 		}
 	}
 	
-	
+	//So far, this approves all accounts
+	//Need to make it so that you can select which ones you want to approve
 	public static void approve()
 	{
 		try (Connection connection = DriverManager.getConnection(url, username, password)) {
