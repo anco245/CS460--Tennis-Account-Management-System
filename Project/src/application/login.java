@@ -6,6 +6,7 @@ import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.ProgressIndicator;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
@@ -27,6 +28,7 @@ public class login extends Application implements EventHandler<ActionEvent>{
 	public static String inputEmail = "";
 	public static String inputPhone = "";
 	public static String inputAge = "";
+	public static Boolean inputSho = false;
 	
 	public void start(Stage primaryStage) throws Exception {
 		try {
@@ -79,6 +81,9 @@ public class login extends Application implements EventHandler<ActionEvent>{
 					VBox layout = new VBox(10);
 					Scene scene = new Scene(layout, 400, 400);
 					
+					CheckBox box = new CheckBox("Check this box if you would like to be "
+							+ "shown in the directory");
+					
 					TextField fieldfName = new TextField();
 					fieldfName.setPromptText("Enter first name");
 					//makes it so that you can see the prompt if hovering over it
@@ -114,6 +119,9 @@ public class login extends Application implements EventHandler<ActionEvent>{
 					
 					window.setTitle("New Account");
 					
+					//Need to create a function to check if username is 
+					//already taken. Error message saying to enter another one
+					
 					submit.setOnAction(x -> {
 						inputfName = fieldfName.getText();
 						inputlName = fieldlName.getText();
@@ -124,15 +132,16 @@ public class login extends Application implements EventHandler<ActionEvent>{
 						inputEmail = inputEmail.substring(0, inputEmail.length() - 4);
 						inputUser = fieldUsername.getText();
 						inputPass = fieldPass.getText();
+						inputSho = box.isSelected();
 						
 						database.nAccount(inputfName, inputlName, inputAge, inputAddr, inputPhone, 
-								inputEmail, inputUser, inputPass);
+								inputEmail, inputUser, inputPass, inputSho);
 						
 						window.close();	
 					});
 
 					layout.getChildren().addAll(fieldfName, fieldlName, fieldAge, fieldAddr, 
-							fieldPhone, fieldEmail, fieldUsername, fieldPass, submit);
+							fieldPhone, fieldEmail, fieldUsername, fieldPass, box, submit);
 					
 					window.setScene(scene);
 					window.showAndWait();

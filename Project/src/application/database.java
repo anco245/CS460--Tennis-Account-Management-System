@@ -27,12 +27,11 @@ public class database {
 		try (Connection connection = DriverManager.getConnection(url, username, password)) {
 			
 		} catch (SQLException e) {
-			throw new IllegalStateException("Cannot connect the database!", e);
+			throw new IllegalStateException("Cannot connect to the database!", e);
 		}
 	}
 	
 	
-	//Doesn't work yet
 	public static void approve()
 	{
 		try (Connection connection = DriverManager.getConnection(url, username, password)) {
@@ -62,7 +61,7 @@ public class database {
 				resultSet.close();
 				connection.close();
 		} catch (SQLException e) {
-			throw new IllegalStateException("Cannot connect the database!", e);
+			throw new IllegalStateException("Cannot connect to the database!", e);
 		}
 	}
 	
@@ -90,7 +89,7 @@ public class database {
 			return v;
 			
 		} catch (SQLException e) {
-			throw new IllegalStateException("Cannot connect the database!", e);
+			throw new IllegalStateException("Cannot connect to the database!", e);
 		}
 	}
 	
@@ -113,24 +112,30 @@ public class database {
 			connection.close();
 			
 		} catch (SQLException e) {
-			throw new IllegalStateException("Cannot connect the database!", e);
+			throw new IllegalStateException("Cannot connect to the database!", e);
 		}
 	}
 	
-	
-	//str should = variable name in database if specific or 0 if everything
-	public static void getData(String userName)
+	public static void getAll()
 	{	
 		try (Connection connection = DriverManager.getConnection(url, username, password)) {
 			
-			if(userName == "0")
-			{
-				PreparedStatement preparedStatement = 
-						connection.prepareStatement("SELECT * FROM directory");
+			//"0" is just a random symbol to indicate that I want to
+			//display everything in the database
+			PreparedStatement preparedStatement = 
+					connection.prepareStatement("SELECT * FROM directory");
 					
-				ResultSet resultSet = preparedStatement.executeQuery();
-					
-				while(resultSet.next()) {
+			//Need to use resultSet to iterate through each entry
+			ResultSet resultSet = preparedStatement.executeQuery();
+				
+			while(resultSet.next()) {
+				
+				//Retrieves and then checks to see if this person opted for their information
+				//to be shown in the database
+				Boolean shown = resultSet.getBoolean("shown");
+				
+				if(shown)
+				{
 					String fname = resultSet.getString("firstName");
 					String lname = resultSet.getString("lastName");
 					String age = resultSet.getString("age");
@@ -139,54 +144,39 @@ public class database {
 					String email = resultSet.getString("email") + ".com";
 					String p = resultSet.getString("pword");
 						
-						all = all + fname + " " + lname + "  " + age + "  " + addr + "  " + 
-						phone + "  " + email + "\n";	
-				}
-				
-				preparedStatement.close();
-				resultSet.close();
-				connection.close();
-			} else {
-				PreparedStatement preparedStatement = 
-						connection.prepareStatement("SELECT * FROM directory WHERE username = ?");
-				
-				preparedStatement.setString(1, userName);
-					
-				ResultSet resultSet = preparedStatement.executeQuery();
-					
-				while(resultSet.next()) {
-					String fname = resultSet.getString("firstName");
-					String lname = resultSet.getString("lastName");
-					String age = resultSet.getString("age");
-					String addr = resultSet.getString("address");
-					String phone = resultSet.getString("phone");
-					String email = resultSet.getString("email") + ".com";
-					String p = resultSet.getString("pword");
-						
-						all = all + fname + " " + lname + "  " + age + "  " + addr + "  " + 
-						phone + "  " + email + "\n";	
-				}
-				
-				preparedStatement.close();
-				resultSet.close();
-				connection.close();
+					all = all + fname + " " + lname + "  " + age + "  " + addr + "  " + 
+						phone + "  " + email + "\n";
+				}	
 			}
 			
+			//if there's nothing in the directory, then that entire 
+			//while loop will be skipped and this condition will be
+			//true. Just so there's something if there's no entries
+			if(all == "")
+			{
+				all = "No one to list yet";
+			}
+			
+			preparedStatement.close();
+			resultSet.close();
+			connection.close();
+			
 		} catch (SQLException e) {
-			throw new IllegalStateException("Cannot connect the database!", e);
+			throw new IllegalStateException("Cannot connect to the database!", e);
 		}
 	}
 	
 	
 	//Creates a new Account
 	public static void nAccount(String fname, String lname, String age, String addr, 
-			String phone, String email, String u, String p) {
+			String phone, String email, String u, String p, Boolean sho) {
 		try (Connection connection = DriverManager.getConnection(url, username, password)) {
 			
 			PreparedStatement preparedStatement = 
 					connection.prepareStatement("INSERT INTO directory "
-							+ "VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?)");
+							+ "VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
 			
+			//Just makes the first letter of the person's first and last name capital
 			String first = fname.substring(0, 1).toUpperCase() + fname.substring(1);
 			String last = lname.substring(0, 1).toUpperCase() + lname.substring(1);
 			
@@ -199,6 +189,7 @@ public class database {
 			preparedStatement.setString(7, u);
 			preparedStatement.setString(8, p);
 			preparedStatement.setBoolean(9, false);
+			preparedStatement.setBoolean(9, sho);
 			
 			preparedStatement.executeUpdate();
 
@@ -206,7 +197,7 @@ public class database {
 			connection.close();
 			
 		} catch (SQLException e) {
-			throw new IllegalStateException("Cannot connect the database!", e);
+			throw new IllegalStateException("Cannot connect to the database!", e);
 		}
 	}
 	
@@ -233,8 +224,13 @@ public class database {
 					//Used for extracting the domain from the given email in the database
 					domain = em.substring(em.lastIndexOf("@") + 1);
 					
-					person = resultSet.getString("firstName") + " " + 
-							resultSet.getString("lastName");
+					//makes it so that the first letters of the first and last name are capital
+					String first = resultSet.getString("firstName").substring(0, 1).toUpperCase() + 
+							resultSet.getString("firstName").substring(1);
+					String last = resultSet.getString("lastName").substring(0, 1).toUpperCase() + 
+							resultSet.getString("lastName").substring(1);
+							
+					person = first + " " + last;
 					
 					return true;
 				}
@@ -247,7 +243,7 @@ public class database {
 			return false;
 
 		} catch (SQLException e) {
-			throw new IllegalStateException("Cannot connect the database!", e);
+			throw new IllegalStateException("Cannot connect to the database!", e);
 		}
 	}
 	

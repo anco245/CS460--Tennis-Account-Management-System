@@ -33,7 +33,6 @@ public class homeScreen {
 			Button contactUs = new Button("Contact Us");
 			Button exit = new Button("Exit");
 			Button approve = new Button("Approve New Accounts");
-			//Button editDatabase = new Button("Edit Database");
 			
 			approve.setOnAction(e -> database.approve());
 			
@@ -53,7 +52,7 @@ public class homeScreen {
 					
 			        database.all = "";
 					
-					database.getData("0");
+					database.getAll();
 					text.setText(database.all);
 					
 					layout.getChildren().addAll(text, exit);
