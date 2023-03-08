@@ -189,7 +189,7 @@ public class database {
 			preparedStatement.setString(7, u);
 			preparedStatement.setString(8, p);
 			preparedStatement.setBoolean(9, false);
-			preparedStatement.setBoolean(9, sho);
+			preparedStatement.setBoolean(10, sho);
 			
 			preparedStatement.executeUpdate();
 

@@ -33,6 +33,13 @@ public class homeScreen {
 			Button contactUs = new Button("Contact Us");
 			Button exit = new Button("Exit");
 			Button approve = new Button("Approve New Accounts");
+			Button backToLogin = new Button("Back to Login");
+			
+			
+			//Somehow need to show the login screen
+			backToLogin.setOnAction(e -> {
+				
+			});
 			
 			approve.setOnAction(e -> database.approve());
 			
@@ -98,13 +105,13 @@ public class homeScreen {
 			if(database.domain.equals("tennis.com"))
 			{
 				window.setTitle("Treasurer / Chairman Home Screen");
-				layout.getChildren().addAll(text, viewDirectory, approve);
+				layout.getChildren().addAll(text, viewDirectory, approve, backToLogin);
 			} else if (database.domain.equals("admin.com")) {
 				window.setTitle("Administrator Home Screen");
-				layout.getChildren().addAll(text);
+				layout.getChildren().addAll(text, backToLogin);
 			} else {
 				window.setTitle("Member Home Screen");
-				layout.getChildren().addAll(text, viewDirectory, contactUs);
+				layout.getChildren().addAll(text, viewDirectory, contactUs, backToLogin);
 			}
 				
 			//scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());

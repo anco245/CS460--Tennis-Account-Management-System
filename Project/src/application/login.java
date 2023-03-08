@@ -28,7 +28,7 @@ public class login extends Application implements EventHandler<ActionEvent>{
 	public static String inputEmail = "";
 	public static String inputPhone = "";
 	public static String inputAge = "";
-	public static Boolean inputSho = false;
+	public static Boolean inputShow = false;
 	
 	public void start(Stage primaryStage) throws Exception {
 		try {
@@ -55,9 +55,10 @@ public class login extends Application implements EventHandler<ActionEvent>{
 				pass = password.getText();
 					
 				//If the username and password match an account
-				//in the database then show the homescreen
+				//in the database then check if that entry is verified
 				if(database.login(name, pass))
 				{
+					//if verified, show homescreen
 					if(database.verified(name))
 					{
 						window.close();
@@ -120,7 +121,8 @@ public class login extends Application implements EventHandler<ActionEvent>{
 					window.setTitle("New Account");
 					
 					//Need to create a function to check if username is 
-					//already taken. Error message saying to enter another one
+					//already taken. Error message if already taken. 
+					//Message saying to enter another one
 					
 					submit.setOnAction(x -> {
 						inputfName = fieldfName.getText();
@@ -132,10 +134,10 @@ public class login extends Application implements EventHandler<ActionEvent>{
 						inputEmail = inputEmail.substring(0, inputEmail.length() - 4);
 						inputUser = fieldUsername.getText();
 						inputPass = fieldPass.getText();
-						inputSho = box.isSelected();
+						inputShow = box.isSelected();
 						
 						database.nAccount(inputfName, inputlName, inputAge, inputAddr, inputPhone, 
-								inputEmail, inputUser, inputPass, inputSho);
+								inputEmail, inputUser, inputPass, inputShow);
 						
 						window.close();	
 					});
@@ -163,7 +165,8 @@ public class login extends Application implements EventHandler<ActionEvent>{
 		
 	}
 	
-	//This makes it the first screen that you see; what everything else is based on
+	//This makes it so that this login class is the first screen you see; 
+	//what everything else is based on
 	public static void main(String[] args) {
 		launch(args);
 	}
