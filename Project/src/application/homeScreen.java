@@ -3,6 +3,7 @@ package application;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.canvas.*;
 import javafx.scene.shape.*;
 import javafx.scene.text.Text;
@@ -53,6 +54,37 @@ public class homeScreen {
 			//Need to make it so that you can select which ones you want to verify
 			approve.setOnAction(e -> database.approve());
 			
+			
+			//View directory as a table
+//			viewDirectory.setOnAction(new EventHandler<ActionEvent>() {
+//			    @Override public void handle(ActionEvent e) {
+//			    	Stage primaryStage = new Stage();
+//			    	StackPane root = new StackPane();
+//			    	
+//			    	TableView table = new TableView();
+//			    	table.setEditable(true);
+//			    	
+//			    	TableColumn name = new TableColumn("Name");
+//			    	name.setCellValueFactory(new PropertyValueFactory<>("name"));
+//			    	
+//			    	TableColumn age = new TableColumn("Age");
+//			    	TableColumn address = new TableColumn("Address");
+//			    	TableColumn email = new TableColumn("Email");
+//			    	TableColumn phone = new TableColumn("Phone Number");
+//			    	
+//			    	name.setPrefWidth(75);
+//			    	address.setPrefWidth(200.0);
+//			    	email.setPrefWidth(150.0);
+//			    	phone.setPrefWidth(100.0);
+//			    	
+//			    	table.getColumns().addAll(name, age, address, email, phone);
+//			    	
+//			    	root.getChildren().add(table);
+//			    	primaryStage.setScene(new Scene(root, 650, 400));
+//			    	primaryStage.show();
+//			    }
+//			});
+//			
 			viewDirectory.setOnAction(new EventHandler<ActionEvent>() {
 			    @Override public void handle(ActionEvent e) {
 			        Stage window = new Stage();
