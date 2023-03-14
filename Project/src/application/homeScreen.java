@@ -13,49 +13,57 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 public class homeScreen {
+	
+	public static Text text;
+	public static Button viewDirectory = new Button("Look at directory");
+	public static Button contactUs = new Button("Contact Us");
+	
+	//Doesn't do anything yet
+	public static Button viewInfo = new Button("View Peronal Information");
+	public static Button backToLogin = new Button("Back to Login");
+	
 	public static void display() {
 		try {
-				
-			Stage window = new Stage();
-			Text text = new Text();
-			VBox layout = new VBox(10);
-			Scene scene = new Scene(layout, 400, 400);	
+			text = new Text();
 				
 			//Gets the name of the person who just logged in
 			//And adds a greeting
 			String str = database.person;
 			text.setText("Welcome " + str + "!");
-				
-			//Makes it so that you can't click away 
-			// from this window. 
-			window.initModality(Modality.APPLICATION_MODAL);
-			
-			Button viewDirectory = new Button("Look at directory");
-			Button contactUs = new Button("Contact Us");
-			Button exit = new Button("Exit");
-			Button approve = new Button("Approve New Accounts");
-			
-			//Doesn't do anything yet
-			Button backToLogin = new Button("Back to Login");
-			Button makeRes = new Button("Make a Reservation");
-			Button addGuest = new Button("Add Guest");
-			Button remove = new Button("Remove Account");
-			Button notifyPay = new Button("Notify Members of Late Payment / View Directory");
-			Button viewInfo = new Button("View Peronal Information");
-			Button checkUpdates = new Button("Check for Updates");
-			Button addEvent = new Button("Add an Event");
 			
 			//Somehow need to show the login screen
 			backToLogin.setOnAction(e -> {
 				
 			});
 			
-			//Approves all accounts waiting to be verified
-			//Need to make it so that you can select which ones you want to verify
-			approve.setOnAction(e -> database.approve());
+			//Just prints the directory as a messy printed list
+			viewDirectory.setOnAction(new EventHandler<ActionEvent>() {
+			    @Override public void handle(ActionEvent e) {
+			        Stage window = new Stage();
+			        Button exit = new Button("Exit");
+			        Text text = new Text();
+					VBox layout = new VBox(10);
+					Scene scene = new Scene(layout, 400, 400);
+					
+					window.setTitle("View Directory");
+					
+					window.initModality(Modality.APPLICATION_MODAL);
+					
+					exit.setOnAction(x -> window.close());
+					
+			        database.all = "";
+					
+					database.getAll();
+					text.setText(database.all);
+					
+					layout.getChildren().addAll(text, exit);
+					
+					window.setScene(scene);
+					window.showAndWait();
+			    }
+			});
 			
-			
-			//View directory as a table
+			//Should view directory as a table
 //			viewDirectory.setOnAction(new EventHandler<ActionEvent>() {
 //			    @Override public void handle(ActionEvent e) {
 //			    	Stage primaryStage = new Stage();
@@ -84,32 +92,6 @@ public class homeScreen {
 //			    	primaryStage.show();
 //			    }
 //			});
-//			
-			viewDirectory.setOnAction(new EventHandler<ActionEvent>() {
-			    @Override public void handle(ActionEvent e) {
-			        Stage window = new Stage();
-			        Button exit = new Button("Exit");
-			        Text text = new Text();
-					VBox layout = new VBox(10);
-					Scene scene = new Scene(layout, 400, 400);
-					
-					window.setTitle("View Directory");
-					
-					window.initModality(Modality.APPLICATION_MODAL);
-					
-					exit.setOnAction(x -> window.close());
-					
-			        database.all = "";
-					
-					database.getAll();
-					text.setText(database.all);
-					
-					layout.getChildren().addAll(text, exit);
-					
-					window.setScene(scene);
-					window.showAndWait();
-			    }
-			});
 			
 			contactUs.setOnAction(new EventHandler<ActionEvent>() {
 			    @Override public void handle(ActionEvent e) {
@@ -146,23 +128,12 @@ public class homeScreen {
 			// if you're a member, it'll be any other extension
 			if(database.domain.equals("tennis.com"))
 			{
-				window.setTitle("Treasurer / Chairman Home Screen");
-				layout.getChildren().addAll(text, notifyPay, addEvent, remove, approve, viewInfo, 
-						backToLogin);
-				
+				ChairTresScreen.display();
 			} else if (database.domain.equals("admin.com")) {
-				window.setTitle("Administrator Home Screen");
-				layout.getChildren().addAll(text, checkUpdates, backToLogin);
-				
+				AdminScreen.display();
 			} else {
-				window.setTitle("Member Home Screen");
-				layout.getChildren().addAll(text, viewDirectory, makeRes, addGuest, viewInfo, contactUs, 
-						backToLogin);
+				MemberScreen.display();
 			}
-				
-			//scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
-			window.setScene(scene);
-			window.showAndWait();
 				
 		} catch(Exception e) {
 			e.printStackTrace();
