@@ -21,7 +21,8 @@ public class database {
 	public static String url = "jdbc:mysql://localhost:3306/courtsystem";
 	
 	
-	//Overload for types datetime, int, string, booleans
+	//Need to overload for types datetime, int, string, booleans, because this should be used
+	//for each piece of information in the database
 	public static void edit(String toUpdate, boolean updateValue, String key)
 	{
 		try (Connection connection = DriverManager.getConnection(url, username, password)) {
@@ -31,7 +32,41 @@ public class database {
 		}
 	}
 	
-	//So far, this approves all accounts
+	
+	//checks to see if a given username exists in the database
+	public static boolean inDatabase (String user)
+	{
+		try (Connection connection = DriverManager.getConnection(url, username, password)) {
+			PreparedStatement preparedStatement = 
+					connection.prepareStatement("SELECT * FROM directory");
+				
+			ResultSet resultSet = preparedStatement.executeQuery();
+				
+			while(resultSet.next()) {
+				String uname = resultSet.getString("username");
+				
+				if(uname==user)
+				{			
+					preparedStatement.close();
+					resultSet.close();
+					connection.close();
+					
+					return true;
+				}
+			}
+					
+			preparedStatement.close();
+			resultSet.close();
+			connection.close();
+			
+			return false;
+		} catch (SQLException e) {
+			throw new IllegalStateException("Cannot connect to the database!", e);
+		}
+	}
+	
+	
+	//I just have it so that when pressed, it will approve all accounts
 	//Need to make it so that you can select which ones you want to approve
 	public static void approve()
 	{
@@ -96,12 +131,10 @@ public class database {
 	
 	
 	//Removes a person's information from the database
-	//Only available to chairman
 	public static void delete(String u)
 	{
 		try (Connection connection = DriverManager.getConnection(url, username, password)) {
 			
-			//Not sure if this works yet
 			PreparedStatement preparedStatement = 
 			connection.prepareStatement("DELETE FROM directory WHERE username = ?");
 			
@@ -117,12 +150,11 @@ public class database {
 		}
 	}
 	
+	//Gets all of the data from each account, and puts it into a string
 	public static void getAll()
 	{	
 		try (Connection connection = DriverManager.getConnection(url, username, password)) {
 			
-			//"0" is just a random symbol to indicate that I want to
-			//display everything in the database
 			PreparedStatement preparedStatement = 
 					connection.prepareStatement("SELECT * FROM directory");
 					
@@ -144,9 +176,18 @@ public class database {
 					String phone = resultSet.getString("phone");
 					String email = resultSet.getString("email") + ".com";
 					String p = resultSet.getString("pword");
+					
+					if(database.domain.equals("tennis.com"))
+					{
+						String user = resultSet.getString("username");
+						String pass = resultSet.getString("pword");
 						
-					all = all + fname + " " + lname + "  " + age + "  " + addr + "  " + 
-						phone + "  " + email + "\n";
+						all = all + fname + " " + lname + "  " + age + "  " + addr + "  " + 
+								phone + "  " + email + "  " + user + "  " + pass + "  " + "\n";
+					} else {
+						all = all + fname + " " + lname + "  " + age + "  " + addr + "  " + 
+								phone + "  " + email + "\n";
+					}
 				}	
 			}
 			

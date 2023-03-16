@@ -9,7 +9,6 @@ import javafx.stage.Stage;
 public class AdminScreen extends homeScreen{
 	public static void display()  {
 		Stage window = new Stage();
-		Text text = new Text();
 		VBox layout = new VBox(10);
 		Scene scene = new Scene(layout, 400, 400);	
 		
