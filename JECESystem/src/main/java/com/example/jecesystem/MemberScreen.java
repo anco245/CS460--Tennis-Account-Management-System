@@ -14,7 +14,6 @@ import javafx.stage.Stage;
 
 public class MemberScreen extends HomeScreen{
 
-  //testing out commit in intellij
   //use login.name to get username
   //display courts and times
   //maybe in two pannels, left court, right times
