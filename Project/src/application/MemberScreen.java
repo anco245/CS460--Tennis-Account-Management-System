@@ -15,6 +15,8 @@ import javafx.stage.Stage;
 public class MemberScreen extends homeScreen{
 	
 	//use login.name to get username 
+	//display courts and times
+	//When user presses on a specific time (as a button), username is placed in database 
     public void makeReservation(){
     
     }
