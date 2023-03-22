@@ -13,6 +13,8 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 public class MemberScreen extends homeScreen{
+	
+	//use login.name to get username 
     public void makeReservation(){
     
     }
