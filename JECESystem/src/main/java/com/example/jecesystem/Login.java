@@ -16,9 +16,9 @@ import javafx.stage.Stage;
 
 public class Login extends Application implements EventHandler<ActionEvent>{
 
-  public static Stage window;
+  public static Stage loginWindow;
 
-  public static Scene scene;
+  public static Scene loginScene;
   public static String name = "";
   public static String pass = "";
 
@@ -35,9 +35,9 @@ public class Login extends Application implements EventHandler<ActionEvent>{
   public void start(Stage primaryStage) throws Exception {
     try {
       VBox layout = new VBox(10);
-      scene = new Scene(layout, 400, 400);
+      loginScene = new Scene(layout, 400, 400);
       Text text = new Text();
-      window = primaryStage;
+      loginWindow = primaryStage;
 
       TextField username = new TextField();
       username.setPromptText("Username");
@@ -63,7 +63,7 @@ public class Login extends Application implements EventHandler<ActionEvent>{
           //if verified, show homescreen
           if(Database.verified(name))
           {
-            window.close();
+            loginWindow.close();
             HomeScreen.display();
           } else {
             text.setText("Your account hasn't been verified by the chairmen yet.");
@@ -154,7 +154,7 @@ public class Login extends Application implements EventHandler<ActionEvent>{
       layout.getChildren().addAll(username, password, submit, newAccount);
 
       primaryStage.setTitle("Login");
-      primaryStage.setScene(scene);
+      primaryStage.setScene(loginScene);
       primaryStage.show();
     } catch(Exception e) {
       e.printStackTrace();

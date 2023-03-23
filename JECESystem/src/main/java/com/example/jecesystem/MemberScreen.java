@@ -38,26 +38,10 @@ public class MemberScreen extends HomeScreen{
   }
 
   public static void display() {
-    Stage window = new Stage();
-    VBox layout = new VBox(10);
-    Scene scene = new Scene(layout, 400, 400);
+    homeWindow.setTitle("Member Home Screen");
 
-    window.setTitle("Member Home Screen");
-
-    Button backToLogin = new Button("Back to Login");
     Button makeRes = new Button("Make a Reservation");
     Button addGuest = new Button("Add Guest");
-
-    //Eventually get a "duplicate children added" error. Might be because of vbox
-    backToLogin.setOnAction(e -> {
-      window.close();
-
-      Stage win = Login.window;
-
-      win.setScene(Login.scene);
-      win.show();
-
-    });
 
     makeRes.setOnAction(new EventHandler<ActionEvent>() {
       @Override public void handle(ActionEvent e) {
@@ -102,12 +86,12 @@ public class MemberScreen extends HomeScreen{
       }
     });
 
-    layout.getChildren().addAll(text, viewDirectory, makeRes, addGuest, viewInfo,
+    homeLayout.getChildren().addAll(text, viewDirectory, makeRes, addGuest, viewInfo,
       contactUs, backToLogin);
 
     //scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
-    window.setScene(scene);
-    window.showAndWait();
+    homeWindow.setScene(homeScene);
+    homeWindow.showAndWait();
   }
 
 }

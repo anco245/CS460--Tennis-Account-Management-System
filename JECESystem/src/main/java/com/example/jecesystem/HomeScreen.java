@@ -14,12 +14,19 @@ import javafx.stage.Stage;
 
 public class HomeScreen {
 
+  public static Stage homeWindow = new Stage();
+  public static VBox homeLayout = new VBox(10);
+  public static Scene homeScene = new Scene(homeLayout, 400, 400);
+
+
   public static Text text;
   public static Button viewDirectory = new Button("Look at directory");
   public static Button contactUs = new Button("Contact Us");
 
   //Doesn't do anything yet
   public static Button viewInfo = new Button("View Peronal Information");
+
+  public static Button backToLogin = new Button("Back to Login");
 
   public static void display() {
     try {
@@ -29,6 +36,17 @@ public class HomeScreen {
       //And adds a greeting
       String str = Database.person;
       text.setText("Welcome " + str + "!");
+
+      //Eventually get a "duplicate children added" error. Might be because of vbox
+      backToLogin.setOnAction(e -> {
+        homeWindow.close();
+
+        Stage window = Login.loginWindow;
+
+        window.setScene(Login.loginScene);
+        window.show();
+
+      });
 
       //Just prints the directory as a messy printed list (not formatted)
       viewDirectory.setOnAction(new EventHandler<ActionEvent>() {
