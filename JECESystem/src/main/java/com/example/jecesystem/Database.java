@@ -21,8 +21,9 @@ public class Database {
   public static String url = "jdbc:mysql://localhost:3306/courtsystem";
 
 
-  //Need to overload for types datetime, int, string, booleans, because this should be used
-  //for each piece of information in the database
+  //If we need to edit data in the database, we'll need to overload this method for types datetime, int,
+  // and string, because this should be used for each piece of information in the database.
+  //This is just used for boolean values, for example for "verified" and "approved"
   public static void edit(String toUpdate, boolean updateValue, String key)
   {
     try (Connection connection = DriverManager.getConnection(url, username, password)) {
