@@ -15,6 +15,18 @@ public class AdminScreen extends HomeScreen{
     window.setTitle("Administrator Home Screen");
 
     Button checkUpdates = new Button("Check for Updates");
+    Button backToLogin = new Button("Back to Login");
+
+    //Eventually get a "duplicate children added" error. Might be because of vbox
+    backToLogin.setOnAction(e -> {
+      window.close();
+
+      Stage win = Login.window;
+
+      win.setScene(Login.scene);
+      win.show();
+
+    });
 
     layout.getChildren().addAll(text, checkUpdates, backToLogin);
 

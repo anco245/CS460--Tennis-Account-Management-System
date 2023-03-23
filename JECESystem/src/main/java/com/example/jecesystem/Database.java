@@ -178,6 +178,7 @@ public class Database {
           String email = resultSet.getString("email") + ".com";
           String p = resultSet.getString("pword");
 
+          //If user getting data is a treasurer/chairman
           if(domain.equals("tennis.com"))
           {
             String user = resultSet.getString("username");
@@ -245,7 +246,7 @@ public class Database {
   }
 
 
-  //Loops through database to find where both username and password are used together
+  //Loops through the database to find where both username and password are used together
   //Also saves the domain of their email, to later determine which type of account this is
   public static boolean login(String user, String pass)
   {

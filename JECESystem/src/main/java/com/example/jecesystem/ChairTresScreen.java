@@ -23,10 +23,22 @@ public class ChairTresScreen extends HomeScreen{
     Button approve = new Button("Approve New Accounts");
     Button addEvent = new Button("Add an Event");
     Button notifyPay = new Button("Notify Members of Late Payment / View Directory");
+    Button backToLogin = new Button("Back to Login");
 
     //Approves all accounts waiting to be verified
     //Need to make it so that you can select which ones you want to verify
     approve.setOnAction(e -> Database.approve());
+
+    //Eventually get a "duplicate children added" error. Might be because of vbox
+    backToLogin.setOnAction(x -> {
+      window.close();
+
+      Stage win = Login.window;
+
+      win.setScene(Login.scene);
+      win.show();
+
+    });
 
     //Just prints the directory as a messy printed list
     notifyPay.setOnAction(new EventHandler<ActionEvent>() {
@@ -55,7 +67,6 @@ public class ChairTresScreen extends HomeScreen{
         window.showAndWait();
       }
     });
-
 
     remove.setOnAction(new EventHandler<ActionEvent>() {
       @Override

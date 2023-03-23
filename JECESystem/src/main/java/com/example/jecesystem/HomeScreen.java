@@ -20,7 +20,6 @@ public class HomeScreen {
 
   //Doesn't do anything yet
   public static Button viewInfo = new Button("View Peronal Information");
-  public static Button backToLogin = new Button("Back to Login");
 
   public static void display() {
     try {
@@ -31,12 +30,7 @@ public class HomeScreen {
       String str = Database.person;
       text.setText("Welcome " + str + "!");
 
-      //Somehow need to show the login screen
-      backToLogin.setOnAction(e -> {
-
-      });
-
-      //Just prints the directory as a messy printed list
+      //Just prints the directory as a messy printed list (not formatted)
       viewDirectory.setOnAction(new EventHandler<ActionEvent>() {
         @Override public void handle(ActionEvent e) {
           Stage window = new Stage();

@@ -16,7 +16,9 @@ import javafx.stage.Stage;
 
 public class Login extends Application implements EventHandler<ActionEvent>{
 
-  Stage window;
+  public static Stage window;
+
+  public static Scene scene;
   public static String name = "";
   public static String pass = "";
 
@@ -33,7 +35,7 @@ public class Login extends Application implements EventHandler<ActionEvent>{
   public void start(Stage primaryStage) throws Exception {
     try {
       VBox layout = new VBox(10);
-      Scene scene = new Scene(layout, 400, 400);
+      scene = new Scene(layout, 400, 400);
       Text text = new Text();
       window = primaryStage;
 

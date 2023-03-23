@@ -44,8 +44,20 @@ public class MemberScreen extends HomeScreen{
 
     window.setTitle("Member Home Screen");
 
+    Button backToLogin = new Button("Back to Login");
     Button makeRes = new Button("Make a Reservation");
     Button addGuest = new Button("Add Guest");
+
+    //Eventually get a "duplicate children added" error. Might be because of vbox
+    backToLogin.setOnAction(e -> {
+      window.close();
+
+      Stage win = Login.window;
+
+      win.setScene(Login.scene);
+      win.show();
+
+    });
 
     makeRes.setOnAction(new EventHandler<ActionEvent>() {
       @Override public void handle(ActionEvent e) {
@@ -77,7 +89,7 @@ public class MemberScreen extends HomeScreen{
         VBox layout = new VBox(10);
         Scene scene = new Scene(layout, 400, 400);
 
-        window.setTitle("Make Reservation");
+        window.setTitle("add a guest");
 
         window.initModality(Modality.APPLICATION_MODAL);
 
