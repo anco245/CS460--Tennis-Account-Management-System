@@ -1,13 +1,6 @@
 package com.example.jecesystem;
 
 import java.sql.*;
-import javafx.stage.*;
-import javafx.scene.*;
-import javafx.scene.layout.*;
-import javafx.scene.control.*;
-import javafx.scene.text.Text;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 
 public class Database {
 
@@ -46,7 +39,7 @@ public class Database {
       while(resultSet.next()) {
         String uname = resultSet.getString("username");
 
-        if(uname==user)
+        if(uname.equals(user))
         {
           preparedStatement.close();
           resultSet.close();
@@ -79,9 +72,9 @@ public class Database {
 
       while(resultSet.next()) {
         String uname = resultSet.getString("username");
-        Boolean v = resultSet.getBoolean("verified");
+        boolean v = resultSet.getBoolean("verified");
 
-        if(v==false)
+        if(!v)
         {
           PreparedStatement p2 =
             connection.prepareStatement("UPDATE directory SET verified = ? WHERE username = ?");
@@ -114,7 +107,7 @@ public class Database {
 
       ResultSet resultSet = preparedStatement.executeQuery();
 
-      Boolean v = false;
+      boolean v = false;
 
       if(resultSet.next())
         v = resultSet.getBoolean("verified");
@@ -151,7 +144,7 @@ public class Database {
     }
   }
 
-  //Gets all of the data from each account, and puts it into a string
+  //Gets all the data from each account, and puts it into a string
   public static void getAll()
   {
     try (Connection connection = DriverManager.getConnection(url, username, password)) {
@@ -166,7 +159,7 @@ public class Database {
 
         //Retrieves and then checks to see if this person opted for their information
         //to be shown in the database
-        Boolean shown = resultSet.getBoolean("shown");
+        boolean shown = resultSet.getBoolean("shown");
 
         if(shown)
         {
@@ -176,7 +169,6 @@ public class Database {
           String addr = resultSet.getString("address");
           String phone = resultSet.getString("phone");
           String email = resultSet.getString("email") + ".com";
-          String p = resultSet.getString("pword");
 
           //If user getting data is a treasurer/chairman
           if(domain.equals("tennis.com"))
@@ -196,7 +188,7 @@ public class Database {
       //if there's nothing in the directory, then that entire
       //while loop will be skipped and this condition will be
       //true. Just so there's something if there's no entries
-      if(all == "")
+      if(all.equals(""))
       {
         all = "No one to list yet";
       }

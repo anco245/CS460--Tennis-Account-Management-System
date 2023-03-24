@@ -7,11 +7,8 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.control.CheckBox;
-import javafx.scene.control.ProgressIndicator;
-import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
-import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 public class Login extends Application implements EventHandler<ActionEvent>{
@@ -32,7 +29,7 @@ public class Login extends Application implements EventHandler<ActionEvent>{
   public static String inputAge = "";
   public static Boolean inputShow = false;
 
-  public void start(Stage primaryStage) throws Exception {
+  public void start(Stage primaryStage) {
     try {
       VBox layout = new VBox(10);
       loginScene = new Scene(layout, 400, 400);

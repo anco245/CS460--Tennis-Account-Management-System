@@ -3,9 +3,6 @@ package com.example.jecesystem;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.canvas.*;
-import javafx.scene.shape.*;
 import javafx.scene.text.Text;
 import javafx.scene.layout.*;
 import javafx.event.*;
@@ -24,7 +21,7 @@ public class HomeScreen {
   public static Button contactUs = new Button("Contact Us");
 
   //Doesn't do anything yet
-  public static Button viewInfo = new Button("View Peronal Information");
+  public static Button viewInfo = new Button("View Personal Information");
 
   public static Button backToLogin = new Button("Back to Login");
 
@@ -119,9 +116,11 @@ public class HomeScreen {
 
           exit.setOnAction(x -> window.close());
 
-          String info = "Phone Number for Main Desk: 215-436-2231\n"
-            + "Phone Number for Technical Support: 215-663-2133\n"
-            + "Email for any questions: askquestion@tennis.com\n";
+          String info = """
+            Phone Number for Main Desk: 215-436-2231
+            Phone Number for Technical Support: 215-663-2133
+            Email for any questions: askquestion@tennis.com
+            """;
 
           text.setText(info);
 
@@ -135,7 +134,7 @@ public class HomeScreen {
       //Checks the email domain of the account that's logged in
       //Depending on which account, it should display different
       //functions
-      // if you're a tresurer / chairman you'll have an email with '@tennis.com'
+      // if you're a treasurer / chairman you'll have an email with '@tennis.com'
       // if you're an administrator, you'll have an email with '@admin.com'
       // if you're a member, it'll be any other extension
       if(Database.domain.equals("tennis.com"))
