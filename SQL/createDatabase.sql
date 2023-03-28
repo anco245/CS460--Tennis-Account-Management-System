@@ -12,7 +12,8 @@ CREATE TABLE directory (
 	username VARCHAR(50) NOT NULL PRIMARY KEY,
     pword VARCHAR(50) NOT NULL,
     verified BOOLEAN NOT NULL,
-    shown BOOLEAN NOT NULL
+    shown BOOLEAN NOT NULL,
+    late BOOLEAN NOT NULL
 );
 
 CREATE TABLE reservation (

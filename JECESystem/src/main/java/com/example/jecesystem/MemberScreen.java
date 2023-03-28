@@ -14,6 +14,9 @@ import javafx.stage.Stage;
 
 public class MemberScreen extends HomeScreen{
 
+  public static Text lateFeeError = new Text();
+
+
   //use login.name to get username
   //display courts and times
   //maybe in two panels, left court, right times
@@ -86,12 +89,11 @@ public class MemberScreen extends HomeScreen{
       }
     });
 
-    homeLayout.getChildren().addAll(text, viewDirectory, makeRes, addGuest, viewInfo,
+    homeLayout.getChildren().addAll(welcome, lateFeeError, viewDirectory, makeRes, addGuest, viewInfo,
       contactUs, backToLogin);
 
     //scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
     homeWindow.setScene(homeScene);
     homeWindow.showAndWait();
   }
-
 }

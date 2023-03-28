@@ -41,10 +41,10 @@ public class ChairTresScreen extends HomeScreen{
 
         exit.setOnAction(x -> window.close());
 
-        Database.all = "";
+        Database.allString = "";
 
         Database.getAll();
-        text.setText(Database.all);
+        text.setText(Database.allString);
 
         layout.getChildren().addAll(text, exit);
 
@@ -90,7 +90,7 @@ public class ChairTresScreen extends HomeScreen{
       }
     });
 
-    homeLayout.getChildren().addAll(text, notifyPay, addEvent, remove, approve, viewInfo, backToLogin);
+    homeLayout.getChildren().addAll(welcome, notifyPay, addEvent, remove, approve, viewInfo, backToLogin);
 
     //scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
     homeWindow.setScene(homeScene);

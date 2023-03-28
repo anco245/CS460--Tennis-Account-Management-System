@@ -14,25 +14,21 @@ public class HomeScreen {
   public static Stage homeWindow = new Stage();
   public static VBox homeLayout = new VBox(10);
   public static Scene homeScene = new Scene(homeLayout, 400, 400);
-
-
-  public static Text text;
+  public static Text welcome = new Text();
   public static Button viewDirectory = new Button("Look at directory");
   public static Button contactUs = new Button("Contact Us");
+  public static Button backToLogin = new Button("Back to Login");
 
   //Doesn't do anything yet
   public static Button viewInfo = new Button("View Personal Information");
 
-  public static Button backToLogin = new Button("Back to Login");
-
   public static void display() {
     try {
-      text = new Text();
 
       //Gets the name of the person who just logged in
       //And adds a greeting
       String str = Database.person;
-      text.setText("Welcome " + str + "!");
+      welcome.setText("Welcome " + str + "!");
 
       //Eventually get a "duplicate children added" error. Might be because of vbox
       backToLogin.setOnAction(e -> {
@@ -42,9 +38,34 @@ public class HomeScreen {
 
         window.setScene(Login.loginScene);
         window.show();
-
       });
 
+      viewInfo.setOnAction(new EventHandler<ActionEvent>() {
+        @Override public void handle(ActionEvent e) {
+          Stage window = new Stage();
+          Button exit = new Button("Exit");
+          Text text = new Text();
+          VBox layout = new VBox(10);
+          Scene scene = new Scene(layout, 400, 400);
+
+          window.setTitle("View Info");
+
+          window.initModality(Modality.APPLICATION_MODAL);
+
+          exit.setOnAction(x -> window.close());
+
+          Database.allString = "";
+          Database.all.setLength(0);
+
+          Database.getAll();
+          text.setText(Database.allString);
+
+          layout.getChildren().addAll(text, exit);
+
+          window.setScene(scene);
+          window.showAndWait();
+        }
+      });
       //Just prints the directory as a messy printed list (not formatted)
       viewDirectory.setOnAction(new EventHandler<ActionEvent>() {
         @Override public void handle(ActionEvent e) {
@@ -60,10 +81,12 @@ public class HomeScreen {
 
           exit.setOnAction(x -> window.close());
 
-          Database.all = "";
+
+          Database.allString = "";
+          Database.all.setLength(0);
 
           Database.getAll();
-          text.setText(Database.all);
+          text.setText(Database.allString);
 
           layout.getChildren().addAll(text, exit);
 
@@ -150,5 +173,4 @@ public class HomeScreen {
       e.printStackTrace();
     }
   }
-
 }

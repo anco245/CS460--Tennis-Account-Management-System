@@ -13,7 +13,7 @@ public class AdminScreen extends HomeScreen{
 
     Button checkUpdates = new Button("Check for Updates");
 
-    homeLayout.getChildren().addAll(text, checkUpdates, backToLogin);
+    homeLayout.getChildren().addAll(welcome, checkUpdates, backToLogin);
 
     //scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
     homeWindow.setScene(homeScene);

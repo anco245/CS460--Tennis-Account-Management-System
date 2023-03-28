@@ -14,11 +14,9 @@ import javafx.stage.Stage;
 public class Login extends Application implements EventHandler<ActionEvent>{
 
   public static Stage loginWindow;
-
   public static Scene loginScene;
   public static String name = "";
   public static String pass = "";
-
   public static String inputfName = "";
   public static String inputlName = "";
   public static String inputUser = "";
@@ -161,7 +159,6 @@ public class Login extends Application implements EventHandler<ActionEvent>{
   @Override
   public void handle(ActionEvent primaryStage) {
     // TODO Auto-generated method stub
-
   }
 
   //This makes it so that this login class is the first screen you see;
@@ -169,5 +166,4 @@ public class Login extends Application implements EventHandler<ActionEvent>{
   public static void main(String[] args) {
     launch(args);
   }
-
 }

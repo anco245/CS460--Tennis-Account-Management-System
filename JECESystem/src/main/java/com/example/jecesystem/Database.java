@@ -6,13 +6,14 @@ public class Database {
 
   public static String domain = "";
 
-  public static String all = "";
+  //all and allString used to hold strings from database and display it
+  public static StringBuilder all = new StringBuilder();
+  public static String allString;
+  //public static String all = "";
   public static String person = "";
-
   public static String username = "root";
   public static String password = "sqlpass";
   public static String url = "jdbc:mysql://localhost:3306/courtsystem";
-
 
   //If we need to edit data in the database, we'll need to overload this method for types datetime, int,
   // and string, because this should be used for each piece of information in the database.
@@ -176,11 +177,15 @@ public class Database {
             String user = resultSet.getString("username");
             String pass = resultSet.getString("pword");
 
-            all = all + fname + " " + lname + "  " + age + "  " + addr + "  " +
-              phone + "  " + email + "  " + user + "  " + pass + "  " + "\n";
+            //using all.append because apparently it's a lot more
+            //efficent than using concatenation (+). Takes up too much memory.
+
+            all.append(fname).append(" ").append(lname).append(" ").append(age).append(" ")
+              .append(addr).append(" ").append(phone).append(" ").append(email).append(" ")
+              .append(" ").append(user).append(" ").append(pass).append("\n");
           } else {
-            all = all + fname + " " + lname + "  " + age + "  " + addr + "  " +
-              phone + "  " + email + "\n";
+            all.append(fname).append(" ").append(lname).append(" ").append(age).append(" ")
+              .append(addr).append(" ").append(phone).append(" ").append(email).append("\n");
           }
         }
       }
@@ -188,9 +193,11 @@ public class Database {
       //if there's nothing in the directory, then that entire
       //while loop will be skipped and this condition will be
       //true. Just so there's something if there's no entries
-      if(all.equals(""))
+
+      allString = all.toString();
+      if(allString.equals(""))
       {
-        all = "No one to list yet";
+        all.append("No one to list yet");
       }
 
       preparedStatement.close();
@@ -267,7 +274,18 @@ public class Database {
           String last = resultSet.getString("lastName").substring(0, 1).toUpperCase() +
             resultSet.getString("lastName").substring(1);
 
+          boolean latePay = resultSet.getBoolean("late");
+
           person = first + " " + last;
+
+          if(latePay)
+          {
+            MemberScreen.lateFeeError.setText("""
+              This is a reminder that you have overdue
+              payments. Press the "View Financial Information"
+              button to get more info.
+              """);
+          }
 
           return true;
         }
