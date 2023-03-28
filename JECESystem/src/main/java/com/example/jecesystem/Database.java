@@ -6,10 +6,10 @@ public class Database {
 
   public static String domain = "";
 
-  //all and allString used to hold strings from database and display it
+  //all and allString are used to hold strings from database in variables
   public static StringBuilder all = new StringBuilder();
   public static String allString;
-  //public static String all = "";
+
   public static String person = "";
   public static String username = "root";
   public static String password = "sqlpass";
@@ -90,7 +90,6 @@ public class Database {
 
       preparedStatement.close();
       resultSet.close();
-      connection.close();
     } catch (SQLException e) {
       throw new IllegalStateException("Cannot connect to the database!", e);
     }
@@ -136,9 +135,7 @@ public class Database {
       preparedStatement.setString(1, u);
 
       preparedStatement.executeUpdate();
-
       preparedStatement.close();
-      connection.close();
 
     } catch (SQLException e) {
       throw new IllegalStateException("Cannot connect to the database!", e);
@@ -179,6 +176,8 @@ public class Database {
 
             //using all.append because apparently it's a lot more
             //efficent than using concatenation (+). Takes up too much memory.
+            //If we decide to test the code with a lot of entries up to 1000,
+            //It'll be a lot faster to use append
 
             all.append(fname).append(" ").append(lname).append(" ").append(age).append(" ")
               .append(addr).append(" ").append(phone).append(" ").append(email).append(" ")
@@ -193,7 +192,6 @@ public class Database {
       //if there's nothing in the directory, then that entire
       //while loop will be skipped and this condition will be
       //true. Just so there's something if there's no entries
-
       allString = all.toString();
       if(allString.equals(""))
       {
@@ -202,7 +200,6 @@ public class Database {
 
       preparedStatement.close();
       resultSet.close();
-      connection.close();
 
     } catch (SQLException e) {
       throw new IllegalStateException("Cannot connect to the database!", e);
@@ -235,9 +232,7 @@ public class Database {
       preparedStatement.setBoolean(10, sho);
 
       preparedStatement.executeUpdate();
-
       preparedStatement.close();
-      connection.close();
 
     } catch (SQLException e) {
       throw new IllegalStateException("Cannot connect to the database!", e);
@@ -290,7 +285,6 @@ public class Database {
           return true;
         }
       }
-
       preparedStatement.close();
       resultSet.close();
       connection.close();

@@ -8,7 +8,6 @@ import javafx.scene.canvas.*;
 import javafx.scene.shape.*;
 import javafx.scene.text.Text;
 import javafx.scene.layout.*;
-import javafx.event.*;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
@@ -46,47 +45,43 @@ public class MemberScreen extends HomeScreen{
     Button makeRes = new Button("Make a Reservation");
     Button addGuest = new Button("Add Guest");
 
-    makeRes.setOnAction(new EventHandler<ActionEvent>() {
-      @Override public void handle(ActionEvent e) {
-        Stage window = new Stage();
-        Button exit = new Button("Exit");
-        Text text = new Text();
-        VBox layout = new VBox(10);
-        Scene scene = new Scene(layout, 400, 400);
+    makeRes.setOnAction(e -> {
+      Stage window = new Stage();
+      Button exit = new Button("Exit");
+      Text text = new Text();
+      VBox layout = new VBox(10);
+      Scene scene = new Scene(layout, 400, 400);
 
-        window.setTitle("Make Reservation");
+      window.setTitle("Make Reservation");
 
-        window.initModality(Modality.APPLICATION_MODAL);
+      window.initModality(Modality.APPLICATION_MODAL);
 
-        exit.setOnAction(x -> window.close());
+      exit.setOnAction(x -> window.close());
 
 
-        //layout.getChildren().addAll();
+      //layout.getChildren().addAll();
 
-        window.setScene(scene);
-        window.showAndWait();
-      }
+      window.setScene(scene);
+      window.showAndWait();
     });
 
-    addGuest.setOnAction(new EventHandler<ActionEvent>() {
-      @Override public void handle(ActionEvent e) {
-        Stage window = new Stage();
-        Button exit = new Button("Exit");
-        Text text = new Text();
-        VBox layout = new VBox(10);
-        Scene scene = new Scene(layout, 400, 400);
+    addGuest.setOnAction(e -> {
+      Stage window = new Stage();
+      Button exit = new Button("Exit");
+      Text text = new Text();
+      VBox layout = new VBox(10);
+      Scene scene = new Scene(layout, 400, 400);
 
-        window.setTitle("add a guest");
+      window.setTitle("add a guest");
 
-        window.initModality(Modality.APPLICATION_MODAL);
+      window.initModality(Modality.APPLICATION_MODAL);
 
-        exit.setOnAction(x -> window.close());
+      exit.setOnAction(x -> window.close());
 
-        //layout.getChildren().addAll();
+      //layout.getChildren().addAll();
 
-        window.setScene(scene);
-        window.showAndWait();
-      }
+      window.setScene(scene);
+      window.showAndWait();
     });
 
     homeLayout.getChildren().addAll(welcome, lateFeeError, viewDirectory, makeRes, addGuest, viewInfo,

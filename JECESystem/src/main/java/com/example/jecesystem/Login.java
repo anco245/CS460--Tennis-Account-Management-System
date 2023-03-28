@@ -13,8 +13,6 @@ import javafx.stage.Stage;
 
 public class Login extends Application implements EventHandler<ActionEvent>{
 
-  public static Stage loginWindow;
-  public static Scene loginScene;
   public static String name = "";
   public static String pass = "";
   public static String inputfName = "";
@@ -30,9 +28,9 @@ public class Login extends Application implements EventHandler<ActionEvent>{
   public void start(Stage primaryStage) {
     try {
       VBox layout = new VBox(10);
-      loginScene = new Scene(layout, 400, 400);
+      Scene loginScene = new Scene(layout, 400, 400);
       Text text = new Text();
-      loginWindow = primaryStage;
+      Stage loginWindow = primaryStage;
 
       TextField username = new TextField();
       username.setPromptText("Username");
@@ -45,7 +43,6 @@ public class Login extends Application implements EventHandler<ActionEvent>{
       Button submit = new Button("Submit");
 
       submit.setOnAction(e -> {
-
         //Takes what's in the username and password textfields
         //and puts them into the name and pass variables.
         name = username.getText();
@@ -59,6 +56,7 @@ public class Login extends Application implements EventHandler<ActionEvent>{
           if(Database.verified(name))
           {
             loginWindow.close();
+
             HomeScreen.display();
           } else {
             text.setText("Your account hasn't been verified by the chairmen yet.");
@@ -71,80 +69,78 @@ public class Login extends Application implements EventHandler<ActionEvent>{
       });
 
       Button newAccount = new Button("Make a new Account");
-      newAccount.setOnAction(new EventHandler<ActionEvent>() {
-        @Override public void handle(ActionEvent e) {
-          Stage window = new Stage();
-          Button submit = new Button("Submit and Exit");
-          Text text = new Text();
-          VBox layout = new VBox(10);
-          Scene scene = new Scene(layout, 400, 400);
+      newAccount.setOnAction(e -> {
+        Stage window = new Stage();
+        Button submit1 = new Button("Submit and Exit");
+        VBox layout1 = new VBox(10);
+        Scene scene = new Scene(layout1, 400, 400);
 
-          CheckBox box = new CheckBox("Check this box if you would like to be "
-            + "shown in the directory");
+        CheckBox box = new CheckBox("Check this box if you would like to be "
+          + "shown in the directory");
 
-          TextField fieldfName = new TextField();
-          fieldfName.setPromptText("Enter first name");
-          //makes it so that you can see the prompt if hovering over it
-          fieldfName.setFocusTraversable(false);
+        TextField fieldfName = new TextField();
+        fieldfName.setPromptText("Enter first name");
+        //makes it so that you can see the prompt if hovering over it
+        fieldfName.setFocusTraversable(false);
 
-          TextField fieldlName = new TextField();
-          fieldlName.setPromptText("Enter last name");
-          fieldlName.setFocusTraversable(false);
+        TextField fieldlName = new TextField();
+        fieldlName.setPromptText("Enter last name");
+        fieldlName.setFocusTraversable(false);
 
-          TextField fieldAge = new TextField();
-          fieldAge.setPromptText("Enter age");
-          fieldAge.setFocusTraversable(false);
+        TextField fieldAge = new TextField();
+        fieldAge.setPromptText("Enter age");
+        fieldAge.setFocusTraversable(false);
 
-          TextField fieldEmail = new TextField();
-          fieldEmail.setPromptText("Enter e-mail");
-          fieldEmail.setFocusTraversable(false);
+        TextField fieldEmail = new TextField();
+        fieldEmail.setPromptText("Enter e-mail");
+        fieldEmail.setFocusTraversable(false);
 
-          TextField fieldUsername = new TextField();
-          fieldUsername.setPromptText("Enter username");
-          fieldUsername.setFocusTraversable(false);
+        TextField fieldUsername = new TextField();
+        fieldUsername.setPromptText("Enter username");
+        fieldUsername.setFocusTraversable(false);
 
-          TextField fieldPass = new TextField();
-          fieldPass.setPromptText("Enter password");
-          fieldPass.setFocusTraversable(false);
+        TextField fieldPass = new TextField();
+        fieldPass.setPromptText("Enter password");
+        fieldPass.setFocusTraversable(false);
 
-          TextField fieldAddr = new TextField();
-          fieldAddr.setPromptText("Enter address");
-          fieldAddr.setFocusTraversable(false);
+        TextField fieldAddr = new TextField();
+        fieldAddr.setPromptText("Enter address");
+        fieldAddr.setFocusTraversable(false);
 
-          TextField fieldPhone = new TextField();
-          fieldPhone.setPromptText("Enter phone number");
-          fieldPhone.setFocusTraversable(false);
+        TextField fieldPhone = new TextField();
+        fieldPhone.setPromptText("Enter phone number");
+        fieldPhone.setFocusTraversable(false);
 
-          window.setTitle("New Account");
+        window.setTitle("New Account");
 
-          //Need to create a function to check if username is
-          //already taken. Error message if already taken.
-          //Message saying to enter another one
+        //Need to create a function to check if username is
+        //already taken. Error message if already taken.
+        //Message saying to enter another one
 
-          submit.setOnAction(x -> {
-            inputfName = fieldfName.getText();
-            inputlName = fieldlName.getText();
-            inputAge = fieldAge.getText();
-            inputAddr = fieldAddr.getText();
-            inputPhone = fieldPhone.getText();
-            inputEmail = fieldEmail.getText();
-            inputEmail = inputEmail.substring(0, inputEmail.length() - 4);
-            inputUser = fieldUsername.getText();
-            inputPass = fieldPass.getText();
-            inputShow = box.isSelected();
+        submit1.setOnAction(x -> {
+          inputfName = fieldfName.getText();
+          inputlName = fieldlName.getText();
+          inputAge = fieldAge.getText();
+          inputAddr = fieldAddr.getText();
+          inputPhone = fieldPhone.getText();
+          inputEmail = fieldEmail.getText();
+          inputEmail = inputEmail.substring(0, inputEmail.length() - 4);
+          inputUser = fieldUsername.getText();
+          inputPass = fieldPass.getText();
+          inputShow = box.isSelected();
 
-            Database.nAccount(inputfName, inputlName, inputAge, inputAddr, inputPhone,
-              inputEmail, inputUser, inputPass, inputShow);
+          Database.nAccount(inputfName, inputlName, inputAge, inputAddr, inputPhone,
+            inputEmail, inputUser, inputPass, inputShow);
 
-            window.close();
-          });
+          window.close();
+        });
 
-          layout.getChildren().addAll(fieldfName, fieldlName, fieldAge, fieldAddr,
-            fieldPhone, fieldEmail, fieldUsername, fieldPass, box, submit);
+        layout1.getChildren().addAll(fieldfName, fieldlName, fieldAge, fieldAddr,
+          fieldPhone, fieldEmail, fieldUsername, fieldPass, box, submit1);
 
-          window.setScene(scene);
-          window.showAndWait();
-        }});
+        window.setScene(scene);
+        window.showAndWait();
+      });
 
       layout.getChildren().addAll(username, password, submit, newAccount);
 

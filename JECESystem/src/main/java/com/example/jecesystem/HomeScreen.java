@@ -30,69 +30,70 @@ public class HomeScreen {
       String str = Database.person;
       welcome.setText("Welcome " + str + "!");
 
-      //Eventually get a "duplicate children added" error. Might be because of vbox
       backToLogin.setOnAction(e -> {
         homeWindow.close();
 
-        Stage window = Login.loginWindow;
+        /*
+        Login l = new Login();
 
-        window.setScene(Login.loginScene);
-        window.show();
+        Stage window = new Stage();
+
+        l.start(window);
+        */
+
+        display();
       });
 
-      viewInfo.setOnAction(new EventHandler<ActionEvent>() {
-        @Override public void handle(ActionEvent e) {
-          Stage window = new Stage();
-          Button exit = new Button("Exit");
-          Text text = new Text();
-          VBox layout = new VBox(10);
-          Scene scene = new Scene(layout, 400, 400);
+      viewInfo.setOnAction(e -> {
+        Stage window = new Stage();
+        Button exit = new Button("Exit");
+        Text text = new Text();
+        VBox layout = new VBox(10);
+        Scene scene = new Scene(layout, 400, 400);
 
-          window.setTitle("View Info");
+        window.setTitle("View Info");
 
-          window.initModality(Modality.APPLICATION_MODAL);
+        window.initModality(Modality.APPLICATION_MODAL);
 
-          exit.setOnAction(x -> window.close());
+        exit.setOnAction(x -> window.close());
 
-          Database.allString = "";
-          Database.all.setLength(0);
+        Database.allString = "";
+        Database.all.setLength(0);
 
-          Database.getAll();
-          text.setText(Database.allString);
+        Database.getAll();
+        text.setText(Database.allString);
 
-          layout.getChildren().addAll(text, exit);
+        layout.getChildren().addAll(text, exit);
 
-          window.setScene(scene);
-          window.showAndWait();
-        }
+        window.setScene(scene);
+        window.showAndWait();
       });
+
       //Just prints the directory as a messy printed list (not formatted)
-      viewDirectory.setOnAction(new EventHandler<ActionEvent>() {
-        @Override public void handle(ActionEvent e) {
-          Stage window = new Stage();
-          Button exit = new Button("Exit");
-          Text text = new Text();
-          VBox layout = new VBox(10);
-          Scene scene = new Scene(layout, 400, 400);
+      viewDirectory.setOnAction(e -> {
+        Stage window = new Stage();
+        Button exit = new Button("Exit");
+        Text text = new Text();
+        VBox layout = new VBox(10);
+        Scene scene = new Scene(layout, 400, 400);
 
-          window.setTitle("View Directory");
+        window.setTitle("View Directory");
 
-          window.initModality(Modality.APPLICATION_MODAL);
+        window.initModality(Modality.APPLICATION_MODAL);
 
-          exit.setOnAction(x -> window.close());
+        exit.setOnAction(x -> window.close());
 
 
-          Database.allString = "";
-          Database.all.setLength(0);
+        Database.allString = "";
+        Database.all.setLength(0);
 
-          Database.getAll();
-          text.setText(Database.allString);
+        Database.getAll();
+        text.setText(Database.allString);
 
-          layout.getChildren().addAll(text, exit);
+        layout.getChildren().addAll(text, exit);
 
-          window.setScene(scene);
-          window.showAndWait();
-        }
+        window.setScene(scene);
+        window.showAndWait();
       });
 
       //Should view directory as a table
@@ -125,33 +126,31 @@ public class HomeScreen {
 //			    }
 //			});
 
-      contactUs.setOnAction(new EventHandler<ActionEvent>() {
-        @Override public void handle(ActionEvent e) {
-          Stage window = new Stage();
-          Button exit = new Button("Exit");
-          Text text = new Text();
-          VBox layout = new VBox(10);
-          Scene scene = new Scene(layout, 400, 400);
+      contactUs.setOnAction(e -> {
+        Stage window = new Stage();
+        Button exit = new Button("Exit");
+        Text text = new Text();
+        VBox layout = new VBox(10);
+        Scene scene = new Scene(layout, 400, 400);
 
-          window.setTitle("Contact Us");
+        window.setTitle("Contact Us");
 
-          window.initModality(Modality.APPLICATION_MODAL);
+        window.initModality(Modality.APPLICATION_MODAL);
 
-          exit.setOnAction(x -> window.close());
+        exit.setOnAction(x -> window.close());
 
-          String info = """
-            Phone Number for Main Desk: 215-436-2231
-            Phone Number for Technical Support: 215-663-2133
-            Email for any questions: askquestion@tennis.com
-            """;
+        String info = """
+          Phone Number for Main Desk: 215-436-2231
+          Phone Number for Technical Support: 215-663-2133
+          Email for any questions: askquestion@tennis.com
+          """;
 
-          text.setText(info);
+        text.setText(info);
 
-          layout.getChildren().addAll(text, exit);
+        layout.getChildren().addAll(text, exit);
 
-          window.setScene(scene);
-          window.showAndWait();
-        }
+        window.setScene(scene);
+        window.showAndWait();
       });
 
       //Checks the email domain of the account that's logged in

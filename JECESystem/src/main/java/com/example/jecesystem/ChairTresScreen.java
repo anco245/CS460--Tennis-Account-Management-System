@@ -26,68 +26,62 @@ public class ChairTresScreen extends HomeScreen{
     approve.setOnAction(e -> Database.approve());
 
     //Just prints the directory as a messy printed list
-    notifyPay.setOnAction(new EventHandler<ActionEvent>() {
-      @Override
-      public void handle(ActionEvent e) {
-        Stage window = new Stage();
-        Button exit = new Button("Exit");
-        Text text = new Text();
-        VBox layout = new VBox(10);
-        Scene scene = new Scene(layout, 400, 400);
+    notifyPay.setOnAction(e -> {
+      Stage window = new Stage();
+      Button exit = new Button("Exit");
+      Text text = new Text();
+      VBox layout = new VBox(10);
+      Scene scene = new Scene(layout, 400, 400);
 
-        window.setTitle("View Directory and Notify Members");
+      window.setTitle("View Directory and Notify Members");
 
-        window.initModality(Modality.APPLICATION_MODAL);
+      window.initModality(Modality.APPLICATION_MODAL);
 
-        exit.setOnAction(x -> window.close());
+      exit.setOnAction(x -> window.close());
 
-        Database.allString = "";
+      Database.allString = "";
 
-        Database.getAll();
-        text.setText(Database.allString);
+      Database.getAll();
+      text.setText(Database.allString);
 
-        layout.getChildren().addAll(text, exit);
+      layout.getChildren().addAll(text, exit);
 
-        window.setScene(scene);
-        window.showAndWait();
-      }
+      window.setScene(scene);
+      window.showAndWait();
     });
 
-    remove.setOnAction(new EventHandler<ActionEvent>() {
-      @Override
-      public void handle(ActionEvent e) {
-        Stage window = new Stage();
-        Text text = new Text();
-        VBox layout = new VBox(10);
-        Scene scene = new Scene(layout, 400, 400);
+    remove.setOnAction(e -> {
+      Stage window = new Stage();
+      Text text = new Text();
+      VBox layout = new VBox(10);
+      Scene scene = new Scene(layout, 400, 400);
 
-        window.initModality(Modality.APPLICATION_MODAL);
-        window.setTitle("Remove Member From Database");
+      window.initModality(Modality.APPLICATION_MODAL);
+      window.setTitle("Remove Member From Database");
 
-        TextField username = new TextField();
-        username.setPromptText("Enter Account's Username");
-        username.setFocusTraversable(false);
+      TextField username = new TextField();
+      username.setPromptText("Enter Account's Username");
+      username.setFocusTraversable(false);
 
-        Button submit = new Button("Submit");
+      Button submit = new Button("Submit");
 
-        submit.setOnAction(x -> {
-          String name = username.getText();
+      submit.setOnAction(x -> {
+        String name = username.getText();
 
-          if (Database.inDatabase(name)) {
-            Database.delete(name);
-            window.close();
-          } else {
-            text.setText("This username doesn't exist in this database\nTry again");
-          }
+        if (Database.inDatabase(name)) {
+          Database.delete(name);
+          window.close();
+        } else {
+          text.setText("This username doesn't exist in this database\nTry again");
+        }
 
 
-        });
+      });
 
-        layout.getChildren().addAll(username, text, submit);
+      layout.getChildren().addAll(username, text, submit);
 
-        window.setScene(scene);
-        window.showAndWait();
-      }
+      window.setScene(scene);
+      window.showAndWait();
     });
 
     homeLayout.getChildren().addAll(welcome, notifyPay, addEvent, remove, approve, viewInfo, backToLogin);
