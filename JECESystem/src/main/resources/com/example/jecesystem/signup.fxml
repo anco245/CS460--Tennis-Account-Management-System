@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox alignment="CENTER" prefHeight="1080.0" prefWidth="1920.0" spacing="20.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.SignUpController">
+<VBox alignment="CENTER" prefHeight="1080.0" prefWidth="1920.0" spacing="20.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.jecesystem.SignUpController">
     <children>
       <GridPane prefHeight="818.0" prefWidth="1880.0">
         <columnConstraints>
@@ -42,7 +42,7 @@
                   <Font size="18.0" />
                </font>
             </Button>
-            <Label text="Frst Name:" translateX="700.0">
+            <Label text="First Name:" translateX="700.0">
                <font>
                   <Font size="18.0" />
                </font>
@@ -87,15 +87,15 @@
                   <Font size="18.0" />
                </font>
             </Label>
-            <TextField scaleX="0.5" translateX="-200.0" GridPane.columnIndex="1" />
-            <TextField scaleX="0.5" translateX="-200.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-            <TextField scaleX="0.5" translateX="-200.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-            <TextField scaleX="0.5" translateX="-200.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-            <TextField scaleX="0.5" translateX="-200.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-            <TextField scaleX="0.5" translateX="-200.0" GridPane.columnIndex="1" GridPane.rowIndex="5" />
-            <TextField scaleX="0.5" translateX="-200.0" GridPane.columnIndex="1" GridPane.rowIndex="6" />
-            <TextField scaleX="0.5" translateX="-200.0" GridPane.columnIndex="1" GridPane.rowIndex="7" />
-            <TextField scaleX="0.5" translateX="-200.0" GridPane.columnIndex="1" GridPane.rowIndex="8" />
+            <TextField fx:id="fieldFName" scaleX="0.5" translateX="-200.0" GridPane.columnIndex="1" />
+            <TextField fx:id="fieldLName" scaleX="0.5" translateX="-200.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <TextField fx:id="fieldAge" scaleX="0.5" translateX="-200.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <TextField fx:id="fieldAddress" scaleX="0.5" translateX="-200.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+            <TextField fx:id="fieldEmail" scaleX="0.5" translateX="-200.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+            <TextField fx:id="fieldPhone" scaleX="0.5" translateX="-200.0" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+            <TextField fx:id="fieldUser" scaleX="0.5" translateX="-200.0" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+            <TextField fx:id="fieldPass" scaleX="0.5" translateX="-200.0" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+            <TextField fx:id="fieldConPass" scaleX="0.5" translateX="-200.0" GridPane.columnIndex="1" GridPane.rowIndex="8" />
             <CheckBox fx:id="securitycheck" mnemonicParsing="false" text="I would like my info to be displayed in the public directory" translateX="700.0" GridPane.rowIndex="9">
                <font>
                   <Font size="18.0" />
