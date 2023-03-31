@@ -1,5 +1,6 @@
 package com.example.jecesystem;
 
+<<<<<<< HEAD
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -78,4 +79,17 @@ public class SignUpController {
                         inputEmail, inputUser, inputPass, inputShow);
   }
 
+=======
+import javafx.fxml.FXML;
+
+import java.io.IOException;
+
+public class SignUpController
+{
+    @FXML
+    private void switchToLogin() throws IOException
+    {
+        App.setRoot("login");
+    }
+>>>>>>> ab68ad1f7206ec2dc8cbddee53a7448848190910
 }
