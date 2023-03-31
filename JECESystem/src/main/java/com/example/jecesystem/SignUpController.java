@@ -1,5 +1,7 @@
 package com.example.jecesystem;
 
+import javafx.fxml.FXML;
+
 import java.io.IOException;
 
 public class SignUpController
