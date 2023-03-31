@@ -11,11 +11,14 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.Scene;
 
+import java.io.IOException;
+
 public class LoginController {
 
   @FXML
-  private void switchToSignIn() throws IOException {
-    App.setRoot("signin");
+  private void switchToSignUp() throws IOException
+  {
+    App.setRoot("signup");
   }
 
   public static String name = "";
