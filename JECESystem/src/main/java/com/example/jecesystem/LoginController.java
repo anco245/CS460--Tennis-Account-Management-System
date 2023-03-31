@@ -11,19 +11,15 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.Scene;
 
-public class LoginController extends Application {
+public class LoginController {
+
+  @FXML
+  private void switchToSignIn() throws IOException {
+    App.setRoot("signin");
+  }
 
   public static String name = "";
   public static String pass = "";
-  public static String inputfName = "";
-  public static String inputlName = "";
-  public static String inputUser = "";
-  public static String inputPass = "";
-  public static String inputAddr = "";
-  public static String inputEmail = "";
-  public static String inputPhone = "";
-  public static String inputAge = "";
-  public static Boolean inputShow = false;
 
   @FXML
   private Button login;
@@ -65,5 +61,4 @@ public class LoginController extends Application {
       text.setText("Wrong Username and Password");
     }
   }
-
 }

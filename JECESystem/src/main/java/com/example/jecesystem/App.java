@@ -1,8 +1,7 @@
 package com.example.jecesystem;
 
 import javafx.application.Application;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
@@ -11,7 +10,9 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
-public class Login extends Application implements EventHandler<ActionEvent>{
+import java.io.IOException;
+
+public class App extends Application {
 
   public static String name = "";
   public static String pass = "";
@@ -25,7 +26,31 @@ public class Login extends Application implements EventHandler<ActionEvent>{
   public static String inputAge = "";
   public static Boolean inputShow = false;
 
-  public void start(Stage primaryStage) {
+
+  //This makes it so that this login class is the first screen you see;
+  //what everything else is based on
+  private static Scene scene;
+
+  @Override
+  public void start(Stage stage) throws IOException {
+    scene = new Scene(loadFXML("login"), 1920, 1080);
+    stage.setScene(scene);
+    stage.show();
+  }
+
+  static void setRoot(String fxml) throws IOException {
+    scene.setRoot(loadFXML(fxml));
+  }
+
+  private static Parent loadFXML(String fxml) throws IOException {
+    FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource(fxml + ".fxml"));
+    return fxmlLoader.load();
+  }
+
+  public static void main(String[] args) {
+    launch();
+  }
+
     try {
       VBox layout = new VBox(10);
       Scene loginScene = new Scene(layout, 400, 400);
@@ -143,25 +168,7 @@ public class Login extends Application implements EventHandler<ActionEvent>{
       });
 
       layout.getChildren().addAll(username, password, submit, newAccount);
-
-      primaryStage.setTitle("Login");
-      primaryStage.setScene(loginScene);
-      primaryStage.show();
     } catch(Exception e) {
       e.printStackTrace();
     }
   }
-
-  @Override
-  public void handle(ActionEvent primaryStage) {
-    // TODO Auto-generated method stub
-  }
-
-  //This makes it so that this login class is the first screen you see;
-  //what everything else is based on
-  public static void main(String[] args) {
-    launch(args);
-  }
-
-
-}
