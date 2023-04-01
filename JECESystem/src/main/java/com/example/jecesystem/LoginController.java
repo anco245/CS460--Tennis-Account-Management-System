@@ -14,13 +14,13 @@ public class LoginController {
   @FXML
   private Button login;
   @FXML
-  private TextField passwordBox;
-  @FXML
-  private Text text;
-  @FXML
   private Button signup;
   @FXML
   private TextField usernameBox;
+  @FXML
+  private TextField passwordBox;
+  @FXML
+  private Text text;
 
   @FXML
   void switchToSignUp(ActionEvent event) throws IOException {

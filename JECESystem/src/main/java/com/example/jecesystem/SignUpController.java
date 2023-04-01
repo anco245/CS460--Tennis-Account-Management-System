@@ -4,6 +4,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.TextField;
+import javafx.scene.text.Text;
 
 import java.io.IOException;
 
@@ -13,6 +14,7 @@ public class SignUpController {
   public static String inputlName = "";
   public static String inputUser = "";
   public static String inputPass = "";
+  public static String inputConPass = "";
   public static String inputAddr = "";
   public static String inputEmail = "";
   public static String inputPhone = "";
@@ -21,39 +23,31 @@ public class SignUpController {
 
   @FXML
   private Button cancel;
-
+  @FXML
+  private Button submit;
+  @FXML
+  private Text text;
   @FXML
   private TextField fieldAddress;
-
   @FXML
   private TextField fieldAge;
-
   @FXML
   private TextField fieldConPass;
-
   @FXML
   private TextField fieldEmail;
-
   @FXML
   private TextField fieldFName;
-
   @FXML
   private TextField fieldLName;
-
   @FXML
   private TextField fieldPass;
-
   @FXML
   private TextField fieldPhone;
-
   @FXML
   private TextField fieldUser;
-
   @FXML
   private CheckBox securitycheck;
 
-  @FXML
-  private Button submit;
 
   @FXML
   void switchToLogin(ActionEvent event) throws IOException {
@@ -71,9 +65,17 @@ public class SignUpController {
     inputEmail = inputEmail.substring(0, inputEmail.length() - 4);
     inputUser = fieldUser.getText();
     inputPass = fieldPass.getText();
+    inputConPass = fieldConPass.getText();
     inputShow = securitycheck.isSelected();
 
-    Database.nAccount(inputfName, inputlName, inputAge, inputAddr, inputPhone,
-                        inputEmail, inputUser, inputPass, inputShow);
+    if(inputConPass.equals(inputPass))
+    {
+      Database.nAccount(inputfName, inputlName, inputAge, inputAddr, inputPhone,
+        inputEmail, inputUser, inputPass, inputShow);
+    } else if(Database.inDatabase(inputUser)) {
+      text.setText("Username already taken. Enter a new one.");
+    } else {
+      text.setText("Username and password don't match");
+    }
   }
 }
