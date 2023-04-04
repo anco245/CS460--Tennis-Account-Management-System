@@ -15,6 +15,15 @@ public class Database {
   public static String password = "sqlpass";
   public static String url = "jdbc:mysql://localhost:3306/courtsystem";
 
+  public static String age = "";
+  public static String addr = "";
+  public static String phone = "";
+  public static String email = "";
+  public static boolean isShown = false;
+  public static boolean verified = false;
+  public static boolean isLate = false;
+
+
   //If we need to edit data in the database, we'll need to overload this method for types datetime, int,
   // and string, because this should be used for each piece of information in the database.
   //This is just used for boolean values, for example for "verified" and "approved"
@@ -146,60 +155,6 @@ public class Database {
   public static void getAll()
   {
     try (Connection connection = DriverManager.getConnection(url, username, password)) {
-
-      PreparedStatement preparedStatement =
-        connection.prepareStatement("SELECT * FROM directory");
-
-      //Need to use resultSet to iterate through each entry
-      ResultSet resultSet = preparedStatement.executeQuery();
-
-      while(resultSet.next()) {
-
-        //Retrieves and then checks to see if this person opted for their information
-        //to be shown in the database
-        boolean shown = resultSet.getBoolean("shown");
-
-        if(shown)
-        {
-          String fname = resultSet.getString("firstName");
-          String lname = resultSet.getString("lastName");
-          String age = resultSet.getString("age");
-          String addr = resultSet.getString("address");
-          String phone = resultSet.getString("phone");
-          String email = resultSet.getString("email") + ".com";
-
-          //If user getting data is a treasurer/chairman
-          if(domain.equals("tennis.com"))
-          {
-            String user = resultSet.getString("username");
-            String pass = resultSet.getString("pword");
-
-            //using all.append because apparently it's a lot more
-            //efficent than using concatenation (+). Takes up too much memory.
-            //If we decide to test the code with a lot of entries up to 1000,
-            //It'll be a lot faster to use append
-
-            all.append(fname).append(" ").append(lname).append(" ").append(age).append(" ")
-              .append(addr).append(" ").append(phone).append(" ").append(email).append(" ")
-              .append(" ").append(user).append(" ").append(pass).append("\n");
-          } else {
-            all.append(fname).append(" ").append(lname).append(" ").append(age).append(" ")
-              .append(addr).append(" ").append(phone).append(" ").append(email).append("\n");
-          }
-        }
-      }
-
-      //if there's nothing in the directory, then that entire
-      //while loop will be skipped and this condition will be
-      //true. Just so there's something if there's no entries
-      allString = all.toString();
-      if(allString.equals(""))
-      {
-        all.append("No one to list yet");
-      }
-
-      preparedStatement.close();
-      resultSet.close();
 
     } catch (SQLException e) {
       throw new IllegalStateException("Cannot connect to the database!", e);

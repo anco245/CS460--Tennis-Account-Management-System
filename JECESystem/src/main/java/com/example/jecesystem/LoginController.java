@@ -28,7 +28,7 @@ public class LoginController {
   }
 
   @FXML
-  void toLogin(ActionEvent event) {
+  void toLogin(ActionEvent event) throws IOException {
       //Takes what's in the username and password textfields
       //and puts them into the name and pass variables.
       name = usernameBox.getText();
@@ -41,8 +41,7 @@ public class LoginController {
          //if verified, show homescreen
           if(Database.verified(name))
           {
-              System.out.println("Logged in");
-              //App.setRoot("memberHome");
+              App.setRoot("memscreen");
 
          } else {
             //text.setText("Your account hasn't been verified by the chairmen yet.");
