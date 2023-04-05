@@ -25,31 +25,6 @@ public class ChairTresScreen extends HomeScreen{
     //Need to make it so that you can select which ones you want to verify
     approve.setOnAction(e -> Database.approve());
 
-    //Just prints the directory as a messy printed list
-    notifyPay.setOnAction(e -> {
-      Stage window = new Stage();
-      Button exit = new Button("Exit");
-      Text text = new Text();
-      VBox layout = new VBox(10);
-      Scene scene = new Scene(layout, 400, 400);
-
-      window.setTitle("View Directory and Notify Members");
-
-      window.initModality(Modality.APPLICATION_MODAL);
-
-      exit.setOnAction(x -> window.close());
-
-      Database.allString = "";
-
-      Database.getAll();
-      text.setText(Database.allString);
-
-      layout.getChildren().addAll(text, exit);
-
-      window.setScene(scene);
-      window.showAndWait();
-    });
-
     remove.setOnAction(e -> {
       Stage window = new Stage();
       Text text = new Text();
@@ -74,8 +49,6 @@ public class ChairTresScreen extends HomeScreen{
         } else {
           text.setText("This username doesn't exist in this database\nTry again");
         }
-
-
       });
 
       layout.getChildren().addAll(username, text, submit);

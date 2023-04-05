@@ -9,7 +9,6 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 public class MemController implements Initializable {
-  public static String welcomeMessage = "Welcome " + Database.person + "!";
 
   @FXML
   private Text lateMessage;
@@ -19,6 +18,7 @@ public class MemController implements Initializable {
 
   @Override
   public void initialize(URL url, ResourceBundle rb) {
+    String welcomeMessage = "Welcome " + Database.person + "!";
     welcome.setText(welcomeMessage);
 
     if(Database.isLate) {

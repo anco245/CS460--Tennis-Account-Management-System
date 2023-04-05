@@ -7,12 +7,13 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.control.Button;
 
 import java.net.URL;
 import java.sql.*;
 import java.util.ResourceBundle;
 
-public class DirectoryController implements Initializable {
+public class ChairDirectoryController implements Initializable {
 
   @FXML
   private TableColumn<Person, String> address;
@@ -24,10 +25,19 @@ public class DirectoryController implements Initializable {
   private TableColumn<Person, String> email;
 
   @FXML
+  private TableColumn<Person, Boolean> late;
+
+  @FXML
   private TableColumn<Person, String> name;
 
   @FXML
+  private TableColumn<Person, Button> notify;
+
+  @FXML
   private TableColumn<Person, String> phone;
+
+  @FXML
+  private TableColumn<Person, Boolean> shown;
 
   @FXML
   private TableView<Person> table;
@@ -42,6 +52,8 @@ public class DirectoryController implements Initializable {
     address.setCellValueFactory(new PropertyValueFactory<Person, String>("address"));
     phone.setCellValueFactory(new PropertyValueFactory<Person, String>("phone"));
     email.setCellValueFactory(new PropertyValueFactory<Person, String>("email"));
+    late.setCellValueFactory(new PropertyValueFactory<Person, Boolean>("late"));
+    shown.setCellValueFactory(new PropertyValueFactory<Person, Boolean>("shown"));
 
     try (Connection connection = DriverManager.getConnection(Database.url, Database.username, Database.password)) {
 
@@ -58,7 +70,6 @@ public class DirectoryController implements Initializable {
           resultSet.getString("lastName").substring(1);
 
         String userName = first + " " + last;
-        System.out.println(userName);
         String userAge = resultSet.getString("age");
         String userAddr = resultSet.getString("address");
         String userPhone = resultSet.getString("phone");
@@ -66,13 +77,10 @@ public class DirectoryController implements Initializable {
 
         boolean v = resultSet.getBoolean("verified");
         boolean shown = resultSet.getBoolean("shown");
+        boolean late = resultSet.getBoolean("late");
 
-
-        if(shown)
-        {
-          Person person = new Person(userName, userAge, userAddr, userPhone, userEmail);
-          list.add(person);
-        }
+        Person person = new Person(userName, userAge, userAddr, userPhone, userEmail, shown, late);
+        list.add(person);
       }
 
       preparedStatement.close();
@@ -84,4 +92,5 @@ public class DirectoryController implements Initializable {
       throw new IllegalStateException("Cannot connect to the database!", e);
     }
   }
+
 }

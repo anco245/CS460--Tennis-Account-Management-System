@@ -43,7 +43,7 @@ public class LoginController {
           if(Database.verified(name))
           {
             if(Database.domain.equals("tennis.com")) {
-              //App.setRoot("ctscreen");
+              App.setRoot("ctscreen");
             } else if (Database.domain.equals("admin.com")) {
               //App.setRoot("adminscreen");
             } else {
