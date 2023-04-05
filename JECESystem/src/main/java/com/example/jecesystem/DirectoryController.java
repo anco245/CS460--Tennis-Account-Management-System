@@ -3,49 +3,62 @@ package com.example.jecesystem;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 
+import java.net.URL;
 import java.sql.*;
+import java.util.ResourceBundle;
 
-public class DirectoryController {
-
-  @FXML
-  private TableColumn<Person, String> addrCol;
+public class DirectoryController implements Initializable {
 
   @FXML
-  private TableColumn<Person, String> ageCol;
+  private TableColumn<Person, String> address;
 
   @FXML
-  private TableColumn<Person, String> emailCol;
+  private TableColumn<Person, String> age;
 
   @FXML
-  private TableColumn<Person, String> nameCol;
+  private TableColumn<Person, String> email;
 
   @FXML
-  private TableColumn<Person, String> phoneCol;
+  private TableColumn<Person, String> name;
 
   @FXML
-  private TableView<Person> tableView;
+  private TableColumn<Person, String> phone;
 
-  public void initialize() {
+  @FXML
+  private TableView<Person> table;
+
+  ObservableList<Person> list = FXCollections.observableArrayList();
+
+  @Override
+  public void initialize(URL url, ResourceBundle rb) {
+
+    name.setCellValueFactory(new PropertyValueFactory<Person, String>("name"));
+    age.setCellValueFactory(new PropertyValueFactory<Person, String>("age"));
+    address.setCellValueFactory(new PropertyValueFactory<Person, String>("address"));
+    phone.setCellValueFactory(new PropertyValueFactory<Person, String>("phone"));
+    email.setCellValueFactory(new PropertyValueFactory<Person, String>("email"));
+
     try (Connection connection = DriverManager.getConnection(Database.url, Database.username, Database.password)) {
 
       PreparedStatement preparedStatement =
         connection.prepareStatement("SELECT * FROM directory");
 
-      //Need to use resultSet to iterate through each entry
       ResultSet resultSet = preparedStatement.executeQuery();
 
       while(resultSet.next()) {
-
+        System.out.println(list.isEmpty());
         String first = resultSet.getString("firstName").substring(0, 1).toUpperCase() +
           resultSet.getString("firstName").substring(1);
         String last = resultSet.getString("lastName").substring(0, 1).toUpperCase() +
           resultSet.getString("lastName").substring(1);
 
         String userName = first + " " + last;
+        System.out.println(userName);
         String userAge = resultSet.getString("age");
         String userAddr = resultSet.getString("address");
         String userPhone = resultSet.getString("phone");
@@ -54,27 +67,14 @@ public class DirectoryController {
         boolean v = resultSet.getBoolean("verified");
         boolean s = resultSet.getBoolean("shown");
 
-        // Set cell value factories for each column
-        nameCol.setCellValueFactory(new PropertyValueFactory<>("name"));
-        ageCol.setCellValueFactory(new PropertyValueFactory<>("age"));
-        addrCol.setCellValueFactory(new PropertyValueFactory<>("address"));
-        phoneCol.setCellValueFactory(new PropertyValueFactory<>("phone"));
-        emailCol.setCellValueFactory(new PropertyValueFactory<>("email"));
-
-        if(Database.domain.equals("@gmail.com"))
-        {
-          ObservableList<Person> people = FXCollections.observableArrayList(
-            new Person(userName, userAge, userAddr, userPhone, userEmail)
-          );
-
-          tableView.setItems(people);
-        } else {
-
-        }
+        Person person = new Person(userName, userAge, userAddr, userPhone, userEmail);
+        list.add(person);
       }
 
       preparedStatement.close();
       resultSet.close();
+
+      table.setItems(list);
 
     } catch (SQLException e) {
       throw new IllegalStateException("Cannot connect to the database!", e);
