@@ -61,26 +61,34 @@ public class SignUpController {
     inputAge = fieldAge.getText();
     inputAddr = fieldAddress.getText();
     inputPhone = fieldPhone.getText();
+
     inputEmail = fieldEmail.getText();
     inputEmail = inputEmail.substring(0, inputEmail.length() - 4);
+
     inputUser = fieldUser.getText();
+
     inputPass = fieldPass.getText();
     inputConPass = fieldConPass.getText();
+
     inputShow = securitycheck.isSelected();
 
-    if(inputPhone.length() != 10)
+    if(inputPhone.length() == 10 && inputAge.length() > 0 && inputAge.length() < 4)
     {
       if(inputConPass.equals(inputPass))
       {
         Database.nAccount(inputfName, inputlName, inputAge, inputAddr, inputPhone,
           inputEmail, inputUser, inputPass, inputShow);
+
+        System.out.println("Success");
       } else if(Database.inDatabase(inputUser)) {
-        text.setText("Username already taken. Enter a new one.");
+        System.out.println("already taken");//text.setText("Username already taken. Enter a new one.");
       } else {
-        text.setText("Username and password don't match");
+        System.out.println("Username and pass don't match");
+        //text.setText("Username and password don't match");
       }
     } else {
-      text.setText("Phone number isn't 10 characters");
+      System.out.println("Phone is not 10");
+      //text.setText("Phone number isn't 10 characters");
     }
   }
 }

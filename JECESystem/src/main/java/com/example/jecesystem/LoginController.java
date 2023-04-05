@@ -29,6 +29,11 @@ public class LoginController {
   }
 
   @FXML
+  void toContactUs(ActionEvent event) throws IOException {
+      App.setRoot("contactus");
+  }
+
+  @FXML
   void toLogin(ActionEvent event) throws IOException {
       //Takes what's in the username and password textfields
       //and puts them into the name and pass variables.

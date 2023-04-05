@@ -37,7 +37,7 @@
                   <Font size="18.0" />
                </font>
             </Button>
-            <Button fx:id="submit" mnemonicParsing="false" text="Submit" translateX="90.0" GridPane.columnIndex="1" GridPane.rowIndex="10">
+            <Button fx:id="submit" mnemonicParsing="false" onAction="#toSubmit" text="Submit" translateX="90.0" GridPane.columnIndex="1" GridPane.rowIndex="10">
                <font>
                   <Font size="18.0" />
                </font>
@@ -87,20 +87,20 @@
                   <Font size="18.0" />
                </font>
             </Label>
-            <TextField fx:id="fieldFName" scaleX="0.5" translateX="-200.0" GridPane.columnIndex="1" />
-            <TextField fx:id="fieldLName" scaleX="0.5" translateX="-200.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-            <TextField fx:id="fieldAge" scaleX="0.5" translateX="-200.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-            <TextField fx:id="fieldAddress" scaleX="0.5" translateX="-200.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-            <TextField fx:id="fieldEmail" scaleX="0.5" translateX="-200.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-            <TextField fx:id="fieldPhone" scaleX="0.5" translateX="-200.0" GridPane.columnIndex="1" GridPane.rowIndex="5" />
-            <TextField fx:id="fieldUser" scaleX="0.5" translateX="-200.0" GridPane.columnIndex="1" GridPane.rowIndex="6" />
-            <TextField fx:id="fieldPass" scaleX="0.5" translateX="-200.0" GridPane.columnIndex="1" GridPane.rowIndex="7" />
-            <TextField fx:id="fieldConPass" scaleX="0.5" translateX="-200.0" GridPane.columnIndex="1" GridPane.rowIndex="8" />
             <CheckBox fx:id="securitycheck" mnemonicParsing="false" text="I would like my info to be displayed in the public directory" translateX="250.0" GridPane.rowIndex="9">
                <font>
                   <Font size="18.0" />
                </font>
             </CheckBox>
+            <TextField fx:id="fieldAge" translateX="-70.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <TextField fx:id="fieldLName" translateX="-70.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <TextField fx:id="fieldAddress" translateX="-70.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+            <TextField fx:id="fieldFName" translateX="-70.0" GridPane.columnIndex="1" />
+            <TextField fx:id="fieldEmail" translateX="-70.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+            <TextField fx:id="fieldPhone" translateX="-70.0" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+            <TextField fx:id="fieldUser" translateX="-70.0" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+            <TextField fx:id="fieldPass" translateX="-70.0" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+            <TextField fx:id="fieldConPass" translateX="-70.0" GridPane.columnIndex="1" GridPane.rowIndex="8" />
          </children>
       </GridPane>
     </children>

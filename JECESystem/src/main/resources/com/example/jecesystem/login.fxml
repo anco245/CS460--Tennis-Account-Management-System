@@ -65,11 +65,7 @@
                   <Font name="Corbel" size="18.0" />
                </font>
             </Label>
-            <Label text="Contact Us: " textFill="WHITE" translateX="250.0" translateY="-10.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
-               <font>
-                  <Font name="Corbel" size="18.0" />
-               </font>
-            </Label>
+            <Button mnemonicParsing="false" onAction="#toContactUs" prefHeight="31.0" prefWidth="146.0" text="Contact Us" translateX="250.0" translateY="-10.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
          </children>
          <VBox.margin>
             <Insets top="-40.0" />

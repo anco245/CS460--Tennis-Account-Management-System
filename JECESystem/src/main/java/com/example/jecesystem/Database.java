@@ -164,12 +164,12 @@ public class Database {
 
   //Creates a new Account
   public static void nAccount(String fname, String lname, String age, String addr,
-                              String phone, String email, String u, String p, Boolean sho) {
+                              String phone, String email, String u, String p, boolean sho) {
     try (Connection connection = DriverManager.getConnection(url, username, password)) {
 
       PreparedStatement preparedStatement =
         connection.prepareStatement("INSERT INTO directory "
-          + "VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+          + "VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
 
       //Just makes the first letter of the person's first and last name capital
       String first = fname.substring(0, 1).toUpperCase() + fname.substring(1);
@@ -185,6 +185,7 @@ public class Database {
       preparedStatement.setString(8, p);
       preparedStatement.setBoolean(9, false);
       preparedStatement.setBoolean(10, sho);
+      preparedStatement.setBoolean(11, false);
 
       preparedStatement.executeUpdate();
       preparedStatement.close();
