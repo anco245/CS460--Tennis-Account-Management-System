@@ -13,15 +13,16 @@
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
-<VBox alignment="CENTER" prefHeight="1080.0" prefWidth="1920.0" spacing="20.0" stylesheets="@login.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.jecesystem.LoginController">
+<VBox alignment="CENTER" prefHeight="600.0" prefWidth="1067.0" spacing="20.0" stylesheets="@login.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.jecesystem.LoginController">
    <children>
-      <Rectangle arcHeight="40.0" arcWidth="40.0" fill="#d9d9d9e6" height="500.0" opacity="0.28" stroke="BLACK" strokeType="INSIDE" translateY="100.0" width="500.0" VBox.vgrow="NEVER">
+      <Rectangle arcHeight="40.0" arcWidth="40.0" fill="#d9d9d9e6" height="521.0" opacity="0.28" stroke="BLACK" strokeType="INSIDE" translateY="200.0" width="569.0" VBox.vgrow="NEVER">
          <effect>
             <InnerShadow />
          </effect></Rectangle>
-      <GridPane prefHeight="299.0" prefWidth="1880.0" translateY="-300.0">
+      <GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="519.0" prefWidth="572.0" translateY="-300.0" VBox.vgrow="ALWAYS">
         <columnConstraints>
-          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="300.0" />
           <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
         </columnConstraints>
         <rowConstraints>
@@ -29,11 +30,16 @@
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <TextField fx:id="usernameBox" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="44.0" prefWidth="470.0" translateX="-235.0" translateY="10.0" GridPane.columnIndex="1" />
-            <TextField fx:id="passwordBox" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="44.0" prefWidth="470.0" translateX="-235.0" translateY="10.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-            <Button fx:id="signup" mnemonicParsing="false" onAction="#switchToSignUp" text="Sign Up" textFill="WHITE" translateX="775.0" GridPane.rowIndex="3">
+            <TextField fx:id="usernameBox" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="38.0" prefWidth="328.0" translateY="10.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <TextField fx:id="passwordBox" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="38.0" prefWidth="328.0" translateY="10.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
+               <GridPane.margin>
+                  <Insets />
+               </GridPane.margin>
+            </TextField>
+            <Button fx:id="signup" mnemonicParsing="false" onAction="#switchToSignUp" text="Sign Up" textFill="WHITE" translateX="775.0" GridPane.rowIndex="4">
                <font>
                   <Font name="Corbel" size="18.0" />
                </font>
@@ -41,7 +47,7 @@
                   <Cursor fx:constant="OPEN_HAND" />
                </cursor>
             </Button>
-            <Button fx:id="login" mnemonicParsing="false" onAction="#toLogin" prefHeight="39.0" prefWidth="475.0" text="Login" textFill="WHITE" translateX="-238.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
+            <Button fx:id="login" mnemonicParsing="false" onAction="#toLogin" prefHeight="0.0" prefWidth="176.0" text="Login" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="3">
                <font>
                   <Font name="Corbel" size="18.0" />
                </font>
@@ -49,22 +55,25 @@
                   <Cursor fx:constant="OPEN_HAND" />
                </cursor>
             </Button>
-            <Label alignment="CENTER" contentDisplay="CENTER" text="Username/Email:" textFill="WHITE" translateX="710.0" translateY="-25.0">
+            <Label alignment="CENTER" contentDisplay="CENTER" text="Username/Email:" textFill="WHITE" translateY="-25.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
                <font>
                   <Font name="Corbel" size="18.0" />
                </font>
             </Label>
-            <Label text="Password:" textFill="WHITE" translateX="710.0" translateY="-25.0" GridPane.rowIndex="1">
+            <Label text="Password:" textFill="WHITE" translateY="-25.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
                <font>
                   <Font name="Corbel" size="18.0" />
                </font>
             </Label>
-            <Label text="Contact Us: " textFill="WHITE" translateX="75.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
+            <Label text="Contact Us: " textFill="WHITE" translateX="250.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
                <font>
                   <Font name="Corbel" size="18.0" />
                </font>
             </Label>
          </children>
+         <VBox.margin>
+            <Insets top="-40.0" />
+         </VBox.margin>
       </GridPane>
    </children>
    <padding>

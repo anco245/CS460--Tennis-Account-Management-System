@@ -37,6 +37,7 @@ public class DirectoryController implements Initializable {
   @Override
   public void initialize(URL url, ResourceBundle rb) {
 
+
     name.setCellValueFactory(new PropertyValueFactory<Person, String>("name"));
     age.setCellValueFactory(new PropertyValueFactory<Person, String>("age"));
     address.setCellValueFactory(new PropertyValueFactory<Person, String>("address"));
@@ -58,7 +59,6 @@ public class DirectoryController implements Initializable {
           resultSet.getString("lastName").substring(1);
 
         String userName = first + " " + last;
-        System.out.println(userName);
         String userAge = resultSet.getString("age");
         String userAddr = resultSet.getString("address");
         String userPhone = resultSet.getString("phone");
@@ -66,7 +66,6 @@ public class DirectoryController implements Initializable {
 
         boolean v = resultSet.getBoolean("verified");
         boolean shown = resultSet.getBoolean("shown");
-
 
         if(shown)
         {

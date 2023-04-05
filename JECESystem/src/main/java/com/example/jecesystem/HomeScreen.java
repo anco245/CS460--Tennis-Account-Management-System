@@ -163,7 +163,7 @@ public class HomeScreen {
       {
         ChairTresScreen.display();
       } else if (Database.domain.equals("admin.com")) {
-        AdminScreen.display();
+        //AdminScreen.display();
       } else {
       }
 
