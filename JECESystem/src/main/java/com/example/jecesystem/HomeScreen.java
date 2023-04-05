@@ -165,7 +165,6 @@ public class HomeScreen {
       } else if (Database.domain.equals("admin.com")) {
         AdminScreen.display();
       } else {
-        MemberScreen.display();
       }
 
     } catch(Exception e) {

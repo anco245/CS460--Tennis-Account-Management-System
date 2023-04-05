@@ -65,10 +65,13 @@ public class DirectoryController implements Initializable {
         String userEmail = resultSet.getString("email") + ".com";;
 
         boolean v = resultSet.getBoolean("verified");
-        boolean s = resultSet.getBoolean("shown");
+        boolean shown = resultSet.getBoolean("shown");
 
-        Person person = new Person(userName, userAge, userAddr, userPhone, userEmail);
-        list.add(person);
+        if(shown)
+        {
+          Person person = new Person(userName, userAge, userAddr, userPhone, userEmail);
+          list.add(person);
+        }
       }
 
       preparedStatement.close();

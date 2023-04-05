@@ -218,6 +218,8 @@ public class Database {
           //will give back @gmail.com, @admin.com, @tennis.com
           domain = em.substring(em.lastIndexOf("@") + 1);
 
+          isLate = resultSet.getBoolean("late");
+
           //makes it so that the first letters of the first and last name are capital
           String first = resultSet.getString("firstName").substring(0, 1).toUpperCase() +
             resultSet.getString("firstName").substring(1);
@@ -227,15 +229,6 @@ public class Database {
           boolean latePay = resultSet.getBoolean("late");
 
           person = first + " " + last;
-
-          if(latePay)
-          {
-            MemberScreen.lateFeeError.setText("""
-              This is a reminder that you have overdue
-              payments. Press the "View Financial Information"
-              button to get more info.
-              """);
-          }
 
           return true;
         }

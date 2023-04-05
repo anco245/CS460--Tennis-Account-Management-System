@@ -19,8 +19,13 @@ public class MemController implements Initializable {
 
   @Override
   public void initialize(URL url, ResourceBundle rb) {
-    String message = "Welcome " + Database.person + "!";
-    welcome.setText(message);
+    String welcomeMessage = "Welcome " + Database.person + "!";
+    welcome.setText(welcomeMessage);
+
+    if(Database.isLate) {
+      String late = "You have overdue payments. Go to your Personal Information page for more info.";
+      lateMessage.setText(late);
+    }
   }
 
   @FXML
@@ -28,8 +33,36 @@ public class MemController implements Initializable {
     App.setRoot("directory");
   }
 
+  @FXML
+  void addGuest(ActionEvent event) {
+    //App.setRoot("addguest");
+  }
 
+  @FXML
+  void contactUs(ActionEvent event) {
+    //App.setRoot("contactus");
+  }
 
+  @FXML
+  void makeRes(ActionEvent event) {
+    //App.setRoot("makeres");
+  }
+
+  @FXML
+  void viewInfo(ActionEvent event) {
+    //App.setRoot("info");
+
+    /*
+       - cancel reservation
+       - cancel membership
+       - view hours
+     */
+  }
+
+  @FXML
+  void switchToLogin(ActionEvent event) throws IOException {
+      App.setRoot("login");
+  }
 }
 
 

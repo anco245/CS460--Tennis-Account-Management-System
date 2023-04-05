@@ -41,7 +41,13 @@ public class LoginController {
          //if verified, show homescreen
           if(Database.verified(name))
           {
+            if(Database.domain.equals("tennis.com")) {
+              //App.setRoot("ctscreen");
+            } else if (Database.domain.equals("admin.com")) {
+              //App.setRoot("adminscreen");
+            } else {
               App.setRoot("memscreen");
+            }
 
          } else {
             //text.setText("Your account hasn't been verified by the chairmen yet.");

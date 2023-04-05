@@ -28,11 +28,11 @@
         </rowConstraints>
          <children>
             <Button mnemonicParsing="false" onAction="#showDir" prefHeight="25.0" prefWidth="200.0" text="View Directory" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-            <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="209.0" text="Make a Reservation" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-            <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="211.0" text="Add a Guest" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-            <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="213.0" text="View Personal Information" GridPane.columnIndex="1" GridPane.rowIndex="5" />
-            <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="203.0" text="Contact Us" GridPane.columnIndex="1" GridPane.rowIndex="6" />
-            <Button alignment="CENTER" mnemonicParsing="false" prefHeight="25.0" prefWidth="142.0" text="Back to Homescreen" GridPane.rowIndex="8" />
+            <Button mnemonicParsing="false" onAction="#makeRes" prefHeight="25.0" prefWidth="209.0" text="Make a Reservation" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+            <Button mnemonicParsing="false" onAction="#addGuest" prefHeight="25.0" prefWidth="211.0" text="Add a Guest" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+            <Button mnemonicParsing="false" onAction="#viewInfo" prefHeight="25.0" prefWidth="213.0" text="View Personal Information" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+            <Button mnemonicParsing="false" onAction="#contactUs" prefHeight="25.0" prefWidth="203.0" text="Contact Us" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+            <Button alignment="CENTER" mnemonicParsing="false" onAction="#switchToLogin" prefHeight="25.0" prefWidth="142.0" text="Back to Homescreen" GridPane.rowIndex="8" />
             <Text fx:id="welcome" strokeType="OUTSIDE" strokeWidth="0.0" />
             <Text fx:id="late" strokeType="OUTSIDE" strokeWidth="0.0" GridPane.rowIndex="1" />
          </children>
