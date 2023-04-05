@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox alignment="CENTER" prefHeight="1080.0" prefWidth="1920.0" spacing="20.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.jecesystem.SignUpController">
+<VBox alignment="CENTER" prefHeight="600.0" prefWidth="1067.0" spacing="20.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.jecesystem.SignUpController">
     <children>
       <GridPane prefHeight="818.0" prefWidth="1880.0">
         <columnConstraints>
@@ -32,57 +32,57 @@
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <Button fx:id="cancel" mnemonicParsing="false" onAction="#switchToLogin" text="Cancel" translateX="700.0" GridPane.rowIndex="10">
+            <Button fx:id="cancel" mnemonicParsing="false" onAction="#switchToLogin" text="Cancel" translateX="350.0" GridPane.rowIndex="10">
                <font>
                   <Font size="18.0" />
                </font>
             </Button>
-            <Button fx:id="submit" mnemonicParsing="false" text="Submit" translateX="230.0" GridPane.columnIndex="1" GridPane.rowIndex="10">
+            <Button fx:id="submit" mnemonicParsing="false" text="Submit" translateX="90.0" GridPane.columnIndex="1" GridPane.rowIndex="10">
                <font>
                   <Font size="18.0" />
                </font>
             </Button>
-            <Label text="First Name:" translateX="700.0">
+            <Label text="First Name:" translateX="325.0">
                <font>
                   <Font size="18.0" />
                </font>
             </Label>
-            <Label text="Last Name:" translateX="700.0" GridPane.rowIndex="1">
+            <Label text="Last Name:" translateX="325.0" GridPane.rowIndex="1">
                <font>
                   <Font size="18.0" />
                </font>
             </Label>
-            <Label text="Birthday: --/--/--" translateX="700.0" GridPane.rowIndex="2">
+            <Label text="Birthday: --/--/--" translateX="300.0" GridPane.rowIndex="2">
                <font>
                   <Font size="18.0" />
                </font>
             </Label>
-            <Label text="Address:" translateX="700.0" GridPane.rowIndex="3">
+            <Label text="Address:" translateX="325.0" GridPane.rowIndex="3">
                <font>
                   <Font size="18.0" />
                </font>
             </Label>
-            <Label text="Email:" translateX="700.0" GridPane.rowIndex="4">
+            <Label text="Email:" translateX="325.0" GridPane.rowIndex="4">
                <font>
                   <Font size="18.0" />
                </font>
             </Label>
-            <Label text="Phone Number: --- --- ----" translateX="700.0" GridPane.rowIndex="5">
+            <Label text="Phone Number: --- --- ----" translateX="200.0" GridPane.rowIndex="5">
                <font>
                   <Font size="18.0" />
                </font>
             </Label>
-            <Label text="Username:" translateX="700.0" GridPane.rowIndex="6">
+            <Label text="Username:" translateX="325.0" GridPane.rowIndex="6">
                <font>
                   <Font size="18.0" />
                </font>
             </Label>
-            <Label text="Password:" translateX="700.0" GridPane.rowIndex="7">
+            <Label text="Password:" translateX="325.0" GridPane.rowIndex="7">
                <font>
                   <Font size="18.0" />
                </font>
             </Label>
-            <Label text="Confirm Password:" translateX="700.0" GridPane.rowIndex="8">
+            <Label text="Confirm Password:" translateX="275.0" GridPane.rowIndex="8">
                <font>
                   <Font size="18.0" />
                </font>
@@ -96,7 +96,7 @@
             <TextField fx:id="fieldUser" scaleX="0.5" translateX="-200.0" GridPane.columnIndex="1" GridPane.rowIndex="6" />
             <TextField fx:id="fieldPass" scaleX="0.5" translateX="-200.0" GridPane.columnIndex="1" GridPane.rowIndex="7" />
             <TextField fx:id="fieldConPass" scaleX="0.5" translateX="-200.0" GridPane.columnIndex="1" GridPane.rowIndex="8" />
-            <CheckBox fx:id="securitycheck" mnemonicParsing="false" text="I would like my info to be displayed in the public directory" translateX="700.0" GridPane.rowIndex="9">
+            <CheckBox fx:id="securitycheck" mnemonicParsing="false" text="I would like my info to be displayed in the public directory" translateX="250.0" GridPane.rowIndex="9">
                <font>
                   <Font size="18.0" />
                </font>

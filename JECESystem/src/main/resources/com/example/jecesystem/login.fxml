@@ -39,7 +39,7 @@
                   <Insets />
                </GridPane.margin>
             </TextField>
-            <Button fx:id="signup" mnemonicParsing="false" onAction="#switchToSignUp" text="Sign Up" textFill="WHITE" translateX="775.0" GridPane.rowIndex="4">
+            <Button fx:id="signup" mnemonicParsing="false" onAction="#switchToSignUp" text="Sign Up" textFill="WHITE" translateX="115.0" translateY="-60.0" GridPane.rowIndex="4">
                <font>
                   <Font name="Corbel" size="18.0" />
                </font>
@@ -47,7 +47,7 @@
                   <Cursor fx:constant="OPEN_HAND" />
                </cursor>
             </Button>
-            <Button fx:id="login" mnemonicParsing="false" onAction="#toLogin" prefHeight="0.0" prefWidth="176.0" text="Login" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="3">
+            <Button fx:id="login" mnemonicParsing="false" onAction="#toLogin" prefHeight="0.0" prefWidth="176.0" text="Login" textFill="WHITE" translateY="-10.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
                <font>
                   <Font name="Corbel" size="18.0" />
                </font>
@@ -65,7 +65,7 @@
                   <Font name="Corbel" size="18.0" />
                </font>
             </Label>
-            <Label text="Contact Us: " textFill="WHITE" translateX="250.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
+            <Label text="Contact Us: " textFill="WHITE" translateX="250.0" translateY="-10.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
                <font>
                   <Font name="Corbel" size="18.0" />
                </font>
