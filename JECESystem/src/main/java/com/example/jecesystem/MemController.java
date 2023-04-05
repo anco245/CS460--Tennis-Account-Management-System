@@ -22,7 +22,7 @@ public class MemController implements Initializable {
     welcome.setText(welcomeMessage);
 
     if(Database.isLate) {
-      String late = "You have overdue payments. Go to your Personal Information page for more info.";
+      String late = "You have overdue payments.";
       lateMessage.setText(late);
     }
   }
@@ -48,14 +48,8 @@ public class MemController implements Initializable {
   }
 
   @FXML
-  void viewInfo(ActionEvent event) {
-    //App.setRoot("info");
-
-    /*
-       - cancel reservation
-       - cancel membership
-       - view hours
-     */
+  void viewInfo(ActionEvent event) throws IOException {
+    App.setRoot("info");
   }
 
   @FXML

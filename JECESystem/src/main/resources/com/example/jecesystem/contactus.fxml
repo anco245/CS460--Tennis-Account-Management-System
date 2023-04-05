@@ -6,10 +6,10 @@
 
 
 <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.jecesystem.ContactUsController">
-   <children>
-      <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Phone Number for Main Desk: 215-436-2231" translateX="175.0" translateY="100.0" wrappingWidth="239.8203125" />
-      <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Phone Number for Technical Support: 215-663-2133" translateX="155.0" translateY="150.0" />
-      <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Email for any questions: askquestion@tennis.com" translateX="165.0" translateY="200.0" />
-      <Button mnemonicParsing="false" onAction="#switchToLogin" text="Back to Login" translateX="50.0" translateY="300.0" />
-   </children>
+  <children>
+    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Phone Number for Main Desk: 215-436-2231" translateX="175.0" translateY="100.0" wrappingWidth="239.8203125" />
+    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Phone Number for Technical Support: 215-663-2133" translateX="155.0" translateY="150.0" />
+    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Email for any questions: askquestion@tennis.com" translateX="165.0" translateY="200.0" />
+    <Button mnemonicParsing="false" onAction="#switchToLogin" text="Back to Login" translateX="50.0" translateY="300.0" />
+  </children>
 </VBox>

@@ -49,4 +49,38 @@ public class CTController implements Initializable {
     //App.setRoot("directory");
   }
 
+  /*
+  remove.setOnAction(e -> {
+      Stage window = new Stage();
+      Text text = new Text();
+      VBox layout = new VBox(10);
+      Scene scene = new Scene(layout, 400, 400);
+
+      window.initModality(Modality.APPLICATION_MODAL);
+      window.setTitle("Remove Member From Database");
+
+      TextField username = new TextField();
+      username.setPromptText("Enter Account's Username");
+      username.setFocusTraversable(false);
+
+      Button submit = new Button("Submit");
+
+      submit.setOnAction(x -> {
+        String name = username.getText();
+
+        if (Database.inDatabase(name)) {
+          Database.delete(name);
+          window.close();
+        } else {
+          text.setText("This username doesn't exist in this database\nTry again");
+        }
+      });
+
+      layout.getChildren().addAll(username, text, submit);
+
+      window.setScene(scene);
+      window.showAndWait();
+    });
+   */
+
 }

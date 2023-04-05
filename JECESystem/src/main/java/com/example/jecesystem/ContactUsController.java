@@ -9,14 +9,7 @@ public class ContactUsController {
 
   @FXML
   void switchToLogin(ActionEvent event) throws IOException {
-    if(Database.domain.equals("tennis.com"))
-    {
-      App.setRoot("ctscreen");
-    } else if (Database.domain.equals("admin.com")){
-      //App.setRoot("adminscreen");
-    } else {
-      App.setRoot("memscreen");
-    }
+    App.setRoot("login");
   }
 
 }
