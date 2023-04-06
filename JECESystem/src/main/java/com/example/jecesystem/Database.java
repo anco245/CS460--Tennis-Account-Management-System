@@ -4,17 +4,14 @@ import java.sql.*;
 
 public class Database {
 
-  public static String domain = "";
-
-  //all and allString are used to hold strings from database in variables
-  public static StringBuilder all = new StringBuilder();
-  public static String allString;
-
-  public static String person = "";
   public static String username = "root";
   public static String password = "sqlpass";
   public static String url = "jdbc:mysql://localhost:3306/courtsystem";
 
+  public static String person = "";
+  public static String fName = "";
+  public static String lName = "";
+  public static String domain = "";
   public static String age = "";
   public static String addr = "";
   public static String phone = "";
@@ -23,6 +20,8 @@ public class Database {
   public static boolean verified = false;
   public static boolean isLate = false;
   public static int owe = 0;
+  public static String memberUser = "";
+  public static String memberPass = "";
 
   //adds or subtracts amount owed
   public static void addSubOwe(String user, int amount) {
@@ -116,9 +115,7 @@ public class Database {
     }
   }
 
-
-  //I just have it so that when pressed, it will approve all accounts
-  //Need to make it so that you can select which ones you want to approve
+  //Sets a user's verified status to true
   public static void approve(String u)
   {
     try (Connection connection = DriverManager.getConnection(url, username, password)) {
@@ -261,14 +258,17 @@ public class Database {
           person = first + " " + last;
 
           //Used for extracting the domain from the given email in the database
-          //will give back @gmail.com, @admin.com, @tennis.com
-          String em = resultSet.getString("email");
-          domain = em.substring(em.lastIndexOf("@") + 1);
+          //will give back gmail.com, admin.com, tennis.com
+          email = resultSet.getString("email");
+          domain = email.substring(email.lastIndexOf("@") + 1);
 
-          boolean latePay = resultSet.getBoolean("late");
+          isShown = resultSet.getBoolean("shown");
           isLate = resultSet.getBoolean("late");
           owe = resultSet.getInt("owe");
           verified = resultSet.getBoolean("verified");
+          age = resultSet.getString("age");
+          addr = resultSet.getString("address");
+          phone = resultSet.getString("phone");
 
           return true;
         }
@@ -284,30 +284,135 @@ public class Database {
   }
 
   public static void setFirstName(String first) {
+      fName = first;
 
+    try (Connection connection = DriverManager.getConnection(url, username, password)) {
+      PreparedStatement preparedStatement =
+        connection.prepareStatement("UPDATE directory SET firstName = ? WHERE username = ?");
+
+      preparedStatement.setString(1, first);
+      preparedStatement.setString(2, memberUser);
+      preparedStatement.executeUpdate();
+
+      preparedStatement.close();
+      connection.close();
+    } catch (SQLException e) {
+      throw new IllegalStateException("Cannot connect to the database!", e);
+    }
   }
 
   public static void setLastName(String last) {
+    lName = last;
 
+    try (Connection connection = DriverManager.getConnection(url, username, password)) {
+      PreparedStatement preparedStatement =
+        connection.prepareStatement("UPDATE directory SET lastName = ? WHERE username = ?");
+
+      preparedStatement.setString(1, last);
+      preparedStatement.setString(2, memberUser);
+      preparedStatement.executeUpdate();
+
+      preparedStatement.close();
+      connection.close();
+    } catch (SQLException e) {
+      throw new IllegalStateException("Cannot connect to the database!", e);
+    }
   }
 
   public static void setAge(String x) {
+    age = x;
 
+    try (Connection connection = DriverManager.getConnection(url, username, password)) {
+      PreparedStatement preparedStatement =
+        connection.prepareStatement("UPDATE directory SET age = ? WHERE username = ?");
+
+      preparedStatement.setString(1, age);
+      preparedStatement.setString(2, memberUser);
+      preparedStatement.executeUpdate();
+
+      preparedStatement.close();
+      connection.close();
+    } catch (SQLException e) {
+      throw new IllegalStateException("Cannot connect to the database!", e);
+    }
   }
 
   public static void setAddress(String a) {
+    addr = a;
 
+    try (Connection connection = DriverManager.getConnection(url, username, password)) {
+      PreparedStatement preparedStatement =
+        connection.prepareStatement("UPDATE directory address age = ? WHERE username = ?");
+
+      preparedStatement.setString(1, a);
+      preparedStatement.setString(2, memberUser);
+      preparedStatement.executeUpdate();
+
+      preparedStatement.close();
+      connection.close();
+    } catch (SQLException e) {
+      throw new IllegalStateException("Cannot connect to the database!", e);
+    }
   }
 
   public static void setPhone(String p) {
+    phone = p;
 
+    try (Connection connection = DriverManager.getConnection(url, username, password)) {
+      PreparedStatement preparedStatement =
+        connection.prepareStatement("UPDATE directory SET phone = ? WHERE username = ?");
+
+      preparedStatement.setString(1, p);
+      preparedStatement.setString(2, memberUser);
+      preparedStatement.executeUpdate();
+
+      preparedStatement.close();
+      connection.close();
+    } catch (SQLException e) {
+      throw new IllegalStateException("Cannot connect to the database!", e);
+    }
   }
 
   public static void setUser(String u) {
+    memberUser = u;
     //change username in makeres database
+
+    try (Connection connection = DriverManager.getConnection(url, username, password)) {
+      PreparedStatement preparedStatement =
+        connection.prepareStatement("UPDATE directory SET username = ? WHERE username = ?");
+
+      preparedStatement.setString(1, u);
+      preparedStatement.setString(2, memberUser);
+      preparedStatement.executeUpdate();
+      preparedStatement.close();
+      connection.close();
+
+      PreparedStatement preparedStatement2 =
+        connection.prepareStatement("UPDATE reservation SET username = ? WHERE username = ?");
+
+      preparedStatement2.setString(1, u);
+      preparedStatement2.setString(2, memberUser);
+      preparedStatement2.executeUpdate();
+      preparedStatement2.close();
+      connection.close();
+    } catch (SQLException e) {
+      throw new IllegalStateException("Cannot connect to the database!", e);
+    }
   }
 
   public static void setPass(String p) {
+    try (Connection connection = DriverManager.getConnection(url, username, password)) {
+      PreparedStatement preparedStatement =
+        connection.prepareStatement("UPDATE directory SET pword = ? WHERE username = ?");
 
+      preparedStatement.setString(1, p);
+      preparedStatement.setString(2, memberUser);
+      preparedStatement.executeUpdate();
+
+      preparedStatement.close();
+      connection.close();
+    } catch (SQLException e) {
+      throw new IllegalStateException("Cannot connect to the database!", e);
+    }
   }
 }
