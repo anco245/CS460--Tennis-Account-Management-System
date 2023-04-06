@@ -50,7 +50,7 @@ public class LoginController {
             if(Database.domain.equals("tennis.com")) {
               App.setRoot("ctscreen");
             } else if (Database.domain.equals("admin.com")) {
-              //App.setRoot("adminscreen");
+              App.setRoot("adminscreen");
             } else {
               App.setRoot("memscreen");
             }
