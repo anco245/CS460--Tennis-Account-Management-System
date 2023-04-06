@@ -38,6 +38,8 @@ public class SignUpController {
   @FXML
   private TextField fieldConPass;
   @FXML
+  private TextField fieldCoupon;
+  @FXML
   private TextField fieldEmail;
   @FXML
   private TextField fieldFName;
@@ -65,25 +67,18 @@ public class SignUpController {
     inputAge = fieldAge.getText();
     inputAddr = fieldAddress.getText();
     inputPhone = fieldPhone.getText();
-
     inputEmail = fieldEmail.getText();
     inputEmail = inputEmail.substring(0, inputEmail.length() - 4);
-
     inputUser = fieldUser.getText();
-
     inputPass = fieldPass.getText();
     inputConPass = fieldConPass.getText();
-
     inputShow = securitycheck.isSelected();
+    inputCoupon = fieldCoupon.getText();
 
-    //inputCoupon = fieldCoupon.getText();
-
-    /*
-    if(inputCoupon = "abcd")
+    if(inputCoupon.equals("abcd"))
     {
       inputOwe=-500;
     }
-     */
 
     if(inputPhone.length() == 10 && inputAge.length() > 0 && inputAge.length() < 4)
     {

@@ -32,12 +32,12 @@
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <Button fx:id="cancel" mnemonicParsing="false" onAction="#switchToLogin" text="Cancel" translateX="350.0" GridPane.rowIndex="10">
+            <Button fx:id="cancel" mnemonicParsing="false" onAction="#switchToLogin" text="Cancel" translateX="90.0" GridPane.columnIndex="1" GridPane.rowIndex="10">
                <font>
                   <Font size="18.0" />
                </font>
             </Button>
-            <Button fx:id="submit" mnemonicParsing="false" onAction="#toSubmit" text="Submit" translateX="90.0" GridPane.columnIndex="1" GridPane.rowIndex="10">
+            <Button fx:id="submit" mnemonicParsing="false" onAction="#toSubmit" text="Submit" GridPane.columnIndex="1" GridPane.rowIndex="10">
                <font>
                   <Font size="18.0" />
                </font>
@@ -101,6 +101,12 @@
             <TextField fx:id="fieldUser" translateX="-70.0" GridPane.columnIndex="1" GridPane.rowIndex="6" />
             <TextField fx:id="fieldPass" translateX="-70.0" GridPane.columnIndex="1" GridPane.rowIndex="7" />
             <TextField fx:id="fieldConPass" translateX="-70.0" GridPane.columnIndex="1" GridPane.rowIndex="8" />
+            <TextField fx:id="fieldCoupon" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="26.0" prefWidth="200.0" translateX="200.0" GridPane.rowIndex="10" />
+            <Label text="Enter Coupon:" translateX="80.0" GridPane.rowIndex="10">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
          </children>
       </GridPane>
     </children>

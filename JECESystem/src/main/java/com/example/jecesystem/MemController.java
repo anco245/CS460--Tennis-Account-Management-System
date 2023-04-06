@@ -21,6 +21,9 @@ public class MemController implements Initializable {
   @FXML
   private Text welcome;
 
+  @FXML
+  private Text oweMessage;
+
   @Override
   public void initialize(URL url, ResourceBundle rb) {
     String welcomeMessage = "Welcome " + Database.person + "!";
@@ -38,13 +41,11 @@ public class MemController implements Initializable {
       keep.setText(keepMessage);
     }
 
-    /*
     if(Database.owe > 0)
     {
-      String oweError = "You owe $" + owe;
+      String oweError = "You owe $" + Database.owe;
       oweMessage.setText(oweError);
     }
-     */
   }
 
   @FXML

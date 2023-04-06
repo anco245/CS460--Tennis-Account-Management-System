@@ -42,6 +42,7 @@
                   <Font name="Corbel" size="27.0" />
                </font>
             </Text>
+            <Text fx:id="oweMessage" strokeType="OUTSIDE" strokeWidth="0.0" translateX="50.0" GridPane.columnIndex="2" GridPane.rowIndex="5" />
          </children>
       </GridPane>
    </children>
