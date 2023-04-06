@@ -24,19 +24,42 @@ public class Database {
   public static boolean isLate = false;
   public static int owe = 0;
 
-
-  //If we need to edit data in the database, we'll need to overload this method for types datetime, int,
-  // and string, because this should be used for each piece of information in the database.
-  //This is just used for boolean values, for example for "verified" and "approved"
-  public static void edit(String toUpdate, boolean updateValue, String key)
-  {
+  public static void addSubOwe(String user, int amount) {
     try (Connection connection = DriverManager.getConnection(url, username, password)) {
+      PreparedStatement preparedStatement =
+        connection.prepareStatement("SELECT * FROM directory");
+
+      ResultSet resultSet = preparedStatement.executeQuery();
+
+      while(resultSet.next()) {
+        String uname = resultSet.getString("username");
+        int owe = resultSet.getInt("owe");
+
+        if(uname.equals(user))
+        {
+          PreparedStatement p2 =
+            connection.prepareStatement("UPDATE directory SET owe = ? WHERE username = ?");
+
+          owe = owe + amount;
+
+          p2.setInt(1, owe);
+          p2.setString(2, uname);
+
+          p2.executeUpdate();
+          p2.close();
+        }
+      }
+
+      preparedStatement.close();
+      resultSet.close();
+      connection.close();
 
     } catch (SQLException e) {
       throw new IllegalStateException("Cannot connect to the database!", e);
     }
   }
 
+  //Changes a member's late status to either true or false
   public static void late(String user, boolean isLate)
   {
     try (Connection connection = DriverManager.getConnection(url, username, password)) {
@@ -51,7 +74,6 @@ public class Database {
       }
 
       preparedStatement.setString(2, user);
-
       preparedStatement.executeUpdate();
 
       preparedStatement.close();
@@ -128,7 +150,7 @@ public class Database {
     }
   }
 
-  //Checks if account has been verified
+  //Checks if account has been verified given a member's username
   public static boolean verified(String u)
   {
     try (Connection connection = DriverManager.getConnection(url, username, password)) {
@@ -156,7 +178,6 @@ public class Database {
     }
   }
 
-
   //Removes a person's information from the database
   public static void delete(String u)
   {
@@ -174,7 +195,6 @@ public class Database {
       throw new IllegalStateException("Cannot connect to the database!", e);
     }
   }
-
 
   //Creates a new Account
   public static void nAccount(String fname, String lname, String age, String addr,
@@ -239,9 +259,9 @@ public class Database {
 
           person = first + " " + last;
 
-          String em = resultSet.getString("email");
           //Used for extracting the domain from the given email in the database
           //will give back @gmail.com, @admin.com, @tennis.com
+          String em = resultSet.getString("email");
           domain = em.substring(em.lastIndexOf("@") + 1);
 
           boolean latePay = resultSet.getBoolean("late");
@@ -257,7 +277,6 @@ public class Database {
       connection.close();
 
       return false;
-
     } catch (SQLException e) {
       throw new IllegalStateException("Cannot connect to the database!", e);
     }

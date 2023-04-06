@@ -39,10 +39,7 @@ public class MemController implements Initializable {
     }
 
     /*
-
-    int owe = Database.getOwe()
-
-    if(owe > 0)
+    if(Database.owe > 0)
     {
       String oweError = "You owe $" + owe;
       oweMessage.setText(oweError);
