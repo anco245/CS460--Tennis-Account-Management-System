@@ -103,6 +103,10 @@ public class ChairDirectoryController implements Initializable {
         boolean late = resultSet.getBoolean("late");
 
         Person person = new Person(userName, userAge, userAddr, userPhone, userEmail, shown, late, userUser, userPass);
+
+        person.notify.setOnAction(e -> table.refresh());
+        person.denotify.setOnAction(e -> table.refresh());
+
         list.add(person);
       }
 

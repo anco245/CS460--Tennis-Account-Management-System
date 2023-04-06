@@ -22,6 +22,7 @@ public class Database {
   public static boolean isShown = false;
   public static boolean verified = false;
   public static boolean isLate = false;
+  public static int owe = 0;
 
 
   //If we need to edit data in the database, we'll need to overload this method for types datetime, int,
@@ -174,25 +175,16 @@ public class Database {
     }
   }
 
-  //Gets all the data from each account, and puts it into a string
-  public static void getAll()
-  {
-    try (Connection connection = DriverManager.getConnection(url, username, password)) {
-
-    } catch (SQLException e) {
-      throw new IllegalStateException("Cannot connect to the database!", e);
-    }
-  }
-
 
   //Creates a new Account
   public static void nAccount(String fname, String lname, String age, String addr,
-                              String phone, String email, String u, String p, boolean sho) {
+                              String phone, String email, String u, String p,
+                              boolean sho, int o) {
     try (Connection connection = DriverManager.getConnection(url, username, password)) {
 
       PreparedStatement preparedStatement =
         connection.prepareStatement("INSERT INTO directory "
-          + "VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+          + "VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
 
       //Just makes the first letter of the person's first and last name capital
       String first = fname.substring(0, 1).toUpperCase() + fname.substring(1);
@@ -209,6 +201,9 @@ public class Database {
       preparedStatement.setBoolean(9, false);
       preparedStatement.setBoolean(10, sho);
       preparedStatement.setBoolean(11, false);
+      preparedStatement.setInt(12, 1000);
+
+      //if(coupon) preparedStatement.setInt(12, 500) else preparedStatement.setInt(12, 1000);
 
       preparedStatement.executeUpdate();
       preparedStatement.close();
@@ -236,23 +231,23 @@ public class Database {
 
         if(uname.equals(user) && pword.equals(pass))
         {
-          String em = resultSet.getString("email");
-
-          //Used for extracting the domain from the given email in the database
-          //will give back @gmail.com, @admin.com, @tennis.com
-          domain = em.substring(em.lastIndexOf("@") + 1);
-
-          isLate = resultSet.getBoolean("late");
-
           //makes it so that the first letters of the first and last name are capital
           String first = resultSet.getString("firstName").substring(0, 1).toUpperCase() +
             resultSet.getString("firstName").substring(1);
           String last = resultSet.getString("lastName").substring(0, 1).toUpperCase() +
             resultSet.getString("lastName").substring(1);
 
-          boolean latePay = resultSet.getBoolean("late");
-
           person = first + " " + last;
+
+          String em = resultSet.getString("email");
+          //Used for extracting the domain from the given email in the database
+          //will give back @gmail.com, @admin.com, @tennis.com
+          domain = em.substring(em.lastIndexOf("@") + 1);
+
+          boolean latePay = resultSet.getBoolean("late");
+          isLate = resultSet.getBoolean("late");
+          owe = resultSet.getInt("owe");
+          verified = resultSet.getBoolean("verified");
 
           return true;
         }

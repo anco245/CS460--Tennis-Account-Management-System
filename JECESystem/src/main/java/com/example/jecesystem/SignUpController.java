@@ -21,6 +21,10 @@ public class SignUpController {
   public static String inputAge = "";
   public static Boolean inputShow = false;
 
+  public static int inputOwe = 1000;
+
+  public static String inputCoupon = "";
+
   @FXML
   private Button cancel;
   @FXML
@@ -72,12 +76,21 @@ public class SignUpController {
 
     inputShow = securitycheck.isSelected();
 
+    //inputCoupon = fieldCoupon.getText();
+
+    /*
+    if(inputCoupon = "abcd")
+    {
+      inputOwe=-500;
+    }
+     */
+
     if(inputPhone.length() == 10 && inputAge.length() > 0 && inputAge.length() < 4)
     {
       if(inputConPass.equals(inputPass))
       {
         Database.nAccount(inputfName, inputlName, inputAge, inputAddr, inputPhone,
-          inputEmail, inputUser, inputPass, inputShow);
+          inputEmail, inputUser, inputPass, inputShow, inputOwe);
 
         System.out.println("Success");
       } else if(Database.inDatabase(inputUser)) {

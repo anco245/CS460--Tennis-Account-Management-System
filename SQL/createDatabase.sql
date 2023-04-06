@@ -13,7 +13,8 @@ CREATE TABLE directory (
     pword VARCHAR(50) NOT NULL,
     verified BOOLEAN NOT NULL,
     shown BOOLEAN NOT NULL,
-    late BOOLEAN NOT NULL
+    late BOOLEAN NOT NULL,
+    owe INT NOT NULL
 );
 
 CREATE TABLE reservation (
