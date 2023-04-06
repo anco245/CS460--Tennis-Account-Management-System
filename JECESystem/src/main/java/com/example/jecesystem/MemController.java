@@ -13,6 +13,9 @@ import java.time.LocalDateTime;
 public class MemController implements Initializable {
 
   @FXML
+  private Text keep;
+
+  @FXML
   private Text lateMessage;
 
   @FXML
@@ -26,6 +29,13 @@ public class MemController implements Initializable {
     if(Database.isLate) {
       String late = "You have overdue payments.";
       lateMessage.setText(late);
+    }
+
+    LocalDateTime now = LocalDateTime.now();
+    if (now.getMonthValue() == 10 && now.getDayOfMonth() == 1 && now.getHour() >= 0 && now.getMinute() >= 0) {
+      String keepMessage = "Do you want to continue your membership?\n" +
+        "Go to View Personal Information, and click\nContinue Membership";
+      keep.setText(keepMessage);
     }
   }
 
