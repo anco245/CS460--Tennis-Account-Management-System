@@ -26,7 +26,7 @@ public class MemController implements Initializable {
 
   @Override
   public void initialize(URL url, ResourceBundle rb) {
-    String welcomeMessage = "Welcome " + Database.person + "!";
+    String welcomeMessage = "Welcome " + Database.fName + " " + Database.lName + "!";
     welcome.setText(welcomeMessage);
 
     if(Database.isLate) {

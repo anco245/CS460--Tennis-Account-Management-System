@@ -4,11 +4,11 @@ import java.sql.*;
 
 public class Database {
 
+  //For accessing the database
   public static String username = "root";
   public static String password = "sqlpass";
   public static String url = "jdbc:mysql://localhost:3306/courtsystem";
 
-  public static String person = "";
   public static String fName = "";
   public static String lName = "";
   public static String domain = "";
@@ -250,12 +250,10 @@ public class Database {
         if(uname.equals(user) && pword.equals(pass))
         {
           //makes it so that the first letters of the first and last name are capital
-          String first = resultSet.getString("firstName").substring(0, 1).toUpperCase() +
+          fName = resultSet.getString("firstName").substring(0, 1).toUpperCase() +
             resultSet.getString("firstName").substring(1);
-          String last = resultSet.getString("lastName").substring(0, 1).toUpperCase() +
+          lName = resultSet.getString("lastName").substring(0, 1).toUpperCase() +
             resultSet.getString("lastName").substring(1);
-
-          person = first + " " + last;
 
           //Used for extracting the domain from the given email in the database
           //will give back gmail.com, admin.com, tennis.com
@@ -401,6 +399,8 @@ public class Database {
   }
 
   public static void setPass(String p) {
+    memberPass = p;
+
     try (Connection connection = DriverManager.getConnection(url, username, password)) {
       PreparedStatement preparedStatement =
         connection.prepareStatement("UPDATE directory SET pword = ? WHERE username = ?");
