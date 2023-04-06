@@ -1,5 +1,7 @@
 package com.example.jecesystem;
 
+import javafx.scene.control.Button;
+
 public class Person {
 
   String userName = "";
@@ -7,10 +9,14 @@ public class Person {
   String userAddress = "";
   String userPhone = "";
   String userEmail = "";
+  String userUser = "";
+  String userPass = "";
 
   //boolean isVerified = false;
   boolean isShown = false;
   boolean isLate = false;
+
+  Button notify = new Button();
 
   public Person(String name, String age, String address, String phone, String email) {
 
@@ -21,7 +27,7 @@ public class Person {
     this.userEmail = email;
   }
 
-  public Person(String name, String age, String address, String phone, String email, boolean s, boolean l) {
+  public Person(String name, String age, String address, String phone, String email, boolean s, boolean l, String user, String pass) {
 
     this.userName = name;
     this.userAge = age;
@@ -30,6 +36,11 @@ public class Person {
     this.userEmail = email;
     this.isShown = s;
     this.isLate = l;
+    this.userUser = user;
+    this.userPass = pass;
+    this.notify = new Button("notify");
+
+    notify.setOnAction(e -> Database.makeLate(userUser));
   }
 
   public void setName(String name) {
@@ -60,5 +71,17 @@ public class Person {
 
   public void setLate(boolean l) { isLate = l; }
   public boolean getLate() { return isLate; }
+
+  public void setNotify(Button b) {
+    this.notify = b;
+    this.notify.setOnAction(e -> Database.makeLate(this.userUser));
+  }
+  public Button getNotify() { return notify; }
+
+  public void setUser(String u) { userUser = u; }
+  public String getUser() { return userUser; }
+
+  public void setPass(String p) { userPass = p; }
+  public String getPass() { return userPass; }
 
 }

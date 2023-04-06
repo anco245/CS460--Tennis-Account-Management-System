@@ -57,8 +57,10 @@ public class LoginController {
 
          } else {
             //text.setText("Your account hasn't been verified by the chairmen yet.");
+            System.out.println("Your account hasn't been verified");
          }
       } else {
+        System.out.println("Wrong username and pass");
           //text.setText("Wrong Username and Password");
       }
   }

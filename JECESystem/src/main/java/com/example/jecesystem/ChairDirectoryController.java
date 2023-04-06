@@ -2,6 +2,7 @@ package com.example.jecesystem;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.TableColumn;
@@ -9,6 +10,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.Button;
 
+import java.io.IOException;
 import java.net.URL;
 import java.sql.*;
 import java.util.ResourceBundle;
@@ -34,6 +36,9 @@ public class ChairDirectoryController implements Initializable {
   private TableColumn<Person, Button> notify;
 
   @FXML
+  private TableColumn<Person, String> pass;
+
+  @FXML
   private TableColumn<Person, String> phone;
 
   @FXML
@@ -42,7 +47,15 @@ public class ChairDirectoryController implements Initializable {
   @FXML
   private TableView<Person> table;
 
+  @FXML
+  private TableColumn<Person, String> user;
+
   ObservableList<Person> list = FXCollections.observableArrayList();
+
+  @FXML
+  void backToHomescreen(ActionEvent event) throws IOException {
+      App.setRoot("ctscreen");
+  }
 
   @Override
   public void initialize(URL url, ResourceBundle rb) {
@@ -52,8 +65,11 @@ public class ChairDirectoryController implements Initializable {
     address.setCellValueFactory(new PropertyValueFactory<Person, String>("address"));
     phone.setCellValueFactory(new PropertyValueFactory<Person, String>("phone"));
     email.setCellValueFactory(new PropertyValueFactory<Person, String>("email"));
+    user.setCellValueFactory(new PropertyValueFactory<Person, String>("user"));
+    pass.setCellValueFactory(new PropertyValueFactory<Person, String>("pass"));
     late.setCellValueFactory(new PropertyValueFactory<Person, Boolean>("late"));
     shown.setCellValueFactory(new PropertyValueFactory<Person, Boolean>("shown"));
+    notify.setCellValueFactory(new PropertyValueFactory<Person, Button>("notify"));
 
     try (Connection connection = DriverManager.getConnection(Database.url, Database.username, Database.password)) {
 
@@ -74,12 +90,14 @@ public class ChairDirectoryController implements Initializable {
         String userAddr = resultSet.getString("address");
         String userPhone = resultSet.getString("phone");
         String userEmail = resultSet.getString("email") + ".com";;
+        String userUser = resultSet.getString("username");
+        String userPass = resultSet.getString("pword");
 
         boolean v = resultSet.getBoolean("verified");
         boolean shown = resultSet.getBoolean("shown");
         boolean late = resultSet.getBoolean("late");
 
-        Person person = new Person(userName, userAge, userAddr, userPhone, userEmail, shown, late);
+        Person person = new Person(userName, userAge, userAddr, userPhone, userEmail, shown, late, userUser, userPass);
         list.add(person);
       }
 

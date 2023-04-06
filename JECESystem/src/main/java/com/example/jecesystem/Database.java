@@ -36,6 +36,23 @@ public class Database {
     }
   }
 
+  public static void makeLate(String user)
+  {
+    try (Connection connection = DriverManager.getConnection(url, username, password)) {
+      PreparedStatement preparedStatement =
+        connection.prepareStatement("UPDATE directory SET late = ? WHERE username = ?");
+
+      preparedStatement.setBoolean(1, true);
+      preparedStatement.setString(2, user);
+
+      preparedStatement.executeUpdate();
+
+      preparedStatement.close();
+      connection.close();
+    } catch (SQLException e) {
+      throw new IllegalStateException("Cannot connect to the database!", e);
+    }
+  }
 
   //checks to see if a given username exists in the database
   public static boolean inDatabase (String user)
@@ -72,7 +89,7 @@ public class Database {
 
   //I just have it so that when pressed, it will approve all accounts
   //Need to make it so that you can select which ones you want to approve
-  public static void approve()
+  public static void approve(String u)
   {
     try (Connection connection = DriverManager.getConnection(url, username, password)) {
       PreparedStatement preparedStatement =
@@ -84,7 +101,7 @@ public class Database {
         String uname = resultSet.getString("username");
         boolean v = resultSet.getBoolean("verified");
 
-        if(!v)
+        if(uname.equals(u))
         {
           PreparedStatement p2 =
             connection.prepareStatement("UPDATE directory SET verified = ? WHERE username = ?");
