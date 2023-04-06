@@ -55,7 +55,7 @@
                   <Cursor fx:constant="OPEN_HAND" />
                </cursor>
             </Button>
-            <Label alignment="CENTER" contentDisplay="CENTER" text="Username/Email:" textFill="WHITE" translateY="-25.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+            <Label alignment="CENTER" contentDisplay="CENTER" text="Username:" textFill="WHITE" translateY="-25.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
                <font>
                   <Font name="Corbel" size="18.0" />
                </font>
@@ -65,7 +65,10 @@
                   <Font name="Corbel" size="18.0" />
                </font>
             </Label>
-            <Button mnemonicParsing="false" onAction="#toContactUs" prefHeight="34.0" prefWidth="133.0" text="Contact Us" translateX="195.0" translateY="-10.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+            <Button mnemonicParsing="false" onAction="#toContactUs" prefHeight="34.0" prefWidth="133.0" text="Contact Us" textFill="WHITE" translateX="195.0" translateY="-10.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
+               <font>
+                  <Font name="Corbel" size="18.0" />
+               </font></Button>
          </children>
          <VBox.margin>
             <Insets top="-40.0" />

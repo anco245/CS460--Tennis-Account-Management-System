@@ -14,12 +14,12 @@
             <TableColumn fx:id="address" prefWidth="179.0" text="Address" />
             <TableColumn fx:id="phone" prefWidth="86.0" text="Phone" />
             <TableColumn fx:id="email" minWidth="0.0" prefWidth="179.0" text="Email" />
-            <TableColumn fx:id="shown" minWidth="0.0" prefWidth="54.0" text="Shown" />
             <TableColumn fx:id="user" prefWidth="107.0" text="Username" />
             <TableColumn fx:id="pass" prefWidth="97.0" text="Password" />
+            <TableColumn fx:id="shown" minWidth="0.0" prefWidth="54.0" text="Shown" />
             <TableColumn fx:id="late" prefWidth="40.0" text="Late" />
             <TableColumn fx:id="notify" prefWidth="76.0" text="Notify" />
-            <TableColumn fx:id="denotify" prefWidth="76.0" text="Denotify" />
+            <TableColumn fx:id="denotify" prefWidth="72.0" text="Denotify" />
         </columns>
       </TableView>
       <Button layoutY="566.0" mnemonicParsing="false" onAction="#backToHomescreen" prefHeight="25.0" prefWidth="141.0" text="Back to Homescreen" />
