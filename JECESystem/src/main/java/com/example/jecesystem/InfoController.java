@@ -10,10 +10,15 @@ public class InfoController {
       - address
       - email
       - phone
-      - have late fees
-      - is shown
       - username
       - password
+
+      if username is changed
+      - change username in courtres database
+
+
+      - have late fees
+      - is shown
 
   cancel reservation
   cancel membership

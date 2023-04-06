@@ -24,6 +24,7 @@ public class Database {
   public static boolean isLate = false;
   public static int owe = 0;
 
+  //adds or subtracts amount owed
   public static void addSubOwe(String user, int amount) {
     try (Connection connection = DriverManager.getConnection(url, username, password)) {
       PreparedStatement preparedStatement =
@@ -280,5 +281,33 @@ public class Database {
     } catch (SQLException e) {
       throw new IllegalStateException("Cannot connect to the database!", e);
     }
+  }
+
+  public static void setFirstName(String first) {
+
+  }
+
+  public static void setLastName(String last) {
+
+  }
+
+  public static void setAge(String x) {
+
+  }
+
+  public static void setAddress(String a) {
+
+  }
+
+  public static void setPhone(String p) {
+
+  }
+
+  public static void setUser(String u) {
+    //change username in makeres database
+  }
+
+  public static void setPass(String p) {
+
   }
 }
