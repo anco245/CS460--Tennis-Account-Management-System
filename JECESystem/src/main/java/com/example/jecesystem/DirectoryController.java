@@ -2,12 +2,14 @@ package com.example.jecesystem;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 
+import java.io.IOException;
 import java.net.URL;
 import java.sql.*;
 import java.util.ResourceBundle;
@@ -36,8 +38,6 @@ public class DirectoryController implements Initializable {
 
   @Override
   public void initialize(URL url, ResourceBundle rb) {
-
-
     name.setCellValueFactory(new PropertyValueFactory<Person, String>("name"));
     age.setCellValueFactory(new PropertyValueFactory<Person, String>("age"));
     address.setCellValueFactory(new PropertyValueFactory<Person, String>("address"));
@@ -82,5 +82,10 @@ public class DirectoryController implements Initializable {
     } catch (SQLException e) {
       throw new IllegalStateException("Cannot connect to the database!", e);
     }
+  }
+
+  @FXML
+  void switchToHome(ActionEvent event) throws IOException {
+    App.setRoot("memscreen");
   }
 }

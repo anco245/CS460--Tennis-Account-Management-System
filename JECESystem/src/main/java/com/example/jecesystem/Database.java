@@ -36,13 +36,19 @@ public class Database {
     }
   }
 
-  public static void makeLate(String user)
+  public static void late(String user, boolean isLate)
   {
     try (Connection connection = DriverManager.getConnection(url, username, password)) {
       PreparedStatement preparedStatement =
         connection.prepareStatement("UPDATE directory SET late = ? WHERE username = ?");
 
-      preparedStatement.setBoolean(1, true);
+      if(isLate)
+      {
+        preparedStatement.setBoolean(1, true);
+      } else {
+        preparedStatement.setBoolean(1, false);
+      }
+
       preparedStatement.setString(2, user);
 
       preparedStatement.executeUpdate();

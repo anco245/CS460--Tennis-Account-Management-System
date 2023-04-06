@@ -18,6 +18,8 @@ public class Person {
 
   Button notify = new Button();
 
+  Button denotify = new Button();
+
   public Person(String name, String age, String address, String phone, String email) {
 
     this.userName = name;
@@ -27,7 +29,8 @@ public class Person {
     this.userEmail = email;
   }
 
-  public Person(String name, String age, String address, String phone, String email, boolean s, boolean l, String user, String pass) {
+  public Person(String name, String age, String address, String phone, String email, boolean s, boolean l,
+                String user, String pass) {
 
     this.userName = name;
     this.userAge = age;
@@ -39,8 +42,10 @@ public class Person {
     this.userUser = user;
     this.userPass = pass;
     this.notify = new Button("notify");
+    this.denotify = new Button("denotify");
 
-    notify.setOnAction(e -> Database.makeLate(userUser));
+    notify.setOnAction(e -> Database.late(userUser, true));
+    denotify.setOnAction(e -> Database.late(userUser, false));
   }
 
   public void setName(String name) {
@@ -74,9 +79,15 @@ public class Person {
 
   public void setNotify(Button b) {
     this.notify = b;
-    this.notify.setOnAction(e -> Database.makeLate(this.userUser));
+    this.notify.setOnAction(e -> Database.late(this.userUser, true));
   }
   public Button getNotify() { return notify; }
+
+  public void setDenotify(Button b) {
+    this.denotify = b;
+    this.denotify.setOnAction(e -> Database.late(this.userUser, false));
+  }
+  public Button getDenotify() { return denotify; }
 
   public void setUser(String u) { userUser = u; }
   public String getUser() { return userUser; }

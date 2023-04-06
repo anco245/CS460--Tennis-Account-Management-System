@@ -24,6 +24,10 @@ public class ChairDirectoryController implements Initializable {
   private TableColumn<Person, String> age;
 
   @FXML
+  private TableColumn<Person, Button> denotify;
+
+
+  @FXML
   private TableColumn<Person, String> email;
 
   @FXML
@@ -70,6 +74,7 @@ public class ChairDirectoryController implements Initializable {
     late.setCellValueFactory(new PropertyValueFactory<Person, Boolean>("late"));
     shown.setCellValueFactory(new PropertyValueFactory<Person, Boolean>("shown"));
     notify.setCellValueFactory(new PropertyValueFactory<Person, Button>("notify"));
+    denotify.setCellValueFactory(new PropertyValueFactory<Person, Button>("denotify"));
 
     try (Connection connection = DriverManager.getConnection(Database.url, Database.username, Database.password)) {
 
