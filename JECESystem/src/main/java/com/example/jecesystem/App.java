@@ -16,7 +16,7 @@ public class App extends Application {
   @Override
   public void start(Stage stage) throws IOException {
     //login.fxml is the first screen we see
-    scene = new Scene(loadFXML("login"), 1067, 600);
+    scene = new Scene(loadFXML("login"), 1280, 720);
     stage.setScene(scene);
     stage.show();
   }

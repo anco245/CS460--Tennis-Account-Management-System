@@ -10,3 +10,7 @@
 .text-area{
     -fx-background-radius: 20px;
 }
+
+.text {
+    -fx-font-family: 'Corbel';
+}

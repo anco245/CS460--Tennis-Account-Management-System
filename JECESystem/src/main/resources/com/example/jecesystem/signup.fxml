@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox alignment="CENTER" prefHeight="600.0" prefWidth="1067.0" spacing="20.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.jecesystem.SignUpController">
+<VBox alignment="CENTER" prefHeight="600.0" prefWidth="1067.0" spacing="20.0" stylesheets="@theme.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.jecesystem.SignUpController">
     <children>
       <GridPane prefHeight="818.0" prefWidth="1880.0">
         <columnConstraints>
