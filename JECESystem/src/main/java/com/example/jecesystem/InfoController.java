@@ -1,5 +1,12 @@
 package com.example.jecesystem;
 
+import javafx.event.ActionEvent;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
+
+import java.util.Optional;
+
 public class InfoController {
 
   /*
@@ -30,7 +37,21 @@ public class InfoController {
   Email for any questions: askquestion@tennis.com
      */
 
-// cancel reservation
+// cancel membership
 
-    public 
+    public void cancelMembership(ActionEvent event){
+
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle("Cancel Membership");
+        alert.setContentText(" Do you want to cancel your membership");
+        Optional<ButtonType> result = alert.showAndWait();
+
+        if(result.isEmpty()){
+            System.out.println("Closed");
+        } else if (result.get() == ButtonType.OK){
+            System.out.println(" You have canceled your membership");
+        } else if (result.get()== ButtonType.CANCEL){
+            System.out.println("No");
+        }
+    }
 }
