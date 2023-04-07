@@ -38,16 +38,16 @@
             <Button mnemonicParsing="false" onAction="#viewInfo" prefHeight="35.0" prefWidth="463.0" text="View Personal Information" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="4" />
             <Button mnemonicParsing="false" onAction="#contactUs" prefHeight="35.0" prefWidth="433.0" text="Contact Us" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="5" />
             <Button alignment="CENTER" mnemonicParsing="false" onAction="#switchToLogin" prefHeight="25.0" prefWidth="142.0" text="Back to Login" textFill="WHITE" translateX="145.0" GridPane.columnIndex="1" GridPane.rowIndex="7" />
-            <Text fx:id="welcome" strokeType="OUTSIDE" strokeWidth="0.0" translateX="50.0" GridPane.columnIndex="2" GridPane.rowIndex="2" />
-            <Text fx:id="lateMessage" strokeType="OUTSIDE" strokeWidth="0.0" translateX="50.0" GridPane.columnIndex="2" GridPane.rowIndex="3" />
-            <Text fx:id="keep" strokeType="OUTSIDE" strokeWidth="0.0" translateX="50.0" GridPane.columnIndex="2" GridPane.rowIndex="4" />
             <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Messages" translateX="160.0" underline="true" GridPane.columnIndex="2" GridPane.rowIndex="1">
                <font>
                   <Font name="Corbel" size="27.0" />
                </font>
             </Text>
-            <Text fx:id="oweMessage" strokeType="OUTSIDE" strokeWidth="0.0" translateX="50.0" GridPane.columnIndex="2" GridPane.rowIndex="5" />
             <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="282.0" stroke="BLACK" strokeType="INSIDE" translateX="90.0" translateY="40.0" width="249.0" GridPane.columnIndex="2" GridPane.rowIndex="3" />
+            <Text fx:id="welcome" strokeType="OUTSIDE" strokeWidth="0.0" translateX="50.0" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+            <Text fx:id="lateMessage" strokeType="OUTSIDE" strokeWidth="0.0" translateX="50.0" GridPane.columnIndex="2" GridPane.rowIndex="3" />
+            <Text fx:id="keep" strokeType="OUTSIDE" strokeWidth="0.0" translateX="50.0" GridPane.columnIndex="2" GridPane.rowIndex="4" />
+            <Text fx:id="oweMessage" strokeType="OUTSIDE" strokeWidth="0.0" translateX="50.0" GridPane.columnIndex="2" GridPane.rowIndex="5" />
          </children>
       </GridPane>
    </children>
