@@ -1,5 +1,8 @@
 package com.example.jecesystem;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
 import java.sql.*;
 
 public class Database {
@@ -22,6 +25,49 @@ public class Database {
   public static boolean verified = false;
   public static boolean isLate = false;
   public static int owe = 0;
+
+  
+  //Resets the database to initial values
+  public static void reset()
+  {
+    try (Connection connection = DriverManager.getConnection(url, username, password)) {
+
+      // Read the SQL script file
+      FileReader fileReader = new FileReader("C:\\Users\\johnc\\OneDrive\\Documents\\GitHub\\CS460-Project\\SQL\\createDatabase.sql");
+      FileReader fileReader2 = new FileReader("C:\\Users\\johnc\\OneDrive\\Documents\\GitHub\\CS460-Project\\SQL\\insertValues.sql");
+
+      // Create a Statement object from the database connection
+      Statement statement = connection.createStatement();
+
+      // Execute the SQL statements in the script
+      BufferedReader bufferedReader = new BufferedReader(fileReader);
+      String line;
+      while ((line = bufferedReader.readLine()) != null) {
+
+        System.out.println(line);
+        if(!line.equals("")) {
+          statement.execute(line);
+        }
+      }
+
+      BufferedReader bufferedReader2 = new BufferedReader(fileReader2);
+      while ((line = bufferedReader2.readLine()) != null) {
+        System.out.println(line);
+        if(!line.equals("")) {
+          statement.execute(line);
+        }
+      }
+
+      // Close the Statement and database connection
+      statement.close();
+      connection.close();
+
+    } catch (SQLException e) {
+      throw new IllegalStateException("Cannot connect to the database!", e);
+    } catch (IOException e) {
+      throw new RuntimeException(e);
+    }
+  }
 
   //adds or subtracts amount owed
   public static void addSubOwe(String user, int amount) {
