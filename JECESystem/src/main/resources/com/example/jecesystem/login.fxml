@@ -56,12 +56,12 @@
                   <Cursor fx:constant="OPEN_HAND" />
                </cursor>
             </Button>
-            <Label alignment="CENTER" contentDisplay="CENTER" text="Username:" textFill="WHITE" translateY="-25.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+            <Label alignment="CENTER" contentDisplay="CENTER" text="Username:" translateY="-25.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
                <font>
                   <Font name="Corbel" size="18.0" />
                </font>
             </Label>
-            <Label text="Password:" textFill="WHITE" translateY="-25.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
+            <Label text="Password:" translateY="-25.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
                <font>
                   <Font name="Corbel" size="18.0" />
                </font>
