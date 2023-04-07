@@ -13,12 +13,8 @@
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
-<VBox alignment="CENTER" prefHeight="720" prefWidth="1280" spacing="20.0" stylesheets="@theme.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.jecesystem.LoginController">
+<VBox alignment="CENTER" prefHeight="720" prefWidth="1280" spacing="20.0" stylesheets="@theme.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.jecesystem.LoginController">
    <children>
-      <Rectangle arcHeight="40.0" arcWidth="40.0" fill="#d9d9d9e6" height="521.0" opacity="0.28" stroke="BLACK" strokeType="INSIDE" translateY="200.0" width="569.0" VBox.vgrow="NEVER">
-         <effect>
-            <InnerShadow />
-         </effect></Rectangle>
       <GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="519.0" prefWidth="572.0" translateY="-300.0" VBox.vgrow="ALWAYS">
         <columnConstraints>
           <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
@@ -74,6 +70,10 @@
             <Insets top="-40.0" />
          </VBox.margin>
       </GridPane>
+      <Rectangle arcHeight="40.0" arcWidth="40.0" fill="#d9d9d9e6" height="521.0" opacity="0.28" stroke="BLACK" strokeType="INSIDE" translateY="200.0" width="569.0" VBox.vgrow="NEVER">
+         <effect>
+            <InnerShadow />
+         </effect></Rectangle>
    </children>
    <padding>
       <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />

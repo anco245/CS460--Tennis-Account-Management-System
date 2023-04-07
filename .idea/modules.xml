@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/CS460-Project.iml" filepath="$PROJECT_DIR$/.idea/CS460-Project.iml" />
+      <module fileurl="file://$PROJECT_DIR$/JECESystem/JECESystem.iml" filepath="$PROJECT_DIR$/JECESystem/JECESystem.iml" />
       <module fileurl="file://$PROJECT_DIR$/../../javafx-sdk-19.0.2.1/lib/lib.iml" filepath="$PROJECT_DIR$/../../javafx-sdk-19.0.2.1/lib/lib.iml" />
     </modules>
   </component>

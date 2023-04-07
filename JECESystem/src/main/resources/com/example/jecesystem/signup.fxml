@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox alignment="CENTER" prefHeight="600.0" prefWidth="1067.0" spacing="20.0" stylesheets="@theme.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.jecesystem.SignUpController">
+<VBox alignment="CENTER" prefHeight="600.0" prefWidth="1067.0" spacing="20.0" stylesheets="@theme.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.jecesystem.SignUpController">
     <children>
       <GridPane prefHeight="818.0" prefWidth="1880.0">
         <columnConstraints>
@@ -52,7 +52,7 @@
                   <Font size="18.0" />
                </font>
             </Label>
-            <Label text="Birthday: --/--/--" translateX="300.0" GridPane.rowIndex="2">
+            <Label text="Birthday:" translateX="300.0" GridPane.rowIndex="2">
                <font>
                   <Font size="18.0" />
                </font>
@@ -67,7 +67,7 @@
                   <Font size="18.0" />
                </font>
             </Label>
-            <Label text="Phone Number: --- --- ----" translateX="200.0" GridPane.rowIndex="5">
+            <Label text="Phone Number: " translateX="200.0" GridPane.rowIndex="5">
                <font>
                   <Font size="18.0" />
                </font>
@@ -92,12 +92,12 @@
                   <Font size="18.0" />
                </font>
             </CheckBox>
-            <TextField fx:id="fieldAge" translateX="-70.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <TextField fx:id="fieldAge" promptText="mm/dd/yyyy" translateX="-70.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
             <TextField fx:id="fieldLName" translateX="-70.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
             <TextField fx:id="fieldAddress" translateX="-70.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
             <TextField fx:id="fieldFName" translateX="-70.0" GridPane.columnIndex="1" />
             <TextField fx:id="fieldEmail" translateX="-70.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-            <TextField fx:id="fieldPhone" translateX="-70.0" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+            <TextField fx:id="fieldPhone" promptText="(---)--- ----" translateX="-70.0" GridPane.columnIndex="1" GridPane.rowIndex="5" />
             <TextField fx:id="fieldUser" translateX="-70.0" GridPane.columnIndex="1" GridPane.rowIndex="6" />
             <TextField fx:id="fieldPass" translateX="-70.0" GridPane.columnIndex="1" GridPane.rowIndex="7" />
             <TextField fx:id="fieldConPass" translateX="-70.0" GridPane.columnIndex="1" GridPane.rowIndex="8" />
