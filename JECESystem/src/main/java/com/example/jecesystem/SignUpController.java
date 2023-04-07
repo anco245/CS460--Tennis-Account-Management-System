@@ -77,10 +77,10 @@ public class SignUpController {
 
     if(inputCoupon.equals("abcd"))
     {
-      inputOwe=-500;
+      inputOwe=500;
     }
 
-    if(inputPhone.length() == 10 && inputAge.length() > 0 && inputAge.length() < 4)
+    if(inputPhone.length() == 10)
     {
       if(inputConPass.equals(inputPass))
       {
