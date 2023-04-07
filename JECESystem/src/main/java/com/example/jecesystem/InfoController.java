@@ -1,10 +1,12 @@
 package com.example.jecesystem;
 
 import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 
+import java.io.IOException;
 import java.util.Optional;
 
 public class InfoController {
@@ -54,4 +56,9 @@ public class InfoController {
             System.out.println("No");
         }
     }
+
+  @FXML
+  void switchToHomescreen(ActionEvent event) throws IOException {
+      App.setRoot("memscreen");
+  }
 }

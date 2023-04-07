@@ -12,6 +12,7 @@ public class Database {
   public static String password = "sqlpass";
   public static String url = "jdbc:mysql://localhost:3306/courtsystem";
 
+  //To hold current user's information
   public static String fName = "";
   public static String lName = "";
   public static String domain = "";
@@ -25,6 +26,7 @@ public class Database {
   public static boolean verified = false;
   public static boolean isLate = false;
   public static int owe = 0;
+  public static int guests = 0;
 
 
   //Resets the database to initial values
@@ -44,7 +46,7 @@ public class Database {
       BufferedReader bufferedReader = new BufferedReader(fileReader);
       String line;
       while ((line = bufferedReader.readLine()) != null) {
-        
+
         //if current line is blank, skip it,
         //otherwise will get cannot read empty statement error
         if(!line.equals("")) {
@@ -73,6 +75,40 @@ public class Database {
     }
   }
 
+  public static void addSubGuests(String user, int num) {
+    try (Connection connection = DriverManager.getConnection(url, username, password)) {
+      PreparedStatement preparedStatement =
+        connection.prepareStatement("SELECT * FROM directory");
+
+      ResultSet resultSet = preparedStatement.executeQuery();
+
+      while(resultSet.next()) {
+        String uname = resultSet.getString("username");
+        guests = resultSet.getInt("guests");
+
+        if(uname.equals(user))
+        {
+          PreparedStatement p2 =
+            connection.prepareStatement("UPDATE directory SET guests = ? WHERE username = ?");
+
+          guests = guests + num;
+
+          p2.setInt(1, guests);
+          p2.setString(2, uname);
+
+          p2.executeUpdate();
+          p2.close();
+        }
+      }
+
+      preparedStatement.close();
+      resultSet.close();
+      connection.close();
+    } catch (SQLException e) {
+      throw new IllegalStateException("Cannot connect to the database!", e);
+    }
+  }
+
   //adds or subtracts amount owed
   public static void addSubOwe(String user, int amount) {
     try (Connection connection = DriverManager.getConnection(url, username, password)) {
@@ -83,7 +119,7 @@ public class Database {
 
       while(resultSet.next()) {
         String uname = resultSet.getString("username");
-        int owe = resultSet.getInt("owe");
+        owe = resultSet.getInt("owe");
 
         if(uname.equals(user))
         {
@@ -103,7 +139,6 @@ public class Database {
       preparedStatement.close();
       resultSet.close();
       connection.close();
-
     } catch (SQLException e) {
       throw new IllegalStateException("Cannot connect to the database!", e);
     }

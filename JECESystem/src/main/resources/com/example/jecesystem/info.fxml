@@ -8,8 +8,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.shape.Rectangle?>
 
-
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" stylesheets="@theme.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.jecesystem.InfoController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" stylesheets="@theme.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.jecesystem.InfoController">
    <children>
       <GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0">
         <columnConstraints>
@@ -52,8 +51,8 @@
             <Label text="Label" GridPane.rowIndex="6" />
             <Label text="Label" GridPane.rowIndex="4" />
             <Label text="Label" GridPane.rowIndex="5" />
-            <Button mnemonicParsing="false" text="Button" GridPane.rowIndex="13" />
-            <Button mnemonicParsing="false" text="Button" GridPane.columnIndex="2" GridPane.rowIndex="13" />
+            <Button mnemonicParsing="false" onAction="#switchToHomescreen" text="Back to Homescreen" GridPane.rowIndex="13" />
+            <Button mnemonicParsing="false" text="Cancel Membership" GridPane.columnIndex="2" GridPane.rowIndex="13" />
             <Label text="Label" GridPane.columnIndex="1" GridPane.rowIndex="1" />
             <Label text="Label" GridPane.columnIndex="1" GridPane.rowIndex="6" />
             <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="200.0" stroke="BLACK" strokeType="INSIDE" width="200.0" GridPane.columnIndex="2" GridPane.rowIndex="6" />

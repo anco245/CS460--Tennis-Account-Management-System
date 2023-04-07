@@ -54,8 +54,8 @@ public class MemController implements Initializable {
   }
 
   @FXML
-  void addGuest(ActionEvent event) {
-    //App.setRoot("addguest");
+  void addGuest(ActionEvent event) throws IOException {
+    App.setRoot("addguest");
   }
 
   @FXML
