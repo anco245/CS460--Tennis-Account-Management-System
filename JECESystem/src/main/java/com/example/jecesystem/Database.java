@@ -16,12 +16,12 @@ public class Database {
   public static String addr = "";
   public static String phone = "";
   public static String email = "";
+  public static String memberUser = "";
+  public static String memberPass = "";
   public static boolean isShown = false;
   public static boolean verified = false;
   public static boolean isLate = false;
   public static int owe = 0;
-  public static String memberUser = "";
-  public static String memberPass = "";
 
   //adds or subtracts amount owed
   public static void addSubOwe(String user, int amount) {
