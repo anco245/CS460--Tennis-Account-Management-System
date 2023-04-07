@@ -5,23 +5,33 @@
 <?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.effect.InnerShadow?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
-<VBox alignment="CENTER" prefHeight="600.0" prefWidth="1067.0" spacing="20.0" stylesheets="@theme.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.jecesystem.SignUpController">
+<VBox alignment="CENTER" maxHeight="720.0" maxWidth="1280.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720" prefWidth="1280" spacing="20.0" stylesheets="@theme.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.jecesystem.SignUpController">
     <children>
-      <GridPane prefHeight="818.0" prefWidth="1880.0">
+      <Rectangle arcHeight="40.0" arcWidth="40.0" fill="#d9d9d9" height="640.0" opacity="0.28" stroke="BLACK" strokeType="INSIDE" translateY="370.0" width="780.0">
+         <effect>
+            <InnerShadow />
+         </effect>
+      </Rectangle>
+      <GridPane minHeight="-Infinity" prefHeight="720.0" prefWidth="1280.0" translateY="-330.0">
         <columnConstraints>
           <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
           <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
         </columnConstraints>
         <rowConstraints>
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
@@ -32,81 +42,87 @@
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <Button fx:id="cancel" mnemonicParsing="false" onAction="#switchToLogin" text="Cancel" translateX="90.0" GridPane.columnIndex="1" GridPane.rowIndex="10">
+            <Button fx:id="cancel" mnemonicParsing="false" onAction="#switchToLogin" text="Cancel" textFill="WHITE" translateX="200.0" GridPane.columnIndex="1" GridPane.rowIndex="12">
                <font>
                   <Font size="18.0" />
                </font>
             </Button>
-            <Button fx:id="submit" mnemonicParsing="false" onAction="#toSubmit" text="Submit" GridPane.columnIndex="1" GridPane.rowIndex="10">
+            <Button fx:id="submit" mnemonicParsing="false" onAction="#toSubmit" text="Submit" textFill="WHITE" translateX="100.0" GridPane.columnIndex="1" GridPane.rowIndex="12">
                <font>
                   <Font size="18.0" />
                </font>
             </Button>
-            <Label text="First Name:" translateX="325.0">
+            <Label text="First Name:" translateX="300.0" GridPane.rowIndex="1">
                <font>
                   <Font size="18.0" />
                </font>
             </Label>
-            <Label text="Last Name:" translateX="325.0" GridPane.rowIndex="1">
+            <Label text="Last Name:" translateX="300.0" GridPane.rowIndex="2">
                <font>
                   <Font size="18.0" />
                </font>
             </Label>
-            <Label text="Birthday:" translateX="300.0" GridPane.rowIndex="2">
+            <Label text="Birthday:" translateX="300.0" GridPane.rowIndex="3">
                <font>
                   <Font size="18.0" />
                </font>
             </Label>
-            <Label text="Address:" translateX="325.0" GridPane.rowIndex="3">
+            <Label text="Address:" translateX="300.0" GridPane.rowIndex="5">
                <font>
                   <Font size="18.0" />
                </font>
             </Label>
-            <Label text="Email:" translateX="325.0" GridPane.rowIndex="4">
+            <Label text="Email:" translateX="300.0" GridPane.rowIndex="6">
                <font>
                   <Font size="18.0" />
                </font>
             </Label>
-            <Label text="Phone Number: " translateX="200.0" GridPane.rowIndex="5">
+            <Label text="Phone Number: " translateX="300.0" GridPane.rowIndex="7">
                <font>
                   <Font size="18.0" />
                </font>
             </Label>
-            <Label text="Username:" translateX="325.0" GridPane.rowIndex="6">
+            <Label text="Username:" translateX="300.0" GridPane.rowIndex="8">
                <font>
                   <Font size="18.0" />
                </font>
             </Label>
-            <Label text="Password:" translateX="325.0" GridPane.rowIndex="7">
+            <Label text="Password:" translateX="300.0" GridPane.rowIndex="9">
                <font>
                   <Font size="18.0" />
                </font>
             </Label>
-            <Label text="Confirm Password:" translateX="275.0" GridPane.rowIndex="8">
+            <Label text="Confirm Password:" translateX="300.0" GridPane.rowIndex="10">
                <font>
                   <Font size="18.0" />
                </font>
             </Label>
-            <CheckBox fx:id="securitycheck" mnemonicParsing="false" text="I would like my info to be displayed in the public directory" translateX="250.0" GridPane.rowIndex="9">
+            <CheckBox fx:id="securitycheck" mnemonicParsing="false" text="I would like my info to be displayed in the public directory" translateX="462.0" GridPane.rowIndex="11">
                <font>
                   <Font size="18.0" />
                </font>
             </CheckBox>
-            <TextField fx:id="fieldAge" promptText="mm/dd/yyyy" translateX="-70.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-            <TextField fx:id="fieldLName" translateX="-70.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-            <TextField fx:id="fieldAddress" translateX="-70.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-            <TextField fx:id="fieldFName" translateX="-70.0" GridPane.columnIndex="1" />
-            <TextField fx:id="fieldEmail" translateX="-70.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-            <TextField fx:id="fieldPhone" promptText="(---)--- ----" translateX="-70.0" GridPane.columnIndex="1" GridPane.rowIndex="5" />
-            <TextField fx:id="fieldUser" translateX="-70.0" GridPane.columnIndex="1" GridPane.rowIndex="6" />
-            <TextField fx:id="fieldPass" translateX="-70.0" GridPane.columnIndex="1" GridPane.rowIndex="7" />
-            <TextField fx:id="fieldConPass" translateX="-70.0" GridPane.columnIndex="1" GridPane.rowIndex="8" />
-            <TextField fx:id="fieldCoupon" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="26.0" prefWidth="200.0" translateX="200.0" GridPane.rowIndex="10" />
-            <Label text="Enter Coupon:" translateX="80.0" GridPane.rowIndex="10">
+            <TextField fx:id="fieldAge" maxWidth="320.0" prefWidth="550.0" promptText="mm/dd/yyyy" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+            <TextField fx:id="fieldLName" maxWidth="320.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <TextField fx:id="fieldAddress" maxWidth="320.0" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+            <TextField fx:id="fieldFName" maxWidth="320.0" prefHeight="25.0" prefWidth="571.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <TextField fx:id="fieldEmail" maxWidth="320.0" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+            <TextField fx:id="fieldPhone" maxWidth="320.0" promptText="(---)--- ----" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+            <TextField fx:id="fieldUser" maxWidth="320.0" GridPane.columnIndex="1" GridPane.rowIndex="8" />
+            <TextField fx:id="fieldPass" maxWidth="320.0" GridPane.columnIndex="1" GridPane.rowIndex="9" />
+            <TextField fx:id="fieldConPass" maxWidth="320.0" GridPane.columnIndex="1" GridPane.rowIndex="10" />
+            <TextField fx:id="fieldCoupon" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="26.0" prefWidth="200.0" translateX="400.0" GridPane.rowIndex="12" />
+            <Label text="Enter Coupon:" translateX="300.0" GridPane.rowIndex="12">
                <font>
                   <Font size="18.0" />
                </font>
             </Label>
+            <Label text="Age:" translateX="300.0" GridPane.rowIndex="4">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+            <TextField fx:id="fieldAddress1" maxWidth="320.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
          </children>
       </GridPane>
     </children>

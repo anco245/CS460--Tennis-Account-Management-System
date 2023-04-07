@@ -13,13 +13,18 @@
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
-<VBox alignment="CENTER" prefHeight="720" prefWidth="1280" spacing="20.0" stylesheets="@theme.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.jecesystem.LoginController">
+<VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720" prefWidth="1280" spacing="20.0" stylesheets="@theme.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.jecesystem.LoginController">
    <children>
-      <GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="519.0" prefWidth="572.0" translateY="-300.0" VBox.vgrow="ALWAYS">
+      <Rectangle arcHeight="40.0" arcWidth="40.0" fill="#d9d9d9e5" height="521.0" opacity="0.28" stroke="BLACK" strokeType="INSIDE" translateY="250.0" width="569.0">
+         <effect>
+            <InnerShadow />
+         </effect>
+      </Rectangle>
+      <GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="519.0" prefWidth="572.0" translateY="-250.0" VBox.vgrow="ALWAYS">
         <columnConstraints>
-          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
-            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="300.0" />
-          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="133.0" minWidth="10.0" prefWidth="107.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="356.0" minWidth="10.0" prefWidth="350.0" />
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="156.0" minWidth="10.0" prefWidth="106.0" />
         </columnConstraints>
         <rowConstraints>
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
@@ -29,13 +34,13 @@
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <TextField fx:id="usernameBox" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="38.0" prefWidth="328.0" translateY="10.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-            <TextField fx:id="passwordBox" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="38.0" prefWidth="328.0" translateY="10.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
+            <TextField fx:id="usernameBox" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="38.0" prefWidth="350.0" translateY="10.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <TextField fx:id="passwordBox" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="38.0" prefWidth="350.0" translateY="10.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
                <GridPane.margin>
                   <Insets />
                </GridPane.margin>
             </TextField>
-            <Button fx:id="signup" mnemonicParsing="false" onAction="#switchToSignUp" text="Sign Up" textFill="WHITE" translateX="115.0" translateY="-30.0" GridPane.rowIndex="4">
+            <Button fx:id="signup" mnemonicParsing="false" onAction="#switchToSignUp" prefHeight="34.0" prefWidth="133.0" text="Sign Up" textFill="WHITE" translateX="115.0" translateY="-30.0" GridPane.rowIndex="4">
                <font>
                   <Font name="Corbel" size="18.0" />
                </font>
@@ -70,10 +75,6 @@
             <Insets top="-40.0" />
          </VBox.margin>
       </GridPane>
-      <Rectangle arcHeight="40.0" arcWidth="40.0" fill="#d9d9d9e6" height="521.0" opacity="0.28" stroke="BLACK" strokeType="INSIDE" translateY="200.0" width="569.0" VBox.vgrow="NEVER">
-         <effect>
-            <InnerShadow />
-         </effect></Rectangle>
    </children>
    <padding>
       <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
