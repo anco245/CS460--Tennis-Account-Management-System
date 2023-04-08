@@ -11,7 +11,6 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.Optional;
 import java.util.ResourceBundle;
-
 import java.time.LocalDateTime;
 
 public class MemController implements Initializable {
@@ -25,9 +24,11 @@ public class MemController implements Initializable {
   @FXML
   private Text welcome;
 
-  @FXML
-  private Text oweMessage;
-
+  /*
+    Initializes all variables needed when using the homescreen.
+    For example, if there's a message that needs to be displayed,
+    the corresponding variable is given that text.
+   */
   @Override
   public void initialize(URL url, ResourceBundle rb) {
 
@@ -74,11 +75,14 @@ public class MemController implements Initializable {
       keep.setText(keepMessage);
     }
 
+    /*
+      If it's march 2nd, and this user still hasn't paid their
+      annual membership, then their account is penalized.
+     */
     if(now.getMonthValue() == 3 && now.getDayOfMonth() == 2)
     {
       if(Database.isLate && !Database.penalized)
       {
-        Database.late(Database.memberUser, true);
         Database.addSubOwe(Database.memberUser, 1050);
         Database.setPenalized(Database.memberUser, true);
       }

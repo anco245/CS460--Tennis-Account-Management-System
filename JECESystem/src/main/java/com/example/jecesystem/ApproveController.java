@@ -9,7 +9,6 @@ package com.example.jecesystem;
   import javafx.scene.control.TableColumn;
   import javafx.scene.control.TableView;
   import javafx.scene.control.cell.PropertyValueFactory;
-
   import java.io.IOException;
   import java.net.URL;
   import java.sql.*;
@@ -104,8 +103,8 @@ public class ApproveController implements Initializable {
 
       preparedStatement.close();
       resultSet.close();
-
       table.setItems(list);
+
     } catch (SQLException e) {
       throw new RuntimeException(e);
     }

@@ -5,14 +5,9 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.Scene;
 import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.ComboBox;
-import javafx.scene.layout.VBox;
-import javafx.stage.Stage;
-
 import java.io.IOException;
 import java.net.URL;
 import java.util.Optional;
@@ -23,15 +18,14 @@ public class AddGuestController implements Initializable {
     @FXML
     private ComboBox<Integer> numOfGuests;
 
-    @FXML
-    private Button submit;
-
     ObservableList list = FXCollections.observableArrayList();
 
     @Override
-    public void initialize(URL url, ResourceBundle rb) {
+    public void initialize(URL url, ResourceBundle rb)
+    {
       loadData();
     }
+
     private void loadData() {
       list.removeAll(list);
 
@@ -62,7 +56,7 @@ public class AddGuestController implements Initializable {
         error.showAndWait();
       } else if (Database.guests == 6) {
         error.setTitle("Reached limit");
-        error.setContentText("You can't add any more guest for the month.");
+        error.setContentText("You can't add any more guests for the month.");
         error.showAndWait();
       } else {
         con.setTitle("Adding a Guest");

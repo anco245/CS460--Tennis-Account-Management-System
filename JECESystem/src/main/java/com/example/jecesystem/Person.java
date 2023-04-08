@@ -6,33 +6,24 @@ import java.io.IOException;
 
 public class Person {
 
+  Button notify = new Button();
+  Button denotify = new Button();
+  Button approve = new Button();
+  Button reject = new Button();
   String userName = "";
-  int userAge = 0;
   String userAddress = "";
   String userPhone = "";
   String userEmail = "";
   String userUser = "";
   String userPass = "";
-
-  //boolean isVerified = false;
   boolean isShown = false;
   boolean isLate = false;
-
   boolean penalized = false;
   boolean keep = true;
-
+  int userAge = 0;
   int owe = 0;
 
-  Button notify = new Button();
-
-  Button denotify = new Button();
-
-  Button approve = new Button();
-
-  Button reject = new Button();
-
   public Person(String name, int age, String address, String phone, String email) {
-
     this.userName = name;
     this.userAge = age;
     this.userAddress = address;
@@ -136,6 +127,21 @@ public class Person {
   public void setLate(boolean l) { isLate = l; }
   public boolean getLate() { return isLate; }
 
+  public void setUser(String u) { userUser = u; }
+  public String getUser() { return userUser; }
+
+  public void setPass(String p) { userPass = p; }
+  public String getPass() { return userPass; }
+
+  public void setPenalized(boolean p) { penalized = p; }
+  public boolean getPenalized() { return penalized; }
+
+  public void setKeep(boolean k) { keep = k; }
+  public boolean getKeep() { return keep; }
+
+  public void setOwe(int o) { owe = o; }
+  public int getOwe() { return owe; }
+
   public void setNotify(Button b) {
     this.notify = b;
     this.notify.setOnAction(e -> Database.late(this.userUser, true));
@@ -158,22 +164,5 @@ public class Person {
     this.reject = b;
     this.reject.setOnAction(e -> Database.delete(this.userUser));
   }
-  public Button getReject() { return notify; }
-
-  public void setUser(String u) { userUser = u; }
-  public String getUser() { return userUser; }
-
-  public void setPass(String p) { userPass = p; }
-  public String getPass() { return userPass; }
-
-  public void setPenalized(boolean p) { penalized = p; }
-  public boolean getPenalized() { return penalized; }
-
-  public void setKeep(boolean k) { keep = k; }
-  public boolean getKeep() { return keep; }
-
-  public void setOwe(int o) { owe = o; }
-  public int getOwe() { return owe; }
-
-
+  public Button getReject() { return reject; }
 }

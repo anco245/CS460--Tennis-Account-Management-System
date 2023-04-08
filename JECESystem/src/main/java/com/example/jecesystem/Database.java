@@ -39,8 +39,8 @@ public class Database {
   {
     try (Connection connection = DriverManager.getConnection(url, username, password)) {
 
-      // Read the SQL script file
-      //need to change on your own system
+      //Reads the SQL script file
+      //need to change path to the sql scripts on your own system
       FileReader fileReader = new FileReader("C:\\Users\\johnc\\OneDrive\\Documents\\GitHub\\CS460-Project\\SQL\\createDatabase.sql");
       FileReader fileReader2 = new FileReader("C:\\Users\\johnc\\OneDrive\\Documents\\GitHub\\CS460-Project\\SQL\\insertValues.sql");
 
@@ -52,18 +52,19 @@ public class Database {
       String line;
       while ((line = bufferedReader.readLine()) != null) {
 
-        //if current line is blank, skip it,
-        //otherwise will get cannot read empty statement error
+        //if current line is blank, this skips it,
+        //otherwise will get "cannot read empty statement" error
         if(!line.equals("")) {
           statement.execute(line);
         }
       }
 
+      //This is for reading second script
       BufferedReader bufferedReader2 = new BufferedReader(fileReader2);
       while ((line = bufferedReader2.readLine()) != null) {
 
-        //if current line is blank, skip it,
-        //otherwise will get cannot read empty statement error
+        //if current line is blank, this skip it,
+        //otherwise will get "cannot read empty statement" error
         if(!line.equals("")) {
           statement.execute(line);
         }
@@ -71,8 +72,6 @@ public class Database {
 
       // Close the Statement and database connection
       statement.close();
-      connection.close();
-
     } catch (SQLException e) {
       throw new IllegalStateException("Cannot connect to the database!", e);
     } catch (IOException e) {
@@ -91,7 +90,6 @@ public class Database {
       preparedStatement.executeUpdate();
 
       preparedStatement.close();
-      connection.close();
     } catch (SQLException e) {
       throw new IllegalStateException("Cannot connect to the database!", e);
     }
@@ -108,7 +106,6 @@ public class Database {
       preparedStatement.executeUpdate();
 
       preparedStatement.close();
-      connection.close();
     } catch (SQLException e) {
       throw new IllegalStateException("Cannot connect to the database!", e);
     }
@@ -121,9 +118,6 @@ public class Database {
 
       ResultSet resultSet = preparedStatement.executeQuery();
 
-      System.out.println(memberUser);
-      System.out.println(num);
-
       while(resultSet.next()) {
         String uname = resultSet.getString("username");
         guests = resultSet.getInt("guests");
@@ -135,8 +129,6 @@ public class Database {
 
           guests = guests + num;
 
-          System.out.println(guests);
-
           p2.setInt(1, guests);
           p2.setString(2, memberUser);
 
@@ -147,7 +139,6 @@ public class Database {
 
       preparedStatement.close();
       resultSet.close();
-      connection.close();
     } catch (SQLException e) {
       throw new IllegalStateException("Cannot connect to the database!", e);
     }
@@ -182,7 +173,6 @@ public class Database {
 
       preparedStatement.close();
       resultSet.close();
-      connection.close();
     } catch (SQLException e) {
       throw new IllegalStateException("Cannot connect to the database!", e);
     }
@@ -206,7 +196,6 @@ public class Database {
       preparedStatement.executeUpdate();
 
       preparedStatement.close();
-      connection.close();
     } catch (SQLException e) {
       throw new IllegalStateException("Cannot connect to the database!", e);
     }
@@ -229,7 +218,6 @@ public class Database {
           preparedStatement.close();
           resultSet.close();
           connection.close();
-
           return true;
         }
       }
@@ -237,7 +225,6 @@ public class Database {
       preparedStatement.close();
       resultSet.close();
       connection.close();
-
       return false;
     } catch (SQLException e) {
       throw new IllegalStateException("Cannot connect to the database!", e);
@@ -255,7 +242,6 @@ public class Database {
       preparedStatement.setBoolean(1, true);
       preparedStatement.setString(2, u);
 
-
       preparedStatement.executeUpdate();
       preparedStatement.close();
     } catch (SQLException e) {
@@ -272,18 +258,15 @@ public class Database {
         connection.prepareStatement("SELECT verified FROM directory WHERE username = ?");
 
       preparedStatement.setString(1, u);
-
       ResultSet resultSet = preparedStatement.executeQuery();
 
       boolean v = false;
-
       if(resultSet.next())
         v = resultSet.getBoolean("verified");
 
       preparedStatement.close();
       resultSet.close();
       connection.close();
-
       return v;
 
     } catch (SQLException e) {
@@ -344,7 +327,6 @@ public class Database {
 
       preparedStatement.executeUpdate();
       preparedStatement.close();
-
     } catch (SQLException e) {
       throw new IllegalStateException("Cannot connect to the database!", e);
     }
@@ -375,8 +357,8 @@ public class Database {
           lName = resultSet.getString("lastName").substring(0, 1).toUpperCase() +
             resultSet.getString("lastName").substring(1);
 
-          //Used for extracting the domain from the given email in the database
-          //will give back gmail.com, admin.com, tennis.com
+          //Used for extracting the extension from the given email in the database
+          //Gives back gmail.com, admin.com, tennis.com
           email = resultSet.getString("email");
           domain = email.substring(email.lastIndexOf("@") + 1);
 
@@ -394,11 +376,12 @@ public class Database {
           return true;
         }
       }
+
       preparedStatement.close();
       resultSet.close();
       connection.close();
-
       return false;
+
     } catch (SQLException e) {
       throw new IllegalStateException("Cannot connect to the database!", e);
     }
@@ -416,7 +399,6 @@ public class Database {
       preparedStatement.executeUpdate();
 
       preparedStatement.close();
-      connection.close();
     } catch (SQLException e) {
       throw new IllegalStateException("Cannot connect to the database!", e);
     }
@@ -434,7 +416,6 @@ public class Database {
       preparedStatement.executeUpdate();
 
       preparedStatement.close();
-      connection.close();
     } catch (SQLException e) {
       throw new IllegalStateException("Cannot connect to the database!", e);
     }
@@ -452,7 +433,6 @@ public class Database {
       preparedStatement.executeUpdate();
 
       preparedStatement.close();
-      connection.close();
     } catch (SQLException e) {
       throw new IllegalStateException("Cannot connect to the database!", e);
     }
@@ -470,7 +450,6 @@ public class Database {
       preparedStatement.executeUpdate();
 
       preparedStatement.close();
-      connection.close();
     } catch (SQLException e) {
       throw new IllegalStateException("Cannot connect to the database!", e);
     }
@@ -488,7 +467,6 @@ public class Database {
       preparedStatement.executeUpdate();
 
       preparedStatement.close();
-      connection.close();
     } catch (SQLException e) {
       throw new IllegalStateException("Cannot connect to the database!", e);
     }
@@ -496,9 +474,10 @@ public class Database {
 
   public static void setUser(String u) {
     memberUser = u;
-    //change username in makeres database
 
     try (Connection connection = DriverManager.getConnection(url, username, password)) {
+
+      //For directory database
       PreparedStatement preparedStatement =
         connection.prepareStatement("UPDATE directory SET username = ? WHERE username = ?");
 
@@ -508,6 +487,7 @@ public class Database {
       preparedStatement.close();
       connection.close();
 
+      //For reservation database
       PreparedStatement preparedStatement2 =
         connection.prepareStatement("UPDATE reservation SET username = ? WHERE username = ?");
 
@@ -515,7 +495,6 @@ public class Database {
       preparedStatement2.setString(2, memberUser);
       preparedStatement2.executeUpdate();
       preparedStatement2.close();
-      connection.close();
     } catch (SQLException e) {
       throw new IllegalStateException("Cannot connect to the database!", e);
     }
@@ -533,7 +512,6 @@ public class Database {
       preparedStatement.executeUpdate();
 
       preparedStatement.close();
-      connection.close();
     } catch (SQLException e) {
       throw new IllegalStateException("Cannot connect to the database!", e);
     }

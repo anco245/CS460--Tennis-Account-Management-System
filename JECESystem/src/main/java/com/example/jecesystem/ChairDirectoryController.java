@@ -9,7 +9,6 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.Button;
-
 import java.io.IOException;
 import java.net.URL;
 import java.sql.*;
@@ -130,5 +129,4 @@ public class ChairDirectoryController implements Initializable {
       throw new IllegalStateException("Cannot connect to the database!", e);
     }
   }
-
 }
