@@ -49,6 +49,15 @@ public class ChairDirectoryController implements Initializable {
   private TableColumn<Person, Boolean> shown;
 
   @FXML
+  private TableColumn<Person, Boolean> keep;
+
+  @FXML
+  private TableColumn<Person, Integer> owe;
+
+  @FXML
+  private TableColumn<Person, Boolean> penalized;
+
+  @FXML
   private TableView<Person> table;
 
   @FXML
@@ -75,6 +84,9 @@ public class ChairDirectoryController implements Initializable {
     shown.setCellValueFactory(new PropertyValueFactory<Person, Boolean>("shown"));
     notify.setCellValueFactory(new PropertyValueFactory<Person, Button>("notify"));
     denotify.setCellValueFactory(new PropertyValueFactory<Person, Button>("denotify"));
+    keep.setCellValueFactory(new PropertyValueFactory<Person, Boolean>("keep"));
+    penalized.setCellValueFactory(new PropertyValueFactory<Person, Boolean>("penalized"));
+    owe.setCellValueFactory(new PropertyValueFactory<Person, Integer>("owe"));
 
     try (Connection connection = DriverManager.getConnection(Database.url, Database.username, Database.password)) {
 
@@ -91,6 +103,7 @@ public class ChairDirectoryController implements Initializable {
 
         String userName = first + " " + last;
         int userAge = resultSet.getInt("age");
+        int userOwe = resultSet.getInt("owe");
         String userAddr = resultSet.getString("address");
         String userPhone = resultSet.getString("phone");
         String userEmail = resultSet.getString("email") + ".com";;
@@ -99,8 +112,11 @@ public class ChairDirectoryController implements Initializable {
 
         boolean shown = resultSet.getBoolean("shown");
         boolean late = resultSet.getBoolean("late");
+        boolean keep = resultSet.getBoolean("keepAccount");
+        boolean penalized = resultSet.getBoolean("penalized");
 
-        Person person = new Person(userName, userAge, userAddr, userPhone, userEmail, shown, late, userUser, userPass);
+        Person person = new Person(userName, userAge, userAddr, userPhone, userEmail, shown, late, penalized,
+          userOwe, userUser, userPass, keep);
 
         list.add(person);
       }

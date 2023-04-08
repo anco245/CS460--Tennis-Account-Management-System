@@ -54,6 +54,7 @@ public class AddGuestController implements Initializable {
       Alert con = new Alert(Alert.AlertType.CONFIRMATION);
       Alert error = new Alert(Alert.AlertType.ERROR);
 
+      //Need to somehow have it reset the first of every month
       if((Database.guests + getGuests) > 6)
       {
         error.setTitle("Reached limit");

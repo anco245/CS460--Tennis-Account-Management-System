@@ -18,6 +18,11 @@ public class Person {
   boolean isShown = false;
   boolean isLate = false;
 
+  boolean penalized = false;
+  boolean keep = true;
+
+  int owe = 0;
+
   Button notify = new Button();
 
   Button denotify = new Button();
@@ -35,8 +40,8 @@ public class Person {
     this.userEmail = email;
   }
 
-  public Person(String name, int age, String address, String phone, String email, boolean s, boolean l,
-                String user, String pass) {
+  public Person(String name, int age, String address, String phone, String email, boolean s,
+                boolean l, boolean p, int o, String user, String pass, boolean k) {
 
     this.userName = name;
     this.userAge = age;
@@ -49,6 +54,9 @@ public class Person {
     this.userPass = pass;
     this.notify = new Button("notify");
     this.denotify = new Button("denotify");
+    this.penalized = p;
+    this.keep = k;
+    this.owe = o;
 
     notify.setOnAction(e -> {
       try {
@@ -157,5 +165,15 @@ public class Person {
 
   public void setPass(String p) { userPass = p; }
   public String getPass() { return userPass; }
+
+  public void setPenalized(boolean p) { penalized = p; }
+  public boolean getPenalized() { return penalized; }
+
+  public void setKeep(boolean k) { keep = k; }
+  public boolean getKeep() { return keep; }
+
+  public void setOwe(int o) { owe = o; }
+  public int getOwe() { return owe; }
+
 
 }
