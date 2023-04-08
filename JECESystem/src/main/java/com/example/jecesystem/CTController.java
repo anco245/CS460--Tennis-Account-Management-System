@@ -31,7 +31,7 @@ public class CTController implements Initializable {
 
   @FXML
   void remove(ActionEvent event) throws IOException {
-    //App.setRoot("remove");
+    App.setRoot("remove");
   }
 
   @FXML

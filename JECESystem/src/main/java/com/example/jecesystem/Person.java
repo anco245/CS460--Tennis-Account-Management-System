@@ -90,7 +90,7 @@ public class Person {
 
     reject.setOnAction(e -> {
       try {
-        Database.delete(userUser);
+        Database.deleteFromRes(userUser);
         App.setRoot("approve");
       } catch (IOException ex) {
         throw new RuntimeException(ex);
@@ -162,7 +162,7 @@ public class Person {
 
   public void setReject(Button b) {
     this.reject = b;
-    this.reject.setOnAction(e -> Database.delete(this.userUser));
+    this.reject.setOnAction(e -> Database.deleteFromDir(this.userUser));
   }
   public Button getReject() { return reject; }
 }

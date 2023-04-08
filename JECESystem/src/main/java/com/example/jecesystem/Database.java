@@ -202,7 +202,7 @@ public class Database {
   }
 
   //checks to see if a given username exists in the database
-  public static boolean inDatabase (String user)
+  public static boolean inDirectory (String user)
   {
     try (Connection connection = DriverManager.getConnection(url, username, password)) {
       PreparedStatement preparedStatement =
@@ -215,6 +215,36 @@ public class Database {
 
         if(uname.equals(user))
         {
+          preparedStatement.close();
+          resultSet.close();
+          connection.close();
+          return true;
+        }
+      }
+
+      preparedStatement.close();
+      resultSet.close();
+      connection.close();
+      return false;
+    } catch (SQLException e) {
+      throw new IllegalStateException("Cannot connect to the database!", e);
+    }
+  }
+
+  public static boolean inReservation (String user)
+  {
+    try (Connection connection = DriverManager.getConnection(url, username, password)) {
+      PreparedStatement preparedStatement =
+        connection.prepareStatement("SELECT * FROM reservation");
+
+      ResultSet resultSet = preparedStatement.executeQuery();
+
+      while(resultSet.next()) {
+        String uname = resultSet.getString("username");
+
+        if(uname == null) {
+          return false;
+        } else if (uname.equals(user)) {
           preparedStatement.close();
           resultSet.close();
           connection.close();
@@ -275,12 +305,29 @@ public class Database {
   }
 
   //Removes a person's information from the database
-  public static void delete(String u)
+  public static void deleteFromDir(String u)
   {
     try (Connection connection = DriverManager.getConnection(url, username, password)) {
 
       PreparedStatement preparedStatement =
         connection.prepareStatement("DELETE FROM directory WHERE username = ?");
+
+      preparedStatement.setString(1, u);
+
+      preparedStatement.executeUpdate();
+      preparedStatement.close();
+
+    } catch (SQLException e) {
+      throw new IllegalStateException("Cannot connect to the database!", e);
+    }
+  }
+
+  public static void deleteFromRes(String u)
+  {
+    try (Connection connection = DriverManager.getConnection(url, username, password)) {
+
+      PreparedStatement preparedStatement =
+        connection.prepareStatement("DELETE FROM reservation WHERE username = ?");
 
       preparedStatement.setString(1, u);
 

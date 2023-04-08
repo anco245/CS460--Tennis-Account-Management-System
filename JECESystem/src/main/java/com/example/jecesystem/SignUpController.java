@@ -87,7 +87,7 @@ public class SignUpController {
       error.setContentText("Phone number has to be 10 digits\n" +
         "Try again.");
       error.showAndWait();
-    } else if (Database.inDatabase(inputUser)) {
+    } else if (Database.inDirectory(inputUser)) {
       error.setTitle("Error");
       error.setContentText("Username already taken.\n" +
         "Try again.");
