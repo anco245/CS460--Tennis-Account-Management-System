@@ -6,13 +6,16 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.ComboBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class AddGuestController implements Initializable {
@@ -44,16 +47,42 @@ public class AddGuestController implements Initializable {
     }
 
     @FXML
-    void toSubmit(ActionEvent event) {
+    void toSubmit(ActionEvent event) throws IOException {
 
-      int guests = numOfGuests.getValue();
+      int getGuests = numOfGuests.getValue();
 
-      Database.addSubGuests(Database.memberUser, guests);
+      Alert con = new Alert(Alert.AlertType.CONFIRMATION);
+      Alert error = new Alert(Alert.AlertType.ERROR);
+
+      if((Database.guests + getGuests) > 6)
+      {
+        error.setTitle("Reached limit");
+        error.setContentText("You're " + ((Database.guests + getGuests) - 6) + " guests over your limit for the month.");
+        error.showAndWait();
+      } else if (Database.guests == 6) {
+        error.setTitle("Reached limit");
+        error.setContentText("You can't add any more guest for the month.");
+        error.showAndWait();
+      } else {
+        con.setTitle("Adding a Guest");
+        con.setContentText("You will be adding " + getGuests + " guests.\n" +
+          "This will add a fee of $" + (getGuests * 10) + " to your account.\n" +
+          "You will be allowed " + (6 - getGuests) + " more guests for the month.\n" +
+          "Do you want to continue?");
+
+        Optional<ButtonType> result = con.showAndWait();
+        if (result.isPresent() && result.get() == ButtonType.OK) {
+
+          Database.addSubGuests(getGuests);
+          Database.addSubOwe(Database.memberUser, getGuests * 10);
+
+          App.setRoot("memscreen");
+        }
+      }
     }
 
     @FXML
     void switchToHomescreen(ActionEvent event) throws IOException {
       App.setRoot("memscreen");
-
     }
 }

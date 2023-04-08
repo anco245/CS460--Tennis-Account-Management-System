@@ -75,26 +75,31 @@ public class Database {
     }
   }
 
-  public static void addSubGuests(String user, int num) {
+  public static void addSubGuests(int num) {
     try (Connection connection = DriverManager.getConnection(url, username, password)) {
       PreparedStatement preparedStatement =
         connection.prepareStatement("SELECT * FROM directory");
 
       ResultSet resultSet = preparedStatement.executeQuery();
 
+      System.out.println(memberUser);
+      System.out.println(num);
+
       while(resultSet.next()) {
         String uname = resultSet.getString("username");
         guests = resultSet.getInt("guests");
 
-        if(uname.equals(user))
+        if(uname.equals(memberUser))
         {
           PreparedStatement p2 =
             connection.prepareStatement("UPDATE directory SET guests = ? WHERE username = ?");
 
           guests = guests + num;
 
+          System.out.println(guests);
+
           p2.setInt(1, guests);
-          p2.setString(2, uname);
+          p2.setString(2, memberUser);
 
           p2.executeUpdate();
           p2.close();
@@ -129,7 +134,7 @@ public class Database {
           owe = owe + amount;
 
           p2.setInt(1, owe);
-          p2.setString(2, uname);
+          p2.setString(2, memberUser);
 
           p2.executeUpdate();
           p2.close();
@@ -321,6 +326,8 @@ public class Database {
 
         if(uname.equals(user) && pword.equals(pass))
         {
+          memberUser = user;
+
           //makes it so that the first letters of the first and last name are capital
           fName = resultSet.getString("firstName").substring(0, 1).toUpperCase() +
             resultSet.getString("firstName").substring(1);
@@ -339,6 +346,7 @@ public class Database {
           age = resultSet.getInt("age");
           addr = resultSet.getString("address");
           phone = resultSet.getString("phone");
+          guests = resultSet.getInt("guests");
 
           return true;
         }

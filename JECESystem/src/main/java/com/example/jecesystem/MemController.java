@@ -64,8 +64,8 @@ public class MemController implements Initializable {
   }
 
   @FXML
-  void makeRes(ActionEvent event) {
-    //App.setRoot("makeres");
+  void makeRes(ActionEvent event) throws IOException {
+    App.setRoot("makeres");
   }
 
   @FXML
