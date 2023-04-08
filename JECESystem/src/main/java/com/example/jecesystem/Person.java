@@ -7,7 +7,7 @@ import java.io.IOException;
 public class Person {
 
   String userName = "";
-  String userAge = "";
+  int userAge = 0;
   String userAddress = "";
   String userPhone = "";
   String userEmail = "";
@@ -26,7 +26,7 @@ public class Person {
 
   Button reject = new Button();
 
-  public Person(String name, String age, String address, String phone, String email) {
+  public Person(String name, int age, String address, String phone, String email) {
 
     this.userName = name;
     this.userAge = age;
@@ -35,7 +35,7 @@ public class Person {
     this.userEmail = email;
   }
 
-  public Person(String name, String age, String address, String phone, String email, boolean s, boolean l,
+  public Person(String name, int age, String address, String phone, String email, boolean s, boolean l,
                 String user, String pass) {
 
     this.userName = name;
@@ -69,7 +69,7 @@ public class Person {
     });
   }
 
-  public Person(String name, String age, String address, String phone, String email, String u, String p, boolean s) {
+  public Person(String name, int age, String address, String phone, String email, String u, String p, boolean s) {
 
     this.userName = name;
     this.userAge = age;
@@ -104,10 +104,10 @@ public class Person {
   }
   public String getName() { return userName; }
 
-  public void setAge(String age) {
+  public void setAge(int age) {
     userAge = age;
   }
-  public String getAge() { return userAge; }
+  public int getAge() { return userAge; }
 
   public void setAddress(String address) {
     userAddress = address;

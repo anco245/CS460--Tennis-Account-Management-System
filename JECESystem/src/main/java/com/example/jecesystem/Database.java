@@ -16,7 +16,7 @@ public class Database {
   public static String fName = "";
   public static String lName = "";
   public static String domain = "";
-  public static String age = "";
+  public static int age = 0;
   public static String addr = "";
   public static String phone = "";
   public static String email = "";
@@ -266,7 +266,7 @@ public class Database {
   }
 
   //Creates a new Account
-  public static void nAccount(String fname, String lname, String age, String addr,
+  public static void nAccount(String fname, String lname, int age, String addr,
                               String phone, String email, String u, String p,
                               boolean sho, int o) {
     try (Connection connection = DriverManager.getConnection(url, username, password)) {
@@ -281,7 +281,7 @@ public class Database {
 
       preparedStatement.setString(1, first);
       preparedStatement.setString(2, last);
-      preparedStatement.setString(3, age);
+      preparedStatement.setInt(3, age);
       preparedStatement.setString(4, addr);
       preparedStatement.setString(5, phone);
       preparedStatement.setString(6, email);
@@ -336,7 +336,7 @@ public class Database {
           isLate = resultSet.getBoolean("late");
           owe = resultSet.getInt("owe");
           verified = resultSet.getBoolean("verified");
-          age = resultSet.getString("age");
+          age = resultSet.getInt("age");
           addr = resultSet.getString("address");
           phone = resultSet.getString("phone");
 
@@ -389,14 +389,14 @@ public class Database {
     }
   }
 
-  public static void setAge(String x) {
+  public static void setAge(int x) {
     age = x;
 
     try (Connection connection = DriverManager.getConnection(url, username, password)) {
       PreparedStatement preparedStatement =
         connection.prepareStatement("UPDATE directory SET age = ? WHERE username = ?");
 
-      preparedStatement.setString(1, age);
+      preparedStatement.setInt(1, age);
       preparedStatement.setString(2, memberUser);
       preparedStatement.executeUpdate();
 

@@ -1,6 +1,7 @@
 package com.example.jecesystem;
 
 import javafx.event.*;
+import javafx.scene.control.Alert;
 import javafx.scene.text.Text;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -40,6 +41,9 @@ public class LoginController {
       name = usernameBox.getText();
       pass = passwordBox.getText();
 
+      Alert info = new Alert(Alert.AlertType.INFORMATION);
+      Alert error = new Alert(Alert.AlertType.ERROR);
+
       //If the username and password match an account
       //in the database then check if that entry is verified
       if(Database.login(name, pass))
@@ -56,12 +60,16 @@ public class LoginController {
             }
 
          } else {
-            //text.setText("Your account hasn't been verified by the chairmen yet.");
-            System.out.println("Your account hasn't been verified");
+            info.setTitle("Need to be Verified");
+            info.setContentText("Your account hasn't been verified yet.\n You have to " +
+              "wait until the chairman approves your account before logging in.");
+            info.showAndWait();
          }
       } else {
-        System.out.println("Wrong username and pass");
-          //text.setText("Wrong Username and Password");
+        error.setTitle("Cannot log in");
+        error.setContentText("Wrong username or password.\n" +
+          "Try again.");
+        error.showAndWait();
       }
   }
 }

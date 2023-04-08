@@ -21,7 +21,7 @@ public class ApproveController implements Initializable {
   private TableColumn<Person, String> address;
 
   @FXML
-  private TableColumn<Person, String> age;
+  private TableColumn<Person, Integer> age;
 
   @FXML
   private TableColumn<Person, Button> approve;
@@ -61,7 +61,7 @@ public class ApproveController implements Initializable {
   public void initialize(URL url, ResourceBundle resourceBundle) {
 
     name.setCellValueFactory(new PropertyValueFactory<Person, String>("name"));
-    age.setCellValueFactory(new PropertyValueFactory<Person, String>("age"));
+    age.setCellValueFactory(new PropertyValueFactory<Person, Integer>("age"));
     address.setCellValueFactory(new PropertyValueFactory<Person, String>("address"));
     phone.setCellValueFactory(new PropertyValueFactory<Person, String>("phone"));
     email.setCellValueFactory(new PropertyValueFactory<Person, String>("email"));
@@ -88,7 +88,7 @@ public class ApproveController implements Initializable {
             resultSet.getString("lastName").substring(1);
 
           String userName = first + " " + last;
-          String userAge = resultSet.getString("age");
+          int userAge = resultSet.getInt("age");
           String userAddr = resultSet.getString("address");
           String userPhone = resultSet.getString("phone");
           String userEmail = resultSet.getString("email") + ".com";

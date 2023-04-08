@@ -48,12 +48,7 @@ public class AddGuestController implements Initializable {
 
       int guests = numOfGuests.getValue();
 
-      //Error if no value selected and submit is pressed
-
-      //Pop up screen to confirm
-
-
-
+      Database.addSubGuests(Database.memberUser, guests);
     }
 
     @FXML

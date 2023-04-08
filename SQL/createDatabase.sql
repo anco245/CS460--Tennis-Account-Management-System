@@ -5,7 +5,7 @@ USE courtsystem;
 CREATE TABLE directory (
 	firstName VARCHAR(50) NOT NULL,
 	lastName VARCHAR(50) NOT NULL,
-	age VARCHAR(5) NOT NULL,
+	age int NOT NULL,
 	address VARCHAR(60) NOT NULL,
 	phone VARCHAR(50) NOT NULL,
 	email VARCHAR(50) NOT NULL,
@@ -26,6 +26,26 @@ CREATE TABLE reservation (
     FOREIGN KEY (username) REFERENCES directory(username) 
 		ON DELETE CASCADE
 );
+
+/*
+CREATE TABLE waiting (
+	firstName VARCHAR(50) NOT NULL,
+	lastName VARCHAR(50) NOT NULL,
+	age VARCHAR(5) NOT NULL,
+	address VARCHAR(60) NOT NULL,
+	phone VARCHAR(50) NOT NULL,
+	email VARCHAR(50) NOT NULL,
+	username VARCHAR(50) NOT NULL PRIMARY KEY,
+	pword VARCHAR(50) NOT NULL,
+	verified BOOLEAN NOT NULL,
+	shown BOOLEAN NOT NULL,
+	late BOOLEAN NOT NULL,
+	owe INT NOT NULL,
+    guests INT NOT NULL,
+    FOREIGN KEY (username) REFERENCES directory(username) 
+		ON DELETE CASCADE
+);
+*/
 
 INSERT INTO reservation (courtNum, isRes) VALUES (1, FALSE);
 

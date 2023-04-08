@@ -1,6 +1,7 @@
 package com.example.jecesystem;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.TextField;
@@ -18,7 +19,7 @@ public class SignUpController {
   public static String inputAddr = "";
   public static String inputEmail = "";
   public static String inputPhone = "";
-  public static String inputAge = "";
+  public static int inputAge = 0;
   public static Boolean inputShow = false;
 
   public static int inputOwe = 1000;
@@ -62,9 +63,13 @@ public class SignUpController {
 
   @FXML
   void toSubmit(ActionEvent event) throws IOException {
+
+    Alert info = new Alert(Alert.AlertType.INFORMATION);
+    Alert error = new Alert(Alert.AlertType.ERROR);
+
     inputfName = fieldFName.getText();
     inputlName = fieldLName.getText();
-    inputAge = fieldAge.getText();
+    inputAge = Integer.parseInt(fieldAge.getText());
     inputAddr = fieldAddress.getText();
     inputPhone = fieldPhone.getText();
     inputEmail = fieldEmail.getText();
@@ -75,28 +80,51 @@ public class SignUpController {
     inputShow = securitycheck.isSelected();
     inputCoupon = fieldCoupon.getText();
 
-    if(inputCoupon.equals("abcd"))
-    {
-      inputOwe=500;
-    }
+    /*
+      - need valid coupon code
+      - need error for wrong coupon code
+      - error for invalid email
+      - error for pass
+     */
 
-    if(inputPhone.length() == 10)
-    {
-      if(inputConPass.equals(inputPass))
-      {
-        Database.nAccount(inputfName, inputlName, inputAge, inputAddr, inputPhone,
-          inputEmail, inputUser, inputPass, inputShow, inputOwe);
 
-        System.out.println("Success");
-      } else if(Database.inDatabase(inputUser)) {
-        System.out.println("already taken");//text.setText("Username already taken. Enter a new one.");
-      } else {
-        System.out.println("Username and pass don't match");
-        //text.setText("Username and password don't match");
-      }
+    if(inputAge < 0 || inputAge > 200)
+    {
+      error.setTitle("Error");
+      error.setContentText("Age must be between 0 and 200\n" +
+        "Try again.");
+      error.showAndWait();
+    } else if (inputPhone.length() != 10) {
+      error.setTitle("Error");
+      error.setContentText("Phone number has to be 10 digits\n" +
+        "Try again.");
+      error.showAndWait();
+    } else if (Database.inDatabase(inputUser)) {
+      error.setTitle("Error");
+      error.setContentText("Username already taken.\n" +
+        "Try again.");
+      error.showAndWait();
+    } else if (inputPass.length() < 4) {
+      error.setTitle("Error");
+      error.setContentText("Password needs to be at least 4 characters.\n" +
+        "Try again.");
+      error.showAndWait();
+    } else if (!inputConPass.equals(inputPass)) {
+      error.setTitle("Error");
+      error.setContentText("Passwords don't match.\n" +
+        "Try again.");
+      error.showAndWait();
     } else {
-      System.out.println("Phone is not 10");
-      //text.setText("Phone number isn't 10 characters");
+      Database.nAccount(inputfName, inputlName, inputAge, inputAddr, inputPhone,
+        inputEmail, inputUser, inputPass, inputShow, inputOwe);
+
+      info.setTitle("Success");
+      info.setContentText("Your account has been created!\n" +
+        "You won't be able to log in until the chairman approves" +
+        "your account.");
+      info.showAndWait();
+
+      App.setRoot("login");
     }
   }
 }
