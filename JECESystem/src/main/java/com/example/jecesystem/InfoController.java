@@ -37,6 +37,13 @@ public class InfoController {
   Phone Number for Main Desk: 215-436-2231
   Phone Number for Technical Support: 215-663-2133
   Email for any questions: askquestion@tennis.com
+
+  if(Database.owe > 0)
+    {
+      String oweError = "You owe $" + Database.owe;
+      oweMessage.setText(oweError);
+    }
+
      */
 
 // cancel membership

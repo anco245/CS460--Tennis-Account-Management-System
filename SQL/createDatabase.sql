@@ -14,8 +14,10 @@ CREATE TABLE directory (
 	verified BOOLEAN NOT NULL,
 	shown BOOLEAN NOT NULL,
 	late BOOLEAN NOT NULL,
+    penalized BOOLEAN NOT NULL,
 	owe INT NOT NULL,
-    guests INT NOT NULL
+    guests INT NOT NULL,
+    keepAccount BOOLEAN NOT NULL
 );
 
 CREATE TABLE reservation (

@@ -24,9 +24,14 @@ public class Database {
   public static String memberPass = "";
   public static boolean isShown = false;
   public static boolean verified = false;
+
   public static boolean isLate = false;
   public static int owe = 0;
   public static int guests = 0;
+
+  public static boolean keep = true;
+
+  public static boolean penalized = false;
 
 
   //Resets the database to initial values
@@ -72,6 +77,40 @@ public class Database {
       throw new IllegalStateException("Cannot connect to the database!", e);
     } catch (IOException e) {
       throw new RuntimeException(e);
+    }
+  }
+
+  public static void setKeep(String user, boolean b)
+  {
+    try (Connection connection = DriverManager.getConnection(url, username, password)) {
+      PreparedStatement preparedStatement =
+        connection.prepareStatement("UPDATE directory SET keepAccount = ? WHERE username = ?");
+
+      preparedStatement.setBoolean(1, b);
+      preparedStatement.setString(2, user);
+      preparedStatement.executeUpdate();
+
+      preparedStatement.close();
+      connection.close();
+    } catch (SQLException e) {
+      throw new IllegalStateException("Cannot connect to the database!", e);
+    }
+  }
+
+  public static void setPenalized(String user, boolean b)
+  {
+    try (Connection connection = DriverManager.getConnection(url, username, password)) {
+      PreparedStatement preparedStatement =
+        connection.prepareStatement("UPDATE directory SET penalized = ? WHERE username = ?");
+
+      preparedStatement.setBoolean(1, b);
+      preparedStatement.setString(2, user);
+      preparedStatement.executeUpdate();
+
+      preparedStatement.close();
+      connection.close();
+    } catch (SQLException e) {
+      throw new IllegalStateException("Cannot connect to the database!", e);
     }
   }
 
@@ -278,7 +317,7 @@ public class Database {
 
       PreparedStatement preparedStatement =
         connection.prepareStatement("INSERT INTO directory "
-          + "VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+          + "VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
 
       //Just makes the first letter of the person's first and last name capital
       String first = fname.substring(0, 1).toUpperCase() + fname.substring(1);
@@ -295,8 +334,11 @@ public class Database {
       preparedStatement.setBoolean(9, false);
       preparedStatement.setBoolean(10, sho);
       preparedStatement.setBoolean(11, false);
-      preparedStatement.setInt(12, 1000);
-      preparedStatement.setInt(13, 0);
+      preparedStatement.setBoolean(12, false);
+      preparedStatement.setInt(13, 1000);
+      preparedStatement.setInt(14, 0);
+      preparedStatement.setBoolean(15, true);
+
 
       //if(coupon) preparedStatement.setInt(12, 500) else preparedStatement.setInt(12, 1000);
 
@@ -307,7 +349,6 @@ public class Database {
       throw new IllegalStateException("Cannot connect to the database!", e);
     }
   }
-
 
   //Loops through the database to find where both username and password are used together
   //Also saves the domain of their email, to later determine which type of account this is
@@ -347,6 +388,8 @@ public class Database {
           addr = resultSet.getString("address");
           phone = resultSet.getString("phone");
           guests = resultSet.getInt("guests");
+          penalized = resultSet.getBoolean("penalized");
+          keep = resultSet.getBoolean("keepAccount");
 
           return true;
         }
