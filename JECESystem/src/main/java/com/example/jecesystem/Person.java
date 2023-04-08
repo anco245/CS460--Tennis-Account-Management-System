@@ -2,6 +2,8 @@ package com.example.jecesystem;
 
 import javafx.scene.control.Button;
 
+import java.io.IOException;
+
 public class Person {
 
   String userName = "";
@@ -48,8 +50,23 @@ public class Person {
     this.notify = new Button("notify");
     this.denotify = new Button("denotify");
 
-    notify.setOnAction(e -> Database.late(userUser, true));
-    denotify.setOnAction(e -> Database.late(userUser, false));
+    notify.setOnAction(e -> {
+      try {
+        Database.late(userUser, true);
+        App.setRoot("chairdirectory");
+      } catch (IOException ex) {
+        throw new RuntimeException(ex);
+      }
+    });
+
+    denotify.setOnAction(e -> {
+      try {
+        Database.late(userUser, false);
+        App.setRoot("chairdirectory");
+      } catch (IOException ex) {
+        throw new RuntimeException(ex);
+      }
+    });
   }
 
   public Person(String name, String age, String address, String phone, String email, String u, String p, boolean s) {
@@ -63,10 +80,23 @@ public class Person {
     this.userPass = p;
     this.isShown = s;
 
-    System.out.println(userUser);
-    approve.setOnAction(e -> Database.approve(userUser));
+    approve.setOnAction(e -> {
+      try {
+        Database.approve(userUser);
+        App.setRoot("approve");
+      } catch (IOException ex) {
+        throw new RuntimeException(ex);
+      }
+    });
 
-    reject.setOnAction(e -> Database.delete(userUser));
+    reject.setOnAction(e -> {
+      try {
+        Database.delete(userUser);
+        App.setRoot("approve");
+      } catch (IOException ex) {
+        throw new RuntimeException(ex);
+      }
+    });
   }
 
   public void setName(String name) {

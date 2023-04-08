@@ -211,7 +211,7 @@ public class Database {
       preparedStatement.setBoolean(1, true);
       preparedStatement.setString(2, u);
 
-      
+
       preparedStatement.executeUpdate();
       preparedStatement.close();
     } catch (SQLException e) {
