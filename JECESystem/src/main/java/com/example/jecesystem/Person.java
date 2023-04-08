@@ -20,6 +20,10 @@ public class Person {
 
   Button denotify = new Button();
 
+  Button approve = new Button();
+
+  Button reject = new Button();
+
   public Person(String name, String age, String address, String phone, String email) {
 
     this.userName = name;
@@ -46,6 +50,23 @@ public class Person {
 
     notify.setOnAction(e -> Database.late(userUser, true));
     denotify.setOnAction(e -> Database.late(userUser, false));
+  }
+
+  public Person(String name, String age, String address, String phone, String email, String u, String p, boolean s) {
+
+    this.userName = name;
+    this.userAge = age;
+    this.userAddress = address;
+    this.userPhone = phone;
+    this.userEmail = email;
+    this.userUser = u;
+    this.userPass = p;
+    this.isShown = s;
+
+    System.out.println(userUser);
+    approve.setOnAction(e -> Database.approve(userUser));
+
+    reject.setOnAction(e -> Database.delete(userUser));
   }
 
   public void setName(String name) {
@@ -88,6 +109,18 @@ public class Person {
     this.denotify.setOnAction(e -> Database.late(this.userUser, false));
   }
   public Button getDenotify() { return denotify; }
+
+  public void setApprove(Button b) {
+    this.approve = b;
+    this.approve.setOnAction(e -> Database.approve(this.userUser));
+  }
+  public Button getApprove() { return approve; }
+
+  public void setReject(Button b) {
+    this.reject = b;
+    this.reject.setOnAction(e -> Database.delete(this.userUser));
+  }
+  public Button getReject() { return notify; }
 
   public void setUser(String u) { userUser = u; }
   public String getUser() { return userUser; }

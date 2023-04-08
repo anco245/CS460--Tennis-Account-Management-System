@@ -25,8 +25,8 @@ public class CTController implements Initializable {
   }
 
   @FXML
-  void approve(ActionEvent event) {
-    //App.setRoot("approve");
+  void approve(ActionEvent event) throws IOException {
+    App.setRoot("approve");
   }
 
   @FXML

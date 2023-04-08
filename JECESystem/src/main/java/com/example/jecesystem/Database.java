@@ -204,30 +204,16 @@ public class Database {
   public static void approve(String u)
   {
     try (Connection connection = DriverManager.getConnection(url, username, password)) {
+
       PreparedStatement preparedStatement =
-        connection.prepareStatement("SELECT * FROM directory");
+        connection.prepareStatement("UPDATE directory SET verified = ? WHERE username = ?");
 
-      ResultSet resultSet = preparedStatement.executeQuery();
+      preparedStatement.setBoolean(1, true);
+      preparedStatement.setString(2, u);
 
-      while(resultSet.next()) {
-        String uname = resultSet.getString("username");
-        boolean v = resultSet.getBoolean("verified");
-
-        if(uname.equals(u))
-        {
-          PreparedStatement p2 =
-            connection.prepareStatement("UPDATE directory SET verified = ? WHERE username = ?");
-
-          p2.setBoolean(1, true);
-          p2.setString(2, uname);
-
-          p2.executeUpdate();
-          p2.close();
-        }
-      }
-
+      
+      preparedStatement.executeUpdate();
       preparedStatement.close();
-      resultSet.close();
     } catch (SQLException e) {
       throw new IllegalStateException("Cannot connect to the database!", e);
     }
@@ -287,7 +273,7 @@ public class Database {
 
       PreparedStatement preparedStatement =
         connection.prepareStatement("INSERT INTO directory "
-          + "VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+          + "VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
 
       //Just makes the first letter of the person's first and last name capital
       String first = fname.substring(0, 1).toUpperCase() + fname.substring(1);
@@ -305,6 +291,7 @@ public class Database {
       preparedStatement.setBoolean(10, sho);
       preparedStatement.setBoolean(11, false);
       preparedStatement.setInt(12, 1000);
+      preparedStatement.setInt(13, 0);
 
       //if(coupon) preparedStatement.setInt(12, 500) else preparedStatement.setInt(12, 1000);
 
