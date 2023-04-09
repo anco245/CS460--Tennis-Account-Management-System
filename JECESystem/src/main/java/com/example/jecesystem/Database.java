@@ -90,15 +90,16 @@ public class Database {
         String uname = resultSet.getString("username");
         String fname = resultSet.getString("firstName");
         String lname = resultSet.getString("lastName");
-        int age = resultSet.getInt("lastName");
+        int age = resultSet.getInt("age");
         String address = resultSet.getString("address");
         String phone = resultSet.getString("phone");
         String email = resultSet.getString("email");
         String p = resultSet.getString("pword");
         boolean s = resultSet.getBoolean("shown");
+        int o = resultSet.getInt("owe");
 
         Database.deleteFromRes(uname);
-        Database.nAccount(fname, lname, age, address, phone, email, uname, p, s, 1000);
+        Database.nAccount(fname, lname, age, address, phone, email, uname, p, s, owe);
       }
 
       preparedStatement.close();
@@ -130,13 +131,13 @@ public class Database {
   }
 
   public static void insertIntoWait(String fname, String lname, int age, String addr,
-                              String phone, String email, String u, String p, boolean s) {
+                              String phone, String email, String u, String p, boolean s, int o) {
     try (Connection connection = DriverManager.getConnection(url, username, password)) {
 
       PreparedStatement preparedStatement =
         connection.prepareStatement("INSERT INTO waiting (firstName, lastName, age, address, phone, " +
-          "email, username, pword, shown) "
-          + "VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?)");
+          "email, username, pword, shown, owe) "
+          + "VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
 
       //Just makes the first letter of the person's first and last name capital
       String first = fname.substring(0, 1).toUpperCase() + fname.substring(1);
@@ -152,8 +153,7 @@ public class Database {
       preparedStatement.setString(7, u);
       preparedStatement.setString(8, p);
       preparedStatement.setBoolean(9, s);
-
-      //if(coupon) preparedStatement.setInt(12, 500) else preparedStatement.setInt(12, 1000);
+      preparedStatement.setInt(10, o);
 
       preparedStatement.executeUpdate();
       preparedStatement.close();

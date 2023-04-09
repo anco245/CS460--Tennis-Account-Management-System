@@ -56,76 +56,6 @@ public class SignUpController {
     Alert info = new Alert(Alert.AlertType.INFORMATION);
     Alert error = new Alert(Alert.AlertType.ERROR);
 
-    inputfName = fieldFName.getText();
-    inputlName = fieldLName.getText();
-    inputAge = Integer.parseInt(fieldAge.getText());
-    inputAddr = fieldAddress.getText();
-    inputPhone = fieldPhone.getText();
-    inputEmail = fieldEmail.getText();
-    inputEmail = inputEmail.substring(0, inputEmail.length() - 4);
-    inputUser = fieldUser.getText();
-    inputPass = fieldPass.getText();
-    inputConPass = fieldConPass.getText();
-    inputShow = securitycheck.isSelected();
-    inputCoupon = fieldCoupon.getText();
-
-    if (Database.getSize() == 3) {
-      Database.insertIntoWait(inputfName, inputlName, inputAge, inputAddr, inputPhone,
-        inputEmail, inputUser, inputPass, inputShow);
-
-      info.setTitle("Maximum Occupancy");
-      info.setContentText("Unfortunately, we have reached the maximum amount of" +
-        " members for our club.\nYou will be added to a wait list and notified by email" +
-        " when a position becomes available");
-      info.showAndWait();
-
-      App.setRoot("login");
-    } else {
-      if (inputAge < 0 || inputAge > 200) {
-        error.setTitle("Error");
-        error.setContentText("Age must be between 0 and 200\n" +
-          "Try again.");
-        error.showAndWait();
-      } else if (inputPhone.length() != 10) {
-        error.setTitle("Error");
-        error.setContentText("Phone number has to be 10 digits\n" +
-          "Try again.");
-        error.showAndWait();
-      } else if (Database.inDirectory(inputUser)) {
-        error.setTitle("Error");
-        error.setContentText("Username already taken.\n" +
-          "Try again.");
-        error.showAndWait();
-      } else if (inputPass.length() < 4) {
-        error.setTitle("Error");
-        error.setContentText("Password needs to be at least 4 characters.\n" +
-          "Try again.");
-        error.showAndWait();
-      } else if (!inputConPass.equals(inputPass)) {
-        error.setTitle("Error");
-        error.setContentText("Passwords don't match.\n" +
-          "Try again.");
-        error.showAndWait();
-      } else if (!fieldCoupon.getText().trim().isEmpty() && !inputCoupon.equals("abcd")) {
-        error.setTitle("Error");
-        error.setContentText("Not a valid coupon code.\n" +
-          "Try again.");
-        error.showAndWait();
-      } else {
-        Database.nAccount(inputfName, inputlName, inputAge, inputAddr, inputPhone,
-          inputEmail, inputUser, inputPass, inputShow, inputOwe);
-
-        info.setTitle("Success");
-        info.setContentText("Your account has been created!\n" +
-          "You won't be able to log in until the chairman approves " +
-          "your account.");
-        info.showAndWait();
-
-        App.setRoot("login");
-      }
-    }
-
-    /*
     try {
       inputfName = fieldFName.getText();
       inputlName = fieldLName.getText();
@@ -140,79 +70,92 @@ public class SignUpController {
       inputShow = securitycheck.isSelected();
       inputCoupon = fieldCoupon.getText();
 
-
-      - need valid coupon code
-      - need error for wrong coupon code
+      /*
       - error for invalid email
       - error for pass
+      */
 
+      if (Database.getSize() == 3) {
+        if (!fieldCoupon.getText().trim().isEmpty() && !inputCoupon.equals("abcd")) {
+          error.setTitle("Error");
+          error.setContentText("Not a valid coupon code.\n" +
+            "Try again.");
+          error.showAndWait();
+        } else if (inputCoupon.equals("abcd")) {
+          inputOwe = 500;
+          Database.insertIntoWait(inputfName, inputlName, inputAge, inputAddr, inputPhone,
+            inputEmail, inputUser, inputPass, inputShow, inputOwe);
 
-    if (Database.getSize() == 3) {
-      Database.insertIntoWait(inputfName, inputlName, inputAge, inputAddr, inputPhone,
-        inputEmail, inputUser, inputPass, inputShow, inputOwe);
+          info.setTitle("Maximum Occupancy");
+          info.setContentText("Unfortunately, we have reached the maximum amount of " +
+            "members for our club.\nYou will be added to a wait list and notified by email " +
+            "when a position becomes available");
+          info.showAndWait();
+        } else {
+          inputOwe =  1000;
 
-      info.setTitle("Maximum Occupancy");
-      info.setContentText("Unfortunately, we have reached the maximum amount of" +
-        "members for our club.\nYou will be added to a wait list and notified by email" +
-        "when a position becomes available");
-      info.showAndWait();
+          Database.insertIntoWait(inputfName, inputlName, inputAge, inputAddr, inputPhone,
+            inputEmail, inputUser, inputPass, inputShow, inputOwe);
 
-      App.setRoot("login");
-    } else {
-      if (inputAge < 0 || inputAge > 200) {
-        error.setTitle("Error");
-        error.setContentText("Age must be between 0 and 200\n" +
-          "Try again.");
-        error.showAndWait();
-      } else if (inputPhone.length() != 10) {
-        error.setTitle("Error");
-        error.setContentText("Phone number has to be 10 digits\n" +
-          "Try again.");
-        error.showAndWait();
-      } else if (Database.inDirectory(inputUser)) {
-        error.setTitle("Error");
-        error.setContentText("Username already taken.\n" +
-          "Try again.");
-        error.showAndWait();
-      } else if (inputPass.length() < 4) {
-        error.setTitle("Error");
-        error.setContentText("Password needs to be at least 4 characters.\n" +
-          "Try again.");
-        error.showAndWait();
-      } else if (!inputConPass.equals(inputPass)) {
-        error.setTitle("Error");
-        error.setContentText("Passwords don't match.\n" +
-          "Try again.");
-        error.showAndWait();
-      } else if (!fieldCoupon.getText().trim().isEmpty() && !inputCoupon.equals("abcd")) {
-        error.setTitle("Error");
-        error.setContentText("Not a valid coupon code.\n" +
-          "Try again.");
-        error.showAndWait();
-      } else {
-        Database.nAccount(inputfName, inputlName, inputAge, inputAddr, inputPhone,
-          inputEmail, inputUser, inputPass, inputShow, inputOwe);
-
-        info.setTitle("Success");
-        info.setContentText("Your account has been created!\n" +
-          "You won't be able to log in until the chairman approves " +
-          "your account.");
-        info.showAndWait();
+          info.setTitle("Maximum Occupancy");
+          info.setContentText("Unfortunately, we have reached the maximum amount of" +
+            " members for our club.\nYou will be added to a wait list and notified by email" +
+            " when a position becomes available");
+          info.showAndWait();
+        }
 
         App.setRoot("login");
+
+      } else {
+        if (inputAge < 0 || inputAge > 200) {
+          error.setTitle("Error");
+          error.setContentText("Age must be between 0 and 200\n" +
+            "Try again.");
+          error.showAndWait();
+        } else if (inputPhone.length() != 10) {
+          error.setTitle("Error");
+          error.setContentText("Phone number has to be 10 digits\n" +
+            "Try again.");
+          error.showAndWait();
+        } else if (Database.inDirectory(inputUser)) {
+          error.setTitle("Error");
+          error.setContentText("Username already taken.\n" +
+            "Try again.");
+          error.showAndWait();
+        } else if (inputPass.length() < 4) {
+          error.setTitle("Error");
+          error.setContentText("Password needs to be at least 4 characters.\n" +
+            "Try again.");
+          error.showAndWait();
+        } else if (!inputConPass.equals(inputPass)) {
+          error.setTitle("Error");
+          error.setContentText("Passwords don't match.\n" +
+            "Try again.");
+          error.showAndWait();
+        } else if (!fieldCoupon.getText().trim().isEmpty() && !inputCoupon.equals("abcd")) {
+          error.setTitle("Error");
+          error.setContentText("Not a valid coupon code.\n" +
+            "Try again.");
+          error.showAndWait();
+        } else {
+          Database.nAccount(inputfName, inputlName, inputAge, inputAddr, inputPhone,
+            inputEmail, inputUser, inputPass, inputShow, inputOwe);
+
+          info.setTitle("Success");
+          info.setContentText("Your account has been created!\n" +
+            "You won't be able to log in until the chairman approves " +
+            "your account.");
+          info.showAndWait();
+
+          App.setRoot("login");
+        }
       }
-    }
-  } catch(Exception e){
+    } catch(Exception e){
     error.setTitle("Error");
     error.setContentText("Either one or more of the textfields are left blank,\n" +
       "or something wasn't put in the right format.\n" +
       "Check your inputs and try again.");
     error.showAndWait();
+    }
   }
-
-     */
-
-}
-
-
 }

@@ -39,7 +39,8 @@ CREATE TABLE waiting (
 	email VARCHAR(50) NOT NULL,
 	username VARCHAR(50) NOT NULL,
 	pword VARCHAR(50) NOT NULL,
-    shown bool NOT NULL
+    shown BOOL NOT NULL,
+    owe INT NOT NULL
 );
 
 INSERT INTO reservation (courtNum, isRes) VALUES (1, FALSE);
