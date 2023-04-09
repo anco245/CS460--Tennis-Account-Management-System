@@ -534,6 +534,26 @@ public class Database {
     }
   }
 
+  public static void changeShown() {
+    try (Connection connection = DriverManager.getConnection(url, username, password)) {
+      PreparedStatement preparedStatement =
+        connection.prepareStatement("UPDATE directory SET shown = ? WHERE username = ?");
+
+      if(isShown) {
+        preparedStatement.setBoolean(1, false);
+      } else {
+        preparedStatement.setBoolean(1, true);
+      }
+
+      preparedStatement.setString(2, memberUser);
+      preparedStatement.executeUpdate();
+
+      preparedStatement.close();
+    } catch (SQLException e) {
+      throw new IllegalStateException("Cannot connect to the database!", e);
+    }
+  }
+
   public static void setLastName(String last) {
     lName = last;
 
