@@ -29,25 +29,18 @@ CREATE TABLE reservation (
 		ON DELETE CASCADE
 );
 
-/*
 CREATE TABLE waiting (
-	firstName VARCHAR(50) NOT NULL,
+	priority int AUTO_INCREMENT NOT NULL PRIMARY KEY,
+    firstName VARCHAR(50) NOT NULL,
 	lastName VARCHAR(50) NOT NULL,
 	age VARCHAR(5) NOT NULL,
 	address VARCHAR(60) NOT NULL,
 	phone VARCHAR(50) NOT NULL,
 	email VARCHAR(50) NOT NULL,
-	username VARCHAR(50) NOT NULL PRIMARY KEY,
+	username VARCHAR(50) NOT NULL,
 	pword VARCHAR(50) NOT NULL,
-	verified BOOLEAN NOT NULL,
-	shown BOOLEAN NOT NULL,
-	late BOOLEAN NOT NULL,
-	owe INT NOT NULL,
-    guests INT NOT NULL,
-    FOREIGN KEY (username) REFERENCES directory(username) 
-		ON DELETE CASCADE
+    shown bool NOT NULL
 );
-*/
 
 INSERT INTO reservation (courtNum, isRes) VALUES (1, FALSE);
 
