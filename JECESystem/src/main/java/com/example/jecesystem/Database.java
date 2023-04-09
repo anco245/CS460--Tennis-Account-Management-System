@@ -73,9 +73,92 @@ public class Database {
       // Close the Statement and database connection
       statement.close();
     } catch (SQLException e) {
-      throw new IllegalStateException("Cannot connect to the database!", e);
+      throw new IllegalStateException("SQL scripts need to be formatted so that each statement is one line", e);
     } catch (IOException e) {
       throw new RuntimeException(e);
+    }
+  }
+
+  public static void addFromWait(){
+    try (Connection connection = DriverManager.getConnection(url, username, password)) {
+      PreparedStatement preparedStatement =
+        connection.prepareStatement("SELECT * FROM waiting WHERE priority = 1");
+
+      ResultSet resultSet = preparedStatement.executeQuery();
+
+      while(resultSet.next()) {
+        String uname = resultSet.getString("username");
+        String fname = resultSet.getString("firstName");
+        String lname = resultSet.getString("lastName");
+        int age = resultSet.getInt("lastName");
+        String address = resultSet.getString("address");
+        String phone = resultSet.getString("phone");
+        String email = resultSet.getString("email");
+        String p = resultSet.getString("pword");
+        boolean s = resultSet.getBoolean("shown");
+
+        Database.deleteFromRes(uname);
+        Database.nAccount(fname, lname, age, address, phone, email, uname, p, s, 1000);
+      }
+
+      preparedStatement.close();
+      resultSet.close();
+    } catch (SQLException e) {
+      throw new IllegalStateException("Cannot connect to the database!", e);
+    }
+  }
+
+  //returns the amount of elements for table "directory"
+  public static int getSize() {
+    try (Connection connection = DriverManager.getConnection(url, username, password)) {
+
+      Statement stmt = connection.createStatement();
+      ResultSet result = stmt.executeQuery("SELECT COUNT(*) AS total FROM directory");
+
+      while(result.next()){
+        int total = result.getInt("total");
+        stmt.close();
+
+        return total;
+      }
+
+      return 0;
+
+    } catch (SQLException e) {
+      throw new IllegalStateException("Cannot connect to the database!", e);
+    }
+  }
+
+  public static void insertIntoWait(String fname, String lname, int age, String addr,
+                              String phone, String email, String u, String p, boolean s) {
+    try (Connection connection = DriverManager.getConnection(url, username, password)) {
+
+      PreparedStatement preparedStatement =
+        connection.prepareStatement("INSERT INTO waiting (firstName, lastName, age, address, phone, " +
+          "email, username, pword, shown) "
+          + "VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?)");
+
+      //Just makes the first letter of the person's first and last name capital
+      String first = fname.substring(0, 1).toUpperCase() + fname.substring(1);
+      String last = lname.substring(0, 1).toUpperCase() + lname.substring(1);
+
+      //"default"
+      preparedStatement.setString(1, first);
+      preparedStatement.setString(2, last);
+      preparedStatement.setInt(3, age);
+      preparedStatement.setString(4, addr);
+      preparedStatement.setString(5, phone);
+      preparedStatement.setString(6, email);
+      preparedStatement.setString(7, u);
+      preparedStatement.setString(8, p);
+      preparedStatement.setBoolean(9, s);
+
+      //if(coupon) preparedStatement.setInt(12, 500) else preparedStatement.setInt(12, 1000);
+
+      preparedStatement.executeUpdate();
+      preparedStatement.close();
+    } catch (SQLException e) {
+      throw new IllegalStateException("Cannot connect to the database!", e);
     }
   }
 

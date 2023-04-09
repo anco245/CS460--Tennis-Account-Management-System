@@ -162,7 +162,10 @@ public class Person {
 
   public void setReject(Button b) {
     this.reject = b;
-    this.reject.setOnAction(e -> Database.deleteFromDir(this.userUser));
+    this.reject.setOnAction(e -> {
+      Database.deleteFromDir(this.userUser);
+      Database.addFromWait();
+    });
   }
   public Button getReject() { return reject; }
 }

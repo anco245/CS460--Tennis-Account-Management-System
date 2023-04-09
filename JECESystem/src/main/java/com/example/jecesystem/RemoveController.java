@@ -41,6 +41,8 @@ public class RemoveController {
             Database.deleteFromRes(name);
           }
 
+          Database.addFromWait();
+
           App.setRoot("ctscreen");
         }
       }
