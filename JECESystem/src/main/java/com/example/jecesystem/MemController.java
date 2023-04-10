@@ -113,7 +113,7 @@ public class MemController implements Initializable {
 
   @FXML
   void makeRes(ActionEvent event) throws IOException {
-    App.setRoot("makeres");
+    App.setRoot("courtreservation");
   }
 
   @FXML
