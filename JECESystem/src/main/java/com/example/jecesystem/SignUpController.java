@@ -75,7 +75,7 @@ public class SignUpController {
       - error for pass
       */
 
-      if (Database.getSize() == 3) {
+      if (Database.getSize() == 1000) {
         if (!fieldCoupon.getText().trim().isEmpty() && !inputCoupon.equals("abcd")) {
           error.setTitle("Error");
           error.setContentText("Not a valid coupon code.\n" +
