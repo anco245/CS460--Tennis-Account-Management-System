@@ -52,47 +52,47 @@
                   <Font size="18.0" />
                </font>
             </Button>
-            <Label text="First Name:" translateX="300.0" GridPane.rowIndex="1">
+            <Label text="First Name:" textFill="WHITE" translateX="300.0" GridPane.rowIndex="1">
                <font>
                   <Font size="18.0" />
                </font>
             </Label>
-            <Label text="Last Name:" translateX="300.0" GridPane.rowIndex="2">
+            <Label text="Last Name:" textFill="WHITE" translateX="300.0" GridPane.rowIndex="2">
                <font>
                   <Font size="18.0" />
                </font>
             </Label>
-            <Label text="Address:" translateX="300.0" GridPane.rowIndex="4">
+            <Label text="Address:" textFill="WHITE" translateX="300.0" GridPane.rowIndex="4">
                <font>
                   <Font size="18.0" />
                </font>
             </Label>
-            <Label text="Email:" translateX="300.0" GridPane.rowIndex="5">
+            <Label text="Email:" textFill="WHITE" translateX="300.0" GridPane.rowIndex="5">
                <font>
                   <Font size="18.0" />
                </font>
             </Label>
-            <Label text="Phone Number: " translateX="300.0" GridPane.rowIndex="6">
+            <Label text="Phone Number: " textFill="WHITE" translateX="300.0" GridPane.rowIndex="6">
                <font>
                   <Font size="18.0" />
                </font>
             </Label>
-            <Label text="Username:" translateX="300.0" GridPane.rowIndex="7">
+            <Label text="Username:" textFill="WHITE" translateX="300.0" GridPane.rowIndex="7">
                <font>
                   <Font size="18.0" />
                </font>
             </Label>
-            <Label text="Password:" translateX="300.0" GridPane.rowIndex="8">
+            <Label text="Password:" textFill="WHITE" translateX="300.0" GridPane.rowIndex="8">
                <font>
                   <Font size="18.0" />
                </font>
             </Label>
-            <Label text="Confirm Password:" translateX="300.0" GridPane.rowIndex="9">
+            <Label text="Confirm Password:" textFill="WHITE" translateX="300.0" GridPane.rowIndex="9">
                <font>
                   <Font size="18.0" />
                </font>
             </Label>
-            <CheckBox fx:id="securitycheck" mnemonicParsing="false" text="I would like my info to be displayed in the public directory" translateX="462.0" GridPane.rowIndex="10">
+            <CheckBox fx:id="securitycheck" mnemonicParsing="false" text="I would like my info to be displayed in the public directory" textFill="WHITE" translateX="462.0" GridPane.rowIndex="10">
                <font>
                   <Font size="18.0" />
                </font>
@@ -106,12 +106,12 @@
             <TextField fx:id="fieldPass" maxWidth="320.0" GridPane.columnIndex="1" GridPane.rowIndex="9" />
             <TextField fx:id="fieldConPass" maxWidth="320.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
             <TextField fx:id="fieldCoupon" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="26.0" prefWidth="200.0" translateX="400.0" GridPane.rowIndex="12" />
-            <Label text="Enter Coupon:" translateX="300.0" GridPane.rowIndex="12">
+            <Label text="Enter Coupon:" textFill="WHITE" translateX="300.0" GridPane.rowIndex="12">
                <font>
                   <Font size="18.0" />
                </font>
             </Label>
-            <Label text="Age:" translateX="300.0" GridPane.rowIndex="3">
+            <Label text="Age:" textFill="WHITE" translateX="300.0" GridPane.rowIndex="3">
                <font>
                   <Font size="18.0" />
                </font>
