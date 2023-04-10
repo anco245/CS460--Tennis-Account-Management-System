@@ -68,7 +68,7 @@ public class AddGuestController implements Initializable {
         Optional<ButtonType> result = con.showAndWait();
         if (result.isPresent() && result.get() == ButtonType.OK) {
 
-          Database.addSubGuests( getGuests);
+          Database.addSubGuests(getGuests);
           Database.addSubOwe(Database.memberUser, getGuests * 10);
 
           App.setRoot("memscreen");
