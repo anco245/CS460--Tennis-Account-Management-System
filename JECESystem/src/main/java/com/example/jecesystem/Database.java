@@ -42,19 +42,7 @@ public class Database {
       ResultSet resultSet = preparedStatement.executeQuery();
 
       while(resultSet.next()) {
-        String uname = resultSet.getString("username");
-        String fname = resultSet.getString("firstName");
-        String lname = resultSet.getString("lastName");
-        int age = resultSet.getInt("age");
-        String address = resultSet.getString("address");
-        String phone = resultSet.getString("phone");
-        String email = resultSet.getString("email");
-        String p = resultSet.getString("pword");
-        boolean s = resultSet.getBoolean("shown");
-        int o = resultSet.getInt("owe");
 
-        Database.deleteFromRes(uname);
-        Database.nAccount(fname, lname, age, address, phone, email, uname, p, s, owe);
       }
 
       preparedStatement.close();
