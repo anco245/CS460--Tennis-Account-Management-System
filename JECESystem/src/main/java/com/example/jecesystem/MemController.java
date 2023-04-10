@@ -40,11 +40,14 @@ public class MemController implements Initializable {
     //need to make it so that it adds annual payment to owed
     //along with 50 every month
 
-    //Error: window keeps popping up on specified day
     LocalDateTime now = LocalDateTime.now();
 
-    //!Database.confirm
-    if (now.getMonthValue() == 4 && now.getDayOfMonth() == 10) {
+    if(now.getDayOfMonth() != 1 && now.getDayOfMonth() != 1)
+    {
+      Database.setConfirm(false);
+    }
+
+    if (now.getMonthValue() == 1 && now.getDayOfMonth() == 1 && !Database.keepConfirm) {
 
       con.setTitle("Keep Account");
       con.setContentText("Do you want to keep your Account?");
@@ -56,8 +59,7 @@ public class MemController implements Initializable {
       Optional<ButtonType> result = con.showAndWait();
       if (result.get() == yes){
         Database.setKeep(Database.memberUser, true);
-        //Database.setConfirm(Database.memberUser, true);
-
+        Database.setConfirm(true);
 
         try {
           App.setRoot("memscreen");
@@ -66,6 +68,7 @@ public class MemController implements Initializable {
         }
       } else {
         Database.setKeep(Database.memberUser, false);
+        Database.setConfirm(true);
 
         try {
           App.setRoot("memscreen");

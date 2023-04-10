@@ -34,7 +34,8 @@ public class Database {
 
   public static boolean penalized = false;
 
-  public static boolean confirmKeep = false;
+  public static boolean keepConfirm = false;
+
 
   public static void removeNonKeeps() {
     try (Connection connection = DriverManager.getConnection(url, username, password)) {
@@ -44,7 +45,9 @@ public class Database {
       ResultSet resultSet = preparedStatement.executeQuery();
 
       while(resultSet.next()) {
-
+        String user = resultSet.getString("username");
+        deleteFromDir(user);
+        deleteFromRes(user);
       }
 
       preparedStatement.close();
@@ -473,6 +476,7 @@ public class Database {
       preparedStatement.setBoolean(15, true);
       preparedStatement.setBoolean(16, false);
 
+
       //if(coupon) preparedStatement.setInt(12, 500) else preparedStatement.setInt(12, 1000);
 
       preparedStatement.executeUpdate();
@@ -522,6 +526,7 @@ public class Database {
           guests = resultSet.getInt("guests");
           penalized = resultSet.getBoolean("penalized");
           keep = resultSet.getBoolean("keepAccount");
+          keepConfirm = resultSet.getBoolean("keepConfirm");
 
           return true;
         }
@@ -687,6 +692,21 @@ public class Database {
     }
   }
 
+  public static void setConfirm(boolean b) {
+    try (Connection connection = DriverManager.getConnection(url, username, password)) {
+      PreparedStatement preparedStatement =
+        connection.prepareStatement("UPDATE directory SET keepConfirm = ? WHERE username = ?");
+
+      preparedStatement.setBoolean(1, b);
+      preparedStatement.setString(2, memberUser);
+      preparedStatement.executeUpdate();
+
+      preparedStatement.close();
+    } catch (SQLException e) {
+      throw new IllegalStateException("Cannot connect to the database!", e);
+    }
+  }
+
   //function to check if court is reserved
   public static boolean checkRes(int num) {
     try (Connection connection = DriverManager.getConnection(url, username, password)){
@@ -720,5 +740,6 @@ public class Database {
       throw new IllegalStateException("Cannot connect to the database!", e);
     }
   }
-  */
+
+   */
 }

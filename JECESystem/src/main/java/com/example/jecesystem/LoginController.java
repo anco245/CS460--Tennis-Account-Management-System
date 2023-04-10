@@ -28,11 +28,11 @@ public class LoginController implements Initializable {
   @Override
   public void initialize(URL url, ResourceBundle rb) {
     LocalDateTime now = LocalDateTime.now();
-
-    if(now.getMonthValue() == 1 && now.getMonthValue() == 1)
+    if(now.getMonthValue() == 1 && now.getDayOfMonth() == 1)
     {
-        Database.removeNonKeeps();
+      Database.removeNonKeeps();
     }
+
   }
 
   @FXML

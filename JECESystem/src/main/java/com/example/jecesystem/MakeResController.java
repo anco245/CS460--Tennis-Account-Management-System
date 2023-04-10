@@ -7,7 +7,6 @@ import java.time.LocalDateTime;
 
 public class MakeResController {
 
-  /*
     void onSubmit(String name, int num, LocalDateTime time){
 
 
@@ -23,8 +22,7 @@ public class MakeResController {
         }
         else
         {
-            Database.makeRes(num, name, time);
+            //Database.makeRes(num, name, time);
         }
     }
-    */
 }
