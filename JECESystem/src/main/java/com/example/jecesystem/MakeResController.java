@@ -7,6 +7,7 @@ import java.time.LocalDateTime;
 
 public class MakeResController {
 
+  /*
     void onSubmit(String name, int num, LocalDateTime time){
 
 
@@ -15,14 +16,15 @@ public class MakeResController {
             System.out.println("Court is already reserved");
             //show this in fxml
         }
-        else if (Database.inReservation(name)) 
+        else if (Database.inReservation(name))
         {
             System.out.println("You have already reserved a court");
             //show this in fxml
-        } 
+        }
         else
         {
             Database.makeRes(num, name, time);
         }
     }
+    */
 }
