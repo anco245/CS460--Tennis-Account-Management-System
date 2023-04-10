@@ -1,12 +1,16 @@
 package com.example.jecesystem;
 
 import javafx.event.*;
+import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
 import java.io.IOException;
+import java.net.URL;
+import java.time.LocalDateTime;
+import java.util.ResourceBundle;
 
-public class LoginController {
+public class LoginController implements Initializable {
 
   public static String name = "";
   public static String pass = "";
@@ -19,6 +23,16 @@ public class LoginController {
   @FXML
   void switchToSignUp(ActionEvent event) throws IOException {
       App.setRoot("signup");
+  }
+
+  @Override
+  public void initialize(URL url, ResourceBundle rb) {
+    LocalDateTime now = LocalDateTime.now();
+
+    if(now.getMonthValue() == 1 && now.getMonthValue() == 1)
+    {
+        Database.removeNonKeeps();
+    }
   }
 
   @FXML

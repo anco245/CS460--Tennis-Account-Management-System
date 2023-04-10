@@ -17,7 +17,8 @@ CREATE TABLE directory (
     penalized BOOLEAN NOT NULL,
 	owe INT NOT NULL,
     guests INT NOT NULL,
-    keepAccount BOOLEAN NOT NULL
+    keepAccount BOOLEAN NOT NULL,
+    keepConfirm BOOLEAN NOT NULL
 );
 
 CREATE TABLE reservation (

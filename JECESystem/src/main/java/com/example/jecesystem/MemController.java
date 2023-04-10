@@ -42,7 +42,14 @@ public class MemController implements Initializable {
 
     //Error: window keeps popping up on specified day
     LocalDateTime now = LocalDateTime.now();
-    if (now.getMonthValue() == 10 && now.getDayOfMonth() == 1) {
+
+    if(now.getMoth)
+    {
+      Database.confirm
+    }
+
+    if (!Database.confirm && now.getMonthValue() == 4 && now.getDayOfMonth() == 10) {
+
       con.setTitle("Keep Account");
       con.setContentText("Do you want to keep your Account?");
 
@@ -53,6 +60,8 @@ public class MemController implements Initializable {
       Optional<ButtonType> result = con.showAndWait();
       if (result.get() == yes){
         Database.setKeep(Database.memberUser, true);
+        Database.setConfirm(Database.memberUser, true);
+
 
         try {
           App.setRoot("memscreen");
