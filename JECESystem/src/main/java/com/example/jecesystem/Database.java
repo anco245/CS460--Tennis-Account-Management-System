@@ -667,37 +667,37 @@ public class Database {
       throw new IllegalStateException("Cannot connect to the database!", e);
     }
   }
-}
 
-//function to check if court is reserved
-public static boolean checkRes(int num) {
-  try (Connection connection = DriverManager.getConnection(url, username, password)){
-    PreparedStatement preparedStatement =
-      connection.prepareStatement("SELECT isRes FROM reservation Where courtNum = ?");
-      preparedStatement.setInt (1, num);
-      ResultSet response = preparedStatement.executeQuery();
-      boolean status = response.getBoolean("isRes");
-      return(status);
-  } catch (SQLException e) {
-    throw new IllegalStateException("Cannot connect to the database!", e);
+  //function to check if court is reserved
+  public static boolean checkRes(int num) {
+    try (Connection connection = DriverManager.getConnection(url, username, password)){
+      PreparedStatement preparedStatement =
+        connection.prepareStatement("SELECT isRes FROM reservation Where courtNum = ?");
+        preparedStatement.setInt (1, num);
+        ResultSet response = preparedStatement.executeQuery();
+        boolean status = response.getBoolean("isRes");
+        return(status);
+    } catch (SQLException e) {
+      throw new IllegalStateException("Cannot connect to the database!", e);
+    }
   }
-}
 
-//function to update the reservation
-public static void makeRes(int pendingNum, String memberName, LocalDateTime pendingTime) {
-  try (Connection connection = DriverManager.getConnection(url, username, password)){
-    PreparedStatement preparedStatement = 
-        connection.prepareStatement ("UPDATE reservation SET username = ?, resTime = ?, isRes = ? WHERE courtNum = ?");
-        preparedStatement.setString (1, memberName);
-        preparedStatement.set (2, pendingTime);
-        preparedStatement.setBoolean (3, true);
-        preparedStatement.setint (4, pendingNum);
+  //function to update the reservation
+  public static void makeRes(int pendingNum, String memberName, DateTime pendingTime) {
+    try (Connection connection = DriverManager.getConnection(url, username, password)){
+      PreparedStatement preparedStatement = 
+          connection.prepareStatement ("UPDATE reservation SET username = ?, resTime = ?, isRes = ? WHERE courtNum = ?");
+          preparedStatement.setString (1, memberName);
+          //
+          preparedStatement.setDateTime (2, pendingTime);
+          preparedStatement.setBoolean (3, true);
+          preparedStatement.setInt (4, pendingNum);
 
-        preparedStatement.executeUpdate();
-        preparedStatement.close();
-        connection.close();
-  } catch (SQLException e) {
-    throw new IllegalStateException("Cannot connect to the database!", e);
+          preparedStatement.executeUpdate();
+          preparedStatement.close();
+          connection.close();
+    } catch (SQLException e) {
+      throw new IllegalStateException("Cannot connect to the database!", e);
+    }
   }
-}
 }
