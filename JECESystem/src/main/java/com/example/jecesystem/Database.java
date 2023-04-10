@@ -669,7 +669,7 @@ public class Database {
   }
 }
 
-//method to check if court is reserved
+//function to check if court is reserved
 public static boolean checkRes(int num) {
   try (Connection connection = DriverManager.getConnection(url, username, password)){
     PreparedStatement preparedStatement =
@@ -683,7 +683,7 @@ public static boolean checkRes(int num) {
   }
 }
 
-//method to update the reservation
+//function to update the reservation
 public static void makeRes(int pendingNum, String memberName, LocalDateTime pendingTime) {
   try (Connection connection = DriverManager.getConnection(url, username, password)){
     PreparedStatement preparedStatement = 
