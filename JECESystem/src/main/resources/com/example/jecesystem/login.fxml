@@ -13,7 +13,7 @@
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
-<VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720" prefWidth="1280" spacing="20.0" stylesheets="@theme.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.jecesystem.LoginController">
+<VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720" prefWidth="1280" spacing="20.0" stylesheets="@theme.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.jecesystem.LoginController">
    <children>
       <Rectangle arcHeight="40.0" arcWidth="40.0" fill="#d9d9d9e5" height="521.0" opacity="0.28" stroke="BLACK" strokeType="INSIDE" translateY="250.0" width="569.0">
          <effect>
@@ -56,12 +56,12 @@
                   <Cursor fx:constant="OPEN_HAND" />
                </cursor>
             </Button>
-            <Label alignment="CENTER" contentDisplay="CENTER" text="Username:" translateY="-25.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+            <Label alignment="CENTER" contentDisplay="CENTER" text="Username:" textFill="WHITE" translateY="-25.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
                <font>
                   <Font name="Corbel" size="18.0" />
                </font>
             </Label>
-            <Label text="Password:" translateY="-25.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
+            <Label text="Password:" textFill="WHITE" translateY="-25.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
                <font>
                   <Font name="Corbel" size="18.0" />
                </font>
