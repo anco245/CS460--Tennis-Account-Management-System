@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.sql.*;
+import java.time.LocalDateTime;
 
 public class Database {
 
@@ -666,4 +667,37 @@ public class Database {
       throw new IllegalStateException("Cannot connect to the database!", e);
     }
   }
+}
+
+//method to check if court is reserved
+public static boolean checkRes(int num) {
+  try (Connection connection = DriverManager.getConnection(url, username, password)){
+    PreparedStatement preparedStatement =
+      connection.prepareStatement("SELECT isRes FROM reservation Where courtNum = ?");
+      preparedStatement.setInt (1, num);
+      ResultSet response = preparedStatement.executeQuery();
+      boolean status = response.getBoolean("isRes");
+      return(status);
+  } catch (SQLException e) {
+    throw new IllegalStateException("Cannot connect to the database!", e);
+  }
+}
+
+//method to update the reservation
+public static void makeRes(int pendingNum, String memberName, LocalDateTime pendingTime) {
+  try (Connection connection = DriverManager.getConnection(url, username, password)){
+    PreparedStatement preparedStatement = 
+        connection.prepareStatement ("UPDATE reservation SET username = ?, resTime = ?, isRes = ? WHERE courtNum = ?");
+        preparedStatement.setString (1, memberName);
+        preparedStatement.set (2, pendingTime);
+        preparedStatement.setBoolean (3, true);
+        preparedStatement.setint (4, pendingNum);
+
+        preparedStatement.executeUpdate();
+        preparedStatement.close();
+        connection.close();
+  } catch (SQLException e) {
+    throw new IllegalStateException("Cannot connect to the database!", e);
+  }
+}
 }
