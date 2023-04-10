@@ -34,6 +34,8 @@ public class Database {
 
   public static boolean penalized = false;
 
+  public static boolean confirmKeep = false;
+
   public static void removeNonKeeps() {
     try (Connection connection = DriverManager.getConnection(url, username, password)) {
       PreparedStatement preparedStatement =
@@ -448,7 +450,7 @@ public class Database {
 
       PreparedStatement preparedStatement =
         connection.prepareStatement("INSERT INTO directory "
-          + "VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+          + "VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
 
       //Just makes the first letter of the person's first and last name capital
       String first = fname.substring(0, 1).toUpperCase() + fname.substring(1);
@@ -469,7 +471,7 @@ public class Database {
       preparedStatement.setInt(13, 1000);
       preparedStatement.setInt(14, 0);
       preparedStatement.setBoolean(15, true);
-
+      preparedStatement.setBoolean(16, false);
 
       //if(coupon) preparedStatement.setInt(12, 500) else preparedStatement.setInt(12, 1000);
 
@@ -699,6 +701,7 @@ public class Database {
     }
   }
 
+  /*
   //function to update the reservation
   public static void makeRes(int pendingNum, String memberName, DateTime pendingTime) {
     try (Connection connection = DriverManager.getConnection(url, username, password)){
@@ -717,4 +720,5 @@ public class Database {
       throw new IllegalStateException("Cannot connect to the database!", e);
     }
   }
+  */
 }
