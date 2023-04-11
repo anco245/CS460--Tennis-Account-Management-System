@@ -59,6 +59,8 @@ public class MakeResController implements Initializable {
   @FXML
   private ChoiceBox<String> timeOfRes;
 
+  public static String[] timesArray = Database.toArray();
+
   ObservableList times = FXCollections.observableArrayList();
   ObservableList days = FXCollections.observableArrayList();
 
@@ -162,6 +164,7 @@ public class MakeResController implements Initializable {
     timeOfRes.getItems().addAll(times);
 
     days.removeAll(days);
+    String today = "Today";
     String monday = "Monday";
     String tuesday = "Tuesday";
     String wednesday = "Wednesday";
@@ -170,47 +173,26 @@ public class MakeResController implements Initializable {
     String saturday = "Saturday";
     String sunday = "Sunday";
 
-    days.addAll(monday, tuesday, wednesday, thursday, friday, saturday, sunday);
+    days.addAll(today, monday, tuesday, wednesday, thursday, friday, saturday, sunday);
     dayOfWeek.getItems().addAll(days);
   }
 
   @FXML
   void submitreservation(ActionEvent event) {
 
-    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-
-    LocalDateTime dateTime = LocalDateTime.now();
-
-    LocalDateTime nextMonday = dateTime.with(TemporalAdjusters.next(DayOfWeek.MONDAY));
-    LocalDateTime nextTuesday = dateTime.with(TemporalAdjusters.next(DayOfWeek.TUESDAY));
-    LocalDateTime nextWednesday = dateTime.with(TemporalAdjusters.next(DayOfWeek.WEDNESDAY));
-    LocalDateTime nextThursday = dateTime.with(TemporalAdjusters.next(DayOfWeek.THURSDAY));
-    LocalDateTime nextFriday = dateTime.with(TemporalAdjusters.next(DayOfWeek.FRIDAY));
-    LocalDateTime nextSaturday = dateTime.with(TemporalAdjusters.next(DayOfWeek.SATURDAY));
-    LocalDateTime nextSunday = dateTime.with(TemporalAdjusters.next(DayOfWeek.SUNDAY));
-
-    String formattedDate = dateTime.format(formatter);
-    String nextMon = nextMonday.format(formatter);
-    String nextTues = nextMonday.format(formatter);
-    String nextWed = nextMonday.format(formatter);
-    String nextThur = nextMonday.format(formatter);
-    String nextFri = nextMonday.format(formatter);
-    String nextSat = nextMonday.format(formatter);
-    String nextSun = nextMonday.format(formatter);
-
     String day = dayOfWeek.getValue();
     String time = timeOfRes.getValue();
 
     String slot = "";
-    String court = "";
+    String courtNum = "";
 
     if(court1.isSelected())
     {
-      court = "court1";
+      courtNum = "court1";
     }
 
     if (dayOfWeek.getValue().equals("Monday")) {
-      slot = nextMon + " " + time;
+      slot = timesArray[1] + " " + time;
     } else if (dayOfWeek.getValue().equals("Tuesday")) {
       slot = nextTues + " " + time;
     } else if (dayOfWeek.getValue().equals("Wednesday")) {
@@ -220,19 +202,17 @@ public class MakeResController implements Initializable {
     } else if (dayOfWeek.getValue().equals("Friday")) {
       slot = nextFri + " " + time;
     } else if (dayOfWeek.getValue().equals("Saturday")) {
-      slot = nextSat + time;
+      slot = nextSat + " " + time;
     } else if (dayOfWeek.getValue().equals("Sunday")) {
-      slot = nextSun + time;
+      slot = nextSun + " " + time;
+    } else if (dayOfWeek.getValue().equals("Today")) {
+      slot = formattedDate + " " + time;
     }
 
-    Database.makeRes(court, Database.memberUser, slot);
 
 
-      if(court1.isSelected())
-      {
+    Database.makeRes(courtNum, Database.memberUser, slot);
 
-        Database.makeRes("court1",);
-      }
 
       /*
           - Look at which courts are being used at which time and day, and which courts are available.
