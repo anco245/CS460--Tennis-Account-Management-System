@@ -4,7 +4,10 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.sql.*;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 public class Database {
 
@@ -784,7 +787,31 @@ public class Database {
     }
   }
 
-  /*
+  public static int dayDifference(String time1, String time2)
+  {
+    try (Connection connection = DriverManager.getConnection(url, username, password)){
+      PreparedStatement preparedStatement =
+        connection.prepareStatement ("SELECT TIMESTAMPDIFF(DAY, ?, ?) AS day_diff");
+
+      preparedStatement.setDate(1, Date.valueOf(time1));
+      preparedStatement.setDate(2, Date.valueOf(time2));
+
+      ResultSet resultSet = preparedStatement.executeQuery();
+
+      while(resultSet.next()) {
+        int day = resultSet.getInt("day_diff");
+        return day;
+      }
+
+      preparedStatement.close();
+
+      return 0;
+    } catch (SQLException e) {
+      throw new IllegalStateException("Cannot connect to the database!", e);
+    }
+  }
+
+
   //function to update the reservation
   public static void makeRes(int pendingNum, String memberName, String pendingTime) {
     try (Connection connection = DriverManager.getConnection(url, username, password)){
@@ -803,6 +830,4 @@ public class Database {
       throw new IllegalStateException("Cannot connect to the database!", e);
     }
   }
-
-   */
 }

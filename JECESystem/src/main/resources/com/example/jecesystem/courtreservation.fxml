@@ -15,7 +15,7 @@
   <children>
     <TabPane prefHeight="720.0" prefWidth="1280.0" tabClosingPolicy="UNAVAILABLE">
       <tabs>
-        <Tab fx:id="monTab" text="Court 1">
+        <Tab fx:id="court1" onSelectionChanged="#court1Change" text="Court 1">
           <content>
             <AnchorPane maxHeight="1.7976931348623157E308" minHeight="0.0" minWidth="0.0" prefHeight="114.0" prefWidth="600.0">
               <children>
@@ -30,19 +30,19 @@
                             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                           </rowConstraints>
                            <children>
-                      <ChoiceBox fx:id="courtNum" prefWidth="150.0" translateX="125.0" />
+                      <ChoiceBox fx:id="dayOfWeek" prefWidth="150.0" translateX="125.0" />
                               <ChoiceBox prefWidth="150.0" translateX="125.0" GridPane.columnIndex="1" />
-                              <ChoiceBox prefWidth="150.0" translateX="125.0" GridPane.rowIndex="1" />
+                              <ChoiceBox fx:id="timeOfRes" prefWidth="150.0" translateX="125.0" GridPane.rowIndex="1" />
                               <Label text="Label" translateX="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                              <Button mnemonicParsing="false" prefHeight="30.0" prefWidth="100.0" text="Cancel" textFill="WHITE" translateX="150.0" GridPane.rowIndex="2" />
-                              <Button mnemonicParsing="false" prefHeight="30.0" prefWidth="100.0" text="Submit" textFill="WHITE" translateX="150.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                              <Button mnemonicParsing="false" onAction="#switchToHome" prefHeight="30.0" prefWidth="100.0" text="Cancel" textFill="WHITE" translateX="150.0" GridPane.rowIndex="2" />
+                              <Button mnemonicParsing="false" onAction="#submitreservation" prefHeight="30.0" prefWidth="100.0" text="Submit" textFill="WHITE" translateX="150.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                            </children>
                         </GridPane>
               </children>
             </AnchorPane>
           </content>
         </Tab>
-            <Tab fx:id="monTab1" text="Court 2">
+            <Tab fx:id="court2" onSelectionChanged="#court2Change" text="Court 2">
                <content>
                   <AnchorPane maxHeight="1.7976931348623157E308" minHeight="0.0" minWidth="0.0" prefHeight="114.0" prefWidth="600.0">
                      <children>
@@ -57,7 +57,34 @@
                               <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                            </rowConstraints>
                            <children>
-                              <ChoiceBox fx:id="courtNum1" prefWidth="150.0" translateX="125.0" />
+                              <ChoiceBox prefWidth="150.0" translateX="125.0" />
+                              <ChoiceBox prefWidth="150.0" translateX="125.0" GridPane.columnIndex="1" />
+                              <ChoiceBox prefWidth="150.0" translateX="125.0" GridPane.rowIndex="1" />
+                              <Label text="Label" translateX="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                              <Button mnemonicParsing="false" onAction="#switchToHome" prefHeight="30.0" prefWidth="100.0" text="Cancel" textFill="WHITE" translateX="150.0" GridPane.rowIndex="2" />
+                              <Button mnemonicParsing="false" onAction="#onSubmit" prefHeight="30.0" prefWidth="100.0" text="Submit" textFill="WHITE" translateX="150.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                           </children>
+                        </GridPane>
+                     </children>
+                  </AnchorPane>
+               </content>
+            </Tab>
+            <Tab fx:id="court3" onSelectionChanged="#court3Change" text="Court 3">
+               <content>
+                  <AnchorPane maxHeight="1.7976931348623157E308" minHeight="0.0" minWidth="0.0" prefHeight="114.0" prefWidth="600.0">
+                     <children>
+                        <GridPane layoutX="240.0" layoutY="46.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0">
+                           <columnConstraints>
+                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                           </columnConstraints>
+                           <rowConstraints>
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                           </rowConstraints>
+                           <children>
+                              <ChoiceBox prefWidth="150.0" translateX="125.0" />
                               <ChoiceBox prefWidth="150.0" translateX="125.0" GridPane.columnIndex="1" />
                               <ChoiceBox prefWidth="150.0" translateX="125.0" GridPane.rowIndex="1" />
                               <Label text="Label" translateX="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
@@ -69,7 +96,7 @@
                   </AnchorPane>
                </content>
             </Tab>
-            <Tab fx:id="monTab2" text="Court 3">
+            <Tab fx:id="court4" onSelectionChanged="#court4Change" text="Court 4">
                <content>
                   <AnchorPane maxHeight="1.7976931348623157E308" minHeight="0.0" minWidth="0.0" prefHeight="114.0" prefWidth="600.0">
                      <children>
@@ -84,7 +111,7 @@
                               <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                            </rowConstraints>
                            <children>
-                              <ChoiceBox fx:id="courtNum2" prefWidth="150.0" translateX="125.0" />
+                              <ChoiceBox prefWidth="150.0" translateX="125.0" />
                               <ChoiceBox prefWidth="150.0" translateX="125.0" GridPane.columnIndex="1" />
                               <ChoiceBox prefWidth="150.0" translateX="125.0" GridPane.rowIndex="1" />
                               <Label text="Label" translateX="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
@@ -96,7 +123,7 @@
                   </AnchorPane>
                </content>
             </Tab>
-            <Tab fx:id="monTab3" text="Court 4">
+            <Tab fx:id="court5" onSelectionChanged="#court5Change" text="Court 5">
                <content>
                   <AnchorPane maxHeight="1.7976931348623157E308" minHeight="0.0" minWidth="0.0" prefHeight="114.0" prefWidth="600.0">
                      <children>
@@ -111,7 +138,7 @@
                               <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                            </rowConstraints>
                            <children>
-                              <ChoiceBox fx:id="courtNum3" prefWidth="150.0" translateX="125.0" />
+                              <ChoiceBox prefWidth="150.0" translateX="125.0" />
                               <ChoiceBox prefWidth="150.0" translateX="125.0" GridPane.columnIndex="1" />
                               <ChoiceBox prefWidth="150.0" translateX="125.0" GridPane.rowIndex="1" />
                               <Label text="Label" translateX="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
@@ -123,7 +150,7 @@
                   </AnchorPane>
                </content>
             </Tab>
-            <Tab fx:id="monTab4" text="Court 5">
+            <Tab fx:id="court6" onSelectionChanged="#court6Change" text="Court 6">
                <content>
                   <AnchorPane maxHeight="1.7976931348623157E308" minHeight="0.0" minWidth="0.0" prefHeight="114.0" prefWidth="600.0">
                      <children>
@@ -138,7 +165,7 @@
                               <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                            </rowConstraints>
                            <children>
-                              <ChoiceBox fx:id="courtNum4" prefWidth="150.0" translateX="125.0" />
+                              <ChoiceBox prefWidth="150.0" translateX="125.0" />
                               <ChoiceBox prefWidth="150.0" translateX="125.0" GridPane.columnIndex="1" />
                               <ChoiceBox prefWidth="150.0" translateX="125.0" GridPane.rowIndex="1" />
                               <Label text="Label" translateX="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
@@ -150,7 +177,7 @@
                   </AnchorPane>
                </content>
             </Tab>
-            <Tab fx:id="monTab5" text="Court 6">
+            <Tab fx:id="court7" onSelectionChanged="#court7Change" text="Court 7">
                <content>
                   <AnchorPane maxHeight="1.7976931348623157E308" minHeight="0.0" minWidth="0.0" prefHeight="114.0" prefWidth="600.0">
                      <children>
@@ -165,7 +192,7 @@
                               <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                            </rowConstraints>
                            <children>
-                              <ChoiceBox fx:id="courtNum5" prefWidth="150.0" translateX="125.0" />
+                              <ChoiceBox prefWidth="150.0" translateX="125.0" />
                               <ChoiceBox prefWidth="150.0" translateX="125.0" GridPane.columnIndex="1" />
                               <ChoiceBox prefWidth="150.0" translateX="125.0" GridPane.rowIndex="1" />
                               <Label text="Label" translateX="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
@@ -177,7 +204,7 @@
                   </AnchorPane>
                </content>
             </Tab>
-            <Tab fx:id="monTab6" text="Court 7">
+            <Tab fx:id="court8" onSelectionChanged="#court8Change" text="Court 8">
                <content>
                   <AnchorPane maxHeight="1.7976931348623157E308" minHeight="0.0" minWidth="0.0" prefHeight="114.0" prefWidth="600.0">
                      <children>
@@ -192,7 +219,7 @@
                               <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                            </rowConstraints>
                            <children>
-                              <ChoiceBox fx:id="courtNum6" prefWidth="150.0" translateX="125.0" />
+                              <ChoiceBox prefWidth="150.0" translateX="125.0" />
                               <ChoiceBox prefWidth="150.0" translateX="125.0" GridPane.columnIndex="1" />
                               <ChoiceBox prefWidth="150.0" translateX="125.0" GridPane.rowIndex="1" />
                               <Label text="Label" translateX="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
@@ -204,7 +231,7 @@
                   </AnchorPane>
                </content>
             </Tab>
-            <Tab fx:id="monTab7" text="Court 8">
+            <Tab fx:id="court9" onSelectionChanged="#court9Change" text="Court 9">
                <content>
                   <AnchorPane maxHeight="1.7976931348623157E308" minHeight="0.0" minWidth="0.0" prefHeight="114.0" prefWidth="600.0">
                      <children>
@@ -219,7 +246,7 @@
                               <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                            </rowConstraints>
                            <children>
-                              <ChoiceBox fx:id="courtNum7" prefWidth="150.0" translateX="125.0" />
+                              <ChoiceBox prefWidth="150.0" translateX="125.0" />
                               <ChoiceBox prefWidth="150.0" translateX="125.0" GridPane.columnIndex="1" />
                               <ChoiceBox prefWidth="150.0" translateX="125.0" GridPane.rowIndex="1" />
                               <Label text="Label" translateX="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
@@ -231,7 +258,7 @@
                   </AnchorPane>
                </content>
             </Tab>
-            <Tab fx:id="monTab8" text="Court 9">
+            <Tab fx:id="court10" onSelectionChanged="#court10Change" text="Court 10">
                <content>
                   <AnchorPane maxHeight="1.7976931348623157E308" minHeight="0.0" minWidth="0.0" prefHeight="114.0" prefWidth="600.0">
                      <children>
@@ -246,7 +273,7 @@
                               <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                            </rowConstraints>
                            <children>
-                              <ChoiceBox fx:id="courtNum8" prefWidth="150.0" translateX="125.0" />
+                              <ChoiceBox prefWidth="150.0" translateX="125.0" />
                               <ChoiceBox prefWidth="150.0" translateX="125.0" GridPane.columnIndex="1" />
                               <ChoiceBox prefWidth="150.0" translateX="125.0" GridPane.rowIndex="1" />
                               <Label text="Label" translateX="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
@@ -258,7 +285,7 @@
                   </AnchorPane>
                </content>
             </Tab>
-            <Tab fx:id="monTab9" text="Court 10">
+            <Tab fx:id="court11" onSelectionChanged="#court11Change" text="Court 11">
                <content>
                   <AnchorPane maxHeight="1.7976931348623157E308" minHeight="0.0" minWidth="0.0" prefHeight="114.0" prefWidth="600.0">
                      <children>
@@ -273,7 +300,7 @@
                               <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                            </rowConstraints>
                            <children>
-                              <ChoiceBox fx:id="courtNum9" prefWidth="150.0" translateX="125.0" />
+                              <ChoiceBox prefWidth="150.0" translateX="125.0" />
                               <ChoiceBox prefWidth="150.0" translateX="125.0" GridPane.columnIndex="1" />
                               <ChoiceBox prefWidth="150.0" translateX="125.0" GridPane.rowIndex="1" />
                               <Label text="Label" translateX="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
@@ -285,7 +312,7 @@
                   </AnchorPane>
                </content>
             </Tab>
-            <Tab fx:id="monTab10" text="Court 11">
+            <Tab fx:id="court12" onSelectionChanged="#court12Change" text="Court 12">
                <content>
                   <AnchorPane maxHeight="1.7976931348623157E308" minHeight="0.0" minWidth="0.0" prefHeight="114.0" prefWidth="600.0">
                      <children>
@@ -300,34 +327,7 @@
                               <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                            </rowConstraints>
                            <children>
-                              <ChoiceBox fx:id="courtNum10" prefWidth="150.0" translateX="125.0" />
-                              <ChoiceBox prefWidth="150.0" translateX="125.0" GridPane.columnIndex="1" />
-                              <ChoiceBox prefWidth="150.0" translateX="125.0" GridPane.rowIndex="1" />
-                              <Label text="Label" translateX="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                              <Button mnemonicParsing="false" prefHeight="30.0" prefWidth="100.0" text="Cancel" textFill="WHITE" translateX="150.0" GridPane.rowIndex="2" />
-                              <Button mnemonicParsing="false" prefHeight="30.0" prefWidth="100.0" text="Submit" textFill="WHITE" translateX="150.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                           </children>
-                        </GridPane>
-                     </children>
-                  </AnchorPane>
-               </content>
-            </Tab>
-            <Tab fx:id="monTab11" text="Court 12">
-               <content>
-                  <AnchorPane maxHeight="1.7976931348623157E308" minHeight="0.0" minWidth="0.0" prefHeight="114.0" prefWidth="600.0">
-                     <children>
-                        <GridPane layoutX="240.0" layoutY="46.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0">
-                           <columnConstraints>
-                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                           </columnConstraints>
-                           <rowConstraints>
-                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                           </rowConstraints>
-                           <children>
-                              <ChoiceBox fx:id="courtNum11" prefWidth="150.0" translateX="125.0" />
+                              <ChoiceBox prefWidth="150.0" translateX="125.0" />
                               <ChoiceBox prefWidth="150.0" translateX="125.0" GridPane.columnIndex="1" />
                               <ChoiceBox prefWidth="150.0" translateX="125.0" GridPane.rowIndex="1" />
                               <Label text="Label" translateX="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
