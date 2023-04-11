@@ -191,6 +191,7 @@ public class MakeResController implements Initializable {
       courtNum = "court1";
     }
 
+    /*
     if (dayOfWeek.getValue().equals("Monday")) {
       slot = timesArray[1] + " " + time;
     } else if (dayOfWeek.getValue().equals("Tuesday")) {
@@ -208,10 +209,8 @@ public class MakeResController implements Initializable {
     } else if (dayOfWeek.getValue().equals("Today")) {
       slot = formattedDate + " " + time;
     }
-
-
-
-    Database.makeRes(courtNum, Database.memberUser, slot);
+*/
+    //Database.makeRes(courtNum, Database.memberUser, slot);
 
 
       /*

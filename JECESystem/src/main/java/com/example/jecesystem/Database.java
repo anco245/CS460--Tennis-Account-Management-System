@@ -858,48 +858,36 @@ public class Database {
   public static void populateCourts()
   {
     try (Connection connection = DriverManager.getConnection(url, username, password)) {
+      String[] dateTimeArray = toArray();
 
-      LocalDateTime now = LocalDateTime.now();
-
-
-
-
-      for(Integer i = 0; i < 12; i++) {
+      for(Integer i = 1; i < 13; i++) {
         PreparedStatement preparedStatement =
-          connection.prepareStatement("insert into ? values (?, ?)");
+          connection.prepareStatement("INSERT INTO ? VALUES (?)");
 
-        for(Integer j = 0; j < times.length; j++)
-        {
-          for(int k = 0; k < 7; k++)
-          {
-            String courtName = "court" + i.toString();
-            preparedStatement.setString(1, courtName);
+        String court = "court" + i.toString(i);
+        preparedStatement.setString(1, court);
 
-            String slot = "";
+        for(int j = 0; j < 8; j++) {
+          if(j==0){preparedStatement.setTimestamp(2, Timestamp.valueOf(dateTimeArray[0]));}
+          else if (j==1){preparedStatement.setTimestamp(2, Timestamp.valueOf(dateTimeArray[1]));}
+          else if (j==2){preparedStatement.setTimestamp(2, Timestamp.valueOf(dateTimeArray[2]));}
+          else if (j==3){preparedStatement.setTimestamp(2, Timestamp.valueOf(dateTimeArray[3]));}
+          else if (j==4){preparedStatement.setTimestamp(2, Timestamp.valueOf(dateTimeArray[4]));}
+          else if (j==5){preparedStatement.setTimestamp(2, Timestamp.valueOf(dateTimeArray[5]));}
+          else if (j==6){preparedStatement.setTimestamp(2, Timestamp.valueOf(dateTimeArray[6]));}
+          else if (j==7){preparedStatement.setTimestamp(2, Timestamp.valueOf(dateTimeArray[7]));}
 
-            if(k==0){slot = dateTime + " " + times[j];}
-            else if (k==1){slot = nextMonday + " " + times[j];}
-            else if (k==1){slot = nextTuesday + " " + times[j];}
-            else if (k==1){slot = nextWednesday + " " + times[j];}
-            else if (k==1){slot = nextThursday + " " + times[j];}
-            else if (k==1){slot = nextFriday + " " + times[j];}
-            else if (k==1){slot = nextSaturday + " " + times[j];}
-            else if (k==1){slot = nextSunday + " " + times[j];}
-
-            preparedStatement.setString(2, slot);
-            preparedStatement.setBoolean(3, false);
-
-            preparedStatement.execute();
-          }
+          preparedStatement.execute();
         }
       }
-
     } catch (SQLException e) {
-      throw new IllegalStateException("Cannot connect to the database!", e);
-    }
+      throw new RuntimeException(e);}
   }
 
-  public static String makeDays() {
-
-  }
+  /*
+      dattime             username
+      2023-11-04 9:00AM
+      2023-11-04 9:30AM
+      2023-11-04 10:00AM
+   */
 }
