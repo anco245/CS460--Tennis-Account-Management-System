@@ -5,6 +5,7 @@
 .button{
     -fx-background-color: #1c2385;
     -fx-background-radius: 20px;
+    -fx-font-family: 'Corbel';
 }
 
 .text-area{
