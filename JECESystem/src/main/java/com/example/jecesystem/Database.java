@@ -864,12 +864,14 @@ public class Database {
 
   public static void populateCourts() {
     try (Connection connection = DriverManager.getConnection(url, username, password)) {
+
+      toArray();
+
       for (Integer i = 1; i < 13; i++) {
         for (int j = 0; j < 160; j++) {
           String court = "court" + i.toString(i);
 
           String sql = "INSERT INTO " + court + " (dayAndTime, occupied) VALUES (?, false)";
-
           PreparedStatement preparedStatement =
             connection.prepareStatement(sql);
           preparedStatement.setTimestamp(1, Timestamp.valueOf(full[j]));
