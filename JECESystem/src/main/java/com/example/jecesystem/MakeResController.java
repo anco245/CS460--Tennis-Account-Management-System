@@ -75,62 +75,62 @@ public class MakeResController implements Initializable {
 
   @FXML
   void court10Change(ActionEvent event) {
-    loadData();
+    //loadData();
   }
 
   @FXML
   void court11Change(ActionEvent event) {
-    loadData();
+    //loadData();
   }
 
   @FXML
   void court12Change(ActionEvent event) {
-    loadData();
+    //loadData();
   }
 
   @FXML
   void court1Change(ActionEvent event) {
-    loadData();
+    //loadData();
   }
 
   @FXML
   void court2Change(ActionEvent event) {
-    loadData();
+    //loadData();
   }
 
   @FXML
   void court3Change(ActionEvent event) {
-    loadData();
+    //loadData();
   }
 
   @FXML
   void court4Change(ActionEvent event) {
-    loadData();
+    //loadData();
   }
 
   @FXML
   void court5Change(ActionEvent event) {
-    loadData();
+    //loadData();
   }
 
   @FXML
   void court6Change(ActionEvent event) {
-    loadData();
+    //loadData();
   }
 
   @FXML
   void court7Change(ActionEvent event) {
-    loadData();
+    //loadData();
   }
 
   @FXML
   void court8Change(ActionEvent event) {
-    loadData();
+    //loadData();
   }
 
   @FXML
   void court9Change(ActionEvent event) {
-    loadData();
+    //loadData();
   }
 
   @Override

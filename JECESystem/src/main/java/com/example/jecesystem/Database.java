@@ -833,6 +833,27 @@ public class Database {
     }
   }
 
+  public static void clearCourts()
+  {
+    try (Connection connection = DriverManager.getConnection(url, username, password)) {
+
+      for (Integer i = 1; i < 13; i++) {
+        for (int j = 0; j < 160; j++) {
+          String court = "court" + i.toString(i);
+
+          String sql = "DELETE FROM " + court + " WHERE ";
+          PreparedStatement preparedStatement =
+            connection.prepareStatement(sql);
+          preparedStatement.setTimestamp(1, Timestamp.valueOf(full[j]));
+          preparedStatement.executeUpdate();
+        }
+      }
+    } catch (SQLException e) {
+      throw new RuntimeException(e);
+    }
+  }
+  }
+
   public static boolean inReservation(String user) {
     try (Connection connection = DriverManager.getConnection(url, username, password)) {
       PreparedStatement preparedStatement =
@@ -864,12 +885,14 @@ public class Database {
 
   public static void populateCourts() {
     try (Connection connection = DriverManager.getConnection(url, username, password)) {
+
+      toArray();
+
       for (Integer i = 1; i < 13; i++) {
         for (int j = 0; j < 160; j++) {
           String court = "court" + i.toString(i);
 
           String sql = "INSERT INTO " + court + " (dayAndTime, occupied) VALUES (?, false)";
-
           PreparedStatement preparedStatement =
             connection.prepareStatement(sql);
           preparedStatement.setTimestamp(1, Timestamp.valueOf(full[j]));
