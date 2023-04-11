@@ -7,6 +7,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonBar;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.TextField;
+import javafx.scene.text.Text;
 
 import java.io.IOException;
 import java.net.URL;
@@ -24,6 +25,39 @@ public class InfoController implements Initializable {
     Phone Number for Technical Support: 215-663-2133
     Email for any questions: askquestion@tennis.com
   */
+
+  @FXML
+  private Text disAddress;
+
+  @FXML
+  private Text disAge;
+
+  @FXML
+  private Text disEmail;
+
+  @FXML
+  private Text disGuests;
+
+  @FXML
+  private Text disOwed;
+
+  @FXML
+  private Text disPass;
+
+  @FXML
+  private Text disPhone;
+
+  @FXML
+  private Text disRes;
+
+  @FXML
+  private Text disUser;
+
+  @FXML
+  private Text disfname;
+
+  @FXML
+  private Text dislname;
 
   @Override
   public void initialize(URL url, ResourceBundle rb) {
