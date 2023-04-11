@@ -862,12 +862,13 @@ public class Database {
 
       for(Integer i = 1; i < 13; i++) {
         PreparedStatement preparedStatement =
-          connection.prepareStatement("INSERT INTO ? VALUES (?)");
+          connection.prepareStatement("INSERT INTO ? VALUES (?, ?)");
 
         String court = "court" + i.toString(i);
-        preparedStatement.setString(1, court);
 
         for(int j = 0; j < 8; j++) {
+          preparedStatement.setString(1, court);
+          
           if(j==0){preparedStatement.setTimestamp(2, Timestamp.valueOf(dateTimeArray[0]));}
           else if (j==1){preparedStatement.setTimestamp(2, Timestamp.valueOf(dateTimeArray[1]));}
           else if (j==2){preparedStatement.setTimestamp(2, Timestamp.valueOf(dateTimeArray[2]));}
@@ -877,6 +878,7 @@ public class Database {
           else if (j==6){preparedStatement.setTimestamp(2, Timestamp.valueOf(dateTimeArray[6]));}
           else if (j==7){preparedStatement.setTimestamp(2, Timestamp.valueOf(dateTimeArray[7]));}
 
+          preparedStatement.setBoolean(3, false);
           preparedStatement.execute();
         }
       }
