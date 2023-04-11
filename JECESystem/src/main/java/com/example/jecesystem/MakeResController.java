@@ -72,7 +72,7 @@ public class MakeResController implements Initializable {
   void onSubmit(ActionEvent event) {
 
   }
-  
+
   @Override
   public void initialize(URL url, ResourceBundle rb) {
     loadData();

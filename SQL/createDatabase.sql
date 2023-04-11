@@ -50,7 +50,7 @@ CREATE TABLE waiting (
 );
 
 CREATE TABLE court1 (
-	dayAndTime TIMESTAMP NOT NULL PRIMARY KEY,
+	dayAndTime DATETIME NOT NULL PRIMARY KEY,
     username VARCHAR(50),
     occupied boolean NOT NULL,
     FOREIGN KEY (username) REFERENCES directory(username)
@@ -58,77 +58,77 @@ CREATE TABLE court1 (
 );
 
 CREATE TABLE court2 (
-	dayandTime dateTIME NOT NULL PRIMARY KEY,
+	dayAndTime DATETIME NOT NULL PRIMARY KEY,
     username VARCHAR(50),
     occupied boolean NOT NULL,
     FOREIGN KEY (username) REFERENCES directory(username)
 );
 
 CREATE TABLE court3 (
-	dayandTime dateTIME NOT NULL PRIMARY KEY,
+	dayAndTime DATETIME NOT NULL PRIMARY KEY,
     username VARCHAR(50),
     occupied boolean NOT NULL,
     FOREIGN KEY (username) REFERENCES directory(username)
 );
 
 CREATE TABLE court4 (
-	dayandTime dateTIME NOT NULL PRIMARY KEY,
+	dayAndTime DATETIME NOT NULL PRIMARY KEY,
     username VARCHAR(50),
     occupied boolean NOT NULL,
     FOREIGN KEY (username) REFERENCES directory(username)
 );
 
 CREATE TABLE court5 (
-	dayandTime dateTIME NOT NULL PRIMARY KEY,
+	dayAndTime DATETIME NOT NULL PRIMARY KEY,
     username VARCHAR(50),
     occupied boolean NOT NULL,
     FOREIGN KEY (username) REFERENCES directory(username)
 );
 
 CREATE TABLE court6 (
-	dayandTime dateTIME NOT NULL PRIMARY KEY,
+	dayAndTime DATETIME NOT NULL PRIMARY KEY,
     username VARCHAR(50),
     occupied boolean NOT NULL,
     FOREIGN KEY (username) REFERENCES directory(username)
 );
 
 CREATE TABLE court7 (
-	dayandTime dateTIME NOT NULL PRIMARY KEY,
+	dayAndTime DATETIME NOT NULL PRIMARY KEY,
     username VARCHAR(50),
     occupied boolean NOT NULL,
     FOREIGN KEY (username) REFERENCES directory(username)
 );
 
 CREATE TABLE court8 (
-	dayandTime dateTIME NOT NULL PRIMARY KEY,
+	dayAndTime DATETIME NOT NULL PRIMARY KEY,
     username VARCHAR(50),
     occupied boolean NOT NULL,
     FOREIGN KEY (username) REFERENCES directory(username)
 );
 
 CREATE TABLE court9 (
-	dayandTime dateTIME NOT NULL PRIMARY KEY,
+	dayAndTime DATETIME NOT NULL PRIMARY KEY,
     username VARCHAR(50),
     occupied boolean NOT NULL,
     FOREIGN KEY (username) REFERENCES directory(username)
 );
 
 CREATE TABLE court10 (
-	dayandTime dateTIME NOT NULL PRIMARY KEY,
+	dayAndTime DATETIME NOT NULL PRIMARY KEY,
     username VARCHAR(50),
     occupied boolean NOT NULL,
     FOREIGN KEY (username) REFERENCES directory(username)
 );
 
 CREATE TABLE court11 (
-	dayandTime dateTIME NOT NULL PRIMARY KEY,
+	dayAndTime DATETIME NOT NULL PRIMARY KEY,
     username VARCHAR(50),
     occupied boolean NOT NULL,
     FOREIGN KEY (username) REFERENCES directory(username)
 );
 
 CREATE TABLE court12 (
-	dayandTime dateTIME NOT NULL PRIMARY KEY,
+	dayAndTime DATETIME NOT NULL PRIMARY KEY,
     username VARCHAR(50),
     occupied boolean NOT NULL,
     FOREIGN KEY (username) REFERENCES directory(username)
