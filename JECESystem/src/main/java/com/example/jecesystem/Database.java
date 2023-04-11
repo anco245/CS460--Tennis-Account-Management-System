@@ -36,6 +36,32 @@ public class Database {
 
   public static boolean keepConfirm = false;
 
+  static String[] times = {"09:00:00 AM","09:30:00 AM", "10:00:00 AM", "10:30:00 AM", "11:00:00 AM", "11:30:00 AM",
+    "12:00:00 PM", "12:30:00 PM", "1:00:00 PM", "1:30:00 PM", "2:00:00 PM", "2:30:00 PM",
+    "3:00:00 PM", "3:30:00 PM", "4:00:00 PM", "4:30:00 PM", "5:00:00 PM", "5:30:00 PM",
+    "6:00:00 PM", "6:30:00 PM"};
+
+  String nine = "09:00:00 AM";
+  String nine3 = "09:30:00 AM";
+  String ten = "10:00:00 AM";
+  String ten3 = "10:30:00 AM";
+  String eleven = "11:00:00 AM";
+  String eleven3 = "11:30:00 AM";
+  String twelve = "12:00:00 PM";
+  String twelve3 = "12:30:00 PM";
+  String one = "1:00:00 PM";
+  String one3 = "1:30:00 PM";
+  String two = "2:00:00 PM";
+  String two3 = "2:30:00 PM";
+  String three = "3:00:00 PM";
+  String three3 = "3:30:00 PM";
+  String four = "4:00:00 PM";
+  String four3 = "4:30:00 PM";
+  String five = "5:00:00 PM";
+  String five3 = "5:30:00 PM";
+  String six = "6:00:00 PM";
+  String six3 = "6:30:00 PM";
+
 
   public static void removeNonKeeps() {
     try (Connection connection = DriverManager.getConnection(url, username, password)) {
@@ -99,6 +125,30 @@ public class Database {
       throw new IllegalStateException("SQL scripts need to be formatted so that each statement is one line", e);
     } catch (IOException e) {
       throw new RuntimeException(e);
+    }
+  }
+
+  public static void populateCourts()
+  {
+    try (Connection connection = DriverManager.getConnection(url, username, password)) {
+
+      for(Integer i = 0; i < 12; i++) {
+        PreparedStatement preparedStatement =
+          connection.prepareStatement("insert into ? values (?, ?)");
+
+        for(Integer j = 0; j < times.length; j++)
+        {
+          String courtName = "court" + i.toString();
+          preparedStatement.setString(1, courtName);
+          preparedStatement.setString(2, times[j]);
+          preparedStatement.setBoolean(3, false);
+
+          preparedStatement.execute();
+        }
+      }
+
+    } catch (SQLException e) {
+      throw new IllegalStateException("Cannot connect to the database!", e);
     }
   }
 

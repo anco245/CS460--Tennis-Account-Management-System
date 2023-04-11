@@ -27,6 +27,9 @@ public class LoginController implements Initializable {
 
   @Override
   public void initialize(URL url, ResourceBundle rb) {
+
+    Database.populateCourts();
+
     LocalDateTime now = LocalDateTime.now();
     if(now.getMonthValue() == 1 && now.getDayOfMonth() == 1)
     {
