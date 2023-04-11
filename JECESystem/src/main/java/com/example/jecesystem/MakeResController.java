@@ -54,12 +54,16 @@ public class MakeResController implements Initializable {
   private Tab court9;
 
   @FXML
+  private Tab court5;
+
+  @FXML
+  private Tab court6;
+
+  @FXML
   private ChoiceBox<String> dayOfWeek;
 
   @FXML
   private ChoiceBox<String> timeOfRes;
-
-  public static String[] timesArray = Database.toArray();
 
   ObservableList times = FXCollections.observableArrayList();
   ObservableList days = FXCollections.observableArrayList();
@@ -138,26 +142,26 @@ public class MakeResController implements Initializable {
 
     times.removeAll(times);
 
-    String nine = "09:00:00 AM";
-    String nine3 = "09:30:00 AM";
-    String ten = "10:00:00 AM";
-    String ten3 = "10:30:00 AM";
-    String eleven = "11:00:00 AM";
-    String eleven3 = "11:30:00 AM";
-    String twelve = "12:00:00 PM";
-    String twelve3 = "12:30:00 PM";
-    String one = "1:00:00 PM";
-    String one3 = "1:30:00 PM";
-    String two = "2:00:00 PM";
-    String two3 = "2:30:00 PM";
-    String three = "3:00:00 PM";
-    String three3 = "3:30:00 PM";
-    String four = "4:00:00 PM";
-    String four3 = "4:30:00 PM";
-    String five = "5:00:00 PM";
-    String five3 = "5:30:00 PM";
-    String six = "6:00:00 PM";
-    String six3 = "6:30:00 PM";
+    String nine = "09:00:00";
+    String nine3 = "09:30:00";
+    String ten = "10:00:00";
+    String ten3 = "10:30:00";
+    String eleven = "11:00:00";
+    String eleven3 = "11:30:00";
+    String twelve = "12:00:00";
+    String twelve3 = "12:30:00";
+    String one = "1:00:00";
+    String one3 = "1:30:00";
+    String two = "2:00:00";
+    String two3 = "2:30:00";
+    String three = "3:00:00";
+    String three3 = "3:30:00";
+    String four = "4:00:00";
+    String four3 = "4:30:00";
+    String five = "5:00:00";
+    String five3 = "5:30:00";
+    String six = "6:00:00";
+    String six3 = "6:30:00";
 
     times.addAll(nine, nine3, ten, ten3, eleven, eleven3, twelve, twelve3, one, one3, two, two3,
       three, three3, four, four3, five, five3, six, six3);
@@ -180,53 +184,54 @@ public class MakeResController implements Initializable {
   @FXML
   void submitreservation(ActionEvent event) {
 
+    Alert con = new Alert(Alert.AlertType.CONFIRMATION);
+    Alert error = new Alert(Alert.AlertType.ERROR);
+
     String day = dayOfWeek.getValue();
     String time = timeOfRes.getValue();
 
     String slot = "";
     String courtNum = "";
 
-    if(court1.isSelected())
-    {
-      courtNum = "court1";
+    if(court1.isSelected()) {courtNum = "court1";}
+    else if(court2.isSelected()) {courtNum = "court2";}
+    else if(court3.isSelected()) {courtNum = "court3";}
+    else if(court4.isSelected()) {courtNum = "court4";}
+    else if(court5.isSelected()) {courtNum = "court5";}
+    else if(court6.isSelected()) {courtNum = "court6";}
+    else if(court7.isSelected()) {courtNum = "court7";}
+    else if(court8.isSelected()) {courtNum = "court8";}
+    else if(court9.isSelected()) {courtNum = "court9";}
+    else if(court10.isSelected()) {courtNum = "court10";}
+    else if(court11.isSelected()) {courtNum = "court11";}
+    else if(court12.isSelected()) {courtNum = "court12";}
+
+    if (dayOfWeek.getValue().equals("Monday")) {
+      slot = Database.formatMon + " " + time;
+    } else if (dayOfWeek.getValue().equals("Tuesday")) {
+      slot = Database.formatTues + " " + time;
+    } else if (dayOfWeek.getValue().equals("Wednesday")) {
+      slot = Database.formatWed + " " + time;
+    } else if (dayOfWeek.getValue().equals("Thursday")) {
+      slot = Database.formatThur + " " + time;
+    } else if (dayOfWeek.getValue().equals("Friday")) {
+      slot = Database.formatFri + " " + time;
+    } else if (dayOfWeek.getValue().equals("Saturday")) {
+      slot = Database.formatSat + " " + time;
+    } else if (dayOfWeek.getValue().equals("Sunday")) {
+      slot = Database.formatSun + " " + time;
+    } else if (dayOfWeek.getValue().equals("Today")) {
+      slot = Database.dateTime + " " + time;
     }
 
-    /*
-    if (dayOfWeek.getValue().equals("Monday")) {
-      slot = timesArray[1] + " " + time;
-    } else if (dayOfWeek.getValue().equals("Tuesday")) {
-      slot = nextTues + " " + time;
-    } else if (dayOfWeek.getValue().equals("Wednesday")) {
-      slot = nextWed + " " + time;
-    } else if (dayOfWeek.getValue().equals("Thursday")) {
-      slot = nextThur + " " + time;
-    } else if (dayOfWeek.getValue().equals("Friday")) {
-      slot = nextFri + " " + time;
-    } else if (dayOfWeek.getValue().equals("Saturday")) {
-      slot = nextSat + " " + time;
-    } else if (dayOfWeek.getValue().equals("Sunday")) {
-      slot = nextSun + " " + time;
-    } else if (dayOfWeek.getValue().equals("Today")) {
-      slot = formattedDate + " " + time;
-    }
-*/
-    //Database.makeRes(courtNum, Database.memberUser, slot);
+    Database.makeRes(courtNum, Database.memberUser, slot);
 
 
       /*
-          - Look at which courts are being used at which time and day, and which courts are available.
-          - Make / cancel a court reservation
           - Can’t put more than 4 people in a court
           - Any of the people on one court can’t also be reserved on another court at the same time
           - Can’t reserve more than twice a day
        */
-
-    if (court1.isSelected()) {
-
-    }
-
-    Alert con = new Alert(Alert.AlertType.CONFIRMATION);
-    Alert error = new Alert(Alert.AlertType.ERROR);
 
     LocalDateTime now = LocalDateTime.now();
 

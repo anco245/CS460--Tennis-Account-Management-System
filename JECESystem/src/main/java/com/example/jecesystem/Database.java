@@ -43,6 +43,8 @@ public class Database {
 
   public static boolean keepConfirm = false;
 
+  public static String[] full = new String[160];
+
   static String[] times = {"09:00:00", "09:30:00", "10:00:00", "10:30:00", "11:00:00", "11:30:00",
     "12:00:00", "12:30:00", "13:00:00", "13:30:00", "14:00:00", "14:30:00",
     "15:00:00", "15:30:00", "16:00:00", "16:30:00", "17:00:00", "17:30:00",
@@ -57,27 +59,14 @@ public class Database {
   public static LocalDateTime nextSaturday = dateTime.with(TemporalAdjusters.next(DayOfWeek.SATURDAY));
   public static LocalDateTime nextSunday = dateTime.with(TemporalAdjusters.next(DayOfWeek.SUNDAY));
 
-  //String nine = "09:00:00";
-  String nine3 = "09:30:00";
-  String ten = "10:00:00";
-  String ten3 = "10:30:00";
-  String eleven = "11:00:00";
-  String eleven3 = "11:30:00";
-  String twelve = "12:00:00";
-  String twelve3 = "12:30:00";
-  String one = "1:00:00";
-  String one3 = "1:30:00";
-  String two = "2:00:00";
-  String two3 = "2:30:00";
-  String three = "3:00:00";
-  String three3 = "3:30:00";
-  String four = "4:00:00";
-  String four3 = "4:30:00";
-  String five = "5:00:00";
-  String five3 = "5:30:00";
-  String six = "6:00:00";
-  String six3 = "6:30:00";
-
+  public static String formatMon = "";
+  public static String formatTues = "";
+  public static String formatWed = "";
+  public static String formatThur = "";
+  public static String formatFri = "";
+  public static String formatSat = "";
+  public static String formatSun = "";
+  public static String formatDay = "";
 
   public static void removeNonKeeps() {
     try (Connection connection = DriverManager.getConnection(url, username, password)) {
@@ -736,37 +725,36 @@ public class Database {
     }
   }
 
-  public static String[] toArray() {
+  public static void toArray() {
     String[] exactDays = new String[8];
-    String[] full = new String[160];
 
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
     for (int i = 0; i < 8; i++) {
       if (i == 0) {
-        String formattedDate = dateTime.format(formatter);
-        exactDays[i] = formattedDate;
+        formatDay = dateTime.format(formatter);
+        exactDays[i] = formatDay;
       } else if (i == 1) {
-        String formattedDate = nextMonday.format(formatter);
-        exactDays[i] = formattedDate;
+        formatMon = nextMonday.format(formatter);
+        exactDays[i] = formatMon;
       } else if (i == 2) {
-        String formattedDate = nextTuesday.format(formatter);
-        exactDays[i] = formattedDate;
+        formatTues = nextTuesday.format(formatter);
+        exactDays[i] = formatTues;
       } else if (i == 3) {
-        String formattedDate = nextWednesday.format(formatter);
-        exactDays[i] = formattedDate;
+        formatWed = nextWednesday.format(formatter);
+        exactDays[i] = formatWed;
       } else if (i == 4) {
-        String formattedDate = nextThursday.format(formatter);
-        exactDays[i] = formattedDate;
+        formatThur = nextThursday.format(formatter);
+        exactDays[i] = formatThur;
       } else if (i == 5) {
-        String formattedDate = nextFriday.format(formatter);
-        exactDays[i] = formattedDate;
+        formatFri = nextFriday.format(formatter);
+        exactDays[i] = formatFri;
       } else if (i == 6) {
-        String formattedDate = nextSaturday.format(formatter);
-        exactDays[i] = formattedDate;
+        formatSat = nextSaturday.format(formatter);
+        exactDays[i] = formatSat;
       } else if (i == 7) {
-        String formattedDate = nextSunday.format(formatter);
-        exactDays[i] = formattedDate;
+        formatSun = nextSunday.format(formatter);
+        exactDays[i] = formatSun;
       }
     }
 
@@ -780,8 +768,6 @@ public class Database {
         count++;
       }
     }
-
-    return full;
   }
 
   public static void clearRes() {
@@ -814,14 +800,14 @@ public class Database {
   }
 
   //function to update the reservation
-  public static void makeRes(int pendingNum, String memberName, String pendingTime) {
+  public static void makeRes(String pendingNum, String memberName, String pendingTime) {
     try (Connection connection = DriverManager.getConnection(url, username, password)) {
       PreparedStatement preparedStatement =
         connection.prepareStatement("UPDATE reservation SET username = ?, resTime = ?, isRes = ? WHERE courtNum = ?");
       preparedStatement.setString(1, memberName);
       preparedStatement.setTimestamp(2, Timestamp.valueOf(pendingTime));
       preparedStatement.setBoolean(3, true);
-      preparedStatement.setInt(4, pendingNum);
+      preparedStatement.setString(4, pendingNum);
 
       preparedStatement.executeUpdate();
       preparedStatement.close();
@@ -878,7 +864,6 @@ public class Database {
 
   public static void populateCourts() {
     try (Connection connection = DriverManager.getConnection(url, username, password)) {
-      String[] full = toArray();
       for (Integer i = 1; i < 13; i++) {
         for (int j = 0; j < 160; j++) {
           String court = "court" + i.toString(i);

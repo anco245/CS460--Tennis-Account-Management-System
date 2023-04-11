@@ -40,7 +40,6 @@ public class LoginController implements Initializable {
     {
       Database.clearRes();
     }
-
   }
 
   @FXML
