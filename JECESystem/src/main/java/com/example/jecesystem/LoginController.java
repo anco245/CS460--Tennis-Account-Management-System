@@ -33,6 +33,11 @@ public class LoginController implements Initializable {
       Database.removeNonKeeps();
     }
 
+    if(now.getHour() == 0 && now.getMinute() == 0)
+    {
+      Database.clearRes();
+    }
+
   }
 
   @FXML

@@ -596,18 +596,31 @@ public class Database {
     }
   }
 
-  public static void setAge(int x) {
-    age = x;
-
+  public static void clearRes() {
     try (Connection connection = DriverManager.getConnection(url, username, password)) {
       PreparedStatement preparedStatement =
-        connection.prepareStatement("UPDATE directory SET age = ? WHERE username = ?");
+        connection.prepareStatement("SELECT * FROM directory");
 
-      preparedStatement.setInt(1, age);
-      preparedStatement.setString(2, memberUser);
-      preparedStatement.executeUpdate();
+      ResultSet resultSet = preparedStatement.executeQuery();
+
+      while(resultSet.next()) {
+        String usr = resultSet.getString("username");
+        int amt = resultSet.getInt("amountOfRes");
+
+        if(amt > 0)
+        {
+          PreparedStatement p2 =
+            connection.prepareStatement("UPDATE directory SET amountOfRes = 0 WHERE username = ?");
+
+          p2.setString(1, usr);
+
+          p2.executeUpdate();
+          p2.close();
+        }
+      }
 
       preparedStatement.close();
+      resultSet.close();
     } catch (SQLException e) {
       throw new IllegalStateException("Cannot connect to the database!", e);
     }
@@ -723,7 +736,7 @@ public class Database {
 
   /*
   //function to update the reservation
-  public static void makeRes(int pendingNum, String memberName, DateTime pendingTime) {
+  public static void makeRes(int pendingNum, String memberName, String pendingTime) {
     try (Connection connection = DriverManager.getConnection(url, username, password)){
       PreparedStatement preparedStatement =
           connection.prepareStatement ("UPDATE reservation SET username = ?, resTime = ?, isRes = ? WHERE courtNum = ?");

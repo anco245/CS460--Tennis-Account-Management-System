@@ -10,6 +10,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.Tab;
 
 import java.net.URL;
 import java.time.LocalDateTime;
@@ -26,9 +27,13 @@ public class MakeResController implements Initializable {
   @FXML
   private CheckBox nineAM;
 
+  private CheckBox doubleGame;
+
+  @FXML
+  private Tab monTab;
+
   ObservableList day = FXCollections.observableArrayList();
   ObservableList court = FXCollections.observableArrayList();
-  //ObservableList = FXCollections.observableArrayList();
 
   @Override
   public void initialize(URL url, ResourceBundle rb)
@@ -37,6 +42,7 @@ public class MakeResController implements Initializable {
   }
 
   private void loadData() {
+
     court.removeAll(court);
 
     int a = 1;
@@ -66,11 +72,25 @@ public class MakeResController implements Initializable {
     String sunday = "Sunday";
 
     day.addAll(monday, tuesday, wednesday, thursday, friday, saturday, sunday);
-    dayOfWeek.getItems().addAll(day);
+    //dayOfWeek.getItems().addAll(day);
   }
 
   @FXML
   void submitreservation(ActionEvent event) {
+
+
+    /*
+        - Look at which courts are being used at which time and day, and which courts are available.
+        - Make / cancel a court reservation
+        - Can’t put more than 4 people in a court
+        - Any of the people on one court can’t also be reserved on another court at the same time
+        - Can’t reserve more than twice a day
+     */
+
+    if (monTab.isSelected())
+    {
+
+    }
 
     Alert con = new Alert(Alert.AlertType.CONFIRMATION);
     Alert error = new Alert(Alert.AlertType.ERROR);
@@ -81,6 +101,10 @@ public class MakeResController implements Initializable {
     String givenDay = dayOfWeek.getValue();
     String timeOfRes = "";
 
+    boolean isDouble = (doubleGame.isSelected()) ? true : false;
+
+
+
     if (Database.checkRes(givenCourt)) {
       error.setTitle("Error");
       error.setContentText("This court has already been reserved.\nTry Again.");
@@ -90,6 +114,7 @@ public class MakeResController implements Initializable {
       error.setContentText("You've already reserved a court for today.\nTry Again.");
       error.showAndWait();
     } else {
+      /*
       if(nineam.isSelected()){timeOfRes = "20120618 9:00:00 AM"; Database.makeRes(givenCourt, givenDay, timeOfRes);}
       else if (nine30.isSelected()){timeOfRes = "20120618 9:00:00 AM"; Database.makeRes(givenCourt, givenDay, timeOfRes);}
       else if (ten.isSelected()){timeOfRes = "20120618 9:00:00 AM"; Database.makeRes(givenCourt, givenDay, timeOfRes);}
@@ -115,6 +140,7 @@ public class MakeResController implements Initializable {
       else if (eight.isSelected()){timeOfRes = "20120618 9:00:00 AM"; Database.makeRes(givenCourt, givenDay, timeOfRes);}
       else if (eight30.isSelected()){timeOfRes = "20120618 9:00:00 AM"; Database.makeRes(givenCourt, givenDay, timeOfRes);}
       else if (ninepm.isSelected()){timeOfRes = "20120618 9:00:00 AM"; Database.makeRes(givenCourt, givenDay, timeOfRes);}
+      */
     }
   }
 }

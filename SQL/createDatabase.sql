@@ -19,6 +19,7 @@ CREATE TABLE directory (
     guests INT NOT NULL,
     keepAccount BOOLEAN NOT NULL,
     keepConfirm BOOLEAN NOT NULL
+    -- amount of res INT NOT NULL
 );
 
 CREATE TABLE reservation (
@@ -26,6 +27,10 @@ CREATE TABLE reservation (
 	username VARCHAR(50),
     resTime datetime,
     isRes BOOLEAN NOT NULL,
+	-- username1 VARCHAR(50),
+    -- username2 VARCHAR(50),
+    -- resTime1 datetime,
+    -- resTime2 datetime, 
     FOREIGN KEY (username) REFERENCES directory(username) 
 		ON DELETE CASCADE
 );
