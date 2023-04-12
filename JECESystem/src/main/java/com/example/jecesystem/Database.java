@@ -146,6 +146,7 @@ public class Database {
 
   public static void addFromWait() {
     try (Connection connection = DriverManager.getConnection(url, username, password)) {
+
       PreparedStatement preparedStatement =
         connection.prepareStatement("SELECT * FROM waiting WHERE priority = 1");
 
@@ -706,26 +707,33 @@ public class Database {
     }
   }
 
-  public static boolean exceededResLimit(String num, String dateAndTime) {
+  public static boolean exceededResLimit() {
     try (Connection connection = DriverManager.getConnection(url, username, password)) {
 
-      //int
+      DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+
+      int count = 0;
+
       for (Integer i = 1; i < 13; i++) {
         String court = "court" + i.toString(i);
 
-        //select * FROM court1, court2 where court1.username = "jsmith";
+        String sql = "select count(*) from " + court + " where username = ? and ofDay = ?";
 
-        PreparedStatement preparedStatement = connection.prepareStatement("");
-
+        PreparedStatement preparedStatement = connection.prepareStatement(sql);
         preparedStatement.setString(1, memberUser);
+        preparedStatement.setDate(2, Date.valueOf(dateTime.format(formatter)));
 
         ResultSet resultSet = preparedStatement.executeQuery();
 
         while (resultSet.next()) {
-          String dayandTime = String.valueOf(resultSet.getTimestamp("dayAndTime"));
+          count = count + resultSet.getInt("count(*)");
 
-          //str = str = dayandTime + "\n";
+          if(count == 2)
+          {
+            return true;
+          }
         }
+
         preparedStatement.close();
       }
 
@@ -968,10 +976,15 @@ public class Database {
         for (int j = 0; j < 160; j++) {
           String court = "court" + i.toString(i);
 
-          String sql = "INSERT INTO " + court + " (dayAndTime, occupied) VALUES (?, false)";
-          PreparedStatement preparedStatement =
-            connection.prepareStatement(sql);
+          String sql = "INSERT INTO " + court + " (dayAndTime, ofDay, ofTime, occupied) VALUES (?, ?, ?, false)";
+          PreparedStatement preparedStatement = connection.prepareStatement(sql);
+
+          String day = full[j].substring(0, 9);
+          String time = full[j].substring(11, 19);
+
           preparedStatement.setTimestamp(1, Timestamp.valueOf(full[j]));
+          preparedStatement.setDate(2, Date.valueOf(day));
+          preparedStatement.setTime(3, Time.valueOf(time));
           preparedStatement.executeUpdate();
         }
       }

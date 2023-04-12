@@ -38,6 +38,8 @@ CREATE TABLE waiting (
 
 CREATE TABLE court1 (
 	dayAndTime DATETIME NOT NULL PRIMARY KEY,
+    ofDay date NOT NULL, 
+    ofTime time NOT NULL,
     username VARCHAR(50),
     occupied boolean NOT NULL,
     FOREIGN KEY (username) REFERENCES directory(username)
@@ -46,6 +48,8 @@ CREATE TABLE court1 (
 
 CREATE TABLE court2 (
 	dayAndTime DATETIME NOT NULL PRIMARY KEY,
+	ofDay date NOT NULL, 
+    ofTime time NOT NULL,
     username VARCHAR(50),
     occupied boolean NOT NULL,
     FOREIGN KEY (username) REFERENCES directory(username)
@@ -53,6 +57,8 @@ CREATE TABLE court2 (
 
 CREATE TABLE court3 (
 	dayAndTime DATETIME NOT NULL PRIMARY KEY,
+	ofDay date NOT NULL, 
+    ofTime time NOT NULL,
     username VARCHAR(50),
     occupied boolean NOT NULL,
     FOREIGN KEY (username) REFERENCES directory(username)
@@ -60,6 +66,8 @@ CREATE TABLE court3 (
 
 CREATE TABLE court4 (
 	dayAndTime DATETIME NOT NULL PRIMARY KEY,
+    ofDay date NOT NULL, 
+    ofTime time NOT NULL,
     username VARCHAR(50),
     occupied boolean NOT NULL,
     FOREIGN KEY (username) REFERENCES directory(username)
@@ -67,6 +75,8 @@ CREATE TABLE court4 (
 
 CREATE TABLE court5 (
 	dayAndTime DATETIME NOT NULL PRIMARY KEY,
+    ofDay date NOT NULL, 
+    ofTime time NOT NULL,
     username VARCHAR(50),
     occupied boolean NOT NULL,
     FOREIGN KEY (username) REFERENCES directory(username)
@@ -74,6 +84,8 @@ CREATE TABLE court5 (
 
 CREATE TABLE court6 (
 	dayAndTime DATETIME NOT NULL PRIMARY KEY,
+    ofDay date NOT NULL, 
+    ofTime time NOT NULL,
     username VARCHAR(50),
     occupied boolean NOT NULL,
     FOREIGN KEY (username) REFERENCES directory(username)
@@ -81,6 +93,8 @@ CREATE TABLE court6 (
 
 CREATE TABLE court7 (
 	dayAndTime DATETIME NOT NULL PRIMARY KEY,
+    ofDay date NOT NULL, 
+    ofTime time NOT NULL,
     username VARCHAR(50),
     occupied boolean NOT NULL,
     FOREIGN KEY (username) REFERENCES directory(username)
@@ -88,6 +102,8 @@ CREATE TABLE court7 (
 
 CREATE TABLE court8 (
 	dayAndTime DATETIME NOT NULL PRIMARY KEY,
+    ofDay date NOT NULL, 
+    ofTime time NOT NULL,
     username VARCHAR(50),
     occupied boolean NOT NULL,
     FOREIGN KEY (username) REFERENCES directory(username)
@@ -95,6 +111,8 @@ CREATE TABLE court8 (
 
 CREATE TABLE court9 (
 	dayAndTime DATETIME NOT NULL PRIMARY KEY,
+    ofDay date NOT NULL, 
+    ofTime time NOT NULL,
     username VARCHAR(50),
     occupied boolean NOT NULL,
     FOREIGN KEY (username) REFERENCES directory(username)
@@ -102,6 +120,8 @@ CREATE TABLE court9 (
 
 CREATE TABLE court10 (
 	dayAndTime DATETIME NOT NULL PRIMARY KEY,
+    ofDay date NOT NULL, 
+    ofTime time NOT NULL,
     username VARCHAR(50),
     occupied boolean NOT NULL,
     FOREIGN KEY (username) REFERENCES directory(username)
@@ -109,6 +129,8 @@ CREATE TABLE court10 (
 
 CREATE TABLE court11 (
 	dayAndTime DATETIME NOT NULL PRIMARY KEY,
+    ofDay date NOT NULL, 
+    ofTime time NOT NULL,
     username VARCHAR(50),
     occupied boolean NOT NULL,
     FOREIGN KEY (username) REFERENCES directory(username)
@@ -116,27 +138,9 @@ CREATE TABLE court11 (
 
 CREATE TABLE court12 (
 	dayAndTime DATETIME NOT NULL PRIMARY KEY,
+    ofDay date NOT NULL, 
+    ofTime time NOT NULL,
     username VARCHAR(50),
     occupied boolean NOT NULL,
     FOREIGN KEY (username) REFERENCES directory(username)
 );
-
-INSERT INTO reservation (courtNum, isRes) VALUES (1, FALSE);
-
-INSERT INTO reservation (courtNum, isRes) VALUES (2, FALSE);
-
-INSERT INTO reservation (courtNum, isRes) VALUES (3, FALSE);
-
-INSERT INTO reservation (courtNum, isRes) VALUES (4, FALSE);
-
-INSERT INTO reservation (courtNum, isRes) VALUES (5, FALSE);
-
-INSERT INTO reservation (courtNum, isRes) VALUES (6, FALSE);
-
-INSERT INTO reservation (courtNum, isRes) VALUES (7, FALSE);
-
-INSERT INTO reservation (courtNum, isRes) VALUES (8, FALSE);
-
-INSERT INTO reservation (courtNum, isRes) VALUES (9, FALSE);
-
-INSERT INTO reservation (courtNum, isRes) VALUES (10, FALSE);
