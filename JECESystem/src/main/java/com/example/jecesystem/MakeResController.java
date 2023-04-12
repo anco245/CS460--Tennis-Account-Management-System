@@ -140,7 +140,7 @@ public class MakeResController implements Initializable {
       error.setTitle("Error");
       error.setContentText("That time slot has already passed.\nTry another.");
       error.showAndWait();
-    } else {
+    } else if (!Database.available(courtNum, "")) {
       Database.makeRes(courtNum, Database.memberUser, slot);
       info.setContentText("You've made a reservation for " + slot.substring(0, 16));
       info.showAndWait();

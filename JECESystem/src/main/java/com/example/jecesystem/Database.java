@@ -798,19 +798,13 @@ public class Database {
   }
 
   //supposed to return string[]
-  public static void available(String courtNum, boolean b, String day) {
+  public static boolean available(String courtNum, String time) {
     try (Connection connection = DriverManager.getConnection(url, username, password)) {
 
-      //gets size
-      /*
-      String sql = "SELECT count(dayAndTime) as num FROM " + courtNum + " WHERE occupied = false AND" +
-                    "dayAndTime LIKE '" + + "%'";
-
+      String sql = "";
 
       PreparedStatement preparedStatement = connection.prepareStatement(sql);
       ResultSet resultSet = preparedStatement.executeQuery();
-
-
 
       int num = 0;
       while (resultSet.next()) {
@@ -824,24 +818,13 @@ public class Database {
       PreparedStatement p2 = connection.prepareStatement(sql2);
       ResultSet rs = p2.executeQuery();
 
-      int count = 0;
       while (resultSet.next()) {
-        Timestamp t = rs.getTimestamp("dayAndTime");
-        String time = t.toString();
 
-        if(b) {
-          time = time.substring(time.length() - 5, time.length());
-        } else {
-          time = time.substring(0, 10);
-        }
-
-        open[count] = time;
-        count++;
       }
-      preparedStatement.close();
-       */
 
-      //return open
+      preparedStatement.close();
+
+      return true;
     } catch (SQLException e) {
       throw new IllegalStateException("Cannot connect to the database!", e);
     }
@@ -1000,7 +983,7 @@ public class Database {
         for (int j = 0; j < 160; j++) {
           String court = "court" + i.toString(i);
 
-          String sql = "INSERT INTO " + court + " (dayAndTime, ofDay, ofTime, occupied) VALUES (?, ?, ?, false)";
+          String sql = "INSERT INTO " + court + " (dayAndTime, ofDay, ofTime, occupied) VALUES (?, ?, ?, ?)";
           PreparedStatement preparedStatement = connection.prepareStatement(sql);
 
           String day = full[j].substring(0, 10);
