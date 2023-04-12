@@ -62,27 +62,13 @@ public class InfoController implements Initializable {
   @FXML
   private TextArea forGuest;
 
+  @FXML
+  void cancelRes(ActionEvent event) throws IOException {
+      App.setRoot("cancelRes");
+  }
+
   @Override
   public void initialize(URL url, ResourceBundle rb) {
-
-    /*
-    Alert con = new Alert(Alert.AlertType.CONFIRMATION);
-    Alert error = new Alert(Alert.AlertType.ERROR);
-
-    fNameField.setPromptText(Database.fName);
-    lNameField.setPromptText(Database.lName);
-    ageField.setPromptText(Database.age);
-    addrField.setPromptText(Database.addr);
-    phoneField.setPromptText(Database.phone);
-    emailField.setPromptText(Database.email);
-    userField.setPromptText(Database.memberUser);
-    passField.setPromptText(Database.memberPass);
-    verifiedField.setPromptText(Database.verified);
-
-    late.setText(Database.isLate);
-    owe.setText(Database.owe);
-    guests.setText(Database.guests);
-    */
 
     //String str = "$" + Database.owe;
     forOwe.setText("$" + Database.owe);
@@ -99,31 +85,17 @@ public class InfoController implements Initializable {
     dislname.setText(Database.lName);
   }
 
-  /*
-  public void changeShown(ActionEvent event) {
-      Database.changeShown()
-      App.setRoot("info");
-  }
-  */
-
-
   // cancel membership
-  public void cancelMembership(ActionEvent event){
+  public void cancelMembership(ActionEvent event) throws IOException {
 
-      Alert alert = new Alert(Alert.AlertType.ERROR);
-      alert.setTitle("Cancel Membership");
-      alert.setContentText("Do you want to cancel your membership");
-      Optional<ButtonType> result = alert.showAndWait();
+      Alert con = new Alert(Alert.AlertType.CONFIRMATION);
+      con.setTitle("Cancel Membership");
+      con.setContentText("Do you want to cancel your membership");
+      Optional<ButtonType> result = con.showAndWait();
 
-      if(result.isEmpty()){
-          System.out.println("Closed");
-      } else if (result.get() == ButtonType.OK){
+      if (result.get() == ButtonType.OK){
         Database.deleteFromDir(Database.memberUser);
-        Database.deleteFromRes(Database.memberUser);
-
-          System.out.println(" You have canceled your membership");
-      } else if (result.get()== ButtonType.CANCEL){
-          System.out.println("No");
+        App.setRoot("login");
       }
   }
 

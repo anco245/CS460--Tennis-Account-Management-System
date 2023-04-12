@@ -80,7 +80,7 @@
           </font>
         </Text>
         <Text fx:id="disGuests" strokeType="OUTSIDE" strokeWidth="0.0" GridPane.columnIndex="1" GridPane.rowIndex="7" />
-        <Button mnemonicParsing="false" text="Cancel Court Reservation" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+        <Button mnemonicParsing="false" onAction="#cancelRes" text="Cancel Court Reservation" GridPane.columnIndex="1" GridPane.rowIndex="7" />
             <TextArea fx:id="forRes" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="136.0" prefWidth="372.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
             <TextArea fx:id="forOwe" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="104.0" prefWidth="238.0" GridPane.columnIndex="1" GridPane.rowIndex="12">
                <font>
