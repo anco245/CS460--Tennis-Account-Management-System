@@ -128,6 +128,9 @@ public class SignUpController {
             "Try again.");
           error.showAndWait();
         } else if (!inputConPass.equals(inputPass)) {
+          System.out.println(inputConPass);
+          System.out.println(inputPass);
+          System.out.println(!inputConPass.equals(inputPass));
           error.setTitle("Error");
           error.setContentText("Passwords don't match.\n" +
             "Try again.");

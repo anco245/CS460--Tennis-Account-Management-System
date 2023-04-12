@@ -98,13 +98,13 @@
                </font>
             </CheckBox>
             <TextField fx:id="fieldLName" maxWidth="320.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-            <TextField fx:id="fieldAddress" maxWidth="320.0" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+            <TextField fx:id="fieldEmail" maxWidth="320.0" GridPane.columnIndex="1" GridPane.rowIndex="5" />
             <TextField fx:id="fieldFName" maxWidth="320.0" prefHeight="25.0" prefWidth="571.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-            <TextField fx:id="fieldEmail" maxWidth="320.0" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+            <TextField fx:id="fieldUser" maxWidth="320.0" GridPane.columnIndex="1" GridPane.rowIndex="7" />
             <TextField fx:id="fieldPhone" maxWidth="320.0" promptText="(---)--- ----" GridPane.columnIndex="1" GridPane.rowIndex="6" />
-            <TextField fx:id="fieldUser" maxWidth="320.0" GridPane.columnIndex="1" GridPane.rowIndex="8" />
-            <TextField fx:id="fieldPass" maxWidth="320.0" GridPane.columnIndex="1" GridPane.rowIndex="9" />
-            <TextField fx:id="fieldConPass" maxWidth="320.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+            <TextField fx:id="fieldPass" maxWidth="320.0" GridPane.columnIndex="1" GridPane.rowIndex="8" />
+            <TextField fx:id="fieldConPass" maxWidth="320.0" GridPane.columnIndex="1" GridPane.rowIndex="9" />
+            <TextField fx:id="fieldAddress" maxWidth="320.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
             <TextField fx:id="fieldCoupon" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="26.0" prefWidth="150.0" translateX="440.0" GridPane.rowIndex="12" />
             <Label text="Enter Coupon:" textFill="WHITE" translateX="300.0" GridPane.rowIndex="12">
                <font>
