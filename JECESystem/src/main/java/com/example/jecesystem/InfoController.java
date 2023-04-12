@@ -36,13 +36,13 @@ public class InfoController implements Initializable {
   private Text disGuests;
 
   @FXML
-  private Text disOwed;
-
-  @FXML
   private Text disPass;
 
   @FXML
   private Text disPhone;
+
+  @FXML
+  private Text disRes;
 
   @FXML
   private Text disUser;
@@ -54,7 +54,13 @@ public class InfoController implements Initializable {
   private Text dislname;
 
   @FXML
+  private TextArea forOwe;
+
+  @FXML
   private TextArea forRes;
+
+  @FXML
+  private TextArea forGuest;
 
   @Override
   public void initialize(URL url, ResourceBundle rb) {
@@ -78,7 +84,19 @@ public class InfoController implements Initializable {
     guests.setText(Database.guests);
     */
 
+    //String str = "$" + Database.owe;
+    forOwe.setText("$" + Database.owe);
     forRes.setText(Database.printReservations(Database.memberUser));
+    forGuest.setText("Current Guest Count: " + Database.guests + "\nYou're allowed " + (6 - Database.guests) + " more guests for the month");
+
+    disAddress.setText(Database.addr);
+    disAge.setText(String.valueOf(Database.age));
+    disEmail.setText(Database.email);
+    disPass.setText(Database.memberPass);
+    disPhone.setText(Database.phone);
+    disUser.setText(Database.memberUser);
+    disfname.setText(Database.fName);
+    dislname.setText(Database.lName);
   }
 
   /*

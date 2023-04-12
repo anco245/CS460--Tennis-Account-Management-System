@@ -61,20 +61,19 @@
             <Font size="22.0" />
           </font></Label>
         <Label text="First Name: " translateX="100.0" GridPane.rowIndex="1" />
-        <Text fx:id="disfname" strokeType="OUTSIDE" strokeWidth="0.0" translateX="120.0" GridPane.rowIndex="1" />
-        <Text fx:id="dislname" strokeType="OUTSIDE" strokeWidth="0.0" translateX="120.0" GridPane.rowIndex="2" />
-        <Text fx:id="disAge" strokeType="OUTSIDE" strokeWidth="0.0" translateX="85.0" GridPane.rowIndex="3" />
-        <Text fx:id="disAddress" strokeType="OUTSIDE" strokeWidth="0.0" translateX="105.0" GridPane.rowIndex="4" />
-        <Text fx:id="disPhone" strokeType="OUTSIDE" strokeWidth="0.0" translateX="98.0" GridPane.rowIndex="5" />
-        <Text fx:id="disEmail" strokeType="OUTSIDE" strokeWidth="0.0" translateX="93.0" GridPane.rowIndex="6" />
-        <Text fx:id="disUser" strokeType="OUTSIDE" strokeWidth="0.0" translateX="118.0" GridPane.rowIndex="7" />
-        <Text fx:id="disPass" strokeType="OUTSIDE" strokeWidth="0.0" translateX="118.0" GridPane.rowIndex="8" />
+        <Text fx:id="disfname" strokeType="OUTSIDE" strokeWidth="0.0" translateX="200.0" GridPane.rowIndex="1" />
+        <Text fx:id="dislname" strokeType="OUTSIDE" strokeWidth="0.0" translateX="200.0" GridPane.rowIndex="2" />
+        <Text fx:id="disAge" strokeType="OUTSIDE" strokeWidth="0.0" translateX="150.0" GridPane.rowIndex="3" />
+        <Text fx:id="disAddress" strokeType="OUTSIDE" strokeWidth="0.0" translateX="180.0" GridPane.rowIndex="4" />
+        <Text fx:id="disPhone" strokeType="OUTSIDE" strokeWidth="0.0" translateX="170.0" GridPane.rowIndex="5" />
+        <Text fx:id="disEmail" strokeType="OUTSIDE" strokeWidth="0.0" translateX="160.0" GridPane.rowIndex="6" />
+        <Text fx:id="disUser" strokeType="OUTSIDE" strokeWidth="0.0" translateX="200.0" GridPane.rowIndex="7" />
+        <Text fx:id="disPass" strokeType="OUTSIDE" strokeWidth="0.0" translateX="200.0" GridPane.rowIndex="8" />
         <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Amount Due: " GridPane.columnIndex="1" GridPane.rowIndex="10">
           <font>
             <Font size="22.0" />
           </font>
         </Text>
-        <Text fx:id="disOwed" strokeType="OUTSIDE" strokeWidth="0.0" GridPane.columnIndex="1" GridPane.rowIndex="13" />
         <Text fx:id="disRes" strokeType="OUTSIDE" strokeWidth="0.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
           <font>
             <Font size="21.0" />
@@ -83,6 +82,12 @@
         <Text fx:id="disGuests" strokeType="OUTSIDE" strokeWidth="0.0" GridPane.columnIndex="1" GridPane.rowIndex="7" />
         <Button mnemonicParsing="false" text="Cancel Court Reservation" GridPane.columnIndex="1" GridPane.rowIndex="7" />
             <TextArea fx:id="forRes" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="136.0" prefWidth="372.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+            <TextArea fx:id="forOwe" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="104.0" prefWidth="238.0" GridPane.columnIndex="1" GridPane.rowIndex="12">
+               <font>
+                  <Font size="37.0" />
+               </font>
+            </TextArea>
+            <TextArea fx:id="forGuest" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="88.0" prefWidth="348.0" GridPane.columnIndex="2" GridPane.rowIndex="3" />
       </children>
     </GridPane>
   </children>
