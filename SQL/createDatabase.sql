@@ -22,19 +22,6 @@ CREATE TABLE directory (
     -- amount of res INT NOT NULL
 );
 
-CREATE TABLE reservation (
-	courtNum INT NOT NULL PRIMARY KEY,
-	username VARCHAR(50),
-    resTime datetime,
-    isRes BOOLEAN NOT NULL,
-	-- username1 VARCHAR(50),
-    -- username2 VARCHAR(50),
-    -- resTime1 datetime,
-    -- resTime2 datetime, 
-    FOREIGN KEY (username) REFERENCES directory(username) 
-		ON DELETE CASCADE
-);
-
 CREATE TABLE waiting (
 	priority int AUTO_INCREMENT NOT NULL PRIMARY KEY,
     firstName VARCHAR(50) NOT NULL,

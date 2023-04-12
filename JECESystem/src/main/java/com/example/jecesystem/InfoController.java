@@ -3,10 +3,7 @@ package com.example.jecesystem;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Alert;
-import javafx.scene.control.ButtonBar;
-import javafx.scene.control.ButtonType;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.text.Text;
 
 import java.io.IOException;
@@ -48,9 +45,6 @@ public class InfoController implements Initializable {
   private Text disPhone;
 
   @FXML
-  private Text disRes;
-
-  @FXML
   private Text disUser;
 
   @FXML
@@ -58,6 +52,9 @@ public class InfoController implements Initializable {
 
   @FXML
   private Text dislname;
+
+  @FXML
+  private TextArea forRes;
 
   @Override
   public void initialize(URL url, ResourceBundle rb) {
@@ -80,6 +77,8 @@ public class InfoController implements Initializable {
     owe.setText(Database.owe);
     guests.setText(Database.guests);
     */
+
+    forRes.setText(Database.printReservations(Database.memberUser));
   }
 
   /*

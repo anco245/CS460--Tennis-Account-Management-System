@@ -59,11 +59,12 @@ public class MakeResController implements Initializable {
   }
 
   @FXML
-  void submitreservation(ActionEvent event) {
+  void submitreservation(ActionEvent event) throws IOException {
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
     Alert con = new Alert(Alert.AlertType.CONFIRMATION);
     Alert error = new Alert(Alert.AlertType.ERROR);
+    Alert info = new Alert(Alert.AlertType.INFORMATION);
 
     String day = dayOfWeek.getValue();
     String time = timeOfRes.getValue();
@@ -94,6 +95,9 @@ public class MakeResController implements Initializable {
     else if (dayOfWeek.getValue().equals("Today")) {slot = Database.dateTime.format(formatter) + " " + time;}
 
     Database.makeRes(courtNum, Database.memberUser, slot);
+    info.setContentText("You've made a reservation for " + slot.substring(0, 15));
+    info.showAndWait();
+    App.setRoot("courtreservation");
 
     /*
     if (Database.checkIfLimit(courtNum, slot)) {
@@ -115,21 +119,6 @@ public class MakeResController implements Initializable {
        - Can’t reserve more than twice a day
      */
   }
-
-  /*
-  @FXML void switchToTab1(ActionEvent event) throws IOException {App.setRoot("tab1");}
-  @FXML void switchToTab3(ActionEvent event) throws IOException {App.setRoot("tab3");}
-  @FXML void switchToTab4(ActionEvent event) throws IOException {App.setRoot("tab4");}
-  @FXML void switchToTab5(ActionEvent event) throws IOException {App.setRoot("tab5");}
-  @FXML void switchToTab6(ActionEvent event) throws IOException {App.setRoot("tab6");}
-  @FXML void switchToTab7(ActionEvent event) throws IOException {App.setRoot("tab7");}
-  @FXML void switchToTab8(ActionEvent event) throws IOException {App.setRoot("tab8");}
-  @FXML void switchToTab9(ActionEvent event) throws IOException {App.setRoot("tab9");}
-  @FXML void switchToTab10(ActionEvent event) throws IOException {App.setRoot("tab10");}
-  @FXML void switchToTab11(ActionEvent event) throws IOException {App.setRoot("tab11");}
-  @FXML void switchToTab12(ActionEvent event) throws IOException {App.setRoot("tab12");}
-
-  */
 
   @FXML void switchToHome(ActionEvent event) throws IOException {App.setRoot("memscreen");}
 }

@@ -1,5 +1,6 @@
 package com.example.jecesystem;
 
+import javax.xml.transform.Result;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
@@ -671,15 +672,50 @@ public class Database {
     }
   }
 
+
+  public static String printReservations(String user){
+    try (Connection connection = DriverManager.getConnection(url, username, password)) {
+
+      String str = "";
+
+      for(Integer i = 1; i < 13; i++)
+      {
+        String court = "court" + i.toString();
+        String sql = "select * from " + court + " where username = ?";
+        PreparedStatement preparedStatement = connection.prepareStatement(sql);
+
+        preparedStatement.setString(1, user);
+
+        ResultSet resultSet = preparedStatement.executeQuery();
+
+        while (resultSet.next()) {
+          String date = String.valueOf(resultSet.getTimestamp("dayAndTime"));
+          date = date.substring(0, 16);
+          String entry = "Court " + i.toString() + ": " + date;
+
+          str = str + entry + "\n";
+        }
+
+        preparedStatement.close();
+        resultSet.close();
+      }
+
+      return str;
+    } catch (SQLException e) {
+      throw new IllegalStateException("Cannot connect to the database!", e);
+    }
+  }
+
   public static boolean exceededResLimit(String num, String dateAndTime) {
     try (Connection connection = DriverManager.getConnection(url, username, password)) {
 
       //int
-      for (Integer i = 0; i < 12; i++) {
+      for (Integer i = 1; i < 13; i++) {
         String court = "court" + i.toString(i);
 
-        String sql = "SELECT occupied FROM " + court + " WHERE username = ?";
-        PreparedStatement preparedStatement = connection.prepareStatement(sql);
+        //select * FROM court1, court2 where court1.username = "jsmith";
+
+        PreparedStatement preparedStatement = connection.prepareStatement("");
 
         preparedStatement.setString(1, memberUser);
 
@@ -916,6 +952,11 @@ public class Database {
     } catch (SQLException e) {
       throw new IllegalStateException("Cannot connect to the database!", e);
     }
+  }
+
+  public static void cancelRes(String date, String time, String court, String user)
+  {
+
   }
 
   public static void populateCourts() {
