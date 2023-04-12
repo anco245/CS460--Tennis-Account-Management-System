@@ -33,7 +33,7 @@
                      </effect>
                   </Rectangle>
           <ChoiceBox fx:id="dayOfWeek" prefWidth="150.0" translateX="125.0" GridPane.columnIndex="1" />
-                  <ChoiceBox prefWidth="150.0" translateX="125.0" />
+                  <ChoiceBox fx:id="numOfCourt" prefWidth="150.0" translateX="125.0" />
                   <ChoiceBox fx:id="timeOfRes" prefWidth="150.0" translateX="125.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                   <Button mnemonicParsing="false" onAction="#switchToHome" prefHeight="30.0" prefWidth="100.0" text="Cancel" textFill="WHITE" translateX="150.0" GridPane.rowIndex="3" />
                   <Button mnemonicParsing="false" onAction="#submitreservation" prefHeight="30.0" prefWidth="100.0" text="Submit" textFill="WHITE" translateX="150.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />

@@ -16,12 +16,19 @@ import java.util.ResourceBundle;
 
 public class MakeResController implements Initializable {
 
-  @FXML private ChoiceBox<String> dayOfWeek;
+  @FXML
+  private ChoiceBox<String> dayOfWeek;
 
-  @FXML private ChoiceBox<String> timeOfRes;
+  @FXML
+  private ChoiceBox<String> timeOfRes;
+
+
+  @FXML
+  private ChoiceBox<String> numOfCourt;
 
   ObservableList times = FXCollections.observableArrayList();
   ObservableList days = FXCollections.observableArrayList();
+  ObservableList court = FXCollections.observableArrayList();
 
   @Override
   public void initialize(URL url, ResourceBundle rb) {loadData();}
@@ -41,6 +48,14 @@ public class MakeResController implements Initializable {
 
     days.addAll("Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday");
     dayOfWeek.getItems().addAll(days);
+
+    //Sees which days are available in this court
+    //and puts them into an array
+    court.removeAll(court);
+
+    court.addAll("Court 1", "Court 2", "Court 3", "Court 4", "Court 5", "Court 6", "Court 7",
+                    "Court 8", "Court 9", "Court 10", "Court 11", "Court 12");
+    numOfCourt.getItems().addAll(court);
   }
 
   @FXML
@@ -54,7 +69,20 @@ public class MakeResController implements Initializable {
     String time = timeOfRes.getValue();
 
     String slot = "";
-    String courtNum = "court2";
+    String courtNum = "";
+
+    if(numOfCourt.getValue().equals("Court 1")) {courtNum = "court1";}
+    else if(numOfCourt.getValue().equals("Court 2")) {courtNum = "court2";}
+    else if(numOfCourt.getValue().equals("Court 3")) {courtNum = "court3";}
+    else if(numOfCourt.getValue().equals("Court 4")) {courtNum = "court4";}
+    else if(numOfCourt.getValue().equals("Court 5")) {courtNum = "court5";}
+    else if(numOfCourt.getValue().equals("Court 6")) {courtNum = "court6";}
+    else if(numOfCourt.getValue().equals("Court 7")) {courtNum = "court7";}
+    else if(numOfCourt.getValue().equals("Court 8")) {courtNum = "court8";}
+    else if(numOfCourt.getValue().equals("Court 9")) {courtNum = "court9";}
+    else if(numOfCourt.getValue().equals("Court 10")) {courtNum = "court10";}
+    else if(numOfCourt.getValue().equals("Court 11")) {courtNum = "court11";}
+    else if(numOfCourt.getValue().equals("Court 12")) {courtNum = "court12";}
 
     if (day.equals("Monday")) {slot = Database.nextMonday.format(formatter) + " " + time;}
     else if (dayOfWeek.getValue().equals("Tuesday")) {slot = Database.nextTuesday.format(formatter) + " " + time;}
