@@ -17,7 +17,9 @@ CREATE TABLE directory (
     penalized BOOLEAN NOT NULL,
 	owe INT NOT NULL,
     guests INT NOT NULL,
-    keepAccount BOOLEAN NOT NULL
+    keepAccount BOOLEAN NOT NULL,
+    keepConfirm BOOLEAN NOT NULL
+    -- amount of res INT NOT NULL
 );
 
 CREATE TABLE reservation (
@@ -25,6 +27,10 @@ CREATE TABLE reservation (
 	username VARCHAR(50),
     resTime datetime,
     isRes BOOLEAN NOT NULL,
+	-- username1 VARCHAR(50),
+    -- username2 VARCHAR(50),
+    -- resTime1 datetime,
+    -- resTime2 datetime, 
     FOREIGN KEY (username) REFERENCES directory(username) 
 		ON DELETE CASCADE
 );
@@ -41,6 +47,91 @@ CREATE TABLE waiting (
 	pword VARCHAR(50) NOT NULL,
     shown BOOL NOT NULL,
     owe INT NOT NULL
+);
+
+CREATE TABLE court1 (
+	dayAndTime DATETIME NOT NULL PRIMARY KEY,
+    username VARCHAR(50),
+    occupied boolean NOT NULL,
+    FOREIGN KEY (username) REFERENCES directory(username)
+		ON DELETE CASCADE
+);
+
+CREATE TABLE court2 (
+	dayAndTime DATETIME NOT NULL PRIMARY KEY,
+    username VARCHAR(50),
+    occupied boolean NOT NULL,
+    FOREIGN KEY (username) REFERENCES directory(username)
+);
+
+CREATE TABLE court3 (
+	dayAndTime DATETIME NOT NULL PRIMARY KEY,
+    username VARCHAR(50),
+    occupied boolean NOT NULL,
+    FOREIGN KEY (username) REFERENCES directory(username)
+);
+
+CREATE TABLE court4 (
+	dayAndTime DATETIME NOT NULL PRIMARY KEY,
+    username VARCHAR(50),
+    occupied boolean NOT NULL,
+    FOREIGN KEY (username) REFERENCES directory(username)
+);
+
+CREATE TABLE court5 (
+	dayAndTime DATETIME NOT NULL PRIMARY KEY,
+    username VARCHAR(50),
+    occupied boolean NOT NULL,
+    FOREIGN KEY (username) REFERENCES directory(username)
+);
+
+CREATE TABLE court6 (
+	dayAndTime DATETIME NOT NULL PRIMARY KEY,
+    username VARCHAR(50),
+    occupied boolean NOT NULL,
+    FOREIGN KEY (username) REFERENCES directory(username)
+);
+
+CREATE TABLE court7 (
+	dayAndTime DATETIME NOT NULL PRIMARY KEY,
+    username VARCHAR(50),
+    occupied boolean NOT NULL,
+    FOREIGN KEY (username) REFERENCES directory(username)
+);
+
+CREATE TABLE court8 (
+	dayAndTime DATETIME NOT NULL PRIMARY KEY,
+    username VARCHAR(50),
+    occupied boolean NOT NULL,
+    FOREIGN KEY (username) REFERENCES directory(username)
+);
+
+CREATE TABLE court9 (
+	dayAndTime DATETIME NOT NULL PRIMARY KEY,
+    username VARCHAR(50),
+    occupied boolean NOT NULL,
+    FOREIGN KEY (username) REFERENCES directory(username)
+);
+
+CREATE TABLE court10 (
+	dayAndTime DATETIME NOT NULL PRIMARY KEY,
+    username VARCHAR(50),
+    occupied boolean NOT NULL,
+    FOREIGN KEY (username) REFERENCES directory(username)
+);
+
+CREATE TABLE court11 (
+	dayAndTime DATETIME NOT NULL PRIMARY KEY,
+    username VARCHAR(50),
+    occupied boolean NOT NULL,
+    FOREIGN KEY (username) REFERENCES directory(username)
+);
+
+CREATE TABLE court12 (
+	dayAndTime DATETIME NOT NULL PRIMARY KEY,
+    username VARCHAR(50),
+    occupied boolean NOT NULL,
+    FOREIGN KEY (username) REFERENCES directory(username)
 );
 
 INSERT INTO reservation (courtNum, isRes) VALUES (1, FALSE);

@@ -4,8 +4,14 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.sql.*;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.DayOfWeek;
 import java.time.LocalDateTime;
-import java.util.Date;
+import java.time.format.DateTimeFormatter;
+import java.time.temporal.TemporalAdjusters;
+import java.util.Arrays;
+
 
 public class Database {
 
@@ -35,10 +41,66 @@ public class Database {
 
   public static boolean penalized = false;
 
+  public static boolean keepConfirm = false;
+
+  public static String[] full = new String[160];
+
+  String today = "Today";
+  String monday = "Monday";
+  String tuesday = "Tuesday";
+  String wednesday = "Wednesday";
+  String thursday = "Thursday";
+  String friday = "Friday";
+  String saturday = "Saturday";
+  String sunday = "Sunday";
+  static String[] days = {"Today", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday",
+                          "Saturday", "Sunday"};
+
+  static String[] times = {"09:00:00", "09:30:00", "10:00:00", "10:30:00", "11:00:00", "11:30:00",
+                           "12:00:00", "12:30:00", "13:00:00", "13:30:00", "14:00:00", "14:30:00",
+                            "15:00:00", "15:30:00", "16:00:00", "16:30:00", "17:00:00", "17:30:00",
+                           "18:00:00", "18:30:00"};
+
+  public static LocalDateTime dateTime = LocalDateTime.now();
+  public static LocalDateTime nextMonday = dateTime.with(TemporalAdjusters.next(DayOfWeek.MONDAY));
+  public static LocalDateTime nextTuesday = dateTime.with(TemporalAdjusters.next(DayOfWeek.TUESDAY));
+  public static LocalDateTime nextWednesday = dateTime.with(TemporalAdjusters.next(DayOfWeek.WEDNESDAY));
+  public static LocalDateTime nextThursday = dateTime.with(TemporalAdjusters.next(DayOfWeek.THURSDAY));
+  public static LocalDateTime nextFriday = dateTime.with(TemporalAdjusters.next(DayOfWeek.FRIDAY));
+  public static LocalDateTime nextSaturday = dateTime.with(TemporalAdjusters.next(DayOfWeek.SATURDAY));
+  public static LocalDateTime nextSunday = dateTime.with(TemporalAdjusters.next(DayOfWeek.SUNDAY));
+
+  public static String formatMon = "";
+  public static String formatTues = "";
+  public static String formatWed = "";
+  public static String formatThur = "";
+  public static String formatFri = "";
+  public static String formatSat = "";
+  public static String formatSun = "";
+  public static String formatDay = "";
+
+  public static void removeNonKeeps() {
+    try (Connection connection = DriverManager.getConnection(url, username, password)) {
+      PreparedStatement preparedStatement =
+        connection.prepareStatement("SELECT username FROM directory WHERE keepAccount = false");
+
+      ResultSet resultSet = preparedStatement.executeQuery();
+
+      while (resultSet.next()) {
+        String user = resultSet.getString("username");
+        deleteFromDir(user);
+        deleteFromRes(user);
+      }
+
+      preparedStatement.close();
+      resultSet.close();
+    } catch (SQLException e) {
+      throw new IllegalStateException("Cannot connect to the database!", e);
+    }
+  }
 
   //Resets the database to initial values
-  public static void reset()
-  {
+  public static void reset() {
     try (Connection connection = DriverManager.getConnection(url, username, password)) {
 
       //Reads the SQL script file
@@ -56,7 +118,7 @@ public class Database {
 
         //if current line is blank, this skips it,
         //otherwise will get "cannot read empty statement" error
-        if(!line.equals("")) {
+        if (!line.equals("")) {
           statement.execute(line);
         }
       }
@@ -67,7 +129,7 @@ public class Database {
 
         //if current line is blank, this skip it,
         //otherwise will get "cannot read empty statement" error
-        if(!line.equals("")) {
+        if (!line.equals("")) {
           statement.execute(line);
         }
       }
@@ -81,14 +143,14 @@ public class Database {
     }
   }
 
-  public static void addFromWait(){
+  public static void addFromWait() {
     try (Connection connection = DriverManager.getConnection(url, username, password)) {
       PreparedStatement preparedStatement =
         connection.prepareStatement("SELECT * FROM waiting WHERE priority = 1");
 
       ResultSet resultSet = preparedStatement.executeQuery();
 
-      while(resultSet.next()) {
+      while (resultSet.next()) {
         String uname = resultSet.getString("username");
         String fname = resultSet.getString("firstName");
         String lname = resultSet.getString("lastName");
@@ -118,7 +180,7 @@ public class Database {
       Statement stmt = connection.createStatement();
       ResultSet result = stmt.executeQuery("SELECT COUNT(*) AS total FROM directory");
 
-      while(result.next()){
+      while (result.next()) {
         int total = result.getInt("total");
         stmt.close();
 
@@ -133,7 +195,7 @@ public class Database {
   }
 
   public static void insertIntoWait(String fname, String lname, int age, String addr,
-                              String phone, String email, String u, String p, boolean s, int o) {
+                                    String phone, String email, String u, String p, boolean s, int o) {
     try (Connection connection = DriverManager.getConnection(url, username, password)) {
 
       PreparedStatement preparedStatement =
@@ -164,8 +226,7 @@ public class Database {
     }
   }
 
-  public static void setKeep(String user, boolean b)
-  {
+  public static void setKeep(String user, boolean b) {
     try (Connection connection = DriverManager.getConnection(url, username, password)) {
       PreparedStatement preparedStatement =
         connection.prepareStatement("UPDATE directory SET keepAccount = ? WHERE username = ?");
@@ -180,8 +241,7 @@ public class Database {
     }
   }
 
-  public static void setPenalized(String user, boolean b)
-  {
+  public static void setPenalized(String user, boolean b) {
     try (Connection connection = DriverManager.getConnection(url, username, password)) {
       PreparedStatement preparedStatement =
         connection.prepareStatement("UPDATE directory SET penalized = ? WHERE username = ?");
@@ -203,12 +263,11 @@ public class Database {
 
       ResultSet resultSet = preparedStatement.executeQuery();
 
-      while(resultSet.next()) {
+      while (resultSet.next()) {
         String uname = resultSet.getString("username");
         guests = resultSet.getInt("guests");
 
-        if(uname.equals(memberUser))
-        {
+        if (uname.equals(memberUser)) {
           PreparedStatement p2 =
             connection.prepareStatement("UPDATE directory SET guests = ? WHERE username = ?");
 
@@ -237,12 +296,11 @@ public class Database {
 
       ResultSet resultSet = preparedStatement.executeQuery();
 
-      while(resultSet.next()) {
+      while (resultSet.next()) {
         String uname = resultSet.getString("username");
         owe = resultSet.getInt("owe");
 
-        if(uname.equals(user))
-        {
+        if (uname.equals(user)) {
           PreparedStatement p2 =
             connection.prepareStatement("UPDATE directory SET owe = ? WHERE username = ?");
 
@@ -264,14 +322,12 @@ public class Database {
   }
 
   //Changes a member's late status to either true or false
-  public static void late(String user, boolean isLate)
-  {
+  public static void late(String user, boolean isLate) {
     try (Connection connection = DriverManager.getConnection(url, username, password)) {
       PreparedStatement preparedStatement =
         connection.prepareStatement("UPDATE directory SET late = ? WHERE username = ?");
 
-      if(isLate)
-      {
+      if (isLate) {
         preparedStatement.setBoolean(1, true);
       } else {
         preparedStatement.setBoolean(1, false);
@@ -287,49 +343,17 @@ public class Database {
   }
 
   //checks to see if a given username exists in the database
-  public static boolean inDirectory (String user)
-  {
+  public static boolean inDirectory(String user) {
     try (Connection connection = DriverManager.getConnection(url, username, password)) {
       PreparedStatement preparedStatement =
         connection.prepareStatement("SELECT * FROM directory");
 
       ResultSet resultSet = preparedStatement.executeQuery();
 
-      while(resultSet.next()) {
+      while (resultSet.next()) {
         String uname = resultSet.getString("username");
 
-        if(uname.equals(user))
-        {
-          preparedStatement.close();
-          resultSet.close();
-          connection.close();
-          return true;
-        }
-      }
-
-      preparedStatement.close();
-      resultSet.close();
-      connection.close();
-      return false;
-    } catch (SQLException e) {
-      throw new IllegalStateException("Cannot connect to the database!", e);
-    }
-  }
-
-  public static boolean inReservation (String user)
-  {
-    try (Connection connection = DriverManager.getConnection(url, username, password)) {
-      PreparedStatement preparedStatement =
-        connection.prepareStatement("SELECT * FROM reservation");
-
-      ResultSet resultSet = preparedStatement.executeQuery();
-
-      while(resultSet.next()) {
-        String uname = resultSet.getString("username");
-
-        if(uname == null) {
-          return false;
-        } else if (uname.equals(user)) {
+        if (uname.equals(user)) {
           preparedStatement.close();
           resultSet.close();
           connection.close();
@@ -347,8 +371,7 @@ public class Database {
   }
 
   //Sets a user's verified status to true
-  public static void approve(String u)
-  {
+  public static void approve(String u) {
     try (Connection connection = DriverManager.getConnection(url, username, password)) {
 
       PreparedStatement preparedStatement =
@@ -365,8 +388,7 @@ public class Database {
   }
 
   //Checks if account has been verified given a member's username
-  public static boolean verified(String u)
-  {
+  public static boolean verified(String u) {
     try (Connection connection = DriverManager.getConnection(url, username, password)) {
 
       PreparedStatement preparedStatement =
@@ -376,7 +398,7 @@ public class Database {
       ResultSet resultSet = preparedStatement.executeQuery();
 
       boolean v = false;
-      if(resultSet.next())
+      if (resultSet.next())
         v = resultSet.getBoolean("verified");
 
       preparedStatement.close();
@@ -390,29 +412,11 @@ public class Database {
   }
 
   //Removes a person's information from the database
-  public static void deleteFromDir(String u)
-  {
+  public static void deleteFromDir(String u) {
     try (Connection connection = DriverManager.getConnection(url, username, password)) {
 
       PreparedStatement preparedStatement =
         connection.prepareStatement("DELETE FROM directory WHERE username = ?");
-
-      preparedStatement.setString(1, u);
-
-      preparedStatement.executeUpdate();
-      preparedStatement.close();
-
-    } catch (SQLException e) {
-      throw new IllegalStateException("Cannot connect to the database!", e);
-    }
-  }
-
-  public static void deleteFromRes(String u)
-  {
-    try (Connection connection = DriverManager.getConnection(url, username, password)) {
-
-      PreparedStatement preparedStatement =
-        connection.prepareStatement("DELETE FROM reservation WHERE username = ?");
 
       preparedStatement.setString(1, u);
 
@@ -432,7 +436,7 @@ public class Database {
 
       PreparedStatement preparedStatement =
         connection.prepareStatement("INSERT INTO directory "
-          + "VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+          + "VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
 
       //Just makes the first letter of the person's first and last name capital
       String first = fname.substring(0, 1).toUpperCase() + fname.substring(1);
@@ -453,6 +457,7 @@ public class Database {
       preparedStatement.setInt(13, 1000);
       preparedStatement.setInt(14, 0);
       preparedStatement.setBoolean(15, true);
+      preparedStatement.setBoolean(16, false);
 
 
       //if(coupon) preparedStatement.setInt(12, 500) else preparedStatement.setInt(12, 1000);
@@ -466,8 +471,7 @@ public class Database {
 
   //Loops through the database to find where both username and password are used together
   //Also saves the domain of their email, to later determine which type of account this is
-  public static boolean login(String user, String pass)
-  {
+  public static boolean login(String user, String pass) {
     try (Connection connection = DriverManager.getConnection(url, username, password)) {
 
       PreparedStatement preparedStatement =
@@ -475,12 +479,11 @@ public class Database {
 
       ResultSet resultSet = preparedStatement.executeQuery();
 
-      while(resultSet.next()) {
+      while (resultSet.next()) {
         String uname = resultSet.getString("username");
         String pword = resultSet.getString("pword");
 
-        if(uname.equals(user) && pword.equals(pass))
-        {
+        if (uname.equals(user) && pword.equals(pass)) {
           memberUser = user;
 
           //makes it so that the first letters of the first and last name are capital
@@ -504,6 +507,7 @@ public class Database {
           guests = resultSet.getInt("guests");
           penalized = resultSet.getBoolean("penalized");
           keep = resultSet.getBoolean("keepAccount");
+          keepConfirm = resultSet.getBoolean("keepConfirm");
 
           return true;
         }
@@ -520,7 +524,7 @@ public class Database {
   }
 
   public static void setFirstName(String first) {
-      fName = first;
+    fName = first;
 
     try (Connection connection = DriverManager.getConnection(url, username, password)) {
       PreparedStatement preparedStatement =
@@ -541,7 +545,7 @@ public class Database {
       PreparedStatement preparedStatement =
         connection.prepareStatement("UPDATE directory SET shown = ? WHERE username = ?");
 
-      if(isShown) {
+      if (isShown) {
         preparedStatement.setBoolean(1, false);
       } else {
         preparedStatement.setBoolean(1, true);
@@ -564,23 +568,6 @@ public class Database {
         connection.prepareStatement("UPDATE directory SET lastName = ? WHERE username = ?");
 
       preparedStatement.setString(1, last);
-      preparedStatement.setString(2, memberUser);
-      preparedStatement.executeUpdate();
-
-      preparedStatement.close();
-    } catch (SQLException e) {
-      throw new IllegalStateException("Cannot connect to the database!", e);
-    }
-  }
-
-  public static void setAge(int x) {
-    age = x;
-
-    try (Connection connection = DriverManager.getConnection(url, username, password)) {
-      PreparedStatement preparedStatement =
-        connection.prepareStatement("UPDATE directory SET age = ? WHERE username = ?");
-
-      preparedStatement.setInt(1, age);
       preparedStatement.setString(2, memberUser);
       preparedStatement.executeUpdate();
 
@@ -669,36 +656,286 @@ public class Database {
     }
   }
 
-  //function to check if court is reserved
-  public static boolean checkRes(int num) {
-    try (Connection connection = DriverManager.getConnection(url, username, password)){
+  public static void setConfirm(boolean b) {
+    try (Connection connection = DriverManager.getConnection(url, username, password)) {
       PreparedStatement preparedStatement =
-        connection.prepareStatement("SELECT isRes FROM reservation WHERE courtNum = ?");
-        preparedStatement.setInt (1, num);
-        ResultSet response = preparedStatement.executeQuery();
-        boolean status = response.getBoolean("isRes");
-        return(status);
+        connection.prepareStatement("UPDATE directory SET keepConfirm = ? WHERE username = ?");
+
+      preparedStatement.setBoolean(1, b);
+      preparedStatement.setString(2, memberUser);
+      preparedStatement.executeUpdate();
+
+      preparedStatement.close();
+    } catch (SQLException e) {
+      throw new IllegalStateException("Cannot connect to the database!", e);
+    }
+  }
+
+  public static boolean exceededResLimit(String num, String dateAndTime) {
+    try (Connection connection = DriverManager.getConnection(url, username, password)) {
+
+      //int
+      for (Integer i = 0; i < 12; i++) {
+        String court = "court" + i.toString(i);
+
+        String sql = "SELECT occupied FROM " + court + " WHERE username = ?";
+        PreparedStatement preparedStatement = connection.prepareStatement(sql);
+
+        preparedStatement.setString(1, memberUser);
+
+        ResultSet resultSet = preparedStatement.executeQuery();
+
+        while (resultSet.next()) {
+          String dayandTime = String.valueOf(resultSet.getTimestamp("dayAndTime"));
+
+          //str = str = dayandTime + "\n";
+        }
+        preparedStatement.close();
+      }
+
+      return false;
+    } catch (SQLException e) {
+      throw new IllegalStateException("Cannot connect to the database!", e);
+    }
+  }
+
+  //function to check if court at specific time is reserved
+  public static boolean checkRes(String num, String dateAndTime) {
+    try (Connection connection = DriverManager.getConnection(url, username, password)) {
+      //String sql = "UPDATE " + pendingNum + " SET username = ?, occupied = ? WHERE dayAndTime = ?";
+
+      for (Integer i = 0; i < 12; i++) {
+        String court = "court" + i.toString(i);
+
+        String sql = "SELECT occupied FROM " + court + " WHERE username = ?";
+        PreparedStatement preparedStatement = connection.prepareStatement(sql);
+
+        preparedStatement.setString(1, court);
+
+
+        ResultSet resultSet = preparedStatement.executeQuery();
+
+        while (resultSet.next()) {
+          String dayandTime = String.valueOf(resultSet.getTimestamp("dayAndTime"));
+
+          //str = str = dayandTime + "\n";
+        }
+        preparedStatement.close();
+      }
+
+      return false;
+    } catch (SQLException e) {
+      throw new IllegalStateException("Cannot connect to the database!", e);
+    }
+  }
+
+  //supposed to return string[]
+  public static void available(String courtNum, boolean b, String day) {
+    try (Connection connection = DriverManager.getConnection(url, username, password)) {
+
+      //gets size
+      /*
+      String sql = "SELECT count(dayAndTime) as num FROM " + courtNum + " WHERE occupied = false AND" +
+                    "dayAndTime LIKE '" + + "%'";
+
+
+      PreparedStatement preparedStatement = connection.prepareStatement(sql);
+      ResultSet resultSet = preparedStatement.executeQuery();
+
+
+
+      int num = 0;
+      while (resultSet.next()) {
+        num = resultSet.getInt("num");
+      }
+
+      String[] open = new String[num + 1];
+
+      //Gets results
+      String sql2 = "SELECT dayAndTime FROM " + courtNum + " WHERE occupied = false";
+      PreparedStatement p2 = connection.prepareStatement(sql2);
+      ResultSet rs = p2.executeQuery();
+
+      int count = 0;
+      while (resultSet.next()) {
+        Timestamp t = rs.getTimestamp("dayAndTime");
+        String time = t.toString();
+
+        if(b) {
+          time = time.substring(time.length() - 5, time.length());
+        } else {
+          time = time.substring(0, 10);
+        }
+
+        open[count] = time;
+        count++;
+      }
+      preparedStatement.close();
+       */
+
+      //return open
+    } catch (SQLException e) {
+      throw new IllegalStateException("Cannot connect to the database!", e);
+    }
+  }
+
+  //Used for when the app is first launched on a system. Loads all of the
+  //times for the sql tables for the courts
+  public static void toArray() {
+    String[] exactDays = new String[8];
+
+    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+
+    for (int i = 0; i < 8; i++) {
+      if (i == 0) {
+        formatDay = dateTime.format(formatter);
+        exactDays[i] = formatDay;
+      } else if (i == 1) {
+        formatMon = nextMonday.format(formatter);
+        exactDays[i] = formatMon;
+      } else if (i == 2) {
+        formatTues = nextTuesday.format(formatter);
+        exactDays[i] = formatTues;
+      } else if (i == 3) {
+        formatWed = nextWednesday.format(formatter);
+        exactDays[i] = formatWed;
+      } else if (i == 4) {
+        formatThur = nextThursday.format(formatter);
+        exactDays[i] = formatThur;
+      } else if (i == 5) {
+        formatFri = nextFriday.format(formatter);
+        exactDays[i] = formatFri;
+      } else if (i == 6) {
+        formatSat = nextSaturday.format(formatter);
+        exactDays[i] = formatSat;
+      } else if (i == 7) {
+        formatSun = nextSunday.format(formatter);
+        exactDays[i] = formatSun;
+      }
+    }
+
+    Arrays.sort(exactDays);
+
+    int count = 0;
+    for (int i = 0; i < 8; i++) {
+      for (int j = 0; j < 20; j++) {
+        String str = exactDays[i] + " " + times[j];
+        full[count] = str;
+        count++;
+      }
+    }
+  }
+
+  public static void clearRes() {
+    try (Connection connection = DriverManager.getConnection(url, username, password)) {
+      PreparedStatement preparedStatement =
+        connection.prepareStatement("SELECT * FROM directory");
+
+      ResultSet resultSet = preparedStatement.executeQuery();
+
+      while (resultSet.next()) {
+        String usr = resultSet.getString("username");
+        int amt = resultSet.getInt("amountOfRes");
+
+        if (amt > 0) {
+          PreparedStatement p2 =
+            connection.prepareStatement("UPDATE directory SET amountOfRes = 0 WHERE username = ?");
+
+          p2.setString(1, usr);
+
+          p2.executeUpdate();
+          p2.close();
+        }
+      }
+
+      preparedStatement.close();
+      resultSet.close();
     } catch (SQLException e) {
       throw new IllegalStateException("Cannot connect to the database!", e);
     }
   }
 
   //function to update the reservation
-  public static void makeRes(int pendingNum, String memberName, Timestamp pendingTime) {
-    try (Connection connection = DriverManager.getConnection(url, username, password)){
-      PreparedStatement preparedStatement = 
-          connection.prepareStatement ("UPDATE reservation SET username = ?, resTime = ?, isRes = ? WHERE courtNum = ?");
-          preparedStatement.setString (1, memberName);
-          //
-          preparedStatement.setTimestamp(2, pendingTime);
-          preparedStatement.setBoolean (3, true);
-          preparedStatement.setInt (4, pendingNum);
+  public static void makeRes(String pendingNum, String memberName, String slot) {
+    try (Connection connection = DriverManager.getConnection(url, username, password)) {
+      String sql = "UPDATE " + pendingNum + " SET username = ?, occupied = ? WHERE dayAndTime = ?";
 
-          preparedStatement.executeUpdate();
-          preparedStatement.close();
-          connection.close();
+      PreparedStatement preparedStatement = connection.prepareStatement(sql);
+      preparedStatement.setString(1, memberName);
+      preparedStatement.setBoolean(2, true);
+      preparedStatement.setTimestamp(3, Timestamp.valueOf(slot));
+      preparedStatement.executeUpdate();
+
+      preparedStatement.close();
+      connection.close();
     } catch (SQLException e) {
       throw new IllegalStateException("Cannot connect to the database!", e);
+    }
+  }
+
+  public static void deleteFromRes(String u) {
+    try (Connection connection = DriverManager.getConnection(url, username, password)) {
+
+      PreparedStatement preparedStatement =
+        connection.prepareStatement("DELETE FROM reservation WHERE username = ?");
+
+      preparedStatement.setString(1, u);
+
+      preparedStatement.executeUpdate();
+      preparedStatement.close();
+
+    } catch (SQLException e) {
+      throw new IllegalStateException("Cannot connect to the database!", e);
+    }
+  }
+
+  public static boolean inReservation(String user) {
+    try (Connection connection = DriverManager.getConnection(url, username, password)) {
+      PreparedStatement preparedStatement =
+        connection.prepareStatement("SELECT * FROM reservation");
+
+      ResultSet resultSet = preparedStatement.executeQuery();
+
+      while (resultSet.next()) {
+        String uname = resultSet.getString("username");
+
+        if (uname == null) {
+          return false;
+        } else if (uname.equals(user)) {
+          preparedStatement.close();
+          resultSet.close();
+          connection.close();
+          return true;
+        }
+      }
+
+      preparedStatement.close();
+      resultSet.close();
+      connection.close();
+      return false;
+    } catch (SQLException e) {
+      throw new IllegalStateException("Cannot connect to the database!", e);
+    }
+  }
+
+  public static void populateCourts() {
+    try (Connection connection = DriverManager.getConnection(url, username, password)) {
+
+      toArray();
+
+      for (Integer i = 1; i < 13; i++) {
+        for (int j = 0; j < 160; j++) {
+          String court = "court" + i.toString(i);
+
+          String sql = "INSERT INTO " + court + " (dayAndTime, occupied) VALUES (?, false)";
+          PreparedStatement preparedStatement =
+            connection.prepareStatement(sql);
+          preparedStatement.setTimestamp(1, Timestamp.valueOf(full[j]));
+          preparedStatement.executeUpdate();
+        }
+      }
+    } catch (SQLException e) {
+      throw new RuntimeException(e);
     }
   }
 }

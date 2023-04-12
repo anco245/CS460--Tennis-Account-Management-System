@@ -6,6 +6,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import java.io.IOException;
+import java.time.LocalDateTime;
 
 public class App extends Application {
 
@@ -15,6 +16,8 @@ public class App extends Application {
   @Override
   public void start(Stage stage) throws IOException {
     //login.fxml is the first screen we see
+    //Database.reset();
+    //Database.populateCourts();
     scene = new Scene(loadFXML("login"), 1280, 720);
     stage.setScene(scene);
     stage.show();

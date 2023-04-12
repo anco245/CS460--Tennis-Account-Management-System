@@ -46,7 +46,7 @@ public class CTController implements Initializable {
 
   @FXML
   void viewInfo(ActionEvent event) throws IOException {
-    //App.setRoot("directory");
+    App.setRoot("info");
   }
 
   /*

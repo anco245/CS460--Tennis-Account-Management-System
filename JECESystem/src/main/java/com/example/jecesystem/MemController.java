@@ -40,9 +40,15 @@ public class MemController implements Initializable {
     //need to make it so that it adds annual payment to owed
     //along with 50 every month
 
-    //Error: window keeps popping up on specified day
     LocalDateTime now = LocalDateTime.now();
-    if (now.getMonthValue() == 10 && now.getDayOfMonth() == 1) {
+
+    if(now.getDayOfMonth() != 1 && now.getDayOfMonth() != 1)
+    {
+      Database.setConfirm(false);
+    }
+
+    if (now.getMonthValue() == 1 && now.getDayOfMonth() == 1 && !Database.keepConfirm) {
+
       con.setTitle("Keep Account");
       con.setContentText("Do you want to keep your Account?");
 
@@ -53,6 +59,7 @@ public class MemController implements Initializable {
       Optional<ButtonType> result = con.showAndWait();
       if (result.get() == yes){
         Database.setKeep(Database.memberUser, true);
+        Database.setConfirm(true);
 
         try {
           App.setRoot("memscreen");
@@ -61,6 +68,7 @@ public class MemController implements Initializable {
         }
       } else {
         Database.setKeep(Database.memberUser, false);
+        Database.setConfirm(true);
 
         try {
           App.setRoot("memscreen");
@@ -90,7 +98,7 @@ public class MemController implements Initializable {
 
     if(Database.isLate) {
       String late = "You haven't paid your annual fee.\n" +
-        "If you don't pay by April 1st, your account" +
+        "If you don't pay by April 1st, your account\n" +
         "will be removed.";
       lateMessage.setText(late);
     }
@@ -113,7 +121,7 @@ public class MemController implements Initializable {
 
   @FXML
   void makeRes(ActionEvent event) throws IOException {
-    App.setRoot("makeres");
+    App.setRoot("courtreservation");
   }
 
   @FXML
