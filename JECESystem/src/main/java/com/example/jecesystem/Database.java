@@ -46,9 +46,9 @@ public class Database {
   public static String[] full = new String[160];
 
   static String[] times = {"09:00:00", "09:30:00", "10:00:00", "10:30:00", "11:00:00", "11:30:00",
-    "12:00:00", "12:30:00", "13:00:00", "13:30:00", "14:00:00", "14:30:00",
-    "15:00:00", "15:30:00", "16:00:00", "16:30:00", "17:00:00", "17:30:00",
-    "18:00:00", "18:30:00"};
+                           "12:00:00", "12:30:00", "13:00:00", "13:30:00", "14:00:00", "14:30:00",
+                            "15:00:00", "15:30:00", "16:00:00", "16:30:00", "17:00:00", "17:30:00",
+                           "18:00:00", "18:30:00"};
 
   public static LocalDateTime dateTime = LocalDateTime.now();
   public static LocalDateTime nextMonday = dateTime.with(TemporalAdjusters.next(DayOfWeek.MONDAY));
@@ -712,7 +712,7 @@ public class Database {
         ResultSet resultSet = preparedStatement.executeQuery();
 
         while (resultSet.next()) {
-          String dayandTime = String.valueOf(resultSet.getTimestamp("dayandTime"));
+          String dayandTime = String.valueOf(resultSet.getTimestamp("dayAndTime"));
 
           str = str = dayandTime + "\n";
         }
@@ -800,16 +800,22 @@ public class Database {
   }
 
   //function to update the reservation
-  public static void makeRes(String pendingNum, String memberName, String pendingTime) {
+  public static void makeRes(String pendingNum, String memberName, String slot) {
     try (Connection connection = DriverManager.getConnection(url, username, password)) {
-      PreparedStatement preparedStatement =
-        connection.prepareStatement("UPDATE reservation SET username = ?, resTime = ?, isRes = ? WHERE courtNum = ?");
-      preparedStatement.setString(1, memberName);
-      preparedStatement.setTimestamp(2, Timestamp.valueOf(pendingTime));
-      preparedStatement.setBoolean(3, true);
-      preparedStatement.setString(4, pendingNum);
+      String sql = "UPDATE " + pendingNum + " SET username = ? WHERE dayAndTime = ?";
 
+      //toArray();
+
+      PreparedStatement preparedStatement = connection.prepareStatement(sql);
+      preparedStatement.setString(1, memberName);
+
+      //Timestamp.valueOf(full[5])
+      //preparedStatement.setTimestamp(2, Timestamp.valueOf(full[5]));
+      preparedStatement.setTimestamp(2, Timestamp.valueOf(slot));
       preparedStatement.executeUpdate();
+
+      System.out.println("No errors");
+
       preparedStatement.close();
       connection.close();
     } catch (SQLException e) {

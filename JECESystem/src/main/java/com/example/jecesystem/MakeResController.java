@@ -12,6 +12,7 @@ import javafx.scene.control.CheckBox;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Tab;
 
+import java.sql.Timestamp;
 import java.time.DayOfWeek;
 import java.time.format.DateTimeFormatter;
 
@@ -82,6 +83,7 @@ public class MakeResController implements Initializable {
 
     times.removeAll(times);
 
+    //how it looks when displayed
     String nine = "09:00:00";
     String nine3 = "09:30:00";
     String ten = "10:00:00";
@@ -90,18 +92,18 @@ public class MakeResController implements Initializable {
     String eleven3 = "11:30:00";
     String twelve = "12:00:00";
     String twelve3 = "12:30:00";
-    String one = "1:00:00";
-    String one3 = "1:30:00";
-    String two = "2:00:00";
-    String two3 = "2:30:00";
-    String three = "3:00:00";
-    String three3 = "3:30:00";
-    String four = "4:00:00";
-    String four3 = "4:30:00";
-    String five = "5:00:00";
-    String five3 = "5:30:00";
-    String six = "6:00:00";
-    String six3 = "6:30:00";
+    String one = "13:00:00";
+    String one3 = "13:30:00";
+    String two = "14:00:00";
+    String two3 = "14:30:00";
+    String three = "15:00:00";
+    String three3 = "15:30:00";
+    String four = "16:00:00";
+    String four3 = "16:30:00";
+    String five = "17:00:00";
+    String five3 = "17:30:00";
+    String six = "18:00:00";
+    String six3 = "18:30:00";
 
     times.addAll(nine, nine3, ten, ten3, eleven, eleven3, twelve, twelve3, one, one3, two, two3,
       three, three3, four, four3, five, five3, six, six3);
@@ -123,6 +125,8 @@ public class MakeResController implements Initializable {
 
   @FXML
   void submitreservation(ActionEvent event) {
+
+    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
     Alert con = new Alert(Alert.AlertType.CONFIRMATION);
     Alert error = new Alert(Alert.AlertType.ERROR);
@@ -146,8 +150,8 @@ public class MakeResController implements Initializable {
     else if(court11.isSelected()) {courtNum = "court11";}
     else if(court12.isSelected()) {courtNum = "court12";}
 
-    if (dayOfWeek.getValue().equals("Monday")) {
-      slot = Database.formatMon + " " + time;
+    if (day.equals("Monday")) {
+      slot = Database.nextMonday.format(formatter) + " " + time;
     } else if (dayOfWeek.getValue().equals("Tuesday")) {
       slot = Database.formatTues + " " + time;
     } else if (dayOfWeek.getValue().equals("Wednesday")) {
