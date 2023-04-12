@@ -76,6 +76,7 @@
                </font>
             </Text>
             <Text fx:id="disGuests" strokeType="OUTSIDE" strokeWidth="0.0" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+            <Button mnemonicParsing="false" text="Cancel Court Reservation" GridPane.columnIndex="1" GridPane.rowIndex="13" />
          </children>
       </GridPane>
    </children>
