@@ -5,6 +5,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.sql.*;
 import java.time.LocalDateTime;
+import java.util.Date;
 
 public class Database {
 
@@ -672,7 +673,7 @@ public class Database {
   public static boolean checkRes(int num) {
     try (Connection connection = DriverManager.getConnection(url, username, password)){
       PreparedStatement preparedStatement =
-        connection.prepareStatement("SELECT isRes FROM reservation Where courtNum = ?");
+        connection.prepareStatement("SELECT isRes FROM reservation WHERE courtNum = ?");
         preparedStatement.setInt (1, num);
         ResultSet response = preparedStatement.executeQuery();
         boolean status = response.getBoolean("isRes");
@@ -683,13 +684,13 @@ public class Database {
   }
 
   //function to update the reservation
-  public static void makeRes(int pendingNum, String memberName, DateTime pendingTime) {
+  public static void makeRes(int pendingNum, String memberName, Timestamp pendingTime) {
     try (Connection connection = DriverManager.getConnection(url, username, password)){
       PreparedStatement preparedStatement = 
           connection.prepareStatement ("UPDATE reservation SET username = ?, resTime = ?, isRes = ? WHERE courtNum = ?");
           preparedStatement.setString (1, memberName);
           //
-          preparedStatement.setDateTime (2, pendingTime);
+          preparedStatement.setTimestamp(2, pendingTime);
           preparedStatement.setBoolean (3, true);
           preparedStatement.setInt (4, pendingNum);
 
