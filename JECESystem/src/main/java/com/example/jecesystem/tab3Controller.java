@@ -14,7 +14,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class MakeResController implements Initializable {
+public class tab3Controller implements Initializable {
 
   @FXML private ChoiceBox<String> dayOfWeek;
 
@@ -28,23 +28,39 @@ public class MakeResController implements Initializable {
 
   private void loadData() {
 
-    times.removeAll(times);
-
-    times.addAll(Database.times[0], Database.times[1], Database.times[2], Database.times[3], Database.times[4],
-      Database.times[5], Database.times[6], Database.times[7], Database.times[8], Database.times[9],
-      Database.times[10], Database.times[11]);
-    timeOfRes.getItems().addAll(times);
-
-    //Sees which days are available in this court
+    /*
+    //Sees which times during the day are available in this court
     //and puts them into an array
-    days.removeAll(days);
+    if(dayOfWeek.getValue() != null)
+    {
+      times.removeAll(times);
+      String[] openTimes = Database.available("court1", true, );
+      for(int i = 0; openTimes != null && openTimes.length > 0; i++)
+      {
+        times.add(openTimes[i]);
+      }
+      timeOfRes.getItems().addAll(times);
+    } else {
 
-    days.addAll("Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday");
+    }
+
+    days.removeAll(days);
+    String today = "Today";
+    String monday = "Monday";
+    String tuesday = "Tuesday";
+    String wednesday = "Wednesday";
+    String thursday = "Thursday";
+    String friday = "Friday";
+    String saturday = "Saturday";
+    String sunday = "Sunday";
+
+    days.addAll(today, monday, tuesday, wednesday, thursday, friday, saturday, sunday);
     dayOfWeek.getItems().addAll(days);
   }
 
   @FXML
   void submitreservation(ActionEvent event) {
+
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
     Alert con = new Alert(Alert.AlertType.CONFIRMATION);
@@ -54,7 +70,7 @@ public class MakeResController implements Initializable {
     String time = timeOfRes.getValue();
 
     String slot = "";
-    String courtNum = "court2";
+    String courtNum = "court1";
 
     if (day.equals("Monday")) {slot = Database.nextMonday.format(formatter) + " " + time;}
     else if (dayOfWeek.getValue().equals("Tuesday")) {slot = Database.nextTuesday.format(formatter) + " " + time;}
@@ -65,23 +81,19 @@ public class MakeResController implements Initializable {
     else if (dayOfWeek.getValue().equals("Sunday")) {slot = Database.nextSunday.format(formatter) + " " + time;}
     else if (dayOfWeek.getValue().equals("Today")) {slot = Database.dateTime.format(formatter) + " " + time;}
 
-    Database.makeRes(courtNum, Database.memberUser, slot);
-
-    /*
-    if (Database.checkIfLimit(courtNum, slot)) {
+    if (Database.checkRes(courtNum, slot)) {
       error.setTitle("Error");
-      error.setContentText("You've already reached the limit of 2 court for today.\nTry another day.");
+      error.setContentText("This court has already been reserved.\nTry Again.");
       error.showAndWait();
-    } else if (Database.atSameTime(Database.memberUser)) {
+    } else if (Database.inReservation(Database.memberUser)) {
       error.setTitle("Error");
-      error.setContentText("You're already booked in another court at that time.\nTry another day.");
+      error.setContentText("You've already reserved a court for today.\nTry Again.");
       error.showAndWait();
     } else {
       Database.makeRes(courtNum, Database.memberUser, slot);
     }
-    */
 
-     /*
+    /*
        - Can’t put more than 4 people in a court
        - Any of the people on one court can’t also be reserved on another court at the same time
        - Can’t reserve more than twice a day
@@ -90,6 +102,7 @@ public class MakeResController implements Initializable {
 
   /*
   @FXML void switchToTab1(ActionEvent event) throws IOException {App.setRoot("tab1");}
+  @FXML void switchToTab2(ActionEvent event) throws IOException {App.setRoot("tab2");}
   @FXML void switchToTab3(ActionEvent event) throws IOException {App.setRoot("tab3");}
   @FXML void switchToTab4(ActionEvent event) throws IOException {App.setRoot("tab4");}
   @FXML void switchToTab5(ActionEvent event) throws IOException {App.setRoot("tab5");}
@@ -100,8 +113,6 @@ public class MakeResController implements Initializable {
   @FXML void switchToTab10(ActionEvent event) throws IOException {App.setRoot("tab10");}
   @FXML void switchToTab11(ActionEvent event) throws IOException {App.setRoot("tab11");}
   @FXML void switchToTab12(ActionEvent event) throws IOException {App.setRoot("tab12");}
-
-  */
-
   @FXML void switchToHome(ActionEvent event) throws IOException {App.setRoot("memscreen");}
+   */
 }

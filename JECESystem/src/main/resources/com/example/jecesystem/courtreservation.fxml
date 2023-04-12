@@ -57,12 +57,12 @@
                               <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                            </rowConstraints>
                            <children>
-                              <ChoiceBox prefWidth="150.0" translateX="125.0" />
+                              <ChoiceBox fx:id="dow2" prefWidth="150.0" translateX="125.0" />
                               <ChoiceBox prefWidth="150.0" translateX="125.0" GridPane.columnIndex="1" />
-                              <ChoiceBox prefWidth="150.0" translateX="125.0" GridPane.rowIndex="1" />
+                              <ChoiceBox fx:id="tor2" prefWidth="150.0" translateX="125.0" GridPane.rowIndex="1" />
                               <Label text="Label" translateX="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                               <Button mnemonicParsing="false" onAction="#switchToHome" prefHeight="30.0" prefWidth="100.0" text="Cancel" textFill="WHITE" translateX="150.0" GridPane.rowIndex="2" />
-                              <Button mnemonicParsing="false" onAction="#onSubmit" prefHeight="30.0" prefWidth="100.0" text="Submit" textFill="WHITE" translateX="150.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                              <Button mnemonicParsing="false" onAction="#submitreservation" prefHeight="30.0" prefWidth="100.0" text="Submit" textFill="WHITE" translateX="150.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                            </children>
                         </GridPane>
                      </children>
@@ -86,7 +86,7 @@
                            <children>
                               <ChoiceBox prefWidth="150.0" translateX="125.0" />
                               <ChoiceBox prefWidth="150.0" translateX="125.0" GridPane.columnIndex="1" />
-                              <ChoiceBox prefWidth="150.0" translateX="125.0" GridPane.rowIndex="1" />
+                              <ChoiceBox fx:id="tor3" prefWidth="150.0" translateX="125.0" GridPane.rowIndex="1" />
                               <Label text="Label" translateX="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                               <Button mnemonicParsing="false" prefHeight="30.0" prefWidth="100.0" text="Cancel" textFill="WHITE" translateX="150.0" GridPane.rowIndex="2" />
                               <Button mnemonicParsing="false" prefHeight="30.0" prefWidth="100.0" text="Submit" textFill="WHITE" translateX="150.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
@@ -111,9 +111,9 @@
                               <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                            </rowConstraints>
                            <children>
-                              <ChoiceBox prefWidth="150.0" translateX="125.0" />
+                              <ChoiceBox fx:id="dow4" prefWidth="150.0" translateX="125.0" />
                               <ChoiceBox prefWidth="150.0" translateX="125.0" GridPane.columnIndex="1" />
-                              <ChoiceBox prefWidth="150.0" translateX="125.0" GridPane.rowIndex="1" />
+                              <ChoiceBox fx:id="tor4" prefWidth="150.0" translateX="125.0" GridPane.rowIndex="1" />
                               <Label text="Label" translateX="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                               <Button mnemonicParsing="false" prefHeight="30.0" prefWidth="100.0" text="Cancel" textFill="WHITE" translateX="150.0" GridPane.rowIndex="2" />
                               <Button mnemonicParsing="false" prefHeight="30.0" prefWidth="100.0" text="Submit" textFill="WHITE" translateX="150.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
@@ -138,9 +138,9 @@
                               <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                            </rowConstraints>
                            <children>
-                              <ChoiceBox prefWidth="150.0" translateX="125.0" />
+                              <ChoiceBox fx:id="dow5" prefWidth="150.0" translateX="125.0" />
                               <ChoiceBox prefWidth="150.0" translateX="125.0" GridPane.columnIndex="1" />
-                              <ChoiceBox prefWidth="150.0" translateX="125.0" GridPane.rowIndex="1" />
+                              <ChoiceBox fx:id="tor5" prefWidth="150.0" translateX="125.0" GridPane.rowIndex="1" />
                               <Label text="Label" translateX="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                               <Button mnemonicParsing="false" prefHeight="30.0" prefWidth="100.0" text="Cancel" textFill="WHITE" translateX="150.0" GridPane.rowIndex="2" />
                               <Button mnemonicParsing="false" prefHeight="30.0" prefWidth="100.0" text="Submit" textFill="WHITE" translateX="150.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
@@ -165,9 +165,9 @@
                               <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                            </rowConstraints>
                            <children>
-                              <ChoiceBox prefWidth="150.0" translateX="125.0" />
+                              <ChoiceBox fx:id="dow6" prefWidth="150.0" translateX="125.0" />
                               <ChoiceBox prefWidth="150.0" translateX="125.0" GridPane.columnIndex="1" />
-                              <ChoiceBox prefWidth="150.0" translateX="125.0" GridPane.rowIndex="1" />
+                              <ChoiceBox fx:id="tor6" prefWidth="150.0" translateX="125.0" GridPane.rowIndex="1" />
                               <Label text="Label" translateX="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                               <Button mnemonicParsing="false" prefHeight="30.0" prefWidth="100.0" text="Cancel" textFill="WHITE" translateX="150.0" GridPane.rowIndex="2" />
                               <Button mnemonicParsing="false" prefHeight="30.0" prefWidth="100.0" text="Submit" textFill="WHITE" translateX="150.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
@@ -192,9 +192,9 @@
                               <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                            </rowConstraints>
                            <children>
-                              <ChoiceBox prefWidth="150.0" translateX="125.0" />
+                              <ChoiceBox fx:id="dow7" prefWidth="150.0" translateX="125.0" />
                               <ChoiceBox prefWidth="150.0" translateX="125.0" GridPane.columnIndex="1" />
-                              <ChoiceBox prefWidth="150.0" translateX="125.0" GridPane.rowIndex="1" />
+                              <ChoiceBox fx:id="tor7" prefWidth="150.0" translateX="125.0" GridPane.rowIndex="1" />
                               <Label text="Label" translateX="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                               <Button mnemonicParsing="false" prefHeight="30.0" prefWidth="100.0" text="Cancel" textFill="WHITE" translateX="150.0" GridPane.rowIndex="2" />
                               <Button mnemonicParsing="false" prefHeight="30.0" prefWidth="100.0" text="Submit" textFill="WHITE" translateX="150.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
@@ -219,9 +219,9 @@
                               <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                            </rowConstraints>
                            <children>
-                              <ChoiceBox prefWidth="150.0" translateX="125.0" />
+                              <ChoiceBox fx:id="dow8" prefWidth="150.0" translateX="125.0" />
                               <ChoiceBox prefWidth="150.0" translateX="125.0" GridPane.columnIndex="1" />
-                              <ChoiceBox prefWidth="150.0" translateX="125.0" GridPane.rowIndex="1" />
+                              <ChoiceBox fx:id="tor8" prefWidth="150.0" translateX="125.0" GridPane.rowIndex="1" />
                               <Label text="Label" translateX="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                               <Button mnemonicParsing="false" prefHeight="30.0" prefWidth="100.0" text="Cancel" textFill="WHITE" translateX="150.0" GridPane.rowIndex="2" />
                               <Button mnemonicParsing="false" prefHeight="30.0" prefWidth="100.0" text="Submit" textFill="WHITE" translateX="150.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
@@ -246,9 +246,9 @@
                               <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                            </rowConstraints>
                            <children>
-                              <ChoiceBox prefWidth="150.0" translateX="125.0" />
+                              <ChoiceBox fx:id="dow9" prefWidth="150.0" translateX="125.0" />
                               <ChoiceBox prefWidth="150.0" translateX="125.0" GridPane.columnIndex="1" />
-                              <ChoiceBox prefWidth="150.0" translateX="125.0" GridPane.rowIndex="1" />
+                              <ChoiceBox fx:id="tor9" prefWidth="150.0" translateX="125.0" GridPane.rowIndex="1" />
                               <Label text="Label" translateX="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                               <Button mnemonicParsing="false" prefHeight="30.0" prefWidth="100.0" text="Cancel" textFill="WHITE" translateX="150.0" GridPane.rowIndex="2" />
                               <Button mnemonicParsing="false" prefHeight="30.0" prefWidth="100.0" text="Submit" textFill="WHITE" translateX="150.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
@@ -273,9 +273,9 @@
                               <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                            </rowConstraints>
                            <children>
-                              <ChoiceBox prefWidth="150.0" translateX="125.0" />
+                              <ChoiceBox fx:id="dow10" prefWidth="150.0" translateX="125.0" />
                               <ChoiceBox prefWidth="150.0" translateX="125.0" GridPane.columnIndex="1" />
-                              <ChoiceBox prefWidth="150.0" translateX="125.0" GridPane.rowIndex="1" />
+                              <ChoiceBox fx:id="tor10" prefWidth="150.0" translateX="125.0" GridPane.rowIndex="1" />
                               <Label text="Label" translateX="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                               <Button mnemonicParsing="false" prefHeight="30.0" prefWidth="100.0" text="Cancel" textFill="WHITE" translateX="150.0" GridPane.rowIndex="2" />
                               <Button mnemonicParsing="false" prefHeight="30.0" prefWidth="100.0" text="Submit" textFill="WHITE" translateX="150.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
@@ -300,9 +300,9 @@
                               <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                            </rowConstraints>
                            <children>
-                              <ChoiceBox prefWidth="150.0" translateX="125.0" />
+                              <ChoiceBox fx:id="dow11" prefWidth="150.0" translateX="125.0" />
                               <ChoiceBox prefWidth="150.0" translateX="125.0" GridPane.columnIndex="1" />
-                              <ChoiceBox prefWidth="150.0" translateX="125.0" GridPane.rowIndex="1" />
+                              <ChoiceBox fx:id="tor11" prefWidth="150.0" translateX="125.0" GridPane.rowIndex="1" />
                               <Label text="Label" translateX="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                               <Button mnemonicParsing="false" prefHeight="30.0" prefWidth="100.0" text="Cancel" textFill="WHITE" translateX="150.0" GridPane.rowIndex="2" />
                               <Button mnemonicParsing="false" prefHeight="30.0" prefWidth="100.0" text="Submit" textFill="WHITE" translateX="150.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
@@ -327,9 +327,9 @@
                               <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                            </rowConstraints>
                            <children>
-                              <ChoiceBox prefWidth="150.0" translateX="125.0" />
+                              <ChoiceBox fx:id="dow12" prefWidth="150.0" translateX="125.0" />
                               <ChoiceBox prefWidth="150.0" translateX="125.0" GridPane.columnIndex="1" />
-                              <ChoiceBox prefWidth="150.0" translateX="125.0" GridPane.rowIndex="1" />
+                              <ChoiceBox fx:id="tor12" prefWidth="150.0" translateX="125.0" GridPane.rowIndex="1" />
                               <Label text="Label" translateX="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                               <Button mnemonicParsing="false" prefHeight="30.0" prefWidth="100.0" text="Cancel" textFill="WHITE" translateX="150.0" GridPane.rowIndex="2" />
                               <Button mnemonicParsing="false" prefHeight="30.0" prefWidth="100.0" text="Submit" textFill="WHITE" translateX="150.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />

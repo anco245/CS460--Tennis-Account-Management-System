@@ -45,6 +45,17 @@ public class Database {
 
   public static String[] full = new String[160];
 
+  String today = "Today";
+  String monday = "Monday";
+  String tuesday = "Tuesday";
+  String wednesday = "Wednesday";
+  String thursday = "Thursday";
+  String friday = "Friday";
+  String saturday = "Saturday";
+  String sunday = "Sunday";
+  static String[] days = {"Today", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday",
+                          "Saturday", "Sunday"};
+
   static String[] times = {"09:00:00", "09:30:00", "10:00:00", "10:30:00", "11:00:00", "11:30:00",
                            "12:00:00", "12:30:00", "13:00:00", "13:30:00", "14:00:00", "14:30:00",
                             "15:00:00", "15:30:00", "16:00:00", "16:30:00", "17:00:00", "17:30:00",
@@ -660,71 +671,116 @@ public class Database {
     }
   }
 
-  //function to check if court is reserved
-  public static boolean checkRes(int num) {
-    try (Connection connection = DriverManager.getConnection(url, username, password)) {
-      PreparedStatement preparedStatement =
-        connection.prepareStatement("SELECT isRes FROM reservation Where courtNum = ?");
-      preparedStatement.setInt(1, num);
-      ResultSet response = preparedStatement.executeQuery();
-      boolean status = response.getBoolean("isRes");
-      return (status);
-    } catch (SQLException e) {
-      throw new IllegalStateException("Cannot connect to the database!", e);
-    }
-  }
-
-  public static int dayDifference(String time1, String time2) {
-    try (Connection connection = DriverManager.getConnection(url, username, password)) {
-      PreparedStatement preparedStatement =
-        connection.prepareStatement("SELECT TIMESTAMPDIFF(DAY, ?, ?) AS day_diff");
-
-      preparedStatement.setDate(1, Date.valueOf(time1));
-      preparedStatement.setDate(2, Date.valueOf(time2));
-
-      ResultSet resultSet = preparedStatement.executeQuery();
-
-      while (resultSet.next()) {
-        int day = resultSet.getInt("day_diff");
-        return day;
-      }
-
-      preparedStatement.close();
-
-      return 0;
-    } catch (SQLException e) {
-      throw new IllegalStateException("Cannot connect to the database!", e);
-    }
-  }
-
-  public static String availableSlots() {
+  public static boolean exceededResLimit(String num, String dateAndTime) {
     try (Connection connection = DriverManager.getConnection(url, username, password)) {
 
-      String str = "";
-
+      //int
       for (Integer i = 0; i < 12; i++) {
-        PreparedStatement preparedStatement =
-          connection.prepareStatement("SELECT dayandTime FROM ? WHERE occupied = false");
+        String court = "court" + i.toString(i);
 
-        String court = "court" + i.toString();
-        preparedStatement.setString(1, court);
+        String sql = "SELECT occupied FROM " + court + " WHERE username = ?";
+        PreparedStatement preparedStatement = connection.prepareStatement(sql);
+
+        preparedStatement.setString(1, memberUser);
 
         ResultSet resultSet = preparedStatement.executeQuery();
 
         while (resultSet.next()) {
           String dayandTime = String.valueOf(resultSet.getTimestamp("dayAndTime"));
 
-          str = str = dayandTime + "\n";
+          //str = str = dayandTime + "\n";
         }
         preparedStatement.close();
       }
 
-      return str;
+      return false;
     } catch (SQLException e) {
       throw new IllegalStateException("Cannot connect to the database!", e);
     }
   }
 
+  //function to check if court at specific time is reserved
+  public static boolean checkRes(String num, String dateAndTime) {
+    try (Connection connection = DriverManager.getConnection(url, username, password)) {
+      //String sql = "UPDATE " + pendingNum + " SET username = ?, occupied = ? WHERE dayAndTime = ?";
+
+      for (Integer i = 0; i < 12; i++) {
+        String court = "court" + i.toString(i);
+
+        String sql = "SELECT occupied FROM " + court + " WHERE username = ?";
+        PreparedStatement preparedStatement = connection.prepareStatement(sql);
+
+        preparedStatement.setString(1, court);
+
+
+        ResultSet resultSet = preparedStatement.executeQuery();
+
+        while (resultSet.next()) {
+          String dayandTime = String.valueOf(resultSet.getTimestamp("dayAndTime"));
+
+          //str = str = dayandTime + "\n";
+        }
+        preparedStatement.close();
+      }
+
+      return false;
+    } catch (SQLException e) {
+      throw new IllegalStateException("Cannot connect to the database!", e);
+    }
+  }
+
+  //supposed to return string[]
+  public static void available(String courtNum, boolean b, String day) {
+    try (Connection connection = DriverManager.getConnection(url, username, password)) {
+
+      //gets size
+      /*
+      String sql = "SELECT count(dayAndTime) as num FROM " + courtNum + " WHERE occupied = false AND" +
+                    "dayAndTime LIKE '" + + "%'";
+
+
+      PreparedStatement preparedStatement = connection.prepareStatement(sql);
+      ResultSet resultSet = preparedStatement.executeQuery();
+
+
+
+      int num = 0;
+      while (resultSet.next()) {
+        num = resultSet.getInt("num");
+      }
+
+      String[] open = new String[num + 1];
+
+      //Gets results
+      String sql2 = "SELECT dayAndTime FROM " + courtNum + " WHERE occupied = false";
+      PreparedStatement p2 = connection.prepareStatement(sql2);
+      ResultSet rs = p2.executeQuery();
+
+      int count = 0;
+      while (resultSet.next()) {
+        Timestamp t = rs.getTimestamp("dayAndTime");
+        String time = t.toString();
+
+        if(b) {
+          time = time.substring(time.length() - 5, time.length());
+        } else {
+          time = time.substring(0, 10);
+        }
+
+        open[count] = time;
+        count++;
+      }
+      preparedStatement.close();
+       */
+
+      //return open
+    } catch (SQLException e) {
+      throw new IllegalStateException("Cannot connect to the database!", e);
+    }
+  }
+
+  //Used for when the app is first launched on a system. Loads all of the
+  //times for the sql tables for the courts
   public static void toArray() {
     String[] exactDays = new String[8];
 
@@ -802,19 +858,13 @@ public class Database {
   //function to update the reservation
   public static void makeRes(String pendingNum, String memberName, String slot) {
     try (Connection connection = DriverManager.getConnection(url, username, password)) {
-      String sql = "UPDATE " + pendingNum + " SET username = ? WHERE dayAndTime = ?";
-
-      //toArray();
+      String sql = "UPDATE " + pendingNum + " SET username = ?, occupied = ? WHERE dayAndTime = ?";
 
       PreparedStatement preparedStatement = connection.prepareStatement(sql);
       preparedStatement.setString(1, memberName);
-
-      //Timestamp.valueOf(full[5])
-      //preparedStatement.setTimestamp(2, Timestamp.valueOf(full[5]));
-      preparedStatement.setTimestamp(2, Timestamp.valueOf(slot));
+      preparedStatement.setBoolean(2, true);
+      preparedStatement.setTimestamp(3, Timestamp.valueOf(slot));
       preparedStatement.executeUpdate();
-
-      System.out.println("No errors");
 
       preparedStatement.close();
       connection.close();
