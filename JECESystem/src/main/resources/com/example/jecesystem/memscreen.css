@@ -2,6 +2,7 @@
     -fx-background-image: url(https://www.yorkcounty.gov/ImageRepository/Document?documentID=43167);
     -fx-font-family: 'Corbel';
     -fx-font-size: 18px;
+    -fx-image: url('../../../../../../../Images/logo.png');
 }
 
 .button{
@@ -12,8 +13,4 @@
 
 .text-area{
     -fx-background-radius: 20px;
-}
-
-.rectangle{
-    -fx-background-image: url('../../../../../../../Images/logo.png');
 }
