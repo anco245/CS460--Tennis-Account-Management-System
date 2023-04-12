@@ -41,31 +41,20 @@ public class MakeResController implements Initializable {
   @Override
   public void initialize(URL url, ResourceBundle rb) {
     loadData();
+
+    if(!Database.databaseEmpty())
+    {
+      Database.populateCourts();
+    }
   }
-/*
-      times.addAll(Database.times[0], Database.times[1], Database.times[2], Database.times[3], Database.times[4],
-  Database.times[5], Database.times[6], Database.times[7], Database.times[8], Database.times[9],
-  Database.times[10], Database.times[11]);
-  */
+
   private void loadData() {
 
     times.removeAll(times);
 
-    for(int i = 0; i < Database.times.length; i++)
+    for(int i = 0; i < 20; i++)
     {
-      resMin = Integer.parseInt(Database.times[i].substring(3, 5));
-
-      if(Database.times[i].charAt(0) == '0')
-      {
-        resHour = Integer.parseInt(Database.times[i].substring(1, 2));
-      } else {
-        resHour = Integer.parseInt(Database.times[i].substring(0, 2));
-      }
-
-      if((resHour == hour && minute < resMin) || hour < resHour)
-      {
-          times.add(Database.times[i]);
-      }
+      times.add(Database.times[i]);
     }
 
     timeOfRes.getItems().addAll(times);
@@ -85,6 +74,27 @@ public class MakeResController implements Initializable {
                     "Court 8", "Court 9", "Court 10", "Court 11", "Court 12");
     numOfCourt.getItems().addAll(court);
   }
+
+  boolean isToday(String time)
+  {
+    int resMin = Integer.parseInt(time.substring(3, 5));
+    int resHour = 0;
+
+    if(time.charAt(0) == '0')
+    {
+      resHour = Integer.parseInt(time.substring(1, 2));
+    } else {
+      resHour = Integer.parseInt(time.substring(0, 2));
+    }
+
+    if((resHour == hour && minute < resMin) || hour < resHour)
+    {
+      return false;
+    } else {
+      return true;
+    }
+  }
+
 
   @FXML
   void submitreservation(ActionEvent event) throws IOException {
@@ -126,9 +136,13 @@ public class MakeResController implements Initializable {
       error.setTitle("Error");
       error.setContentText("You've already reached the limit of 2 court for today.\nTry another day.");
       error.showAndWait();
-    }  else {
+    } else if (dayOfWeek.getValue().equals("Today") && !isToday(time) ) {
+      error.setTitle("Error");
+      error.setContentText("That time slot has already passed.\nTry another.");
+      error.showAndWait();
+    } else {
       Database.makeRes(courtNum, Database.memberUser, slot);
-      info.setContentText("You've made a reservation for " + slot.substring(0, 15));
+      info.setContentText("You've made a reservation for " + slot.substring(0, 16));
       info.showAndWait();
       App.setRoot("courtreservation");
     }

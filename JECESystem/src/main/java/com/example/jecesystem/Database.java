@@ -673,6 +673,29 @@ public class Database {
     }
   }
 
+  public static boolean databaseEmpty() {
+
+    boolean exists = false;
+
+    try (Connection connection = DriverManager.getConnection(url, username, password)) {
+      PreparedStatement preparedStatement =
+        connection.prepareStatement("select exists(select 1 from court1) AS output");
+
+      ResultSet resultSet = preparedStatement.executeQuery();
+
+      while (resultSet.next()) {
+        exists = resultSet.getBoolean("output");
+        return exists;
+      }
+
+      preparedStatement.close();
+      resultSet.close();
+
+      return exists;
+    } catch (SQLException e) {
+      throw new IllegalStateException("Cannot connect to the database!", e);
+    }
+  }
 
   public static String printReservations(String user){
     try (Connection connection = DriverManager.getConnection(url, username, password)) {
@@ -712,6 +735,7 @@ public class Database {
 
       DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
+      String str = dateTime.format(formatter);
       int count = 0;
 
       for (Integer i = 1; i < 13; i++) {
@@ -721,7 +745,7 @@ public class Database {
 
         PreparedStatement preparedStatement = connection.prepareStatement(sql);
         preparedStatement.setString(1, memberUser);
-        preparedStatement.setDate(2, Date.valueOf(dateTime.format(formatter)));
+        preparedStatement.setDate(2, Date.valueOf(str));
 
         ResultSet resultSet = preparedStatement.executeQuery();
 
@@ -979,7 +1003,7 @@ public class Database {
           String sql = "INSERT INTO " + court + " (dayAndTime, ofDay, ofTime, occupied) VALUES (?, ?, ?, false)";
           PreparedStatement preparedStatement = connection.prepareStatement(sql);
 
-          String day = full[j].substring(0, 9);
+          String day = full[j].substring(0, 10);
           String time = full[j].substring(11, 19);
 
           preparedStatement.setTimestamp(1, Timestamp.valueOf(full[j]));
