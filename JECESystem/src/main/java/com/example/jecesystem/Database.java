@@ -679,7 +679,6 @@ public class Database {
     }
   }
 
-
   //Used for determining if the court tables have been populated
   public static boolean beenPopulated() {
     try (Connection connection = DriverManager.getConnection(url, username, password)) {
@@ -693,7 +692,6 @@ public class Database {
 
       while(resultSet.next()) {
         out = resultSet.getBoolean("output");
-
       }
 
       preparedStatement.close();
@@ -728,8 +726,7 @@ public class Database {
     }
   }
 
-  //Determines if logged in user has already made 2 reservations today
-  public static boolean exceededResLimit(String day) throws SQLException {
+  public static boolean exceededResLimit(String dayTime) throws SQLException {
     try (Connection connection = DriverManager.getConnection(url, username, password)) {
 
       int x = 0;
@@ -737,7 +734,7 @@ public class Database {
       for (int j = 1; j < 13; j++) {
         String court = "court" + j;
 
-        String sql = "SELECT count(*) AS count FROM " + court +" WHERE username = ? AND ofDay =  \"" + day + "\" ";
+        String sql = "SELECT count(*) AS count from " + court + " where username = ? AND date(dayAndTime) = date(\"" + dayTime + "\")";
 
         PreparedStatement preparedStatement = connection.prepareStatement(sql);
         preparedStatement.setString(1, memberUser);
@@ -880,7 +877,7 @@ public class Database {
 
         while(rs.next())
         {
-          String date = String.valueOf(rs.getTimestamp("dayOfTime"));
+          String date = String.valueOf(rs.getTimestamp("dayAndTime"));
           cancelReservation(i, date);
         }
 
@@ -902,16 +899,11 @@ public class Database {
         for (int j = 0; j < 160; j++) {
           String court = "court" + i;
 
-          String sql = "INSERT INTO " + court + " (dayAndTime, ofDay, ofTime, occupied) VALUES (?, ?, ?, ?)";
+          String sql = "INSERT INTO " + court + " (dayAndTime, occupied) VALUES (?, ?)";
           PreparedStatement preparedStatement = connection.prepareStatement(sql);
 
-          String day = full[j].substring(0, 10);
-          String time = full[j].substring(11, 19);
-
           preparedStatement.setTimestamp(1, Timestamp.valueOf(full[j]));
-          preparedStatement.setDate(2, Date.valueOf(day));
-          preparedStatement.setTime(3, Time.valueOf(time));
-          preparedStatement.setInt(4, 0);
+          preparedStatement.setInt(2, 0);
           preparedStatement.executeUpdate();
 
           preparedStatement.close();

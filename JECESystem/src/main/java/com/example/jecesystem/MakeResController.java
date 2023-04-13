@@ -132,7 +132,7 @@ public class MakeResController implements Initializable {
       error.setTitle("Error");
       error.setContentText("A time hasn't been selected");
       error.showAndWait();
-    } else if (Database.exceededResLimit(slot.substring(0, 10))) {
+    } else if (Database.exceededResLimit(slot)) {
       error.setTitle("Error");
       error.setContentText("Can only reserve 2 courts for any day.\nTry another day.");
       error.showAndWait();
