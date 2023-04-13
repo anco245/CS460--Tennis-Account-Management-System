@@ -90,7 +90,7 @@ public class ApproveController implements Initializable {
           int userAge = resultSet.getInt("age");
           String userAddr = resultSet.getString("address");
           String userPhone = resultSet.getString("phone");
-          String userEmail = resultSet.getString("email") + ".com";
+          String userEmail = resultSet.getString("email");
           String userUser = resultSet.getString("username");
           String userPass = resultSet.getString("pword");
           boolean s = resultSet.getBoolean("shown");

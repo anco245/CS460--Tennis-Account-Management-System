@@ -41,11 +41,6 @@ public class MakeResController implements Initializable {
   @Override
   public void initialize(URL url, ResourceBundle rb) {
     loadData();
-
-    if(!Database.databaseEmpty())
-    {
-      Database.populateCourts();
-    }
   }
 
   private void loadData() {
@@ -136,11 +131,15 @@ public class MakeResController implements Initializable {
       error.setTitle("Error");
       error.setContentText("You've already reached the limit of 2 court for today.\nTry another day.");
       error.showAndWait();
-    } else if (dayOfWeek.getValue().equals("Today") && !isToday(time) ) {
+    } else if (dayOfWeek.getValue().equals("Today") && isToday(time) ) {
       error.setTitle("Error");
       error.setContentText("That time slot has already passed.\nTry another.");
       error.showAndWait();
-    } else if (!Database.available(courtNum, "")) {
+    } else if (Database.available(courtNum, slot)) {
+      error.setTitle("Error");
+      error.setContentText("That timeslot is not available.\nTry another.");
+      error.showAndWait();
+    } else {
       Database.makeRes(courtNum, Database.memberUser, slot);
       info.setContentText("You've made a reservation for " + slot.substring(0, 16));
       info.showAndWait();

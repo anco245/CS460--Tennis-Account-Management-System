@@ -105,7 +105,7 @@ public class ChairDirectoryController implements Initializable {
         int userOwe = resultSet.getInt("owe");
         String userAddr = resultSet.getString("address");
         String userPhone = resultSet.getString("phone");
-        String userEmail = resultSet.getString("email") + ".com";;
+        String userEmail = resultSet.getString("email");
         String userUser = resultSet.getString("username");
         String userPass = resultSet.getString("pword");
 

@@ -18,6 +18,12 @@ public class App extends Application {
     //login.fxml is the first screen we see
     //Database.reset();
     //Database.populateCourts();
+
+    if(!Database.databaseFull())
+    {
+      Database.populateCourts();
+    }
+
     scene = new Scene(loadFXML("login"), 1280, 720);
     stage.setScene(scene);
     stage.show();

@@ -10,6 +10,8 @@ public class Person {
   Button denotify = new Button();
   Button approve = new Button();
   Button reject = new Button();
+  Button cancel = new Button();
+
   String userName = "";
   String userAddress = "";
   String userPhone = "";
@@ -23,12 +25,29 @@ public class Person {
   int userAge = 0;
   int owe = 0;
 
+  int userCourt = 1;
+  String date = "";
+
   public Person(String name, int age, String address, String phone, String email) {
     this.userName = name;
     this.userAge = age;
     this.userAddress = address;
     this.userPhone = phone;
     this.userEmail = email;
+  }
+
+  public Person(int court, String dateTime) {
+    this.userCourt = court;
+    this.date = dateTime;
+
+    this.cancel.setOnAction(e -> {
+      Database.cancelReservation(this.userCourt, this.date);
+      try {
+        App.setRoot("info");
+      } catch (IOException ex) {
+        throw new RuntimeException(ex);
+      }
+    });
   }
 
   public Person(String name, int age, String address, String phone, String email, boolean s,
@@ -98,6 +117,12 @@ public class Person {
     });
   }
 
+  public void setCourt(int court) {userCourt = court;}
+  public int getCourt() {return userCourt;}
+
+  public void setDate(String d) {date = d;}
+  public String getDate() {return this.date;}
+
   public void setName(String name) {
     userName = name;
   }
@@ -145,6 +170,13 @@ public class Person {
   public void setNotify(Button b) {
     this.notify = b;
     this.notify.setOnAction(e -> Database.late(this.userUser, true));
+  }
+  public Button getCancel() { return cancel; }
+
+
+  public void setCancel(Button b) {
+    this.cancel = b;
+    this.cancel.setOnAction(e -> Database.cancelReservation(this.userCourt, this.date));
   }
   public Button getNotify() { return notify; }
 

@@ -41,9 +41,7 @@ CREATE TABLE court1 (
     ofDay date NOT NULL, 
     ofTime time NOT NULL,
     username VARCHAR(50),
-    occupied boolean NOT NULL,
-    FOREIGN KEY (username) REFERENCES directory(username)
-		ON DELETE CASCADE
+    occupied boolean NOT NULL
 );
 
 CREATE TABLE court2 (
@@ -51,8 +49,7 @@ CREATE TABLE court2 (
 	ofDay date NOT NULL, 
     ofTime time NOT NULL,
     username VARCHAR(50),
-    occupied boolean NOT NULL,
-    FOREIGN KEY (username) REFERENCES directory(username)
+    occupied boolean NOT NULL
 );
 
 CREATE TABLE court3 (
@@ -60,8 +57,7 @@ CREATE TABLE court3 (
 	ofDay date NOT NULL, 
     ofTime time NOT NULL,
     username VARCHAR(50),
-    occupied boolean NOT NULL,
-    FOREIGN KEY (username) REFERENCES directory(username)
+    occupied boolean NOT NULL
 );
 
 CREATE TABLE court4 (
@@ -69,8 +65,7 @@ CREATE TABLE court4 (
     ofDay date NOT NULL, 
     ofTime time NOT NULL,
     username VARCHAR(50),
-    occupied boolean NOT NULL,
-    FOREIGN KEY (username) REFERENCES directory(username)
+    occupied boolean NOT NULL
 );
 
 CREATE TABLE court5 (
@@ -78,8 +73,7 @@ CREATE TABLE court5 (
     ofDay date NOT NULL, 
     ofTime time NOT NULL,
     username VARCHAR(50),
-    occupied boolean NOT NULL,
-    FOREIGN KEY (username) REFERENCES directory(username)
+    occupied boolean NOT NULL
 );
 
 CREATE TABLE court6 (
@@ -87,8 +81,7 @@ CREATE TABLE court6 (
     ofDay date NOT NULL, 
     ofTime time NOT NULL,
     username VARCHAR(50),
-    occupied boolean NOT NULL,
-    FOREIGN KEY (username) REFERENCES directory(username)
+    occupied boolean NOT NULL
 );
 
 CREATE TABLE court7 (
@@ -96,8 +89,7 @@ CREATE TABLE court7 (
     ofDay date NOT NULL, 
     ofTime time NOT NULL,
     username VARCHAR(50),
-    occupied boolean NOT NULL,
-    FOREIGN KEY (username) REFERENCES directory(username)
+    occupied boolean NOT NULL
 );
 
 CREATE TABLE court8 (
@@ -105,8 +97,7 @@ CREATE TABLE court8 (
     ofDay date NOT NULL, 
     ofTime time NOT NULL,
     username VARCHAR(50),
-    occupied boolean NOT NULL,
-    FOREIGN KEY (username) REFERENCES directory(username)
+    occupied boolean NOT NULL
 );
 
 CREATE TABLE court9 (
@@ -114,8 +105,7 @@ CREATE TABLE court9 (
     ofDay date NOT NULL, 
     ofTime time NOT NULL,
     username VARCHAR(50),
-    occupied boolean NOT NULL,
-    FOREIGN KEY (username) REFERENCES directory(username)
+    occupied boolean NOT NULL
 );
 
 CREATE TABLE court10 (
@@ -123,8 +113,7 @@ CREATE TABLE court10 (
     ofDay date NOT NULL, 
     ofTime time NOT NULL,
     username VARCHAR(50),
-    occupied boolean NOT NULL,
-    FOREIGN KEY (username) REFERENCES directory(username)
+    occupied boolean NOT NULL
 );
 
 CREATE TABLE court11 (
@@ -132,8 +121,7 @@ CREATE TABLE court11 (
     ofDay date NOT NULL, 
     ofTime time NOT NULL,
     username VARCHAR(50),
-    occupied boolean NOT NULL,
-    FOREIGN KEY (username) REFERENCES directory(username)
+    occupied boolean NOT NULL
 );
 
 CREATE TABLE court12 (
@@ -141,6 +129,5 @@ CREATE TABLE court12 (
     ofDay date NOT NULL, 
     ofTime time NOT NULL,
     username VARCHAR(50),
-    occupied boolean NOT NULL,
-    FOREIGN KEY (username) REFERENCES directory(username)
+    occupied boolean NOT NULL
 );

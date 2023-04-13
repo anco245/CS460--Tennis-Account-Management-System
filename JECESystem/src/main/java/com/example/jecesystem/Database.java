@@ -673,7 +673,7 @@ public class Database {
     }
   }
 
-  public static boolean databaseEmpty() {
+  public static boolean databaseFull() {
 
     boolean exists = false;
 
@@ -694,6 +694,25 @@ public class Database {
       return exists;
     } catch (SQLException e) {
       throw new IllegalStateException("Cannot connect to the database!", e);
+    }
+  }
+
+  public static void cancelReservation(int c, String date) {
+    try (Connection connection = DriverManager.getConnection(url, username, password)) {
+
+      String court = "court" + Integer.toString(c);
+
+      String sql = "UPDATE " + court + " SET username = null, occupied = false WHERE dayAndTime = ?";
+      PreparedStatement preparedStatement = connection.prepareStatement(sql);
+
+      date = date + ":00";
+      System.out.println(date);
+      preparedStatement.setTimestamp(1, Timestamp.valueOf(date));
+      preparedStatement.executeUpdate();
+
+      preparedStatement.close();
+    } catch (SQLException ex) {
+      throw new RuntimeException(ex);
     }
   }
 
@@ -767,64 +786,27 @@ public class Database {
     }
   }
 
-  //function to check if court at specific time is reserved
-  public static boolean checkRes(String num, String dateAndTime) {
-    try (Connection connection = DriverManager.getConnection(url, username, password)) {
-      //String sql = "UPDATE " + pendingNum + " SET username = ?, occupied = ? WHERE dayAndTime = ?";
-
-      for (Integer i = 0; i < 12; i++) {
-        String court = "court" + i.toString(i);
-
-        String sql = "SELECT occupied FROM " + court + " WHERE username = ?";
-        PreparedStatement preparedStatement = connection.prepareStatement(sql);
-
-        preparedStatement.setString(1, court);
-
-
-        ResultSet resultSet = preparedStatement.executeQuery();
-
-        while (resultSet.next()) {
-          String dayandTime = String.valueOf(resultSet.getTimestamp("dayAndTime"));
-
-          //str = str = dayandTime + "\n";
-        }
-        preparedStatement.close();
-      }
-
-      return false;
-    } catch (SQLException e) {
-      throw new IllegalStateException("Cannot connect to the database!", e);
-    }
-  }
-
   //supposed to return string[]
   public static boolean available(String courtNum, String time) {
     try (Connection connection = DriverManager.getConnection(url, username, password)) {
 
-      String sql = "";
+      boolean num = false;
 
+      String sql = "SELECT occupied FROM " + courtNum + " where dayAndTime = ?";
       PreparedStatement preparedStatement = connection.prepareStatement(sql);
+      preparedStatement.setString(1, time);
+
       ResultSet resultSet = preparedStatement.executeQuery();
 
-      int num = 0;
       while (resultSet.next()) {
-        num = resultSet.getInt("num");
-      }
+        num = resultSet.getBoolean("occupied");
 
-      String[] open = new String[num + 1];
-
-      //Gets results
-      String sql2 = "SELECT dayAndTime FROM " + courtNum + " WHERE occupied = false";
-      PreparedStatement p2 = connection.prepareStatement(sql2);
-      ResultSet rs = p2.executeQuery();
-
-      while (resultSet.next()) {
-
+        return num;
       }
 
       preparedStatement.close();
 
-      return true;
+      return num;
     } catch (SQLException e) {
       throw new IllegalStateException("Cannot connect to the database!", e);
     }
@@ -918,7 +900,6 @@ public class Database {
       preparedStatement.executeUpdate();
 
       preparedStatement.close();
-      connection.close();
     } catch (SQLException e) {
       throw new IllegalStateException("Cannot connect to the database!", e);
     }
@@ -969,11 +950,6 @@ public class Database {
     }
   }
 
-  public static void cancelRes(String date, String time, String court, String user)
-  {
-
-  }
-
   public static void populateCourts() {
     try (Connection connection = DriverManager.getConnection(url, username, password)) {
 
@@ -992,6 +968,7 @@ public class Database {
           preparedStatement.setTimestamp(1, Timestamp.valueOf(full[j]));
           preparedStatement.setDate(2, Date.valueOf(day));
           preparedStatement.setTime(3, Time.valueOf(time));
+          preparedStatement.setInt(4, 0);
           preparedStatement.executeUpdate();
         }
       }
