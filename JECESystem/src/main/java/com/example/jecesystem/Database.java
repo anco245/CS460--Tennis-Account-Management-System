@@ -44,6 +44,8 @@ public class Database {
 
   public static boolean keepConfirm = false;
 
+  public static int monthly = 0;
+
   public static String[] full = new String[160];
 
   String today = "Today";
@@ -456,7 +458,21 @@ public class Database {
       preparedStatement.setBoolean(10, sho);
       preparedStatement.setBoolean(11, false);
       preparedStatement.setBoolean(12, false);
-      preparedStatement.setInt(13, 1000);
+
+      int x = 1000;
+      if(age < 18)
+      {
+        monthly = 250;
+        x = x + 250;
+      } else if (age > 17 && age < 65) {
+        monthly = 400;
+        x = x + 400;
+      } else {
+        monthly = 300;
+        x = x + 300;
+      }
+
+      preparedStatement.setInt(13, x);
       preparedStatement.setInt(14, 0);
       preparedStatement.setBoolean(15, true);
       preparedStatement.setBoolean(16, false);
@@ -706,7 +722,6 @@ public class Database {
       PreparedStatement preparedStatement = connection.prepareStatement(sql);
 
       date = date + ":00";
-      System.out.println(date);
       preparedStatement.setTimestamp(1, Timestamp.valueOf(date));
       preparedStatement.executeUpdate();
 

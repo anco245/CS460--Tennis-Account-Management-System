@@ -44,6 +44,11 @@ public class MemController implements Initializable {
 
     LocalDateTime now = LocalDateTime.now();
 
+    if(now.getDayOfMonth() == 1)
+    {
+        Database.addSubOwe(Database.memberUser, Database.monthly);
+    }
+
     if(now.getDayOfMonth() != 1 && now.getDayOfMonth() != 1)
     {
       Database.setConfirm(false);

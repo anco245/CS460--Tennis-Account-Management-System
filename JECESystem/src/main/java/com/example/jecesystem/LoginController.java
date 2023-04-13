@@ -66,7 +66,14 @@ public class LoginController implements Initializable {
         } else if (Database.domain.equals("admin.com")) {
           App.setRoot("adminscreen");
         } else {
-          App.setRoot("memscreen");
+          LocalDateTime now = LocalDateTime.now();
+          if(now.getDayOfMonth() == 4 && now.getDayOfMonth() == 1) {
+            if (Database.isLate) {
+                Database.deleteFromDir(name);
+            }
+          } else {
+            App.setRoot("memscreen");
+          }
         }
       } else {
         info.setTitle("Need to be Verified");

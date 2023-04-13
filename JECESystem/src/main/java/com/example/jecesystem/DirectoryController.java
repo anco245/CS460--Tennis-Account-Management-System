@@ -51,7 +51,6 @@ public class DirectoryController implements Initializable {
       ResultSet resultSet = preparedStatement.executeQuery();
 
       while(resultSet.next()) {
-        System.out.println(list.isEmpty());
         String first = resultSet.getString("firstName").substring(0, 1).toUpperCase() +
           resultSet.getString("firstName").substring(1);
         String last = resultSet.getString("lastName").substring(0, 1).toUpperCase() +
