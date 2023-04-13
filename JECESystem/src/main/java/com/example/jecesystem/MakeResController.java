@@ -8,6 +8,8 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.ChoiceBox;
+
+import java.sql.SQLException;
 import java.time.format.DateTimeFormatter;
 import java.io.IOException;
 import java.net.URL;
@@ -75,9 +77,10 @@ public class MakeResController implements Initializable {
 
 
   @FXML
-  void submitreservation(ActionEvent event) throws IOException {
+  void submitreservation(ActionEvent event) throws IOException, SQLException {
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
+    Alert info = new Alert(Alert.AlertType.INFORMATION);
     Alert con = new Alert(Alert.AlertType.CONFIRMATION);
     Alert error = new Alert(Alert.AlertType.ERROR);
 
@@ -111,7 +114,7 @@ public class MakeResController implements Initializable {
 
     if (Database.exceededResLimit()) {
       error.setTitle("Error");
-      error.setContentText("You've already reached the limit of 2 court for today.\nTry another day.");
+      error.setContentText("Can only reserve 2 courts for any day.\nTry another day.");
       error.showAndWait();
     } else if (dayOfWeek.getValue().equals("Today") && isToday(time) ) {
       error.setTitle("Error");
@@ -123,7 +126,6 @@ public class MakeResController implements Initializable {
       error.showAndWait();
     } else {
       con.setContentText("Do you want to make a reservation for " + slot.substring(0, 16));
-      con.showAndWait();
 
       Optional<ButtonType> result = con.showAndWait();
       if (result.isPresent() && result.get() == ButtonType.OK) {

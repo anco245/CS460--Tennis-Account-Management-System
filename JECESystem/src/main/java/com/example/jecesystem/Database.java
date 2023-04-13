@@ -18,6 +18,8 @@ public class Database {
   public static String password = "sqlpass";
   public static String url = "jdbc:mysql://localhost:3306/courtsystem";
 
+  static DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+
   //To hold current user's information
   public static String fName = "";
   public static String lName = "";
@@ -59,14 +61,14 @@ public class Database {
   public static LocalDateTime nextSaturday = dateTime.with(TemporalAdjusters.next(DayOfWeek.SATURDAY));
   public static LocalDateTime nextSunday = dateTime.with(TemporalAdjusters.next(DayOfWeek.SUNDAY));
 
-  public static String formatMon = "";
-  public static String formatTues = "";
-  public static String formatWed = "";
-  public static String formatThur = "";
-  public static String formatFri = "";
-  public static String formatSat = "";
-  public static String formatSun = "";
-  public static String formatDay = "";
+  public static String formatMon = nextMonday.format(formatter);
+  public static String formatTues = nextTuesday.format(formatter);
+  public static String formatWed = nextWednesday.format(formatter);
+  public static String formatThur = nextThursday.format(formatter);
+  public static String formatFri = nextFriday.format(formatter);
+  public static String formatSat = nextSaturday.format(formatter);
+  public static String formatSun = nextSunday.format(formatter);
+  public static String formatDay = dateTime.format(formatter);
 
   //Removes people from directory who opted to
   // not keep their account when asked on 1/1
@@ -169,11 +171,17 @@ public class Database {
   public static int getSize() {
     try (Connection connection = DriverManager.getConnection(url, username, password)) {
 
+      int total = 0;
+
       Statement stmt = connection.createStatement();
       ResultSet result = stmt.executeQuery("SELECT COUNT(*) AS total FROM directory");
 
-      int total = result.getInt("total");
+      while(result.next()) {
+        total = result.getInt("total");
+      }
+
       stmt.close();
+      result.close();
 
       return total;
 
@@ -375,13 +383,14 @@ public class Database {
   public static boolean verified(String u) {
     try (Connection connection = DriverManager.getConnection(url, username, password)) {
 
+      boolean v = false;
+
       PreparedStatement preparedStatement =
         connection.prepareStatement("SELECT verified FROM directory WHERE username = ?");
 
       preparedStatement.setString(1, u);
       ResultSet resultSet = preparedStatement.executeQuery();
 
-      boolean v = false;
       if (resultSet.next())
         v = resultSet.getBoolean("verified");
 
@@ -673,17 +682,24 @@ public class Database {
 
   //Used for determining if the court tables have been populated
   public static boolean beenPopulated() {
-
     try (Connection connection = DriverManager.getConnection(url, username, password)) {
+
+      boolean out = false;
+
       PreparedStatement preparedStatement =
         connection.prepareStatement("select exists(select 1 from court1) AS output");
 
       ResultSet resultSet = preparedStatement.executeQuery();
 
+      while(resultSet.next()) {
+        out = resultSet.getBoolean("output");
+
+      }
+
       preparedStatement.close();
       resultSet.close();
 
-      return resultSet.getBoolean("output");
+      return out;
     } catch (SQLException e) {
       throw new IllegalStateException("Cannot connect to the database!", e);
     }
@@ -713,46 +729,63 @@ public class Database {
   }
 
   //Determines if logged in user has already made 2 reservations today
-  public static boolean exceededResLimit() {
+  public static boolean exceededResLimit() throws SQLException {
     try (Connection connection = DriverManager.getConnection(url, username, password)) {
 
-      DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+      String str = "";
 
-      String str = dateTime.format(formatter);
-      int count = 0;
-
-      for (int i = 1; i < 13; i++) {
-        String court = "court" + i;
-
-        String sql = "select count(*) from " + court + " where username = ? and ofDay = ?";
-
-        PreparedStatement preparedStatement = connection.prepareStatement(sql);
-        preparedStatement.setString(1, memberUser);
-        preparedStatement.setDate(2, Date.valueOf(str));
-
-        ResultSet resultSet = preparedStatement.executeQuery();
-
-        while (resultSet.next()) {
-          count = count + resultSet.getInt("count(*)");
-
-          if(count == 2)
-          {
-            return true;
-          }
+      for (int i = 0; i < 8; i++) {
+        if (i == 0) {
+          str = formatDay;
+        } else if (i == 1) {
+          str = formatMon;
+        } else if (i == 2) {
+          str = formatTues;
+        } else if (i == 3) {
+          str = formatWed;
+        } else if (i == 4) {
+          str = formatThur;
+        } else if (i == 5) {
+          str = formatFri;
+        } else if (i == 6) {
+          str = formatSat;
+        } else {
+          str = formatSun;
         }
 
-        preparedStatement.close();
-      }
+        for (int j = 1; j < 13; j++) {
+          String court = "court" + j;
 
+          String sql = "SELECT count(*) AS count FROM " + court +" WHERE username = ? AND ofDay =  \"" + str + "\" ";
+
+          PreparedStatement preparedStatement = connection.prepareStatement(sql);
+
+          preparedStatement.setString(1, memberUser);
+          //preparedStatement.setDate(2, Date.valueOf(str));
+
+          ResultSet resultSet = preparedStatement.executeQuery();
+
+          while (resultSet.next()) {
+
+            int x = resultSet.getInt("count");
+            System.out.println("count: " + x);
+            System.out.println(i);
+            if (resultSet.getInt("count") > 1) {
+              preparedStatement.close();
+              return true;
+            }
+          }
+        }
+      }
       return false;
-    } catch (SQLException e) {
-      throw new IllegalStateException("Cannot connect to the database!", e);
     }
   }
 
-  //Sees if timeslot at given court has been filled
+    //Sees if timeslot at given court has been filled
   public static boolean available(String courtNum, String time) {
     try (Connection connection = DriverManager.getConnection(url, username, password)) {
+
+      boolean occ = false;
 
       String sql = "SELECT occupied FROM " + courtNum + " where dayAndTime = ?";
       PreparedStatement preparedStatement = connection.prepareStatement(sql);
@@ -760,9 +793,13 @@ public class Database {
 
       ResultSet resultSet = preparedStatement.executeQuery();
 
-      preparedStatement.close();
+      while(resultSet.next()) {
+        occ = resultSet.getBoolean("occupied");
+      }
 
-      return resultSet.getBoolean("occupied");
+      resultSet.close();
+
+      return occ;
 
     } catch (SQLException e) {
       throw new IllegalStateException("Cannot connect to the database!", e);
@@ -867,7 +904,6 @@ public class Database {
         while(rs.next())
         {
           String date = String.valueOf(rs.getTimestamp("dayOfTime"));
-
           cancelReservation(i, date);
         }
 
