@@ -7,6 +7,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.ChoiceBox;
 
 import java.sql.SQLException;
@@ -28,6 +29,10 @@ public class MakeResController implements Initializable {
 
   @FXML
   private ChoiceBox<String> numOfCourt;
+
+
+  @FXML
+  private CheckBox singleOrDouble;
 
   ObservableList times = FXCollections.observableArrayList();
   ObservableList days = FXCollections.observableArrayList();
@@ -87,6 +92,8 @@ public class MakeResController implements Initializable {
     String day = dayOfWeek.getValue();
     String time = timeOfRes.getValue();
 
+    boolean sod = singleOrDouble.isSelected();
+
     String slot = "";
     String courtNum = "";
 
@@ -112,7 +119,20 @@ public class MakeResController implements Initializable {
     else if (dayOfWeek.getValue().equals("Saturday")) {slot = Database.nextSaturday.format(formatter) + " " + time;}
     else if (dayOfWeek.getValue().equals("Sunday")) {slot = Database.nextSunday.format(formatter) + " " + time;}
 
-    if (Database.exceededResLimit()) {
+    if(numOfCourt.getValue() == null)
+    {
+      error.setTitle("Error");
+      error.setContentText("A court hasn't been selected");
+      error.showAndWait();
+    } else if (dayOfWeek.getValue() == null) {
+      error.setTitle("Error");
+      error.setContentText("A day of the week hasn't been selected");
+      error.showAndWait();
+    } else if (timeOfRes.getValue() == null) {
+      error.setTitle("Error");
+      error.setContentText("A time hasn't been selected");
+      error.showAndWait();
+    } else if (Database.exceededResLimit(slot.substring(0, 10))) {
       error.setTitle("Error");
       error.setContentText("Can only reserve 2 courts for any day.\nTry another day.");
       error.showAndWait();
@@ -133,16 +153,6 @@ public class MakeResController implements Initializable {
         App.setRoot("courtreservation");
       }
     }
-
-    /*
-    else if (Database.atSameTime(Database.memberUser)) {
-      error.setTitle("Error");
-      error.setContentText("You're already booked in another court at that time.\nTry another day.");
-      error.showAndWait();
-    } else {
-      Database.makeRes(courtNum, Database.memberUser, slot);
-    }
-     */
 
      /*
        - Can’t put more than 4 people in a court

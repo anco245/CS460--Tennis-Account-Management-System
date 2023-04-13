@@ -729,55 +729,32 @@ public class Database {
   }
 
   //Determines if logged in user has already made 2 reservations today
-  public static boolean exceededResLimit() throws SQLException {
+  public static boolean exceededResLimit(String day) throws SQLException {
     try (Connection connection = DriverManager.getConnection(url, username, password)) {
 
-      String str = "";
+      int x = 0;
 
-      for (int i = 0; i < 8; i++) {
-        if (i == 0) {
-          str = formatDay;
-        } else if (i == 1) {
-          str = formatMon;
-        } else if (i == 2) {
-          str = formatTues;
-        } else if (i == 3) {
-          str = formatWed;
-        } else if (i == 4) {
-          str = formatThur;
-        } else if (i == 5) {
-          str = formatFri;
-        } else if (i == 6) {
-          str = formatSat;
-        } else {
-          str = formatSun;
-        }
+      for (int j = 1; j < 13; j++) {
+        String court = "court" + j;
 
-        for (int j = 1; j < 13; j++) {
-          String court = "court" + j;
+        String sql = "SELECT count(*) AS count FROM " + court +" WHERE username = ? AND ofDay =  \"" + day + "\" ";
 
-          String sql = "SELECT count(*) AS count FROM " + court +" WHERE username = ? AND ofDay =  \"" + str + "\" ";
+        PreparedStatement preparedStatement = connection.prepareStatement(sql);
+        preparedStatement.setString(1, memberUser);
 
-          PreparedStatement preparedStatement = connection.prepareStatement(sql);
+        ResultSet resultSet = preparedStatement.executeQuery();
 
-          preparedStatement.setString(1, memberUser);
-          //preparedStatement.setDate(2, Date.valueOf(str));
-
-          ResultSet resultSet = preparedStatement.executeQuery();
-
-          while (resultSet.next()) {
-
-            int x = resultSet.getInt("count");
-            System.out.println("count: " + x);
-            System.out.println(i);
-            if (resultSet.getInt("count") > 1) {
-              preparedStatement.close();
-              return true;
-            }
+        while (resultSet.next()) {
+          if (resultSet.getInt("count") > 1) {
+            preparedStatement.close();
+            return true;
+          } else {
+            x = x + resultSet.getInt("count");
           }
         }
       }
-      return false;
+
+      return x > 1;
     }
   }
 
