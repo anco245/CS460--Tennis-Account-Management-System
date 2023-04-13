@@ -27,8 +27,6 @@ public class AddGuestController implements Initializable {
     }
 
     private void loadData() {
-      list.removeAll(list);
-
       int a = 1;
       int b = 2;
       int c = 3;

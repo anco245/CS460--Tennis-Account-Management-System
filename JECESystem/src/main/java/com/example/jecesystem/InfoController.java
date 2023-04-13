@@ -35,16 +35,10 @@ public class InfoController implements Initializable {
   private Text disEmail;
 
   @FXML
-  private Text disGuests;
-
-  @FXML
   private Text disPass;
 
   @FXML
   private Text disPhone;
-
-  @FXML
-  private Text disRes;
 
   @FXML
   private Text disUser;
@@ -57,9 +51,6 @@ public class InfoController implements Initializable {
 
   @FXML
   private TextArea forOwe;
-
-  @FXML
-  private TextArea forRes;
 
   @FXML
   private TextArea forGuest;
@@ -100,16 +91,14 @@ public class InfoController implements Initializable {
     disfname.setText(Database.fName);
     dislname.setText(Database.lName);
 
-    court.setCellValueFactory(new PropertyValueFactory<Person, Integer>("court"));
-    dayTime.setCellValueFactory(new PropertyValueFactory<Person, String>("date"));
-    cancel.setCellValueFactory(new PropertyValueFactory<Person, Button>("cancel"));
+    court.setCellValueFactory(new PropertyValueFactory<>("court"));
+    dayTime.setCellValueFactory(new PropertyValueFactory<>("date"));
+    cancel.setCellValueFactory(new PropertyValueFactory<>("cancel"));
 
     try (Connection connection = DriverManager.getConnection(Database.url, Database.username, Database.password)) {
 
-      String str = "";
-
-      for (Integer i = 1; i < 13; i++) {
-        String court = "court" + i.toString();
+      for (int i = 1; i < 13; i++) {
+        String court = "court" + i;
         String sql = "select * from " + court + " where username = ?";
         PreparedStatement preparedStatement = connection.prepareStatement(sql);
 

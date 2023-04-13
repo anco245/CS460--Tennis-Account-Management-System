@@ -72,20 +72,20 @@ public class ChairDirectoryController implements Initializable {
   @Override
   public void initialize(URL url, ResourceBundle rb) {
 
-    name.setCellValueFactory(new PropertyValueFactory<Person, String>("name"));
-    age.setCellValueFactory(new PropertyValueFactory<Person, Integer>("age"));
-    address.setCellValueFactory(new PropertyValueFactory<Person, String>("address"));
-    phone.setCellValueFactory(new PropertyValueFactory<Person, String>("phone"));
-    email.setCellValueFactory(new PropertyValueFactory<Person, String>("email"));
-    user.setCellValueFactory(new PropertyValueFactory<Person, String>("user"));
-    pass.setCellValueFactory(new PropertyValueFactory<Person, String>("pass"));
-    late.setCellValueFactory(new PropertyValueFactory<Person, Boolean>("late"));
-    shown.setCellValueFactory(new PropertyValueFactory<Person, Boolean>("shown"));
-    notify.setCellValueFactory(new PropertyValueFactory<Person, Button>("notify"));
-    denotify.setCellValueFactory(new PropertyValueFactory<Person, Button>("denotify"));
-    keep.setCellValueFactory(new PropertyValueFactory<Person, Boolean>("keep"));
-    penalized.setCellValueFactory(new PropertyValueFactory<Person, Boolean>("penalized"));
-    owe.setCellValueFactory(new PropertyValueFactory<Person, Integer>("owe"));
+    name.setCellValueFactory(new PropertyValueFactory<>("name"));
+    age.setCellValueFactory(new PropertyValueFactory<>("age"));
+    address.setCellValueFactory(new PropertyValueFactory<>("address"));
+    phone.setCellValueFactory(new PropertyValueFactory<>("phone"));
+    email.setCellValueFactory(new PropertyValueFactory<>("email"));
+    user.setCellValueFactory(new PropertyValueFactory<>("user"));
+    pass.setCellValueFactory(new PropertyValueFactory<>("pass"));
+    late.setCellValueFactory(new PropertyValueFactory<>("late"));
+    shown.setCellValueFactory(new PropertyValueFactory<>("shown"));
+    notify.setCellValueFactory(new PropertyValueFactory<>("notify"));
+    denotify.setCellValueFactory(new PropertyValueFactory<>("denotify"));
+    keep.setCellValueFactory(new PropertyValueFactory<>("keep"));
+    penalized.setCellValueFactory(new PropertyValueFactory<>("penalized"));
+    owe.setCellValueFactory(new PropertyValueFactory<>("owe"));
 
     try (Connection connection = DriverManager.getConnection(Database.url, Database.username, Database.password)) {
 

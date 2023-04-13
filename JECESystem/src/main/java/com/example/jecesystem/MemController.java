@@ -47,7 +47,7 @@ public class MemController implements Initializable {
         Database.addSubOwe(Database.memberUser, Database.monthly);
     }
 
-    if(now.getDayOfMonth() != 1 && now.getDayOfMonth() != 1)
+    if(now.getMonthValue() != 1 && now.getDayOfMonth() != 1)
     {
       Database.setConfirm(false);
     }
@@ -102,9 +102,10 @@ public class MemController implements Initializable {
     }
 
     if(Database.isLate) {
-      String late = "You haven't paid your annual fee.\n" +
-        "If you don't pay by April 1st, your account\n" +
-        "will be removed.";
+      String late = """
+        You haven't paid your annual fee.
+        If you don't pay by April 1st, your account
+        will be removed.""";
       lateMessage.setText(late);
     }
   }

@@ -59,16 +59,16 @@ public class ApproveController implements Initializable {
   @Override
   public void initialize(URL url, ResourceBundle resourceBundle) {
 
-    name.setCellValueFactory(new PropertyValueFactory<Person, String>("name"));
-    age.setCellValueFactory(new PropertyValueFactory<Person, Integer>("age"));
-    address.setCellValueFactory(new PropertyValueFactory<Person, String>("address"));
-    phone.setCellValueFactory(new PropertyValueFactory<Person, String>("phone"));
-    email.setCellValueFactory(new PropertyValueFactory<Person, String>("email"));
-    username.setCellValueFactory(new PropertyValueFactory<Person, String>("user"));
-    password.setCellValueFactory(new PropertyValueFactory<Person, String>("pass"));
-    shown.setCellValueFactory(new PropertyValueFactory<Person, Boolean>("shown"));
-    approve.setCellValueFactory(new PropertyValueFactory<Person, Button>("approve"));
-    reject.setCellValueFactory(new PropertyValueFactory<Person, Button>("reject"));
+    name.setCellValueFactory(new PropertyValueFactory<>("name"));
+    age.setCellValueFactory(new PropertyValueFactory<>("age"));
+    address.setCellValueFactory(new PropertyValueFactory<>("address"));
+    phone.setCellValueFactory(new PropertyValueFactory<>("phone"));
+    email.setCellValueFactory(new PropertyValueFactory<>("email"));
+    username.setCellValueFactory(new PropertyValueFactory<>("user"));
+    password.setCellValueFactory(new PropertyValueFactory<>("pass"));
+    shown.setCellValueFactory(new PropertyValueFactory<>("shown"));
+    approve.setCellValueFactory(new PropertyValueFactory<>("approve"));
+    reject.setCellValueFactory(new PropertyValueFactory<>("reject"));
 
     try (Connection connection = DriverManager.getConnection(Database.url, Database.username, Database.password)) {
 

@@ -62,7 +62,7 @@ public class LoginController implements Initializable {
           App.setRoot("adminscreen");
         } else {
           LocalDateTime now = LocalDateTime.now();
-          if(now.getDayOfMonth() == 4 && now.getDayOfMonth() == 1) {
+          if(now.getMonthValue() == 4 && now.getDayOfMonth() == 1) {
             if (Database.isLate) {
                 Database.deleteFromDir(name);
             }
@@ -78,9 +78,10 @@ public class LoginController implements Initializable {
       }
     } else {
       error.setTitle("Error");
-      error.setContentText("Either the username and password is wrong, or\n" +
-        "one or both of the textfields are empty.\n" +
-        "Try again.");
+      error.setContentText("""
+        Either the username and password is wrong, or
+        one or both of the textfields are empty.
+        Try again.""");
       error.showAndWait();
     }
   }

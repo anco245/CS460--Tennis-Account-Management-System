@@ -37,11 +37,11 @@ public class DirectoryController implements Initializable {
 
   @Override
   public void initialize(URL url, ResourceBundle rb) {
-    name.setCellValueFactory(new PropertyValueFactory<Person, String>("name"));
-    age.setCellValueFactory(new PropertyValueFactory<Person, Integer>("age"));
-    address.setCellValueFactory(new PropertyValueFactory<Person, String>("address"));
-    phone.setCellValueFactory(new PropertyValueFactory<Person, String>("phone"));
-    email.setCellValueFactory(new PropertyValueFactory<Person, String>("email"));
+    name.setCellValueFactory(new PropertyValueFactory<>("name"));
+    age.setCellValueFactory(new PropertyValueFactory<>("age"));
+    address.setCellValueFactory(new PropertyValueFactory<>("address"));
+    phone.setCellValueFactory(new PropertyValueFactory<>("phone"));
+    email.setCellValueFactory(new PropertyValueFactory<>("email"));
 
     try (Connection connection = DriverManager.getConnection(Database.url, Database.username, Database.password)) {
 
@@ -63,7 +63,7 @@ public class DirectoryController implements Initializable {
         int userAge = resultSet.getInt("age");
         String userAddr = resultSet.getString("address");
         String userPhone = resultSet.getString("phone");
-        String userEmail = resultSet.getString("email");;
+        String userEmail = resultSet.getString("email");
 
         boolean v = resultSet.getBoolean("verified");
         boolean shown = resultSet.getBoolean("shown");

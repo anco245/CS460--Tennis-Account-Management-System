@@ -155,7 +155,7 @@ public class Database {
         int o = resultSet.getInt("owe");
 
         //Database.deleteFromWaiting(uname);
-        Database.nAccount(fname, lname, age, address, phone, email, uname, p, s, owe);
+        Database.nAccount(fname, lname, age, address, phone, email, uname, p, s, o);
       }
 
       preparedStatement.close();
@@ -172,14 +172,10 @@ public class Database {
       Statement stmt = connection.createStatement();
       ResultSet result = stmt.executeQuery("SELECT COUNT(*) AS total FROM directory");
 
-      while (result.next()) {
-        int total = result.getInt("total");
-        stmt.close();
+      int total = result.getInt("total");
+      stmt.close();
 
-        return total;
-      }
-
-      return 0;
+      return total;
 
     } catch (SQLException e) {
       throw new IllegalStateException("Cannot connect to the database!", e);
@@ -319,11 +315,7 @@ public class Database {
       PreparedStatement preparedStatement =
         connection.prepareStatement("UPDATE directory SET late = ? WHERE username = ?");
 
-      if (isLate) {
-        preparedStatement.setBoolean(1, true);
-      } else {
-        preparedStatement.setBoolean(1, false);
-      }
+      preparedStatement.setBoolean(1, isLate);
 
       preparedStatement.setString(2, user);
       preparedStatement.executeUpdate();
@@ -452,7 +444,7 @@ public class Database {
       {
         monthly = 250;
         x = x + 250;
-      } else if (age > 17 && age < 65) {
+      } else if (age < 65) {
         monthly = 400;
         x = x + 400;
       } else {
@@ -556,11 +548,7 @@ public class Database {
       PreparedStatement preparedStatement =
         connection.prepareStatement("UPDATE directory SET shown = ? WHERE username = ?");
 
-      if (isShown) {
-        preparedStatement.setBoolean(1, false);
-      } else {
-        preparedStatement.setBoolean(1, true);
-      }
+      preparedStatement.setBoolean(1, !isShown);
 
       preparedStatement.setString(2, memberUser);
       preparedStatement.executeUpdate();
@@ -686,23 +674,16 @@ public class Database {
   //Used for determining if the court tables have been populated
   public static boolean beenPopulated() {
 
-    boolean exists = false;
-
     try (Connection connection = DriverManager.getConnection(url, username, password)) {
       PreparedStatement preparedStatement =
         connection.prepareStatement("select exists(select 1 from court1) AS output");
 
       ResultSet resultSet = preparedStatement.executeQuery();
 
-      while (resultSet.next()) {
-        exists = resultSet.getBoolean("output");
-        return exists;
-      }
-
       preparedStatement.close();
       resultSet.close();
 
-      return exists;
+      return resultSet.getBoolean("output");
     } catch (SQLException e) {
       throw new IllegalStateException("Cannot connect to the database!", e);
     }
@@ -711,7 +692,7 @@ public class Database {
   public static void cancelReservation(int c, String date) {
     try (Connection connection = DriverManager.getConnection(url, username, password)) {
 
-      String court = "court" + Integer.toString(c);
+      String court = "court" + c;
 
       String sql = "UPDATE " + court + " SET username = null, occupied = false WHERE dayAndTime = ?";
       PreparedStatement preparedStatement = connection.prepareStatement(sql);
@@ -740,8 +721,8 @@ public class Database {
       String str = dateTime.format(formatter);
       int count = 0;
 
-      for (Integer i = 1; i < 13; i++) {
-        String court = "court" + i.toString(i);
+      for (int i = 1; i < 13; i++) {
+        String court = "court" + i;
 
         String sql = "select count(*) from " + court + " where username = ? and ofDay = ?";
 
@@ -773,29 +754,22 @@ public class Database {
   public static boolean available(String courtNum, String time) {
     try (Connection connection = DriverManager.getConnection(url, username, password)) {
 
-      boolean num = false;
-
       String sql = "SELECT occupied FROM " + courtNum + " where dayAndTime = ?";
       PreparedStatement preparedStatement = connection.prepareStatement(sql);
       preparedStatement.setString(1, time);
 
       ResultSet resultSet = preparedStatement.executeQuery();
 
-      while (resultSet.next()) {
-        num = resultSet.getBoolean("occupied");
-
-        return num;
-      }
-
       preparedStatement.close();
 
-      return num;
+      return resultSet.getBoolean("occupied");
+
     } catch (SQLException e) {
       throw new IllegalStateException("Cannot connect to the database!", e);
     }
   }
 
-  //Used for when the app is first launched on a system. Loads all of the
+  //Used for when the app is first launched on a system. Loads all the
   //times for the sql tables for the courts in an array
   public static void toArray() {
     String[] exactDays = new String[8];
@@ -824,7 +798,7 @@ public class Database {
       } else if (i == 6) {
         formatSat = nextSaturday.format(formatter);
         exactDays[i] = formatSat;
-      } else if (i == 7) {
+      } else {
         formatSun = nextSunday.format(formatter);
         exactDays[i] = formatSun;
       }
@@ -879,9 +853,9 @@ public class Database {
   {
     try (Connection connection = DriverManager.getConnection(url, username, password)) {
 
-      for(Integer i = 0; i < 13; i++)
+      for(int i = 0; i < 13; i++)
       {
-        String court = "court" + i.toString();
+        String court = "court" + i;
 
         String sql = "SELECT dayAndTime FROM " + court + " WHERE username = ?";
         PreparedStatement p = connection.prepareStatement(sql);
@@ -911,9 +885,9 @@ public class Database {
 
       toArray();
 
-      for (Integer i = 1; i < 13; i++) {
+      for (int i = 1; i < 13; i++) {
         for (int j = 0; j < 160; j++) {
-          String court = "court" + i.toString(i);
+          String court = "court" + i;
 
           String sql = "INSERT INTO " + court + " (dayAndTime, ofDay, ofTime, occupied) VALUES (?, ?, ?, ?)";
           PreparedStatement preparedStatement = connection.prepareStatement(sql);
@@ -926,6 +900,8 @@ public class Database {
           preparedStatement.setTime(3, Time.valueOf(time));
           preparedStatement.setInt(4, 0);
           preparedStatement.executeUpdate();
+
+          preparedStatement.close();
         }
       }
     } catch (SQLException e) {

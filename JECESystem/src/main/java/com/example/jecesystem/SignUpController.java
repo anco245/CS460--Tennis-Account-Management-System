@@ -52,7 +52,7 @@ public class SignUpController {
   }
 
   @FXML
-  void toSubmit(ActionEvent event) throws IOException {
+  void toSubmit(ActionEvent event) {
 
     Alert info = new Alert(Alert.AlertType.INFORMATION);
     Alert error = new Alert(Alert.AlertType.ERROR);
@@ -153,9 +153,10 @@ public class SignUpController {
       }
     } catch(Exception e){
     error.setTitle("Error");
-    error.setContentText("Either one or more of the textfields are left blank,\n" +
-      "or something wasn't put in the right format.\n" +
-      "Check your inputs and try again.");
+    error.setContentText("""
+      Either one or more of the textfields are left blank,
+      or something wasn't put in the right format.
+      Check your inputs and try again.""");
     error.showAndWait();
     }
   }

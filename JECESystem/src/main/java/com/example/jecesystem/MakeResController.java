@@ -6,11 +6,14 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.ChoiceBox;
 import java.time.format.DateTimeFormatter;
 import java.io.IOException;
 import java.net.URL;
+import java.util.Arrays;
 import java.util.Calendar;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class MakeResController implements Initializable {
@@ -32,9 +35,6 @@ public class MakeResController implements Initializable {
   int hour = rightNow.get(Calendar.HOUR_OF_DAY);
   int minute = rightNow.get(Calendar.MINUTE);
 
-  int resHour = 0;
-  int resMin = 0;
-
   @Override
   public void initialize(URL url, ResourceBundle rb) {
     loadData();
@@ -42,26 +42,17 @@ public class MakeResController implements Initializable {
 
   private void loadData() {
 
-    times.removeAll(times);
-
-    for(int i = 0; i < 20; i++)
-    {
-      times.add(Database.times[i]);
-    }
+    times.addAll(Arrays.asList(Database.times).subList(0, 20));
 
     timeOfRes.getItems().addAll(times);
 
     //Sees which days are available in this court
     //and puts them into an array
-    days.removeAll(days);
-
     days.addAll("Today", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday");
     dayOfWeek.getItems().addAll(days);
 
     //Sees which days are available in this court
     //and puts them into an array
-    court.removeAll(court);
-
     court.addAll("Court 1", "Court 2", "Court 3", "Court 4", "Court 5", "Court 6", "Court 7",
                     "Court 8", "Court 9", "Court 10", "Court 11", "Court 12");
     numOfCourt.getItems().addAll(court);
@@ -70,7 +61,7 @@ public class MakeResController implements Initializable {
   boolean isToday(String time)
   {
     int resMin = Integer.parseInt(time.substring(3, 5));
-    int resHour = 0;
+    int resHour;
 
     if(time.charAt(0) == '0')
     {
@@ -79,12 +70,7 @@ public class MakeResController implements Initializable {
       resHour = Integer.parseInt(time.substring(0, 2));
     }
 
-    if((resHour == hour && minute < resMin) || hour < resHour)
-    {
-      return false;
-    } else {
-      return true;
-    }
+    return (resHour != hour || minute >= resMin) && hour >= resHour;
   }
 
 
@@ -94,7 +80,6 @@ public class MakeResController implements Initializable {
 
     Alert con = new Alert(Alert.AlertType.CONFIRMATION);
     Alert error = new Alert(Alert.AlertType.ERROR);
-    Alert info = new Alert(Alert.AlertType.INFORMATION);
 
     String day = dayOfWeek.getValue();
     String time = timeOfRes.getValue();
@@ -137,10 +122,14 @@ public class MakeResController implements Initializable {
       error.setContentText("That timeslot is not available.\nTry another.");
       error.showAndWait();
     } else {
-      Database.makeRes(courtNum, Database.memberUser, slot);
-      info.setContentText("You've made a reservation for " + slot.substring(0, 16));
-      info.showAndWait();
-      App.setRoot("courtreservation");
+      con.setContentText("Do you want to make a reservation for " + slot.substring(0, 16));
+      con.showAndWait();
+
+      Optional<ButtonType> result = con.showAndWait();
+      if (result.isPresent() && result.get() == ButtonType.OK) {
+        Database.makeRes(courtNum, Database.memberUser, slot);
+        App.setRoot("courtreservation");
+      }
     }
 
     /*
