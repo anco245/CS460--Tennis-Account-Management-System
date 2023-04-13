@@ -5,7 +5,6 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.TextField;
-
 import java.io.IOException;
 import java.util.Optional;
 
@@ -35,12 +34,7 @@ public class RemoveController {
         if (result.isPresent() && result.get() == ButtonType.OK) {
 
           Database.deleteFromDir(name);
-
-          if(Database.inReservation(name))
-          {
-            Database.deleteFromRes(name);
-          }
-
+          Database.deleteFromCourts(name);
           Database.addFromWait();
 
           App.setRoot("ctscreen");

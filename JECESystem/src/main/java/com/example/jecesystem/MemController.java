@@ -4,8 +4,6 @@ import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
-import javafx.scene.image.Image;
-import javafx.scene.shape.Rectangle;
 import javafx.scene.control.ButtonBar;
 import javafx.scene.text.Text;
 import javafx.fxml.FXML;

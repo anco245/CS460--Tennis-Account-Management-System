@@ -8,11 +8,9 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.text.Text;
-
 import java.io.IOException;
 import java.net.URL;
 import java.sql.*;
-import java.time.LocalDateTime;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
@@ -150,6 +148,7 @@ public class InfoController implements Initializable {
       Optional<ButtonType> result = con.showAndWait();
 
       if (result.get() == ButtonType.OK){
+        Database.deleteFromCourts(Database.memberUser);
         Database.deleteFromDir(Database.memberUser);
         App.setRoot("login");
       }

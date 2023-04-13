@@ -33,11 +33,6 @@ public class LoginController implements Initializable {
     {
       Database.removeNonKeeps();
     }
-
-    if(now.getHour() == 0 && now.getMinute() == 0)
-    {
-      Database.clearRes();
-    }
   }
 
   @FXML
@@ -61,9 +56,9 @@ public class LoginController implements Initializable {
       //if verified, show homescreen
       if(Database.verified(name))
       {
-        if(Database.domain.equals("tennis.com")) {
+        if(Database.extension.equals("tennis.com")) {
           App.setRoot("ctscreen");
-        } else if (Database.domain.equals("admin.com")) {
+        } else if (Database.extension.equals("admin.com")) {
           App.setRoot("adminscreen");
         } else {
           LocalDateTime now = LocalDateTime.now();

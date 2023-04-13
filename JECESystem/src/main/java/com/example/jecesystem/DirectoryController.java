@@ -51,6 +51,9 @@ public class DirectoryController implements Initializable {
       ResultSet resultSet = preparedStatement.executeQuery();
 
       while(resultSet.next()) {
+
+
+
         String first = resultSet.getString("firstName").substring(0, 1).toUpperCase() +
           resultSet.getString("firstName").substring(1);
         String last = resultSet.getString("lastName").substring(0, 1).toUpperCase() +
@@ -65,7 +68,7 @@ public class DirectoryController implements Initializable {
         boolean v = resultSet.getBoolean("verified");
         boolean shown = resultSet.getBoolean("shown");
 
-        if(shown)
+        if(shown && v)
         {
           Person person = new Person(userName, userAge, userAddr, userPhone, userEmail);
           list.add(person);

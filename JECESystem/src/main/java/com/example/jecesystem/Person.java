@@ -1,7 +1,6 @@
 package com.example.jecesystem;
 
 import javafx.scene.control.Button;
-
 import java.io.IOException;
 
 public class Person {
@@ -70,7 +69,7 @@ public class Person {
 
     notify.setOnAction(e -> {
       try {
-        Database.late(userUser, true);
+        Database.setLate(userUser, true);
         App.setRoot("chairdirectory");
       } catch (IOException ex) {
         throw new RuntimeException(ex);
@@ -79,7 +78,7 @@ public class Person {
 
     denotify.setOnAction(e -> {
       try {
-        Database.late(userUser, false);
+        Database.setLate(userUser, false);
         App.setRoot("chairdirectory");
       } catch (IOException ex) {
         throw new RuntimeException(ex);
@@ -100,7 +99,7 @@ public class Person {
 
     approve.setOnAction(e -> {
       try {
-        Database.approve(userUser);
+        Database.setApprove(userUser);
         App.setRoot("approve");
       } catch (IOException ex) {
         throw new RuntimeException(ex);
@@ -109,7 +108,7 @@ public class Person {
 
     reject.setOnAction(e -> {
       try {
-        Database.deleteFromRes(userUser);
+        Database.deleteFromDir(userUser);
         App.setRoot("approve");
       } catch (IOException ex) {
         throw new RuntimeException(ex);
@@ -169,11 +168,10 @@ public class Person {
 
   public void setNotify(Button b) {
     this.notify = b;
-    this.notify.setOnAction(e -> Database.late(this.userUser, true));
+    this.notify.setOnAction(e -> Database.setLate(this.userUser, true));
   }
+
   public Button getCancel() { return cancel; }
-
-
   public void setCancel(Button b) {
     this.cancel = b;
     this.cancel.setOnAction(e -> Database.cancelReservation(this.userCourt, this.date));
@@ -182,13 +180,13 @@ public class Person {
 
   public void setDenotify(Button b) {
     this.denotify = b;
-    this.denotify.setOnAction(e -> Database.late(this.userUser, false));
+    this.denotify.setOnAction(e -> Database.setLate(this.userUser, false));
   }
   public Button getDenotify() { return denotify; }
 
   public void setApprove(Button b) {
     this.approve = b;
-    this.approve.setOnAction(e -> Database.approve(this.userUser));
+    this.approve.setOnAction(e -> Database.setApprove(this.userUser));
   }
   public Button getApprove() { return approve; }
 
