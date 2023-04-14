@@ -54,11 +54,11 @@
         <Label text="Password: " translateX="100.0" GridPane.rowIndex="8" />
         <Button mnemonicParsing="false" onAction="#switchToHomescreen" text="Back to Homescreen" translateX="130.0" GridPane.rowIndex="13" />
         <Button mnemonicParsing="false" onAction="#cancelMembership" text="Cancel Membership" translateX="150.0" GridPane.columnIndex="2" GridPane.rowIndex="13" />
-        <Label text="Reservation" GridPane.columnIndex="1" GridPane.rowIndex="1">
+        <Label text="Reservation" translateX="-50.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
           <font>
             <Font size="22.0" />
           </font></Label>
-        <Label text="Guests Left" GridPane.columnIndex="2" GridPane.rowIndex="1">
+        <Label text="Guests" translateX="-30.0" GridPane.columnIndex="2" GridPane.rowIndex="1">
           <font>
             <Font size="22.0" />
           </font></Label>
@@ -87,12 +87,12 @@
                   <Font size="37.0" />
                </font>
             </TextArea>
-            <TextArea fx:id="forGuest" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="88.0" prefWidth="348.0" GridPane.columnIndex="2" GridPane.rowIndex="3" />
-            <TableView fx:id="table" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="221.0" prefWidth="399.0" GridPane.columnIndex="1" GridPane.rowIndex="4">
+            <TextArea fx:id="forGuest" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="88.0" prefWidth="356.0" translateX="-30.0" GridPane.columnIndex="2" GridPane.rowIndex="3" />
+            <TableView fx:id="table" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="221.0" prefWidth="407.0" translateX="-50.0" GridPane.columnIndex="1" GridPane.rowIndex="4">
               <columns>
                 <TableColumn fx:id="court" prefWidth="65.0" text="Court" />
                 <TableColumn fx:id="dayTime" prefWidth="215.0" text="Day and Time" />
-                  <TableColumn fx:id="cancel" prefWidth="118.0" text="Cancel" />
+                  <TableColumn fx:id="cancel" prefWidth="126.0" text="Cancel" />
               </columns>
             </TableView>
       </children>

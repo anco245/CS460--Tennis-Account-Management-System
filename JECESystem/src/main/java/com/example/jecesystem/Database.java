@@ -12,13 +12,12 @@ import java.util.Arrays;
 
 
 public class Database {
+  static DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
-  //For accessing the database
+  //Variables needed for accessing the database
   public static String username = "root";
   public static String password = "sqlpass";
   public static String url = "jdbc:mysql://localhost:3306/courtsystem";
-
-  static DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
   //To hold current user's information
   public static String fName = "";
@@ -82,7 +81,7 @@ public class Database {
       while (resultSet.next()) {
         String user = resultSet.getString("username");
         deleteFromDir(user);
-        deleteFromRes(user);
+        deleteFromCourts(user);
       }
 
       preparedStatement.close();
@@ -708,7 +707,7 @@ public class Database {
 
       String court = "court" + c;
 
-      String sql = "UPDATE " + court + " SET username = null, occupied = false WHERE dayAndTime = ?";
+      String sql = "UPDATE " + court + " SET username = null, occupied = 0 WHERE dayAndTime = ?";
       PreparedStatement preparedStatement = connection.prepareStatement(sql);
 
       //YYYY-MM-DD HH:MM:SS
@@ -742,7 +741,7 @@ public class Database {
         ResultSet resultSet = preparedStatement.executeQuery();
 
         while (resultSet.next()) {
-          if (resultSet.getInt("count") > 1) {
+          if (resultSet.getInt("count") > 2) {
             preparedStatement.close();
             return true;
           } else {
@@ -768,7 +767,7 @@ public class Database {
       ResultSet resultSet = preparedStatement.executeQuery();
 
       while(resultSet.next()) {
-        occ = resultSet.getBoolean("occupied");
+        occ = (resultSet.getInt("occupied") > 0);
       }
 
       resultSet.close();
@@ -788,8 +787,7 @@ public class Database {
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
     for (int i = 0; i < 8; i++) {
-      if (i == 0) {
-        formatDay = dateTime.format(formatter);
+      if (i == 0) {formatDay = dateTime.format(formatter);
         exactDays[i] = formatDay;
       } else if (i == 1) {
         formatMon = nextMonday.format(formatter);
@@ -828,13 +826,13 @@ public class Database {
   }
 
   //Assigns a given time slot in a given court to a username.
-  public static void makeRes(String pendingNum, String memberName, String slot) {
+  public static void makeRes(String pendingNum, String memberName, String slot, int total) {
     try (Connection connection = DriverManager.getConnection(url, username, password)) {
       String sql = "UPDATE " + pendingNum + " SET username = ?, occupied = ? WHERE dayAndTime = ?";
 
       PreparedStatement preparedStatement = connection.prepareStatement(sql);
       preparedStatement.setString(1, memberName);
-      preparedStatement.setBoolean(2, true);
+      preparedStatement.setInt(2, total);
       preparedStatement.setTimestamp(3, Timestamp.valueOf(slot));
       preparedStatement.executeUpdate();
 
@@ -844,17 +842,30 @@ public class Database {
     }
   }
 
-  public static void deleteFromRes(String u) {
+  public static boolean sameTimeOtherCourt(String member, String slot, String court)
+  {
     try (Connection connection = DriverManager.getConnection(url, username, password)) {
 
-      PreparedStatement preparedStatement =
-        connection.prepareStatement("DELETE FROM reservation WHERE username = ?");
+     for(int i = 1; i < 12; i++)
+     {
+       String cnum = "court" + i;
+       String sql = "SELECT username AS user FROM " + cnum + " WHERE dayAndTime = \"" + slot + "\"";
 
-      preparedStatement.setString(1, u);
+       PreparedStatement preparedStatement = connection.prepareStatement(sql);
+       ResultSet rs = preparedStatement.executeQuery();
 
-      preparedStatement.executeUpdate();
-      preparedStatement.close();
+       while(rs.next())
+       {
+          if(rs.getString("user") != null && rs.getString("user").equals(member) && !cnum.equals(court))
+          {
+            rs.close();
+            preparedStatement.close();
+            return true;
+          }
+       }
+     }
 
+     return false;
     } catch (SQLException e) {
       throw new IllegalStateException("Cannot connect to the database!", e);
     }
@@ -899,7 +910,7 @@ public class Database {
         for (int j = 0; j < 160; j++) {
           String court = "court" + i;
 
-          String sql = "INSERT INTO " + court + " (dayAndTime, occupied) VALUES (?, ?)";
+          String sql = "INSERT INTO " + court + " (dayAndTime, occupied, people) VALUES (?, ?)";
           PreparedStatement preparedStatement = connection.prepareStatement(sql);
 
           preparedStatement.setTimestamp(1, Timestamp.valueOf(full[j]));

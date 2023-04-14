@@ -30,6 +30,8 @@ public class MakeResController implements Initializable {
   @FXML
   private ChoiceBox<String> numOfCourt;
 
+  @FXML
+  private ChoiceBox<Integer> amtOfGuests;
 
   @FXML
   private CheckBox singleOrDouble;
@@ -37,6 +39,7 @@ public class MakeResController implements Initializable {
   ObservableList times = FXCollections.observableArrayList();
   ObservableList days = FXCollections.observableArrayList();
   ObservableList court = FXCollections.observableArrayList();
+  ObservableList guest = FXCollections.observableArrayList();
 
   Calendar rightNow = Calendar.getInstance();
   int hour = rightNow.get(Calendar.HOUR_OF_DAY);
@@ -50,7 +53,6 @@ public class MakeResController implements Initializable {
   private void loadData() {
 
     times.addAll(Arrays.asList(Database.times).subList(0, 20));
-
     timeOfRes.getItems().addAll(times);
 
     //Sees which days are available in this court
@@ -63,6 +65,9 @@ public class MakeResController implements Initializable {
     court.addAll("Court 1", "Court 2", "Court 3", "Court 4", "Court 5", "Court 6", "Court 7",
                     "Court 8", "Court 9", "Court 10", "Court 11", "Court 12");
     numOfCourt.getItems().addAll(court);
+
+    guest.addAll(1, 2, 3);
+    amtOfGuests.getItems().addAll(guest);
   }
 
   boolean isToday(String time)
@@ -85,14 +90,17 @@ public class MakeResController implements Initializable {
   void submitreservation(ActionEvent event) throws IOException, SQLException {
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
-    Alert info = new Alert(Alert.AlertType.INFORMATION);
     Alert con = new Alert(Alert.AlertType.CONFIRMATION);
     Alert error = new Alert(Alert.AlertType.ERROR);
 
     String day = dayOfWeek.getValue();
     String time = timeOfRes.getValue();
+    int guests = 0;
 
-    boolean sod = singleOrDouble.isSelected();
+    if(amtOfGuests.getValue() != null)
+    {
+      guests = amtOfGuests.getValue();
+    }
 
     String slot = "";
     String courtNum = "";
@@ -132,9 +140,13 @@ public class MakeResController implements Initializable {
       error.setTitle("Error");
       error.setContentText("A time hasn't been selected");
       error.showAndWait();
+    } else if (Database.sameTimeOtherCourt(Database.memberUser, slot, courtNum)) {
+      error.setTitle("Error");
+      error.setContentText("You've already reserved another court at this time");
+      error.showAndWait();
     } else if (Database.exceededResLimit(slot)) {
       error.setTitle("Error");
-      error.setContentText("Can only reserve 2 courts for any day.\nTry another day.");
+      error.setContentText("You can only reserve 2 courts for any day.\nTry another day.");
       error.showAndWait();
     } else if (dayOfWeek.getValue().equals("Today") && isToday(time) ) {
       error.setTitle("Error");
@@ -144,21 +156,34 @@ public class MakeResController implements Initializable {
       error.setTitle("Error");
       error.setContentText("That timeslot is not available.\nTry another.");
       error.showAndWait();
-    } else {
-      con.setContentText("Do you want to make a reservation for " + slot.substring(0, 16));
+    } else if(Database.guests + guests > 6) {
+      error.setTitle("Reached limit");
+      error.setContentText("You're " + ((Database.guests + guests) - 6) + " guests over your limit for the month.");
+      error.showAndWait();
+    } else if (amtOfGuests.getValue() == null) {
+      con.setContentText("You're making a reservation for " + slot.substring(0, 16) + ".\n" +
+        "Do you want to continue?");
 
       Optional<ButtonType> result = con.showAndWait();
       if (result.isPresent() && result.get() == ButtonType.OK) {
-        Database.makeRes(courtNum, Database.memberUser, slot);
+        Database.makeRes(courtNum, Database.memberUser, slot, guests+1);
+        App.setRoot("courtreservation");
+      }
+    } else {
+      con.setContentText("You're making a reservation for " + slot.substring(0, 16) + "." +
+        "\nYou will have to pay $" + (guests * 10) + " for " + guests + " guests\n" +
+        "and you will have " + (6 - guests) + " guests left for the month.\n" +
+        "Do you want to continue?");
+
+      Optional<ButtonType> result = con.showAndWait();
+      if (result.isPresent() && result.get() == ButtonType.OK) {
+
+        Database.addSubGuests(amtOfGuests.getValue());
+        Database.addSubOwe(Database.memberUser, amtOfGuests.getValue() * 10);
+        Database.makeRes(courtNum, Database.memberUser, slot, guests);
         App.setRoot("courtreservation");
       }
     }
-
-     /*
-       - Can’t put more than 4 people in a court
-       - Any of the people on one court can’t also be reserved on another court at the same time
-       - Can’t reserve more than twice a day
-     */
   }
 
   @FXML void switchToHome(ActionEvent event) throws IOException {App.setRoot("memscreen");}

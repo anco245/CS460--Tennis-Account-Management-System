@@ -103,9 +103,10 @@ public class MemController implements Initializable {
 
     if(Database.isLate) {
       String late = """
-        You haven't paid your annual fee.
-        If you don't pay by April 1st, your account
-        will be removed.""";
+        You haven't paid your monthly
+        fee. If you don't pay by April
+        1st, your account will be
+        removed.""";
       lateMessage.setText(late);
     }
   }
