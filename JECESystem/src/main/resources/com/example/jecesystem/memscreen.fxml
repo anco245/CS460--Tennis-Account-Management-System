@@ -36,11 +36,11 @@
                   <InnerShadow />
                </effect>
             </Rectangle>
-            <Button mnemonicParsing="false" onAction="#showDir" prefHeight="35.0" prefWidth="445.0" text="View Directory" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="1">
+            <Button mnemonicParsing="false" onAction="#showDir" prefHeight="35.0" prefWidth="445.0" text="View Directory" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="2">
                <font>
                   <Font name="Corbel" size="18.0" />
                </font></Button>
-            <Button mnemonicParsing="false" onAction="#makeRes" prefHeight="35.0" prefWidth="449.0" text="Make a Reservation" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <Button mnemonicParsing="false" onAction="#makeRes" prefHeight="35.0" prefWidth="449.0" text="Make a Reservation" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="3" />
             <Button mnemonicParsing="false" onAction="#viewInfo" prefHeight="35.0" prefWidth="463.0" text="View Personal Information" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="4" />
             <Button mnemonicParsing="false" onAction="#contactUs" prefHeight="35.0" prefWidth="433.0" text="Contact Us" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="5" />
             <Button alignment="CENTER" mnemonicParsing="false" onAction="#switchToLogin" prefHeight="25.0" prefWidth="142.0" text="Back to Login" textFill="WHITE" translateX="145.0" GridPane.columnIndex="1" GridPane.rowIndex="7" />

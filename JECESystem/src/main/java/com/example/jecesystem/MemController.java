@@ -42,9 +42,17 @@ public class MemController implements Initializable {
 
     LocalDateTime now = LocalDateTime.now();
 
+
     if(now.getDayOfMonth() == 1)
     {
+      if(Database.isLate)
+      {
         Database.addSubOwe(Database.memberUser, Database.monthly);
+      } else {
+        Database.addSubOwe(Database.memberUser, Database.monthly + 50);
+      }
+
+      Database.guests = 0;
     }
 
     if(now.getMonthValue() != 1 && now.getDayOfMonth() != 1)
