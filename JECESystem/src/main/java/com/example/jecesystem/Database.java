@@ -905,7 +905,7 @@ public class Database {
         for (int j = 0; j < 160; j++) {
           String court = "court" + i;
 
-          String sql = "INSERT INTO " + court + " (dayAndTime, occupied, people) VALUES (?, ?)";
+          String sql = "INSERT INTO " + court + " (dayAndTime, occupied) VALUES (?, ?)";
           PreparedStatement preparedStatement = connection.prepareStatement(sql);
 
           preparedStatement.setTimestamp(1, Timestamp.valueOf(full[j]));
