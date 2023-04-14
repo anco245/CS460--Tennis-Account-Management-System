@@ -681,22 +681,17 @@ public class Database {
   //Used for determining if the court tables have been populated
   public static boolean beenPopulated() {
     try (Connection connection = DriverManager.getConnection(url, username, password)) {
-
-      boolean out = false;
-
       PreparedStatement preparedStatement =
-        connection.prepareStatement("select exists(select 1 from court1) AS output");
+        connection.prepareStatement("SHOW TABLES LIKE \"court1\"");
 
       ResultSet resultSet = preparedStatement.executeQuery();
 
-      while(resultSet.next()) {
-        out = resultSet.getBoolean("output");
-      }
+      boolean x = resultSet != null;
 
       preparedStatement.close();
       resultSet.close();
 
-      return out;
+      return x;
     } catch (SQLException e) {
       throw new IllegalStateException("Cannot connect to the database!", e);
     }
