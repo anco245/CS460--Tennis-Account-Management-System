@@ -100,6 +100,7 @@ public class Database {
       FileReader fileReader = new FileReader("C:\\Users\\johnc\\OneDrive\\Documents\\GitHub\\CS460-Project\\SQL\\createDatabase.sql");
       FileReader fileReader2 = new FileReader("C:\\Users\\johnc\\OneDrive\\Documents\\GitHub\\CS460-Project\\SQL\\insertValues.sql");
 
+      System.out.println();
       // Create a Statement object from the database connection
       Statement statement = connection.createStatement();
 
@@ -108,6 +109,8 @@ public class Database {
       String line;
       while ((line = bufferedReader.readLine()) != null) {
 
+        System.out.println(line);
+        System.out.println(!line.equals(""));
         //if current line is blank, this skips it,
         //otherwise will get "cannot read empty statement" error
         if (!line.equals("")) {
@@ -115,10 +118,15 @@ public class Database {
         }
       }
 
+      System.out.println("here");
+
       //This is for reading second script
       BufferedReader bufferedReader2 = new BufferedReader(fileReader2);
-      while ((line = bufferedReader2.readLine()) != null) {
+      line = bufferedReader2.readLine();
+      while (line != null) {
 
+        System.out.println(line);
+        System.out.println(!line.equals(""));
         //if current line is blank, this skip it,
         //otherwise will get "cannot read empty statement" error
         if (!line.equals("")) {
@@ -129,7 +137,7 @@ public class Database {
       // Close the Statement and database connection
       statement.close();
     } catch (SQLException e) {
-      throw new IllegalStateException("SQL scripts need to be formatted so that each statement is one line", e);
+      throw new IllegalStateException(e);
     } catch (IOException e) {
       throw new RuntimeException(e);
     }
@@ -293,16 +301,16 @@ public class Database {
 
       while (resultSet.next()) {
         String uname = resultSet.getString("username");
-        owe = resultSet.getInt("owe");
+        int amtOwed = resultSet.getInt("owe");
 
         if (uname.equals(user)) {
           PreparedStatement p2 =
-            connection.prepareStatement("UPDATE directory SET owe = ? WHERE username = ?");
+            connection.prepareStatement("UPDATE directory SET owejdoe = ? WHERE username = ?");
 
-          owe = owe + amount;
+          amtOwed = amtOwed + amount;
 
-          p2.setInt(1, owe);
-          p2.setString(2, memberUser);
+          p2.setInt(1, amtOwed);
+          p2.setString(2, user);
 
           p2.executeUpdate();
           p2.close();

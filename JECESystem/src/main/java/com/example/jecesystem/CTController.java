@@ -13,6 +13,11 @@ public class CTController implements Initializable {
   @FXML
   private Text welcome;
 
+  @FXML
+  void addSub(ActionEvent event) throws IOException {
+      App.setRoot("addsub");
+  }
+
   @Override
   public void initialize(URL url, ResourceBundle rb) {
     String welcomeMessage = "Welcome " + Database.fName + " " + Database.lName + "!";
