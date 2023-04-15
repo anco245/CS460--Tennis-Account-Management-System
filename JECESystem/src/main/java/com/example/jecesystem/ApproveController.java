@@ -56,7 +56,7 @@ public class ApproveController implements Initializable {
     approve.setCellValueFactory(new PropertyValueFactory<>("approve"));
     reject.setCellValueFactory(new PropertyValueFactory<>("reject"));
 
-    //Gets each person's information in the direcory and makes it into a person objectS
+    //Gets each person's information in the directory and makes it into a person object
     try (Connection connection = DriverManager.getConnection(Database.url, Database.username, Database.password)) {
 
       PreparedStatement preparedStatement =

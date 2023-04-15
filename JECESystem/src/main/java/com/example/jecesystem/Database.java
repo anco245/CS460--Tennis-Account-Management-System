@@ -678,15 +678,11 @@ public class Database {
   public static boolean beenPopulated() {
     try (Connection connection = DriverManager.getConnection(url, username, password)) {
       PreparedStatement preparedStatement =
-        connection.prepareStatement("SHOW TABLES LIKE \"court1\"");
+        connection.prepareStatement("select * from court1");
 
       ResultSet resultSet = preparedStatement.executeQuery();
 
-      boolean x = resultSet != null;
-
-      preparedStatement.close();
-
-      return x;
+      return resultSet == null;
     } catch (SQLException e) {
       throw new IllegalStateException("Cannot connect to the database!", e);
     }
