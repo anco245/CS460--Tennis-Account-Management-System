@@ -7,7 +7,6 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
-import javafx.scene.control.CheckBox;
 import javafx.scene.control.ChoiceBox;
 
 import java.sql.SQLException;
@@ -23,18 +22,12 @@ public class MakeResController implements Initializable {
 
   @FXML
   private ChoiceBox<String> dayOfWeek;
-
   @FXML
   private ChoiceBox<String> timeOfRes;
-
   @FXML
   private ChoiceBox<String> numOfCourt;
-
   @FXML
   private ChoiceBox<Integer> amtOfGuests;
-
-  @FXML
-  private CheckBox singleOrDouble;
 
   ObservableList times = FXCollections.observableArrayList();
   ObservableList days = FXCollections.observableArrayList();

@@ -10,7 +10,6 @@ import java.time.format.DateTimeFormatter;
 import java.time.temporal.TemporalAdjusters;
 import java.util.Arrays;
 
-
 public class Database {
   static DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
@@ -31,17 +30,12 @@ public class Database {
   public static String memberPass = "";
   public static boolean isShown = false;
   public static boolean verified = false;
-
   public static boolean isLate = false;
   public static int owe = 0;
   public static int guests = 0;
-
   public static boolean keep = true;
-
   public static boolean penalized = false;
-
   public static boolean keepConfirm = false;
-
   public static int monthly = 0;
 
   public static String[] full = new String[160];
@@ -69,6 +63,7 @@ public class Database {
   public static String formatSun = nextSunday.format(formatter);
   public static String formatDay = dateTime.format(formatter);
 
+
   //Removes people from directory who opted to
   // not keep their account when asked on 1/1
   public static void removeNonKeeps() {
@@ -80,7 +75,7 @@ public class Database {
 
       while (resultSet.next()) {
         String user = resultSet.getString("username");
-        deleteFromDir(user);
+        deleteFromDb(user, "directory");
         deleteFromCourts(user);
       }
 
@@ -96,21 +91,18 @@ public class Database {
     try (Connection connection = DriverManager.getConnection(url, username, password)) {
 
       //Reads the SQL script file
-      //need to change path to the sql scripts on your own system
+      //Need to change path to the sql scripts on your own system
       FileReader fileReader = new FileReader("C:\\Users\\johnc\\OneDrive\\Documents\\GitHub\\CS460-Project\\SQL\\createDatabase.sql");
       FileReader fileReader2 = new FileReader("C:\\Users\\johnc\\OneDrive\\Documents\\GitHub\\CS460-Project\\SQL\\insertValues.sql");
 
-      System.out.println();
       // Create a Statement object from the database connection
       Statement statement = connection.createStatement();
 
-      // Execute the SQL statements in the script
+      // Reads each line in the sql script into "line" variable
       BufferedReader bufferedReader = new BufferedReader(fileReader);
       String line;
       while ((line = bufferedReader.readLine()) != null) {
 
-        System.out.println(line);
-        System.out.println(!line.equals(""));
         //if current line is blank, this skips it,
         //otherwise will get "cannot read empty statement" error
         if (!line.equals("")) {
@@ -118,15 +110,10 @@ public class Database {
         }
       }
 
-      System.out.println("here");
-
       //This is for reading second script
       BufferedReader bufferedReader2 = new BufferedReader(fileReader2);
-      line = bufferedReader2.readLine();
-      while (line != null) {
+      while ((line = bufferedReader2.readLine()) != null) {
 
-        System.out.println(line);
-        System.out.println(!line.equals(""));
         //if current line is blank, this skip it,
         //otherwise will get "cannot read empty statement" error
         if (!line.equals("")) {
@@ -163,7 +150,7 @@ public class Database {
         boolean s = resultSet.getBoolean("shown");
         int o = resultSet.getInt("owe");
 
-        //Database.deleteFromWaiting(uname);
+        Database.deleteFromDb(uname, "waiting");
         Database.nAccount(fname, lname, age, address, phone, email, uname, p, s, o);
       }
 
@@ -412,11 +399,12 @@ public class Database {
   }
 
   //Removes a user from the directory
-  public static void deleteFromDir(String u) {
+  public static void deleteFromDb(String u, String db) {
     try (Connection connection = DriverManager.getConnection(url, username, password)) {
 
+      String sql = "DELETE FROM " + db + " directory WHERE username = ?";
       PreparedStatement preparedStatement =
-        connection.prepareStatement("DELETE FROM directory WHERE username = ?");
+        connection.prepareStatement(sql);
 
       preparedStatement.setString(1, u);
 
@@ -697,7 +685,6 @@ public class Database {
       boolean x = resultSet != null;
 
       preparedStatement.close();
-      resultSet.close();
 
       return x;
     } catch (SQLException e) {
@@ -713,7 +700,7 @@ public class Database {
       String sql = "UPDATE " + court + " SET username = null, occupied = 0 WHERE dayAndTime = ?";
       PreparedStatement preparedStatement = connection.prepareStatement(sql);
 
-      //YYYY-MM-DD HH:MM:SS
+      //date = YYYY-MM-DD HH:MM:SS
       if(date.length() != 19)
       {
         date = date + ":00";
@@ -736,6 +723,7 @@ public class Database {
       for (int j = 1; j < 13; j++) {
         String court = "court" + j;
 
+        //date has to be wrapped in quotes for some reason
         String sql = "SELECT count(*) AS count from " + court + " where username = ? AND date(dayAndTime) = date(\"" + dayTime + "\")";
 
         PreparedStatement preparedStatement = connection.prepareStatement(sql);
@@ -757,7 +745,7 @@ public class Database {
     }
   }
 
-    //Sees if timeslot at given court has been filled
+  //Sees if timeslot at given court has been filled
   public static boolean available(String courtNum, String time) {
     try (Connection connection = DriverManager.getConnection(url, username, password)) {
 

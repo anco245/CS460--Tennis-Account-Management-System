@@ -69,11 +69,6 @@ public class InfoController implements Initializable {
 
   ObservableList<Person> list = FXCollections.observableArrayList();
 
-  @FXML
-  void cancelRes(ActionEvent event) throws IOException {
-      App.setRoot("cancelRes");
-  }
-
   @Override
   public void initialize(URL url, ResourceBundle rb) {
 
@@ -136,9 +131,9 @@ public class InfoController implements Initializable {
       con.setContentText("Do you want to cancel your membership");
       Optional<ButtonType> result = con.showAndWait();
 
-      if (result.get() == ButtonType.OK){
+      if (result.isPresent() && result.get() == ButtonType.OK){
         Database.deleteFromCourts(Database.memberUser);
-        Database.deleteFromDir(Database.memberUser);
+        Database.deleteFromDb(Database.memberUser, "directory");
         App.setRoot("login");
       }
   }

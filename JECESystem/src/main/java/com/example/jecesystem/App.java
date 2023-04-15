@@ -14,8 +14,9 @@ public class App extends Application {
 
   @Override
   public void start(Stage stage) throws IOException {
-    //login.fxml is the first screen we see
 
+    //checks to see if the court tables have been populated or not
+    //if not, days monday - sunday from times 9-630 are inserted
     if(!Database.beenPopulated())
     {
       Database.populateCourts();

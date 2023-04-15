@@ -33,7 +33,7 @@ public class RemoveController {
         Optional<ButtonType> result = con.showAndWait();
         if (result.isPresent() && result.get() == ButtonType.OK) {
 
-          Database.deleteFromDir(name);
+          Database.deleteFromDb(name, "directory");
           Database.deleteFromCourts(name);
           Database.addFromWait();
 

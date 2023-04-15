@@ -64,7 +64,7 @@ public class LoginController implements Initializable {
           LocalDateTime now = LocalDateTime.now();
           if(now.getMonthValue() == 4 && now.getDayOfMonth() == 1) {
             if (Database.isLate) {
-                Database.deleteFromDir(name);
+                Database.deleteFromDb(name, "directory");
             }
           } else {
             App.setRoot("memscreen");

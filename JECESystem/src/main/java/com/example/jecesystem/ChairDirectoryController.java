@@ -18,56 +18,36 @@ public class ChairDirectoryController implements Initializable {
 
   @FXML
   private TableColumn<Person, String> address;
-
   @FXML
   private TableColumn<Person, Integer> age;
-
   @FXML
   private TableColumn<Person, Button> denotify;
-
-
   @FXML
   private TableColumn<Person, String> email;
-
   @FXML
   private TableColumn<Person, Boolean> late;
-
   @FXML
   private TableColumn<Person, String> name;
-
   @FXML
   private TableColumn<Person, Button> notify;
-
   @FXML
   private TableColumn<Person, String> pass;
-
   @FXML
   private TableColumn<Person, String> phone;
-
   @FXML
   private TableColumn<Person, Boolean> shown;
-
   @FXML
   private TableColumn<Person, Boolean> keep;
-
   @FXML
   private TableColumn<Person, Integer> owe;
-
   @FXML
   private TableColumn<Person, Boolean> penalized;
-
   @FXML
   private TableView<Person> table;
-
   @FXML
   private TableColumn<Person, String> user;
 
   ObservableList<Person> list = FXCollections.observableArrayList();
-
-  @FXML
-  void backToHomescreen(ActionEvent event) throws IOException {
-      App.setRoot("ctscreen");
-  }
 
   @Override
   public void initialize(URL url, ResourceBundle rb) {
@@ -108,7 +88,6 @@ public class ChairDirectoryController implements Initializable {
         String userEmail = resultSet.getString("email");
         String userUser = resultSet.getString("username");
         String userPass = resultSet.getString("pword");
-
         boolean shown = resultSet.getBoolean("shown");
         boolean late = resultSet.getBoolean("late");
         boolean keep = resultSet.getBoolean("keepAccount");
@@ -129,4 +108,10 @@ public class ChairDirectoryController implements Initializable {
       throw new IllegalStateException("Cannot connect to the database!", e);
     }
   }
+
+  @FXML
+  void backToHomescreen(ActionEvent event) throws IOException {
+    App.setRoot("ctscreen");
+  }
+
 }

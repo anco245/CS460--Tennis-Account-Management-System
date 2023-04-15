@@ -18,47 +18,33 @@ public class ApproveController implements Initializable {
 
   @FXML
   private TableColumn<Person, String> address;
-
   @FXML
   private TableColumn<Person, Integer> age;
-
   @FXML
   private TableColumn<Person, Button> approve;
-
   @FXML
   private TableColumn<Person, String> email;
-
   @FXML
   private TableColumn<Person, String> name;
-
   @FXML
   private TableColumn<Person, String> password;
-
   @FXML
   private TableColumn<Person, String> phone;
-
   @FXML
   private TableColumn<Person, Button> reject;
-
   @FXML
   private TableColumn<Person, Boolean> shown;
-
   @FXML
   private TableColumn<Person, String> username;
-
   @FXML
   private TableView<Person> table;
 
   ObservableList<Person> list = FXCollections.observableArrayList();
 
-  @FXML
-  void switchToHomescreen(ActionEvent event) throws IOException {
-    App.setRoot("ctscreen");
-  }
-
   @Override
   public void initialize(URL url, ResourceBundle resourceBundle) {
 
+    //.setCellValueFactory needed for populating table
     name.setCellValueFactory(new PropertyValueFactory<>("name"));
     age.setCellValueFactory(new PropertyValueFactory<>("age"));
     address.setCellValueFactory(new PropertyValueFactory<>("address"));
@@ -70,6 +56,7 @@ public class ApproveController implements Initializable {
     approve.setCellValueFactory(new PropertyValueFactory<>("approve"));
     reject.setCellValueFactory(new PropertyValueFactory<>("reject"));
 
+    //Gets each person's information in the direcory and makes it into a person objectS
     try (Connection connection = DriverManager.getConnection(Database.url, Database.username, Database.password)) {
 
       PreparedStatement preparedStatement =
@@ -108,5 +95,10 @@ public class ApproveController implements Initializable {
     } catch (SQLException e) {
       throw new RuntimeException(e);
     }
+  }
+
+  @FXML
+  void switchToHomescreen(ActionEvent event) throws IOException {
+    App.setRoot("ctscreen");
   }
 }

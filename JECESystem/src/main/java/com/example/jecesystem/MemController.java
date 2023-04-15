@@ -4,7 +4,6 @@ import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
-import javafx.scene.control.ButtonBar;
 import javafx.scene.text.Text;
 import javafx.fxml.FXML;
 import java.io.IOException;
@@ -63,14 +62,11 @@ public class MemController implements Initializable {
     if (now.getMonthValue() == 1 && now.getDayOfMonth() == 1 && !Database.keepConfirm) {
 
       con.setTitle("Keep Account");
-      con.setContentText("Do you want to keep your Account?");
-
-      ButtonType yes = new ButtonType("Yes", ButtonBar.ButtonData.YES);
-      ButtonType no = new ButtonType("No", ButtonBar.ButtonData.NO);
-      con.getButtonTypes().setAll(yes, no);
+      con.setContentText("Do you want to keep your Account?\n" +
+        "Press ok to confirm.");
 
       Optional<ButtonType> result = con.showAndWait();
-      if (result.get() == yes){
+      if (result.isPresent() && result.get() == ButtonType.OK){
         Database.setKeep(Database.memberUser, true);
         Database.setConfirm(true);
 
@@ -122,11 +118,6 @@ public class MemController implements Initializable {
   @FXML
   void showDir(ActionEvent event) throws IOException {
     App.setRoot("directory");
-  }
-
-  @FXML
-  void addGuest(ActionEvent event) throws IOException {
-    App.setRoot("addguest");
   }
 
   @FXML
