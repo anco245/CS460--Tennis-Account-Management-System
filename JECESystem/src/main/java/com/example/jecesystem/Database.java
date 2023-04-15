@@ -292,7 +292,7 @@ public class Database {
 
         if (uname.equals(user)) {
           PreparedStatement p2 =
-            connection.prepareStatement("UPDATE directory SET owejdoe = ? WHERE username = ?");
+            connection.prepareStatement("UPDATE directory SET owe = ? WHERE username = ?");
 
           amtOwed = amtOwed + amount;
 
@@ -678,11 +678,18 @@ public class Database {
   public static boolean beenPopulated() {
     try (Connection connection = DriverManager.getConnection(url, username, password)) {
       PreparedStatement preparedStatement =
-        connection.prepareStatement("select * from court1");
+        connection.prepareStatement("SELECT count(*) as count from court1");
 
       ResultSet resultSet = preparedStatement.executeQuery();
 
-      return resultSet == null;
+      boolean x = false;
+
+      while(resultSet.next())
+      {
+        x = (resultSet.getInt("count") != 0);
+      }
+
+      return x;
     } catch (SQLException e) {
       throw new IllegalStateException("Cannot connect to the database!", e);
     }

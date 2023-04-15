@@ -1,13 +1,20 @@
 package com.example.jecesystem;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.CheckBox;
+import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextField;
 import java.io.IOException;
+import java.net.URL;
+import java.util.ResourceBundle;
+import java.util.regex.*;
 
-public class SignUpController {
+public class SignUpController implements Initializable {
 
   public static String inputfName = "";
   public static String inputlName = "";
@@ -21,7 +28,11 @@ public class SignUpController {
   public static Boolean inputShow = false;
   public static int inputOwe = 1000;
   public static String inputCoupon = "";
+  public static String inputZipcode = "";
+  public static String inputCity = "";
 
+  @FXML
+  private ChoiceBox<String> state;
   @FXML
   private TextField fieldAddress;
   @FXML
@@ -30,6 +41,8 @@ public class SignUpController {
   private TextField fieldConPass;
   @FXML
   private TextField fieldCoupon;
+  @FXML
+  private TextField fieldCity;
   @FXML
   private TextField fieldEmail;
   @FXML
@@ -43,8 +56,25 @@ public class SignUpController {
   @FXML
   private TextField fieldUser;
   @FXML
+  private TextField fieldZipcode;
+
+  @FXML
   private CheckBox securitycheck;
 
+  ObservableList usStates = FXCollections.observableArrayList();
+
+  public void initialize(URL url, ResourceBundle rb) {
+    loadData();
+  }
+
+  private void loadData() {
+
+    usStates.addAll("AK", "AZ", "AR", "CA", "CO", "CT", "DE", "FL", "GA", "HI", "ID", "IL",
+      "IN", "IA", "KS", "KY", "LA", "ME", "MD", "MA", "MI", "MN", "MS", "MO", "MT", "NE", "NV",
+      "NH", "NJ", "NM", "NY", "NC", "ND", "OH", "OK", "OR", "PA", "RI", "SC", "SD", "TN", "TX",
+      "UT", "VT", "VA", "WA", "WV", "WI", "WY");
+    state.getItems().addAll(usStates);
+  }
 
   @FXML
   void switchToLogin(ActionEvent event) throws IOException {
@@ -57,6 +87,8 @@ public class SignUpController {
     Alert info = new Alert(Alert.AlertType.INFORMATION);
     Alert error = new Alert(Alert.AlertType.ERROR);
 
+    Pattern emailPattern = Pattern.compile("^[\\w\\d]+@[a-zA-Z]+\\.com$");
+
     try {
       inputfName = fieldFName.getText();
       inputlName = fieldLName.getText();
@@ -64,17 +96,15 @@ public class SignUpController {
       inputAddr = fieldAddress.getText();
       inputPhone = fieldPhone.getText();
       inputEmail = fieldEmail.getText();
-      inputEmail = inputEmail.substring(0, inputEmail.length() - 4);
       inputUser = fieldUser.getText();
       inputPass = fieldPass.getText();
       inputConPass = fieldConPass.getText();
       inputShow = securitycheck.isSelected();
       inputCoupon = fieldCoupon.getText();
+      inputZipcode = fieldZipcode.getText();
+      inputCity = fieldCity.getText();
 
-      /*
-      - error for invalid email
-      - error for pass
-      */
+      Matcher matcher = emailPattern.matcher(inputEmail);
 
       if (Database.getSize() == 1000) {
         if (!fieldCoupon.getText().trim().isEmpty() && !inputCoupon.equals("abcd")) {
@@ -113,6 +143,26 @@ public class SignUpController {
           error.setContentText("Age must be between 0 and 200\n" +
             "Try again.");
           error.showAndWait();
+        } else if (fieldCity.getText() == null) {
+          error.setTitle("Error");
+          error.setContentText("City / Town was left blank." +
+            "Try again.");
+          error.showAndWait();
+        } else if (state.getValue() == null) {
+          error.setTitle("Error");
+          error.setContentText("State text field was left blank" +
+            "Try again.");
+          error.showAndWait();
+        } else if (!inputZipcode.matches("[0-9]{5}")) {
+          error.setTitle("Error");
+          error.setContentText("Zipcode needs to be five numbers\n" +
+            "Try again.");
+          error.showAndWait();
+        } else if (!matcher.matches()) {
+          error.setTitle("Error");
+          error.setContentText("Your email address isn't in the right format.\n" +
+            "Try again.");
+          error.showAndWait();
         } else if (inputPhone.length() != 10) {
           error.setTitle("Error");
           error.setContentText("Phone number has to be 10 digits\n" +
@@ -139,6 +189,9 @@ public class SignUpController {
             "Try again.");
           error.showAndWait();
         } else {
+
+          inputAddr = inputAddr + ",\n" + inputCity + ", " + state.getValue() + ", " + inputZipcode;
+
           Database.nAccount(inputfName, inputlName, inputAge, inputAddr, inputPhone,
             inputEmail, inputUser, inputPass, inputShow, inputOwe);
 

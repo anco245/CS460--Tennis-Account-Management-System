@@ -11,8 +11,8 @@
         <columns>
           <TableColumn fx:id="name" prefWidth="216.0" text="Name" />
           <TableColumn fx:id="age" prefWidth="211.0" text="Age" />
-            <TableColumn fx:id="address" prefWidth="289.0" text="Address" />
-            <TableColumn fx:id="phone" prefWidth="234.0" text="Phone" />
+            <TableColumn fx:id="address" prefWidth="233.0" text="Address" />
+            <TableColumn fx:id="phone" prefWidth="290.0" text="Phone" />
             <TableColumn fx:id="email" prefWidth="329.0" text="Email" />
         </columns>
       </TableView>

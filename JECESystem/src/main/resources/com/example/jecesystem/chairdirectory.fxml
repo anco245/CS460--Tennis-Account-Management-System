@@ -11,10 +11,10 @@
         <columns>
           <TableColumn fx:id="name" prefWidth="94.0" text="Name" />
           <TableColumn fx:id="age" prefWidth="39.0" text="Age" />
-            <TableColumn fx:id="address" prefWidth="159.0" text="Address" />
-            <TableColumn fx:id="phone" prefWidth="92.0" text="Phone" />
-            <TableColumn fx:id="email" minWidth="0.0" prefWidth="151.0" text="Email" />
-            <TableColumn fx:id="user" prefWidth="99.0" text="Username" />
+            <TableColumn fx:id="address" prefWidth="129.0" text="Address" />
+            <TableColumn fx:id="phone" prefWidth="90.0" text="Phone" />
+            <TableColumn fx:id="email" minWidth="0.0" prefWidth="158.0" text="Email" />
+            <TableColumn fx:id="user" prefWidth="124.0" text="Username" />
             <TableColumn fx:id="pass" prefWidth="103.0" text="Password" />
             <TableColumn fx:id="shown" minWidth="0.0" prefWidth="60.0" text="Shown" />
             <TableColumn fx:id="late" prefWidth="48.0" text="Late" />

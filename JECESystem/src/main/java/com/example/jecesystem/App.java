@@ -17,11 +17,8 @@ public class App extends Application {
 
     //checks to see if the court tables have been populated or not
     //if not, days monday - sunday from times 9-630 are inserted
-
-    System.out.println(!Database.beenPopulated());
     if(!Database.beenPopulated())
     {
-      System.out.println("here");
       Database.populateCourts();
     }
 

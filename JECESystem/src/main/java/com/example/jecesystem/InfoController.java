@@ -143,11 +143,11 @@ public class InfoController implements Initializable {
 
     System.out.println(Database.extension);
 
-      if(Database.extension.equals("gmail.com"))
+      if(Database.extension.equals("tennis.com"))
       {
-        App.setRoot("memscreen");
-      } else {
         App.setRoot("ctscreen");
+      } else {
+        App.setRoot("memscreen");
       }
   }
 }

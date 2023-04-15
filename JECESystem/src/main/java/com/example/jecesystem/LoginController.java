@@ -72,7 +72,7 @@ public class LoginController implements Initializable {
         }
       } else {
         info.setTitle("Need to be Verified");
-        info.setContentText("Your account hasn't been verified yet.\n You have to " +
+        info.setContentText("Your account hasn't been verified yet.\nYou have to " +
           "wait until the chairman approves your account before logging in.");
         info.showAndWait();
       }
