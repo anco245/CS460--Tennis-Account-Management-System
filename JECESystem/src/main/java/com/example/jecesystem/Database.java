@@ -279,7 +279,7 @@ public class Database {
   }
 
   //adds or subtracts amount owed
-  public static void addSubOwe(String user, int amount) {
+  public static void addSubOwe(String user, int priceOfGuests) {
     try (Connection connection = DriverManager.getConnection(url, username, password)) {
       PreparedStatement preparedStatement =
         connection.prepareStatement("SELECT * FROM directory");
@@ -294,7 +294,12 @@ public class Database {
           PreparedStatement p2 =
             connection.prepareStatement("UPDATE directory SET owe = ? WHERE username = ?");
 
-          amtOwed = amtOwed + amount;
+          amtOwed = amtOwed + priceOfGuests;
+
+          if(user.equals(memberUser))
+          {
+            owe = amtOwed;
+          }
 
           p2.setInt(1, amtOwed);
           p2.setString(2, user);
@@ -822,6 +827,7 @@ public class Database {
   //Assigns a given time slot in a given court to a username.
   public static void makeRes(String pendingNum, String memberName, String slot, int total) {
     try (Connection connection = DriverManager.getConnection(url, username, password)) {
+
       String sql = "UPDATE " + pendingNum + " SET username = ?, occupied = ? WHERE dayAndTime = ?";
 
       PreparedStatement preparedStatement = connection.prepareStatement(sql);

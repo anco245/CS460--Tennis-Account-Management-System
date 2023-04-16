@@ -68,7 +68,10 @@ public class MemController implements Initializable {
       Optional<ButtonType> result = con.showAndWait();
       if (result.isPresent() && result.get() == ButtonType.OK){
         Database.setKeep(Database.memberUser, true);
+        Database.keep = true;
+
         Database.setConfirm(true);
+        Database.keepConfirm = true;
 
         try {
           App.setRoot("memscreen");
@@ -77,7 +80,10 @@ public class MemController implements Initializable {
         }
       } else {
         Database.setKeep(Database.memberUser, false);
+        Database.keep = false;
+
         Database.setConfirm(true);
+        Database.keepConfirm = true;
 
         try {
           App.setRoot("memscreen");

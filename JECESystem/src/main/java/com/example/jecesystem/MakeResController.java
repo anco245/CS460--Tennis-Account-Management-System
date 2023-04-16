@@ -159,6 +159,8 @@ public class MakeResController implements Initializable {
 
       Optional<ButtonType> result = con.showAndWait();
       if (result.isPresent() && result.get() == ButtonType.OK) {
+        Database.addSubOwe(Database.memberUser, guests*10);
+
         Database.makeRes(courtNum, Database.memberUser, slot, guests+1);
         App.setRoot("courtreservation");
       }
