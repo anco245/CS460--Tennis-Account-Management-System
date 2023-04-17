@@ -32,16 +32,16 @@ public class AddSubController {
           Database.con.setTitle("Confirmation");
           Database.con.setContentText("You will be applying $" + amt +  " to " + user + "'s account.\n Press ok to confirm.");
 
-          Optional<ButtonType> result = con.showAndWait();
+          Optional<ButtonType> result = Database.con.showAndWait();
           if (result.isPresent() && result.get() == ButtonType.OK) {
             Database.addSubOwe(user, amt);
 
             App.setRoot("addsub");
           }
         } catch (Exception e) {
-          error.setTitle("Error");
-          error.setContentText("You may not have entered something in the right format.\nTry again.");
-          error.showAndWait();
+          Database.error.setTitle("Error");
+          Database.error.setContentText("You may not have entered something in the right format.\nTry again.");
+          Database.error.showAndWait();
         }
       }
   }

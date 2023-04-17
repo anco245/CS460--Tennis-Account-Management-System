@@ -1,24 +1,24 @@
 package com.example.jecesystem;
 
-  import javafx.collections.FXCollections;
-  import javafx.collections.ObservableList;
-  import javafx.event.ActionEvent;
-  import javafx.fxml.FXML;
-  import javafx.fxml.Initializable;
-  import javafx.scene.control.*;
-  import javafx.scene.control.cell.PropertyValueFactory;
-  import javafx.scene.text.Text;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
+import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.text.Text;
 
-  import java.io.IOException;
-  import java.net.URL;
-  import java.sql.*;
-  import java.time.LocalDateTime;
-  import java.time.format.DateTimeFormatter;
-  import java.util.Calendar;
-  import java.util.Optional;
-  import java.util.ResourceBundle;
+import java.io.IOException;
+import java.net.URL;
+import java.sql.*;
+import java.util.Calendar;
+import java.util.ResourceBundle;
 
-public class Court1Controller implements Initializable {
+public class Court2Controller implements Initializable {
 
   @FXML
   private ChoiceBox<String> dayOfWeek;
@@ -64,7 +64,7 @@ public class Court1Controller implements Initializable {
 
     try (Connection connection = DriverManager.getConnection(Database.url, Database.username, Database.password)) {
 
-      PreparedStatement preparedStatement = connection.prepareStatement("select * from court1");
+      PreparedStatement preparedStatement = connection.prepareStatement("select * from court2");
 
       ResultSet resultSet = preparedStatement.executeQuery();
 
@@ -150,7 +150,6 @@ public class Court1Controller implements Initializable {
   void switchToCourt10(ActionEvent event) throws IOException {
     App.setRoot("court10");
   }
-
   @FXML
   void switchToCourt11(ActionEvent event) throws IOException {
       App.setRoot("court11");
@@ -162,8 +161,8 @@ public class Court1Controller implements Initializable {
   }
 
   @FXML
-  void switchToCourt2(ActionEvent event) throws IOException {
-    App.setRoot("court2");
+  void switchToCourt1(ActionEvent event) throws IOException {
+    App.setRoot("court1");
   }
 
   @FXML
@@ -200,6 +199,4 @@ public class Court1Controller implements Initializable {
   void switchToCourt9(ActionEvent event) throws IOException {
     App.setRoot("court9");
   }
-
-
 }

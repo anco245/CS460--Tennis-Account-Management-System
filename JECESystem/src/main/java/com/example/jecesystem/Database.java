@@ -58,8 +58,6 @@ public class Database {
   public static LocalDateTime nextSaturday = dateTime.with(TemporalAdjusters.next(DayOfWeek.SATURDAY));
   public static LocalDateTime nextSunday = dateTime.with(TemporalAdjusters.next(DayOfWeek.SUNDAY));
 
-
-
   public static String formatMon = nextMonday.format(formatter);
   public static String formatTues = nextTuesday.format(formatter);
   public static String formatWed = nextWednesday.format(formatter);

@@ -1,9 +1,11 @@
 package com.example.jecesystem;
 
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.Optional;
 
 public class Person {
@@ -34,6 +36,8 @@ public class Person {
 
   int numOfGuest = 0;
 
+  Alert error = new Alert(Alert.AlertType.ERROR);
+
   public Person(String name, int age, String address, String phone, String email) {
     this.userName = name;
     this.userAge = age;
@@ -42,29 +46,59 @@ public class Person {
     this.userEmail = email;
   }
 
-  public Person(String dateTime, String s, int c, int g) {
-    this.date = dateTime;
+  public Person(String slot, String s, int c, int g) {
+
+    this.date = slot;
     this.status = s;
     this.userCourt = c;
     this.numOfGuest = g;
 
+    String cNumber = "court" + c;
+
     this.reserve.setOnAction(e -> {
-      Database.con.setTitle("Confirm");
-      Database.con.setContentText("You will be reserving a timeslot for Court " + c + " at " + dateTime +
-        "\n Press ok to continue.");
+      try {
+        if (Database.sameTimeOtherCourt(Database.memberUser, slot, cNumber)) {
+          error.setTitle("Error");
+          error.setContentText("You've already reserved another court at this time");
+          error.showAndWait();
+        } else if (Database.exceededResLimit(slot)) {
+          error.setTitle("Error");
+          error.setContentText("You can only reserve 2 courts for any day.\nTry another day.");
+          error.showAndWait();
+        } else if (Database.available("court1", slot)) {
+          error.setTitle("Error");
+          error.setContentText("That timeslot is not available.\nTry another.");
+          error.showAndWait();
+        } else {
+          Database.con.setTitle("Confirm");
+          Database.con.setContentText("You will be reserving a timeslot for Court " + c + " at\n" + slot +
+            "\n Press ok to continue.");
 
-      String cNumber = "court" + c;
-
-      Optional<ButtonType> result = Database.con.showAndWait();
-      if (result.isPresent() && result.get() == ButtonType.OK){
-        Database.makeRes(cNumber, Database.memberUser, date, numOfGuest);
-        try {
-          App.setRoot(cNumber);
-        } catch (IOException ex) {
-          throw new RuntimeException(ex);
+          Optional<ButtonType> result = Database.con.showAndWait();
+          if (result.isPresent() && result.get() == ButtonType.OK) {
+            Database.makeRes(cNumber, Database.memberUser, date, 1);
+            try {
+              App.setRoot("court1");
+            } catch (IOException ex) {
+              throw new RuntimeException(ex);
+            }
+          }
         }
+      } catch (RuntimeException ex) {
+        throw ex;
+      } catch (SQLException ex) {
+        throw new RuntimeException(ex);
       }
+
     });
+
+    /*
+     else if (dayOfWeek.getValue().equals("Today") && isToday(time) ) {
+      error.setTitle("Error");
+      error.setContentText("That time slot has already passed.\nTry another.");
+      error.showAndWait();
+    }
+    */
   }
 
   public Person(int court, String dateTime) {
@@ -210,6 +244,11 @@ public class Person {
   public void setCancel(Button b) {
     this.cancel = b;
     this.cancel.setOnAction(e -> Database.cancelReservation(this.userCourt, this.date));
+  }
+
+  public Button getReserve() { return reserve; }
+  public void setReserve(Button b) {
+    this.reserve = b;
   }
   public Button getNotify() { return notify; }
 

@@ -122,11 +122,6 @@ public class MemController implements Initializable {
   }
 
   @FXML
-  void switchToCourt1(ActionEvent event) throws IOException {
-    App.setRoot("court1");
-  }
-
-  @FXML
   void showDir(ActionEvent event) throws IOException {
     App.setRoot("directory");
   }
