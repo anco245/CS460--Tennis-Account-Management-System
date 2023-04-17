@@ -8,6 +8,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.ChoiceBox;
+import javafx.scene.input.MouseEvent;
 
 import java.sql.SQLException;
 import java.time.format.DateTimeFormatter;
@@ -78,7 +79,6 @@ public class MakeResController implements Initializable {
     return (resHour != hour || minute >= resMin) && hour >= resHour;
   }
 
-
   @FXML
   void submitreservation(ActionEvent event) throws IOException, SQLException {
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
@@ -86,7 +86,6 @@ public class MakeResController implements Initializable {
     Alert con = new Alert(Alert.AlertType.CONFIRMATION);
     Alert error = new Alert(Alert.AlertType.ERROR);
 
-    String day = dayOfWeek.getValue();
     String time = timeOfRes.getValue();
     int guests = 0;
 
@@ -112,7 +111,7 @@ public class MakeResController implements Initializable {
     else if(numOfCourt.getValue().equals("Court 12")) {courtNum = "court12";}
 
     if (dayOfWeek.getValue().equals("Today")) {slot = Database.dateTime.format(formatter) + " " + time;}
-    else if (day.equals("Monday")) {slot = Database.nextMonday.format(formatter) + " " + time;}
+    else if (dayOfWeek.equals("Monday")) {slot = Database.nextMonday.format(formatter) + " " + time;}
     else if (dayOfWeek.getValue().equals("Tuesday")) {slot = Database.nextTuesday.format(formatter) + " " + time;}
     else if (dayOfWeek.getValue().equals("Wednesday")) {slot = Database.nextWednesday.format(formatter) + " " + time;}
     else if (dayOfWeek.getValue().equals("Thursday")) {slot = Database.nextThursday.format(formatter) + " " + time;}

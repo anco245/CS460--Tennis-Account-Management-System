@@ -19,21 +19,18 @@ public class AddSubController {
 
   @FXML
   void onSubmit(ActionEvent event) {
-    Alert error = new Alert(Alert.AlertType.ERROR);
-    Alert con = new Alert(Alert.AlertType.CONFIRMATION);
-
       if(amtField == null || userField == null)
       {
-        error.setTitle("Error");
-        error.setContentText("One or both of the textfields are blank.");
-        error.showAndWait();
+        Database.error.setTitle("Error");
+        Database.error.setContentText("One or both of the textfields are blank.");
+        Database.error.showAndWait();
       } else {
         try {
           String user = userField.getText();
           int amt = Integer.parseInt(amtField.getText());
 
-          con.setTitle("Confirmation");
-          con.setContentText("You will be applying $" + amt +  " to " + user + "'s account.\n Press ok to confirm.");
+          Database.con.setTitle("Confirmation");
+          Database.con.setContentText("You will be applying $" + amt +  " to " + user + "'s account.\n Press ok to confirm.");
 
           Optional<ButtonType> result = con.showAndWait();
           if (result.isPresent() && result.get() == ButtonType.OK) {

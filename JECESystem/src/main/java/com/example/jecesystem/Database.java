@@ -1,5 +1,7 @@
 package com.example.jecesystem;
 
+import javafx.scene.control.Alert;
+
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
@@ -38,6 +40,8 @@ public class Database {
   public static boolean keepConfirm = false;
   public static int monthly = 0;
 
+  public static int reservedGuests = 0;
+
   public static String[] full = new String[160];
 
   static String[] times = {"09:00:00", "09:30:00", "10:00:00", "10:30:00", "11:00:00", "11:30:00",
@@ -54,6 +58,8 @@ public class Database {
   public static LocalDateTime nextSaturday = dateTime.with(TemporalAdjusters.next(DayOfWeek.SATURDAY));
   public static LocalDateTime nextSunday = dateTime.with(TemporalAdjusters.next(DayOfWeek.SUNDAY));
 
+
+
   public static String formatMon = nextMonday.format(formatter);
   public static String formatTues = nextTuesday.format(formatter);
   public static String formatWed = nextWednesday.format(formatter);
@@ -62,6 +68,10 @@ public class Database {
   public static String formatSat = nextSaturday.format(formatter);
   public static String formatSun = nextSunday.format(formatter);
   public static String formatDay = dateTime.format(formatter);
+
+  public static Alert info = new Alert(Alert.AlertType.INFORMATION);
+  public static Alert error = new Alert(Alert.AlertType.ERROR);
+  public static Alert con = new Alert(Alert.AlertType.CONFIRMATION);
 
 
   //Removes people from directory who opted to
@@ -221,6 +231,11 @@ public class Database {
       PreparedStatement preparedStatement =
         connection.prepareStatement("UPDATE directory SET keepAccount = ? WHERE username = ?");
 
+      if(user == memberUser)
+      {
+        keep = b;
+      }
+
       preparedStatement.setBoolean(1, b);
       preparedStatement.setString(2, user);
       preparedStatement.executeUpdate();
@@ -241,6 +256,44 @@ public class Database {
       preparedStatement.executeUpdate();
 
       preparedStatement.close();
+    } catch (SQLException e) {
+      throw new IllegalStateException("Cannot connect to the database!", e);
+    }
+  }
+
+  public static void updateCourts()
+  {
+    //need to delete yesterday
+    //need to add next week
+    //if dayAndTime
+
+    try (Connection connection = DriverManager.getConnection(url, username, password)) {
+
+      for(int i = 1; i < 13; i++)
+      {
+        String court = "court" + i;
+        String sql = "delete from " + court + " where day(dayAndTime) = \"" + formatDay + "\"";
+        PreparedStatement preparedStatement =
+          connection.prepareStatement(sql);
+        preparedStatement.executeUpdate();
+
+        toArray();
+
+        for(int j = 140; j < 161; j++)
+        {
+          String sql2 = "INSERT INTO " + court + " (dayAndTime, occupied) VALUES (?, ?)";
+          PreparedStatement preparedStatement2 = connection.prepareStatement(sql2);
+
+          preparedStatement2.setTimestamp(1, Timestamp.valueOf(full[j]));
+          preparedStatement2.setInt(2, 0);
+          preparedStatement2.executeUpdate();
+        }
+
+
+
+        preparedStatement.close();
+      }
+
     } catch (SQLException e) {
       throw new IllegalStateException("Cannot connect to the database!", e);
     }

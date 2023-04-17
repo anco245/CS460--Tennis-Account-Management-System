@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+
+<AnchorPane prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.jecesystem.Court1Controller">
+   <children>
+      <Button layoutX="48.0" layoutY="664.0" mnemonicParsing="false" onAction="#switchToHome" text="Back to Homescreen" />
+      <Button layoutX="919.0" layoutY="14.0" mnemonicParsing="false" onAction="#switchToCourt9" text="Court 10" />
+      <Button layoutX="796.0" layoutY="14.0" mnemonicParsing="false" onAction="#switchToCourt9" text="Court 9" />
+      <Button layoutX="692.0" layoutY="14.0" mnemonicParsing="false" onAction="#switchToCourt8" text="Court 8" />
+      <Button layoutX="111.0" layoutY="14.0" mnemonicParsing="false" onAction="#switchToCourt2" text="Court 2" />
+      <Button layoutX="592.0" layoutY="14.0" mnemonicParsing="false" onAction="#switchToCourt7" text="Court 7" />
+      <Button layoutX="490.0" layoutY="14.0" mnemonicParsing="false" onAction="#switchToCourt6" text="Court 6" />
+      <Button layoutX="395.0" layoutY="14.0" mnemonicParsing="false" onAction="#switchToCourt5" text="Court 5" />
+      <Button layoutX="295.0" layoutY="14.0" mnemonicParsing="false" onAction="#switchToCourt4" text="Court 4" />
+      <Button layoutX="201.0" layoutY="14.0" mnemonicParsing="false" onAction="#switchToCourt3" text="Court 3" />
+      <Button layoutX="1180.0" layoutY="14.0" mnemonicParsing="false" onAction="#switchToCourt12" text="Court 12" />
+      <Button layoutX="1050.0" layoutY="14.0" mnemonicParsing="false" onAction="#switchToCourt11" prefHeight="25.0" prefWidth="62.0" text="Court 11" />
+      <TableView fx:id="courtDisplay" layoutX="455.0" layoutY="112.0" prefHeight="538.0" prefWidth="397.0">
+        <columns>
+          <TableColumn fx:id="dayAndTime" prefWidth="207.0" text="Day and Tme" />
+          <TableColumn fx:id="status" minWidth="0.0" prefWidth="131.0" text="Status" />
+            <TableColumn fx:id="reserve" prefWidth="58.0" text="Reserve" />
+        </columns>
+      </TableView>
+      <Text fx:id="courtNum" layoutX="917.0" layoutY="233.0" strokeType="OUTSIDE" strokeWidth="0.0">
+         <font>
+            <Font size="44.0" />
+         </font>
+      </Text>
+   </children>
+</AnchorPane>

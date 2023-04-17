@@ -1,7 +1,10 @@
 package com.example.jecesystem;
 
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
+
 import java.io.IOException;
+import java.util.Optional;
 
 public class Person {
 
@@ -10,6 +13,7 @@ public class Person {
   Button approve = new Button();
   Button reject = new Button();
   Button cancel = new Button();
+  Button reserve = new Button();
 
   String userName = "";
   String userAddress = "";
@@ -23,9 +27,12 @@ public class Person {
   boolean keep = true;
   int userAge = 0;
   int owe = 0;
+  String status = "";
 
   int userCourt = 1;
   String date = "";
+
+  int numOfGuest = 0;
 
   public Person(String name, int age, String address, String phone, String email) {
     this.userName = name;
@@ -33,6 +40,31 @@ public class Person {
     this.userAddress = address;
     this.userPhone = phone;
     this.userEmail = email;
+  }
+
+  public Person(String dateTime, String s, int c, int g) {
+    this.date = dateTime;
+    this.status = s;
+    this.userCourt = c;
+    this.numOfGuest = g;
+
+    this.reserve.setOnAction(e -> {
+      Database.con.setTitle("Confirm");
+      Database.con.setContentText("You will be reserving a timeslot for Court " + c + " at " + dateTime +
+        "\n Press ok to continue.");
+
+      String cNumber = "court" + c;
+
+      Optional<ButtonType> result = Database.con.showAndWait();
+      if (result.isPresent() && result.get() == ButtonType.OK){
+        Database.makeRes(cNumber, Database.memberUser, date, numOfGuest);
+        try {
+          App.setRoot(cNumber);
+        } catch (IOException ex) {
+          throw new RuntimeException(ex);
+        }
+      }
+    });
   }
 
   public Person(int court, String dateTime) {
@@ -115,6 +147,9 @@ public class Person {
       }
     });
   }
+
+  public void setStatus(String s) {status = s;}
+  public String getStatus() {return status;}
 
   public void setCourt(int court) {userCourt = court;}
   public int getCourt() {return userCourt;}

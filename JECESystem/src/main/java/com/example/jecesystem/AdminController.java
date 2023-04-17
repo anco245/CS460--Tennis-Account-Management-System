@@ -15,7 +15,7 @@ public class AdminController {
     con.setContentText("Are you sure you want to reset the database?\n" +
       "Select ok to confirm.");
 
-    //if ok is pressed
+    //if ok is pressed,
     Optional<ButtonType> result = con.showAndWait();
     if (result.isPresent() && result.get() == ButtonType.OK) {
       Database.reset();
