@@ -18,7 +18,7 @@ import java.sql.*;
 import java.util.Calendar;
 import java.util.ResourceBundle;
 
-public class Court8Controller implements Initializable {
+public class Court7Controller implements Initializable {
 
   @FXML
   private ChoiceBox<String> dayOfWeek;
@@ -64,7 +64,7 @@ public class Court8Controller implements Initializable {
 
     try (Connection connection = DriverManager.getConnection(Database.url, Database.username, Database.password)) {
 
-      PreparedStatement preparedStatement = connection.prepareStatement("select * from court8");
+      PreparedStatement preparedStatement = connection.prepareStatement("select * from court7");
 
       ResultSet resultSet = preparedStatement.executeQuery();
 
@@ -79,9 +79,9 @@ public class Court8Controller implements Initializable {
 
         if(occ == 0)
         {
-          person = new Person(t.toString().substring(0, 19), "Available", 8, Database.reservedGuests);
+          person = new Person(t.toString().substring(0, 19), "Available", 7, Database.reservedGuests);
         } else {
-          person = new Person(t.toString().substring(0, 19), "Already Taken", 8, Database.reservedGuests);
+          person = new Person(t.toString().substring(0, 19), "Already Taken", 7, Database.reservedGuests);
         }
 
         list.add(person);
@@ -191,8 +191,8 @@ public class Court8Controller implements Initializable {
   }
 
   @FXML
-  void switchToCourt7(ActionEvent event) throws IOException {
-    App.setRoot("court7");
+  void switchToCourt8(ActionEvent event) throws IOException {
+    App.setRoot("court8");
   }
 
   @FXML

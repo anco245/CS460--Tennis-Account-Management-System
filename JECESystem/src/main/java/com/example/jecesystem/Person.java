@@ -55,7 +55,7 @@ public class Person {
     this.numOfGuest = g;
 
     String cNumber = "court" + c;
-    reserve.setPrefWidth(40.0);
+    reserve.setPrefWidth(80.0);
     this.reserve.setOnAction(e -> {
       try {
         if (Database.sameTimeOtherCourt(Database.memberUser, slot, cNumber)) {
@@ -106,6 +106,7 @@ public class Person {
     this.userCourt = court;
     this.date = dateTime;
 
+    cancel.setPrefWidth(100.0);
     this.cancel.setOnAction(e -> {
       Database.cancelReservation(this.userCourt, this.date);
       try {
@@ -134,6 +135,7 @@ public class Person {
     this.keep = k;
     this.owe = o;
 
+    notify.setPrefWidth(100.0);
     notify.setOnAction(e -> {
       try {
         Database.setLate(userUser, true);
@@ -143,6 +145,7 @@ public class Person {
       }
     });
 
+    denotify.setPrefWidth(100.0);
     denotify.setOnAction(e -> {
       try {
         Database.setLate(userUser, false);
@@ -164,6 +167,7 @@ public class Person {
     this.userPass = p;
     this.isShown = s;
 
+    approve.setPrefWidth(100.0);
     approve.setOnAction(e -> {
       try {
         Database.setApprove(userUser);
@@ -173,6 +177,7 @@ public class Person {
       }
     });
 
+    reject.setPrefWidth(100.0);
     reject.setOnAction(e -> {
       try {
         Database.deleteFromDb(userUser, "directory");
