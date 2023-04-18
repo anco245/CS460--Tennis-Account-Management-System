@@ -79,9 +79,9 @@ public class Court1Controller implements Initializable {
 
         if(occ == 0)
         {
-          person = new Person(t.toString(), "Available", 1, Database.reservedGuests);
+          person = new Person(t.toString().substring(0, 19), "Available", 1, Database.reservedGuests);
         } else {
-          person = new Person(t.toString(), "Already Taken", 1, Database.reservedGuests);
+          person = new Person(t.toString().substring(0, 19), "Already Taken", 1, Database.reservedGuests);
         }
 
         list.add(person);

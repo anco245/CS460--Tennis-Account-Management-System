@@ -1,5 +1,6 @@
 package com.example.jecesystem;
 
+import javafx.geometry.Pos;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
@@ -54,7 +55,7 @@ public class Person {
     this.numOfGuest = g;
 
     String cNumber = "court" + c;
-
+    reserve.setPrefWidth(40.0);
     this.reserve.setOnAction(e -> {
       try {
         if (Database.sameTimeOtherCourt(Database.memberUser, slot, cNumber)) {
@@ -65,7 +66,7 @@ public class Person {
           error.setTitle("Error");
           error.setContentText("You can only reserve 2 courts for any day.\nTry another day.");
           error.showAndWait();
-        } else if (Database.available("court1", slot)) {
+        } else if (Database.available(cNumber, slot)) {
           error.setTitle("Error");
           error.setContentText("That timeslot is not available.\nTry another.");
           error.showAndWait();
@@ -78,7 +79,7 @@ public class Person {
           if (result.isPresent() && result.get() == ButtonType.OK) {
             Database.makeRes(cNumber, Database.memberUser, date, 1);
             try {
-              App.setRoot("court1");
+              App.setRoot(cNumber);
             } catch (IOException ex) {
               throw new RuntimeException(ex);
             }

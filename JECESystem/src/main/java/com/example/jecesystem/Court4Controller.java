@@ -18,7 +18,7 @@ import java.sql.*;
 import java.util.Calendar;
 import java.util.ResourceBundle;
 
-public class Court2Controller implements Initializable {
+public class Court4Controller implements Initializable {
 
   @FXML
   private ChoiceBox<String> dayOfWeek;
@@ -64,7 +64,7 @@ public class Court2Controller implements Initializable {
 
     try (Connection connection = DriverManager.getConnection(Database.url, Database.username, Database.password)) {
 
-      PreparedStatement preparedStatement = connection.prepareStatement("select * from court2");
+      PreparedStatement preparedStatement = connection.prepareStatement("select * from court4");
 
       ResultSet resultSet = preparedStatement.executeQuery();
 
@@ -79,9 +79,9 @@ public class Court2Controller implements Initializable {
 
         if(occ == 0)
         {
-          person = new Person(t.toString().substring(0, 19), "Available", 2, Database.reservedGuests);
+          person = new Person(t.toString().substring(0, 19), "Available", 4, Database.reservedGuests);
         } else {
-          person = new Person(t.toString().substring(0, 19), "Already Taken", 2, Database.reservedGuests);
+          person = new Person(t.toString().substring(0, 19), "Already Taken", 4, Database.reservedGuests);
         }
 
         list.add(person);
@@ -152,7 +152,7 @@ public class Court2Controller implements Initializable {
   }
   @FXML
   void switchToCourt11(ActionEvent event) throws IOException {
-      App.setRoot("court11");
+    App.setRoot("court11");
   }
 
   @FXML
@@ -166,13 +166,13 @@ public class Court2Controller implements Initializable {
   }
 
   @FXML
-  void switchToCourt3(ActionEvent event) throws IOException {
-    App.setRoot("court3");
+  void switchToCourt2(ActionEvent event) throws IOException {
+    App.setRoot("court2");
   }
 
   @FXML
-  void switchToCourt4(ActionEvent event) throws IOException {
-    App.setRoot("court4");
+  void switchToCourt3(ActionEvent event) throws IOException {
+    App.setRoot("court3");
   }
 
   @FXML
