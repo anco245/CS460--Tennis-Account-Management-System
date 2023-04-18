@@ -270,14 +270,15 @@ public class Database {
       for(int i = 1; i < 13; i++)
       {
         String court = "court" + i;
-        String sql = "delete from " + court + " where day(dayAndTime) = \"" + formatDay + "\"";
+        System.out.println(formatDay);
+        String sql = "delete from " + court + " where dayAndTime < NOW()";
         PreparedStatement preparedStatement =
           connection.prepareStatement(sql);
         preparedStatement.executeUpdate();
 
         toArray();
 
-        for(int j = 140; j < 161; j++)
+        for(int j = 140; j < 160; j++)
         {
           String sql2 = "INSERT INTO " + court + " (dayAndTime, occupied) VALUES (?, ?)";
           PreparedStatement preparedStatement2 = connection.prepareStatement(sql2);
