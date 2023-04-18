@@ -34,9 +34,11 @@ public class Court3Controller implements Initializable {
   ObservableList<Person> list = FXCollections.observableArrayList();
   Person person;
 
-
   @Override
   public void initialize(URL url, ResourceBundle resourceBundle) {
+
+    courtNum.setText("Court 3");
+
     dayAndTime.setCellValueFactory(new PropertyValueFactory<>("date"));
     status.setCellValueFactory(new PropertyValueFactory<>("status"));
     reserve.setCellValueFactory(new PropertyValueFactory<>("reserve"));

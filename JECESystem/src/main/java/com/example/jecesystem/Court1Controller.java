@@ -11,7 +11,6 @@ package com.example.jecesystem;
   import java.io.IOException;
   import java.net.URL;
   import java.sql.*;
-  import java.util.Calendar;
   import java.util.ResourceBundle;
 
 public class Court1Controller implements Initializable {
@@ -34,6 +33,9 @@ public class Court1Controller implements Initializable {
 
   @Override
   public void initialize(URL url, ResourceBundle resourceBundle) {
+
+    courtNum.setText("Court 1");
+
     dayAndTime.setCellValueFactory(new PropertyValueFactory<>("date"));
     status.setCellValueFactory(new PropertyValueFactory<>("status"));
     reserve.setCellValueFactory(new PropertyValueFactory<>("reserve"));

@@ -29,7 +29,7 @@
           <TableColumn fx:id="guests" prefWidth="100.0" text="Guests" />
         </columns>
       </TableView>
-      <Text fx:id="courtNum" layoutX="917.0" layoutY="233.0" strokeType="OUTSIDE" strokeWidth="0.0">
+      <Text fx:id="courtNum" layoutX="100.0" layoutY="233.0" strokeType="OUTSIDE" strokeWidth="0.0">
          <font>
             <Font size="44.0" />
          </font>

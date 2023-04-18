@@ -39,6 +39,8 @@ public class Court2Controller implements Initializable {
   @Override
   public void initialize(URL url, ResourceBundle resourceBundle) {
 
+    courtNum.setText("Court 2");
+
     dayAndTime.setCellValueFactory(new PropertyValueFactory<>("date"));
     status.setCellValueFactory(new PropertyValueFactory<>("status"));
     reserve.setCellValueFactory(new PropertyValueFactory<>("reserve"));
