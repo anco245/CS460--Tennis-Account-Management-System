@@ -11,57 +11,31 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.text.Text;
-
 import java.io.IOException;
 import java.net.URL;
 import java.sql.*;
-import java.util.Calendar;
 import java.util.ResourceBundle;
 
 public class Court4Controller implements Initializable {
 
   @FXML
-  private ChoiceBox<String> dayOfWeek;
-
-  @FXML
-  private ChoiceBox<Integer> numOfGuests;
-
-  @FXML
-  private ChoiceBox<String> timeOfDay;
-
-  @FXML
   private TableView<Person> courtDisplay;
-
+  @FXML
+  private TableColumn<Person, String> status;
+  @FXML
+  private TableColumn<Person, String> dayAndTime;
+  @FXML
+  private TableColumn<Person, Button> reserve;
+  @FXML
+  private TableColumn<Person, ChoiceBox> guests;
   @FXML
   private Text courtNum;
 
-  @FXML
-  private TableColumn<Person, String> status;
-
-  @FXML
-  private TableColumn<Person, String> dayAndTime;
-
-  @FXML
-  private TableColumn<Person, Button> reserve;
-
-  ObservableList guest = FXCollections.observableArrayList();
-
-  Calendar rightNow = Calendar.getInstance();
-  int hour = rightNow.get(Calendar.HOUR_OF_DAY);
-  int minute = rightNow.get(Calendar.MINUTE);
-
   ObservableList<Person> list = FXCollections.observableArrayList();
-
   Person person;
-
-  @FXML
-  private TableColumn<Person, ChoiceBox> guests;
-
 
   @Override
   public void initialize(URL url, ResourceBundle resourceBundle) {
-    //loadData();
-
     dayAndTime.setCellValueFactory(new PropertyValueFactory<>("date"));
     status.setCellValueFactory(new PropertyValueFactory<>("status"));
     reserve.setCellValueFactory(new PropertyValueFactory<>("reserve"));
@@ -70,17 +44,11 @@ public class Court4Controller implements Initializable {
     try (Connection connection = DriverManager.getConnection(Database.url, Database.username, Database.password)) {
 
       PreparedStatement preparedStatement = connection.prepareStatement("select * from court4");
-
       ResultSet resultSet = preparedStatement.executeQuery();
-
-      String dayOfWeek = "";
 
       while (resultSet.next()) {
         int occ = resultSet.getInt("occupied");
         Timestamp t = resultSet.getTimestamp("dayAndTime");
-        //Date d = resultSet.getDate("dayAndTime");
-
-        //Convert numbered days to week names
 
         if(occ == 0)
         {
@@ -99,7 +67,6 @@ public class Court4Controller implements Initializable {
     } catch (SQLException e) {
       throw new RuntimeException(e);
     }
-
   }
 
   @FXML

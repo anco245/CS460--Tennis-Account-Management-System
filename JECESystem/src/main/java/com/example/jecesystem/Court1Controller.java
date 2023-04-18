@@ -26,17 +26,14 @@ public class Court1Controller implements Initializable {
   private TableColumn<Person, Button> reserve;
   @FXML
   private TableColumn<Person, ChoiceBox> guests;
-
-  Calendar rightNow = Calendar.getInstance();
-  int hour = rightNow.get(Calendar.HOUR_OF_DAY);
-  int minute = rightNow.get(Calendar.MINUTE);
+  @FXML
+  private Text courtNum;
 
   ObservableList<Person> list = FXCollections.observableArrayList();
   Person person;
 
   @Override
   public void initialize(URL url, ResourceBundle resourceBundle) {
-
     dayAndTime.setCellValueFactory(new PropertyValueFactory<>("date"));
     status.setCellValueFactory(new PropertyValueFactory<>("status"));
     reserve.setCellValueFactory(new PropertyValueFactory<>("reserve"));
@@ -50,8 +47,6 @@ public class Court1Controller implements Initializable {
       while (resultSet.next()) {
         int occ = resultSet.getInt("occupied");
         Timestamp t = resultSet.getTimestamp("dayAndTime");
-
-        //Convert numbered days to week names
 
         if(occ == 0)
         {
@@ -70,22 +65,6 @@ public class Court1Controller implements Initializable {
     } catch (SQLException e) {
       throw new RuntimeException(e);
     }
-  }
-
-  //Used for something
-  boolean isToday(String time)
-  {
-    int resMin = Integer.parseInt(time.substring(3, 5));
-    int resHour;
-
-    if(time.charAt(0) == '0')
-    {
-      resHour = Integer.parseInt(time.substring(1, 2));
-    } else {
-      resHour = Integer.parseInt(time.substring(0, 2));
-    }
-
-    return (resHour != hour || minute >= resMin) && hour >= resHour;
   }
 
   @FXML

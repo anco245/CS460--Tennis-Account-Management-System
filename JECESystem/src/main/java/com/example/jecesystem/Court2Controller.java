@@ -11,7 +11,6 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.text.Text;
-
 import java.io.IOException;
 import java.net.URL;
 import java.sql.*;
@@ -22,33 +21,23 @@ public class Court2Controller implements Initializable {
 
   @FXML
   private TableView<Person> courtDisplay;
-
   @FXML
   private TableColumn<Person, String> status;
-
   @FXML
   private TableColumn<Person, String> dayAndTime;
-
   @FXML
   private TableColumn<Person, Button> reserve;
-
-  ObservableList guest = FXCollections.observableArrayList();
-
-
-  Calendar rightNow = Calendar.getInstance();
-  int hour = rightNow.get(Calendar.HOUR_OF_DAY);
-  int minute = rightNow.get(Calendar.MINUTE);
-
-  ObservableList<Person> list = FXCollections.observableArrayList();
-
-  Person person;
-
   @FXML
   private TableColumn<Person, ChoiceBox> guests;
+  @FXML
+  private Text courtNum;
+
+  Calendar rightNow = Calendar.getInstance();
+  ObservableList<Person> list = FXCollections.observableArrayList();
+  Person person;
 
   @Override
   public void initialize(URL url, ResourceBundle resourceBundle) {
-    //loadData();
 
     dayAndTime.setCellValueFactory(new PropertyValueFactory<>("date"));
     status.setCellValueFactory(new PropertyValueFactory<>("status"));
@@ -58,17 +47,11 @@ public class Court2Controller implements Initializable {
     try (Connection connection = DriverManager.getConnection(Database.url, Database.username, Database.password)) {
 
       PreparedStatement preparedStatement = connection.prepareStatement("select * from court2");
-
       ResultSet resultSet = preparedStatement.executeQuery();
-
-      String dayOfWeek = "";
 
       while (resultSet.next()) {
         int occ = resultSet.getInt("occupied");
         Timestamp t = resultSet.getTimestamp("dayAndTime");
-        //Date d = resultSet.getDate("dayAndTime");
-
-        //Convert numbered days to week names
 
         if(occ == 0)
         {
@@ -87,23 +70,6 @@ public class Court2Controller implements Initializable {
     } catch (SQLException e) {
       throw new RuntimeException(e);
     }
-
-  }
-
-  //Used for something
-  boolean isToday(String time)
-  {
-    int resMin = Integer.parseInt(time.substring(3, 5));
-    int resHour;
-
-    if(time.charAt(0) == '0')
-    {
-      resHour = Integer.parseInt(time.substring(1, 2));
-    } else {
-      resHour = Integer.parseInt(time.substring(0, 2));
-    }
-
-    return (resHour != hour || minute >= resMin) && hour >= resHour;
   }
 
   @FXML
