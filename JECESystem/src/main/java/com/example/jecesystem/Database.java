@@ -259,6 +259,28 @@ public class Database {
     }
   }
 
+  public static boolean isUpdated() {
+    try (Connection connection = DriverManager.getConnection(url, username, password)) {
+
+      boolean isUp = true;
+
+      String sql = "select count(*) as count from court1 where dayAndTime < NOW()";
+      PreparedStatement preparedStatement = connection.prepareStatement(sql);
+
+      ResultSet rs = preparedStatement.executeQuery();
+
+      while (rs.next()) {
+        isUp = rs.getInt("count") == 0;
+      }
+
+      preparedStatement.close();
+
+      return isUp;
+    } catch (SQLException e) {
+      throw new RuntimeException(e);
+    }
+  }
+
   public static void updateCourts()
   {
     //need to delete yesterday
@@ -287,8 +309,6 @@ public class Database {
           preparedStatement2.setInt(2, 0);
           preparedStatement2.executeUpdate();
         }
-
-
 
         preparedStatement.close();
       }

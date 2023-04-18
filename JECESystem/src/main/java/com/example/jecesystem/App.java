@@ -19,7 +19,7 @@ public class App extends Application {
     if(!Database.beenPopulated())
     {
       Database.populateCourts();
-    } else {
+    } else if (!Database.isUpdated()){
       Database.updateCourts();
     }
 
