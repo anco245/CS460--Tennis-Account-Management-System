@@ -23,9 +23,10 @@
       <Button layoutX="1073.7" layoutY="14.0" mnemonicParsing="false" onAction="#switchToCourt11" prefHeight="25.0" prefWidth="62.0" text="Court 11" />
       <TableView fx:id="courtDisplay" layoutX="455.0" layoutY="112.0" prefHeight="538.0" prefWidth="397.0">
         <columns>
-          <TableColumn fx:id="dayAndTime" prefWidth="144.0" text="Day and Tme" />
-          <TableColumn fx:id="status" minWidth="0.0" prefWidth="132.0" text="Status" />
-          <TableColumn fx:id="reserve" prefWidth="120.0" text="Reserve" />
+          <TableColumn fx:id="dayAndTime" prefWidth="100.0" text="Day and Tme" />
+          <TableColumn fx:id="status" minWidth="0.0" prefWidth="100.0" text="Status" />
+          <TableColumn fx:id="reserve" prefWidth="100.0" text="Reserve" />
+          <TableColumn fx:id="guests" prefWidth="100.0" text="Guests" />
         </columns>
       </TableView>
       <Text fx:id="courtNum" layoutX="917.0" layoutY="233.0" strokeType="OUTSIDE" strokeWidth="0.0">

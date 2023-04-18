@@ -54,6 +54,10 @@ public class Court4Controller implements Initializable {
 
   Person person;
 
+  @FXML
+  private TableColumn<Person, ChoiceBox> guests;
+
+
   @Override
   public void initialize(URL url, ResourceBundle resourceBundle) {
     //loadData();
@@ -61,6 +65,7 @@ public class Court4Controller implements Initializable {
     dayAndTime.setCellValueFactory(new PropertyValueFactory<>("date"));
     status.setCellValueFactory(new PropertyValueFactory<>("status"));
     reserve.setCellValueFactory(new PropertyValueFactory<>("reserve"));
+    guests.setCellValueFactory(new PropertyValueFactory<>("guests"));
 
     try (Connection connection = DriverManager.getConnection(Database.url, Database.username, Database.password)) {
 
@@ -79,9 +84,9 @@ public class Court4Controller implements Initializable {
 
         if(occ == 0)
         {
-          person = new Person(t.toString().substring(0, 19), "Available", 4, Database.reservedGuests);
+          person = new Person(t.toString().substring(0, 19), "Available", 4);
         } else {
-          person = new Person(t.toString().substring(0, 19), "Already Taken", 4, Database.reservedGuests);
+          person = new Person(t.toString().substring(0, 19), "Already Taken", 4);
         }
 
         list.add(person);
@@ -95,50 +100,6 @@ public class Court4Controller implements Initializable {
       throw new RuntimeException(e);
     }
 
-  }
-
-  private void loadData() {
-    guest.addAll(1, 2, 3);
-    numOfGuests.getItems().addAll(guest);
-  }
-
-  //Used for something
-  boolean isToday(String time)
-  {
-    int resMin = Integer.parseInt(time.substring(3, 5));
-    int resHour;
-
-    if(time.charAt(0) == '0')
-    {
-      resHour = Integer.parseInt(time.substring(1, 2));
-    } else {
-      resHour = Integer.parseInt(time.substring(0, 2));
-    }
-
-    return (resHour != hour || minute >= resMin) && hour >= resHour;
-  }
-
-  @FXML
-  void onSubmit(ActionEvent event) throws IOException, SQLException {
-
-    String time = timeOfDay.getValue();
-    int guests = 0;
-
-    if(numOfGuests.getValue() != null)
-    {
-      guests = numOfGuests.getValue();
-    }
-
-    /*
-    if (dayOfWeek.getValue().equals("Today")) {slot = Database.dateTime.format(formatter) + " " + time;}
-    else if (dayOfWeek.equals("Monday")) {slot = Database.nextMonday.format(formatter) + " " + time;}
-    else if (dayOfWeek.getValue().equals("Tuesday")) {slot = Database.nextTuesday.format(formatter) + " " + time;}
-    else if (dayOfWeek.getValue().equals("Wednesday")) {slot = Database.nextWednesday.format(formatter) + " " + time;}
-    else if (dayOfWeek.getValue().equals("Thursday")) {slot = Database.nextThursday.format(formatter) + " " + time;}
-    else if (dayOfWeek.getValue().equals("Friday")) {slot = Database.nextFriday.format(formatter) + " " + time;}
-    else if (dayOfWeek.getValue().equals("Saturday")) {slot = Database.nextSaturday.format(formatter) + " " + time;}
-    else if (dayOfWeek.getValue().equals("Sunday")) {slot = Database.nextSunday.format(formatter) + " " + time;}
-    */
   }
 
   @FXML

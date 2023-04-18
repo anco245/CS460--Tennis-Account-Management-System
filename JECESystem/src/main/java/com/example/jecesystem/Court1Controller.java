@@ -8,80 +8,56 @@ package com.example.jecesystem;
   import javafx.scene.control.*;
   import javafx.scene.control.cell.PropertyValueFactory;
   import javafx.scene.text.Text;
-
   import java.io.IOException;
   import java.net.URL;
   import java.sql.*;
-  import java.time.LocalDateTime;
-  import java.time.format.DateTimeFormatter;
   import java.util.Calendar;
-  import java.util.Optional;
   import java.util.ResourceBundle;
 
 public class Court1Controller implements Initializable {
 
   @FXML
-  private ChoiceBox<String> dayOfWeek;
-
-  @FXML
-  private ChoiceBox<Integer> numOfGuests;
-
-  @FXML
-  private ChoiceBox<String> timeOfDay;
-
-  @FXML
   private TableView<Person> courtDisplay;
-
-  @FXML
-  private Text courtNum;
-
   @FXML
   private TableColumn<Person, String> status;
-
   @FXML
   private TableColumn<Person, String> dayAndTime;
-
   @FXML
   private TableColumn<Person, Button> reserve;
-
-  ObservableList guest = FXCollections.observableArrayList();
+  @FXML
+  private TableColumn<Person, ChoiceBox> guests;
 
   Calendar rightNow = Calendar.getInstance();
   int hour = rightNow.get(Calendar.HOUR_OF_DAY);
   int minute = rightNow.get(Calendar.MINUTE);
 
   ObservableList<Person> list = FXCollections.observableArrayList();
-
   Person person;
 
   @Override
   public void initialize(URL url, ResourceBundle resourceBundle) {
-    //loadData();
 
     dayAndTime.setCellValueFactory(new PropertyValueFactory<>("date"));
     status.setCellValueFactory(new PropertyValueFactory<>("status"));
     reserve.setCellValueFactory(new PropertyValueFactory<>("reserve"));
+    guests.setCellValueFactory(new PropertyValueFactory<>("guests"));
 
     try (Connection connection = DriverManager.getConnection(Database.url, Database.username, Database.password)) {
 
       PreparedStatement preparedStatement = connection.prepareStatement("select * from court1");
-
       ResultSet resultSet = preparedStatement.executeQuery();
-
-      String dayOfWeek = "";
 
       while (resultSet.next()) {
         int occ = resultSet.getInt("occupied");
         Timestamp t = resultSet.getTimestamp("dayAndTime");
-        //Date d = resultSet.getDate("dayAndTime");
 
         //Convert numbered days to week names
 
         if(occ == 0)
         {
-          person = new Person(t.toString().substring(0, 19), "Available", 1, Database.reservedGuests);
+          person = new Person(t.toString().substring(0, 19), "Available", 1);
         } else {
-          person = new Person(t.toString().substring(0, 19), "Already Taken", 1, Database.reservedGuests);
+          person = new Person(t.toString().substring(0, 19), "Already Taken", 1);
         }
 
         list.add(person);
@@ -94,12 +70,6 @@ public class Court1Controller implements Initializable {
     } catch (SQLException e) {
       throw new RuntimeException(e);
     }
-
-  }
-
-  private void loadData() {
-    guest.addAll(1, 2, 3);
-    numOfGuests.getItems().addAll(guest);
   }
 
   //Used for something
@@ -116,29 +86,6 @@ public class Court1Controller implements Initializable {
     }
 
     return (resHour != hour || minute >= resMin) && hour >= resHour;
-  }
-
-  @FXML
-  void onSubmit(ActionEvent event) throws IOException, SQLException {
-
-    String time = timeOfDay.getValue();
-    int guests = 0;
-
-    if(numOfGuests.getValue() != null)
-    {
-      guests = numOfGuests.getValue();
-    }
-
-    /*
-    if (dayOfWeek.getValue().equals("Today")) {slot = Database.dateTime.format(formatter) + " " + time;}
-    else if (dayOfWeek.equals("Monday")) {slot = Database.nextMonday.format(formatter) + " " + time;}
-    else if (dayOfWeek.getValue().equals("Tuesday")) {slot = Database.nextTuesday.format(formatter) + " " + time;}
-    else if (dayOfWeek.getValue().equals("Wednesday")) {slot = Database.nextWednesday.format(formatter) + " " + time;}
-    else if (dayOfWeek.getValue().equals("Thursday")) {slot = Database.nextThursday.format(formatter) + " " + time;}
-    else if (dayOfWeek.getValue().equals("Friday")) {slot = Database.nextFriday.format(formatter) + " " + time;}
-    else if (dayOfWeek.getValue().equals("Saturday")) {slot = Database.nextSaturday.format(formatter) + " " + time;}
-    else if (dayOfWeek.getValue().equals("Sunday")) {slot = Database.nextSunday.format(formatter) + " " + time;}
-    */
   }
 
   @FXML

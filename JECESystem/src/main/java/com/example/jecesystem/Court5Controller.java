@@ -52,6 +52,10 @@ public class Court5Controller implements Initializable {
 
   ObservableList<Person> list = FXCollections.observableArrayList();
 
+  @FXML
+  private TableColumn<Person, ChoiceBox> guests;
+
+
   Person person;
 
   @Override
@@ -61,6 +65,7 @@ public class Court5Controller implements Initializable {
     dayAndTime.setCellValueFactory(new PropertyValueFactory<>("date"));
     status.setCellValueFactory(new PropertyValueFactory<>("status"));
     reserve.setCellValueFactory(new PropertyValueFactory<>("reserve"));
+    guests.setCellValueFactory(new PropertyValueFactory<>("guests"));
 
     try (Connection connection = DriverManager.getConnection(Database.url, Database.username, Database.password)) {
 
@@ -79,9 +84,9 @@ public class Court5Controller implements Initializable {
 
         if(occ == 0)
         {
-          person = new Person(t.toString().substring(0, 19), "Available", 5, Database.reservedGuests);
+          person = new Person(t.toString().substring(0, 19), "Available", 5);
         } else {
-          person = new Person(t.toString().substring(0, 19), "Already Taken", 5, Database.reservedGuests);
+          person = new Person(t.toString().substring(0, 19), "Already Taken", 5);
         }
 
         list.add(person);

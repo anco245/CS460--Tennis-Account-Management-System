@@ -20,7 +20,9 @@ public class App extends Application {
     {
       Database.populateCourts();
     } else if (!Database.isUpdated()){
-      Database.updateCourts();
+      System.out.println(!Database.isUpdated());
+
+      //Database.updateCourts();
     }
 
     scene = new Scene(loadFXML("login"), 1280, 720);

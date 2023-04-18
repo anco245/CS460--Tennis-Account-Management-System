@@ -1,9 +1,12 @@
 package com.example.jecesystem;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.geometry.Pos;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
+import javafx.scene.control.ChoiceBox;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -17,6 +20,8 @@ public class Person {
   Button reject = new Button();
   Button cancel = new Button();
   Button reserve = new Button();
+
+  ChoiceBox guests = new ChoiceBox();
 
   String userName = "";
   String userAddress = "";
@@ -35,9 +40,14 @@ public class Person {
   int userCourt = 1;
   String date = "";
 
-  int numOfGuest = 0;
-
   Alert error = new Alert(Alert.AlertType.ERROR);
+
+  ObservableList guest = FXCollections.observableArrayList();
+
+  public void loadData() {
+    guest.addAll(1, 2, 3);
+    guests.getItems().addAll(guest);
+  }
 
   public Person(String name, int age, String address, String phone, String email) {
     this.userName = name;
@@ -47,17 +57,20 @@ public class Person {
     this.userEmail = email;
   }
 
-  public Person(String slot, String s, int c, int g) {
+  public Person(String slot, String s, int c) {
+
+    loadData();
 
     this.date = slot;
     this.status = s;
     this.userCourt = c;
-    this.numOfGuest = g;
 
     String cNumber = "court" + c;
     reserve.setPrefWidth(80.0);
     this.reserve.setOnAction(e -> {
       try {
+
+        System.out.println(guests.getValue());
         if (Database.sameTimeOtherCourt(Database.memberUser, slot, cNumber)) {
           error.setTitle("Error");
           error.setContentText("You've already reserved another court at this time");
@@ -77,7 +90,7 @@ public class Person {
 
           Optional<ButtonType> result = Database.con.showAndWait();
           if (result.isPresent() && result.get() == ButtonType.OK) {
-            Database.makeRes(cNumber, Database.memberUser, date, 1);
+            Database.makeRes(cNumber, Database.memberUser, date, 1 + Integer.parseInt(guests.getValue().toString()));
             try {
               App.setRoot(cNumber);
             } catch (IOException ex) {
@@ -187,6 +200,9 @@ public class Person {
       }
     });
   }
+
+  public void setGuests(ChoiceBox g) {guests = g;}
+  public ChoiceBox getGuests() {return guests;}
 
   public void setStatus(String s) {status = s;}
   public String getStatus() {return status;}

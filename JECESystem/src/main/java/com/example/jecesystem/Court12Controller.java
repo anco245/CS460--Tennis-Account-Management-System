@@ -54,6 +54,9 @@ public class Court12Controller implements Initializable {
 
   Person person;
 
+  @FXML
+  private TableColumn<Person, ChoiceBox> guests;
+
   @Override
   public void initialize(URL url, ResourceBundle resourceBundle) {
     //loadData();
@@ -61,6 +64,7 @@ public class Court12Controller implements Initializable {
     dayAndTime.setCellValueFactory(new PropertyValueFactory<>("date"));
     status.setCellValueFactory(new PropertyValueFactory<>("status"));
     reserve.setCellValueFactory(new PropertyValueFactory<>("reserve"));
+    guests.setCellValueFactory(new PropertyValueFactory<>("guests"));
 
     try (Connection connection = DriverManager.getConnection(Database.url, Database.username, Database.password)) {
 
@@ -79,9 +83,9 @@ public class Court12Controller implements Initializable {
 
         if(occ == 0)
         {
-          person = new Person(t.toString().substring(0, 19), "Available", 12, Database.reservedGuests);
+          person = new Person(t.toString().substring(0, 19), "Available", 12);
         } else {
-          person = new Person(t.toString().substring(0, 19), "Already Taken", 12, Database.reservedGuests);
+          person = new Person(t.toString().substring(0, 19), "Already Taken", 12);
         }
 
         list.add(person);
