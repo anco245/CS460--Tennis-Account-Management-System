@@ -30,9 +30,10 @@ public class Court2Controller implements Initializable {
   @FXML
   private TableColumn<Person, ChoiceBox> guests;
   @FXML
+  private TableColumn<Person, ChoiceBox> singleDouble;
+  @FXML
   private Text courtNum;
 
-  Calendar rightNow = Calendar.getInstance();
   ObservableList<Person> list = FXCollections.observableArrayList();
   Person person;
 
@@ -45,6 +46,7 @@ public class Court2Controller implements Initializable {
     status.setCellValueFactory(new PropertyValueFactory<>("status"));
     reserve.setCellValueFactory(new PropertyValueFactory<>("reserve"));
     guests.setCellValueFactory(new PropertyValueFactory<>("guests"));
+    singleDouble.setCellValueFactory(new PropertyValueFactory<>("singleDouble"));
 
     try (Connection connection = DriverManager.getConnection(Database.url, Database.username, Database.password)) {
 

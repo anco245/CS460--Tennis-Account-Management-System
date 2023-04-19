@@ -11,6 +11,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.TemporalAdjusters;
 import java.util.Arrays;
+import java.util.Calendar;
 
 public class Database {
   static DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
@@ -257,6 +258,32 @@ public class Database {
     } catch (SQLException e) {
       throw new IllegalStateException("Cannot connect to the database!", e);
     }
+  }
+
+  public static boolean hasPassed(String slot) {
+    Calendar rightNow = Calendar.getInstance();
+    int hour = rightNow.get(Calendar.HOUR_OF_DAY);
+    int minute = rightNow.get(Calendar.MINUTE);
+
+    String day = slot.substring(0, 10);
+    String time = slot.substring(11, slot.length() - 1);
+
+    int resMin = Integer.parseInt(time.substring(3, 5));
+    int resHour;
+
+    if(day.equals(formatDay))
+    {
+      if(time.charAt(0) == '0')
+      {
+        resHour = Integer.parseInt(time.substring(1, 2));
+      } else {
+        resHour = Integer.parseInt(time.substring(0, 2));
+      }
+    } else {
+      return false;
+    }
+
+    return (resHour != hour || minute >= resMin) && hour >= resHour;
   }
 
   public static boolean isUpdated() {

@@ -16,13 +16,12 @@ public class App extends Application {
   public void start(Stage stage) throws IOException {
     //checks to see if the court tables have been populated or not
     //if not, days monday - sunday from times 9-630 are inserted
+
     if(!Database.beenPopulated())
     {
       Database.populateCourts();
     } else if (!Database.isUpdated()){
-      System.out.println(!Database.isUpdated());
-
-      //Database.updateCourts();
+      Database.updateCourts();
     }
 
     scene = new Scene(loadFXML("login"), 1280, 720);

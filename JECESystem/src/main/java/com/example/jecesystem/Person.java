@@ -2,12 +2,10 @@ package com.example.jecesystem;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.geometry.Pos;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.ChoiceBox;
-
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.Optional;
@@ -23,6 +21,8 @@ public class Person {
 
   ChoiceBox guests = new ChoiceBox();
 
+  ChoiceBox singleDouble = new ChoiceBox();
+
   String userName = "";
   String userAddress = "";
   String userPhone = "";
@@ -36,17 +36,21 @@ public class Person {
   int userAge = 0;
   int owe = 0;
   String status = "";
-
   int userCourt = 1;
   String date = "";
+
 
   Alert error = new Alert(Alert.AlertType.ERROR);
 
   ObservableList guest = FXCollections.observableArrayList();
+  ObservableList sd = FXCollections.observableArrayList();
 
   public void loadData() {
     guest.addAll(1, 2, 3);
     guests.getItems().addAll(guest);
+
+    sd.addAll("Single", "Double");
+    singleDouble.getItems().addAll(sd);
   }
 
   public Person(String name, int age, String address, String phone, String email) {
@@ -67,10 +71,9 @@ public class Person {
 
     String cNumber = "court" + c;
     reserve.setPrefWidth(80.0);
+
     this.reserve.setOnAction(e -> {
       try {
-
-        System.out.println(guests.getValue());
         if (Database.sameTimeOtherCourt(Database.memberUser, slot, cNumber)) {
           error.setTitle("Error");
           error.setContentText("You've already reserved another court at this time");
@@ -79,18 +82,58 @@ public class Person {
           error.setTitle("Error");
           error.setContentText("You can only reserve 2 courts for any day.\nTry another day.");
           error.showAndWait();
+        } else if (Database.hasPassed(slot)) {
+          error.setTitle("Error");
+          error.setContentText("That time slot has already passed.\nTry another.");
+          error.showAndWait();
         } else if (Database.available(cNumber, slot)) {
           error.setTitle("Error");
           error.setContentText("That timeslot is not available.\nTry another.");
           error.showAndWait();
+        } else if (guests.getValue() != null && singleDouble == null) {
+          error.setTitle("Error");
+          error.setContentText("You need to pick either single or double.");
+          error.showAndWait();
+        } else if (guests.getValue() != null && singleDouble != null &&
+                  singleDouble.getValue().toString().equals("Double") &&
+                  Integer.parseInt(guests.getValue().toString()) == 1) {
+          error.setTitle("Error");
+          error.setContentText("Not enough players for double");
+          error.showAndWait();
         } else {
           Database.con.setTitle("Confirm");
-          Database.con.setContentText("You will be reserving a timeslot for Court " + c + " at\n" + slot +
-            "\n Press ok to continue.");
+
+          if(singleDouble.getValue() != null)
+          {
+            if(guests.getValue() != null)
+            {
+              Database.con.setContentText("You will be reserving a " + singleDouble.getValue().toString()
+                + " game for Court " + c + " at\n" + slot +
+                "\nYou'll be bringing " + guests.getValue() + " guests, which will cost $" +
+                Integer.parseInt(guests.getValue().toString()) * 10 +
+                "\nPress ok to continue.");
+            } else {
+              Database.con.setContentText("You will be reserving a " + singleDouble.getValue().toString()
+                + " game for Court " + c + " at\n" + slot +
+                "\nPress ok to continue.");
+            }
+          } else {
+            Database.con.setContentText("You will be reserving a timeslot for Court " + c + " at\n" + slot +
+              "\nPress ok to continue.");
+          }
 
           Optional<ButtonType> result = Database.con.showAndWait();
           if (result.isPresent() && result.get() == ButtonType.OK) {
-            Database.makeRes(cNumber, Database.memberUser, date, 1 + Integer.parseInt(guests.getValue().toString()));
+
+            if(guests.getValue() != null)
+            {
+              Database.addSubGuests(Integer.parseInt(guests.getValue().toString()));
+              Database.addSubOwe(Database.memberUser, Integer.parseInt(guests.getValue().toString()) * 10);
+              Database.makeRes(cNumber, Database.memberUser, date, 1 + Integer.parseInt(guests.getValue().toString()));
+            } else {
+              Database.makeRes(cNumber, Database.memberUser, date, 1);
+            }
+
             try {
               App.setRoot(cNumber);
             } catch (IOException ex) {
@@ -103,16 +146,7 @@ public class Person {
       } catch (SQLException ex) {
         throw new RuntimeException(ex);
       }
-
     });
-
-    /*
-     else if (dayOfWeek.getValue().equals("Today") && isToday(time) ) {
-      error.setTitle("Error");
-      error.setContentText("That time slot has already passed.\nTry another.");
-      error.showAndWait();
-    }
-    */
   }
 
   public Person(int court, String dateTime) {
@@ -203,6 +237,9 @@ public class Person {
 
   public void setGuests(ChoiceBox g) {guests = g;}
   public ChoiceBox getGuests() {return guests;}
+
+  public void setSingleDouble(ChoiceBox x) {singleDouble = x;}
+  public ChoiceBox getSingleDouble() {return singleDouble;}
 
   public void setStatus(String s) {status = s;}
   public String getStatus() {return status;}

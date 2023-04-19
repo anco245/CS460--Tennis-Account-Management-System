@@ -14,7 +14,6 @@ import javafx.scene.text.Text;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.*;
-import java.util.Calendar;
 import java.util.ResourceBundle;
 
 public class Court12Controller implements Initializable {
@@ -28,9 +27,11 @@ public class Court12Controller implements Initializable {
   @FXML
   private TableColumn<Person, String> dayAndTime;
   @FXML
-  private Text courtNum;
-  @FXML
   private TableColumn<Person, ChoiceBox> guests;
+  @FXML
+  private TableColumn<Person, ChoiceBox> singleDouble;
+  @FXML
+  private Text courtNum;
 
   ObservableList<Person> list = FXCollections.observableArrayList();
   Person person;
@@ -44,6 +45,7 @@ public class Court12Controller implements Initializable {
     status.setCellValueFactory(new PropertyValueFactory<>("status"));
     reserve.setCellValueFactory(new PropertyValueFactory<>("reserve"));
     guests.setCellValueFactory(new PropertyValueFactory<>("guests"));
+    singleDouble.setCellValueFactory(new PropertyValueFactory<>("singleDouble"));
 
     try (Connection connection = DriverManager.getConnection(Database.url, Database.username, Database.password)) {
 

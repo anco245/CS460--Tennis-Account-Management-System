@@ -21,12 +21,13 @@
     <Button layoutX="149.4" layoutY="14.0" mnemonicParsing="false" onAction="#switchToCourt2" text="Court 2" />
     <Button layoutX="1176.4" layoutY="14.0" mnemonicParsing="false" onAction="#switchToCourt12" text="Court 12" />
     <Button layoutX="971" layoutY="14.0" mnemonicParsing="false" onAction="#switchToCourt10" prefHeight="25.0" prefWidth="62.0" text="Court 10" />
-    <TableView fx:id="courtDisplay" layoutX="455.0" layoutY="112.0" prefHeight="538.0" prefWidth="397.0">
+    <TableView fx:id="courtDisplay" layoutX="455.0" layoutY="112.0" prefHeight="538.0" prefWidth="549.0">
       <columns>
-        <TableColumn fx:id="dayAndTime" prefWidth="100.0" text="Day and Tme" />
-        <TableColumn fx:id="status" minWidth="0.0" prefWidth="100.0" text="Status" />
-        <TableColumn fx:id="reserve" prefWidth="100.0" text="Reserve" />
-        <TableColumn fx:id="guests" prefWidth="100.0" text="Guests" />
+        <TableColumn fx:id="dayAndTime" prefWidth="132.0" text="Day and Tme" />
+        <TableColumn fx:id="status" minWidth="0.0" prefWidth="125.0" text="Status" />
+        <TableColumn fx:id="singleDouble" prefWidth="111.0" text="Single / Double" />
+        <TableColumn fx:id="reserve" prefWidth="110.0" text="Reserve" />
+        <TableColumn fx:id="guests" prefWidth="70.0" text="Guests" />
       </columns>
     </TableView>
     <Text fx:id="courtNum" layoutX="917.0" layoutY="233.0" strokeType="OUTSIDE" strokeWidth="0.0">
