@@ -24,11 +24,14 @@ public class AddPayController implements Initializable {
 
   @Override
   public void initialize(URL url, ResourceBundle resourceBundle) {
+
+    String str = "Amount owed: " + Database.owe;
+
     if(!Database.hasBankAccount(Database.memberUser))
     {
-      bankInfo.setText("You haven't added a bank yet");
+      bankInfo.setText(str + "\n\nYou haven't added a bank yet");
     } else {
-      bankInfo.setText("");
+      bankInfo.setText(str);
       //String str = Database.getBankInfo();
       //bankInfo.setText(str);
     }

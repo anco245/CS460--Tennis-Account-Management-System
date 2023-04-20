@@ -15,7 +15,6 @@ public class AddSubController {
 
   @FXML
   private TextField amtField;
-
   @FXML
   private TextField userField;
 

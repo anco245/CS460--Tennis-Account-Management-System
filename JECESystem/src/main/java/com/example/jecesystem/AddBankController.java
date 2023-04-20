@@ -7,7 +7,6 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import java.io.IOException;
 import java.net.URL;
@@ -43,7 +42,6 @@ public class AddBankController implements Initializable {
       String ssn = ssnField.getText();
       String cos = typeAccount.getValue();
 
-      System.out.println("about to add to bank database");
       Database.addBank(Database.memberUser, bank, accountNum, ssn, cos);
 
       info.setTitle("Success");
