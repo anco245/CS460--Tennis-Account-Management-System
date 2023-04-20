@@ -12,6 +12,9 @@ import java.util.Optional;
 
 public class Person {
 
+  Alert error = new Alert(Alert.AlertType.ERROR);
+  Alert con = new Alert(Alert.AlertType.CONFIRMATION);
+
   Button notify = new Button();
   Button denotify = new Button();
   Button approve = new Button();
@@ -38,9 +41,6 @@ public class Person {
   String status = "";
   int userCourt = 1;
   String date = "";
-
-
-  Alert error = new Alert(Alert.AlertType.ERROR);
 
   ObservableList guest = FXCollections.observableArrayList();
   ObservableList sd = FXCollections.observableArrayList();
@@ -101,28 +101,28 @@ public class Person {
           error.setContentText("Not enough players for double");
           error.showAndWait();
         } else {
-          Database.con.setTitle("Confirm");
+          con.setTitle("Confirm");
 
           if(singleDouble.getValue() != null)
           {
             if(guests.getValue() != null)
             {
-              Database.con.setContentText("You will be reserving a " + singleDouble.getValue().toString()
+              con.setContentText("You will be reserving a " + singleDouble.getValue().toString()
                 + " game for Court " + c + " at\n" + slot +
                 "\nYou'll be bringing " + guests.getValue() + " guests, which will cost $" +
                 Integer.parseInt(guests.getValue().toString()) * 10 +
                 "\nPress ok to continue.");
             } else {
-              Database.con.setContentText("You will be reserving a " + singleDouble.getValue().toString()
+              con.setContentText("You will be reserving a " + singleDouble.getValue().toString()
                 + " game for Court " + c + " at\n" + slot +
                 "\nPress ok to continue.");
             }
           } else {
-            Database.con.setContentText("You will be reserving a timeslot for Court " + c + " at\n" + slot +
+            con.setContentText("You will be reserving a timeslot for Court " + c + " at\n" + slot +
               "\nPress ok to continue.");
           }
 
-          Optional<ButtonType> result = Database.con.showAndWait();
+          Optional<ButtonType> result = con.showAndWait();
           if (result.isPresent() && result.get() == ButtonType.OK) {
 
             if(guests.getValue() != null)
@@ -142,7 +142,7 @@ public class Person {
           }
         }
       } catch (RuntimeException ex) {
-        throw ex;
+
       } catch (SQLException ex) {
         throw new RuntimeException(ex);
       }

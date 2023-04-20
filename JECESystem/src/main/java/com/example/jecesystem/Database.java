@@ -1,7 +1,5 @@
 package com.example.jecesystem;
 
-import javafx.scene.control.Alert;
-
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
@@ -14,12 +12,11 @@ import java.util.Arrays;
 import java.util.Calendar;
 
 public class Database {
-  static DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
   //Variables needed for accessing the database
-  public static String username = "root";
-  public static String password = "sqlpass";
-  public static String url = "jdbc:mysql://localhost:3306/courtsystem";
+  static String username = "root";
+  static String password = "sqlpass";
+  static String url = "jdbc:mysql://localhost:3306/courtsystem";
 
   //To hold current user's information
   public static String fName = "";
@@ -31,8 +28,8 @@ public class Database {
   public static String email = "";
   public static String memberUser = "";
   public static String memberPass = "";
-  public static boolean isShown = false;
-  public static boolean verified = false;
+  static boolean isShown = false;
+  static boolean verified = false;
   public static boolean isLate = false;
   public static int owe = 0;
   public static int guests = 0;
@@ -41,36 +38,32 @@ public class Database {
   public static boolean keepConfirm = false;
   public static int monthly = 0;
 
-  public static int reservedGuests = 0;
+  static DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
-  public static String[] full = new String[160];
+  static String[] full = new String[160];
 
   static String[] times = {"09:00:00", "09:30:00", "10:00:00", "10:30:00", "11:00:00", "11:30:00",
                            "12:00:00", "12:30:00", "13:00:00", "13:30:00", "14:00:00", "14:30:00",
                             "15:00:00", "15:30:00", "16:00:00", "16:30:00", "17:00:00", "17:30:00",
                            "18:00:00", "18:30:00"};
 
-  public static LocalDateTime dateTime = LocalDateTime.now();
-  public static LocalDateTime nextMonday = dateTime.with(TemporalAdjusters.next(DayOfWeek.MONDAY));
-  public static LocalDateTime nextTuesday = dateTime.with(TemporalAdjusters.next(DayOfWeek.TUESDAY));
-  public static LocalDateTime nextWednesday = dateTime.with(TemporalAdjusters.next(DayOfWeek.WEDNESDAY));
-  public static LocalDateTime nextThursday = dateTime.with(TemporalAdjusters.next(DayOfWeek.THURSDAY));
-  public static LocalDateTime nextFriday = dateTime.with(TemporalAdjusters.next(DayOfWeek.FRIDAY));
-  public static LocalDateTime nextSaturday = dateTime.with(TemporalAdjusters.next(DayOfWeek.SATURDAY));
-  public static LocalDateTime nextSunday = dateTime.with(TemporalAdjusters.next(DayOfWeek.SUNDAY));
+  static LocalDateTime dateTime = LocalDateTime.now();
+  static LocalDateTime nextMonday = dateTime.with(TemporalAdjusters.next(DayOfWeek.MONDAY));
+  static LocalDateTime nextTuesday = dateTime.with(TemporalAdjusters.next(DayOfWeek.TUESDAY));
+  static LocalDateTime nextWednesday = dateTime.with(TemporalAdjusters.next(DayOfWeek.WEDNESDAY));
+  static LocalDateTime nextThursday = dateTime.with(TemporalAdjusters.next(DayOfWeek.THURSDAY));
+  static LocalDateTime nextFriday = dateTime.with(TemporalAdjusters.next(DayOfWeek.FRIDAY));
+  static LocalDateTime nextSaturday = dateTime.with(TemporalAdjusters.next(DayOfWeek.SATURDAY));
+  static LocalDateTime nextSunday = dateTime.with(TemporalAdjusters.next(DayOfWeek.SUNDAY));
 
-  public static String formatMon = nextMonday.format(formatter);
-  public static String formatTues = nextTuesday.format(formatter);
-  public static String formatWed = nextWednesday.format(formatter);
-  public static String formatThur = nextThursday.format(formatter);
-  public static String formatFri = nextFriday.format(formatter);
-  public static String formatSat = nextSaturday.format(formatter);
-  public static String formatSun = nextSunday.format(formatter);
-  public static String formatDay = dateTime.format(formatter);
-
-  public static Alert info = new Alert(Alert.AlertType.INFORMATION);
-  public static Alert error = new Alert(Alert.AlertType.ERROR);
-  public static Alert con = new Alert(Alert.AlertType.CONFIRMATION);
+  static String formatMon = nextMonday.format(formatter);
+  static String formatTues = nextTuesday.format(formatter);
+  static String formatWed = nextWednesday.format(formatter);
+  static String formatThur = nextThursday.format(formatter);
+  static String formatFri = nextFriday.format(formatter);
+  static String formatSat = nextSaturday.format(formatter);
+  static String formatSun = nextSunday.format(formatter);
+  static String formatDay = dateTime.format(formatter);
 
 
   //Removes people from directory who opted to
@@ -230,7 +223,7 @@ public class Database {
       PreparedStatement preparedStatement =
         connection.prepareStatement("UPDATE directory SET keepAccount = ? WHERE username = ?");
 
-      if(user == memberUser)
+      if(user.equals(memberUser))
       {
         keep = b;
       }
@@ -380,6 +373,74 @@ public class Database {
 
       preparedStatement.close();
       resultSet.close();
+    } catch (SQLException e) {
+      throw new IllegalStateException("Cannot connect to the database!", e);
+    }
+  }
+
+  public static boolean deleteBank(String user)
+  {
+    try (Connection connection = DriverManager.getConnection(url, username, password)) {
+      PreparedStatement preparedStatement =
+        connection.prepareStatement("DELETE * from bank where username = ?");
+
+      preparedStatement.setString(1, user);
+      preparedStatement.setString(1, user);
+      preparedStatement.close();
+
+      return false;
+    } catch (SQLException e) {
+      throw new IllegalStateException("Cannot connect to the database!", e);
+    }
+  }
+
+  public static boolean addBank(String user, String bankName, String accNum, String social, String typeAcc)
+  {
+    try (Connection connection = DriverManager.getConnection(url, username, password)) {
+      PreparedStatement preparedStatement =
+        connection.prepareStatement("INSERT INTO bank VALUES (?, ?, ?, ?, ?)");
+
+      preparedStatement.setString(1, user);
+      preparedStatement.setString(2, bankName);
+      preparedStatement.setString(3, accNum);
+      preparedStatement.setString(4, social);
+      preparedStatement.setString(5, typeAcc);
+
+      preparedStatement.executeUpdate();
+
+      preparedStatement.close();
+
+      return false;
+    } catch (SQLException e) {
+      throw new IllegalStateException("Cannot connect to the database!", e);
+    }
+  }
+
+  public static boolean hasBankAccount(String user)
+  {
+    try (Connection connection = DriverManager.getConnection(url, username, password)) {
+      PreparedStatement preparedStatement =
+        connection.prepareStatement("select count(*) from bank where username = ?");
+
+      preparedStatement.setString(1, user);
+      ResultSet rs = preparedStatement.executeQuery();
+
+      boolean x = false;
+
+      while(rs.next()) {
+        x = rs.getInt("count(*)") != 0;
+      }
+
+      preparedStatement.close();
+
+      if(x)
+      {
+        System.out.println("Already has account");
+      } else {
+        System.out.println("Doesn't have account");
+      }
+
+      return x;
     } catch (SQLException e) {
       throw new IllegalStateException("Cannot connect to the database!", e);
     }

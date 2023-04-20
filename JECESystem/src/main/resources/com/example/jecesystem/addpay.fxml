@@ -1,24 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 
 <AnchorPane prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.jecesystem.AddPayController">
    <children>
       <Button layoutX="52.0" layoutY="658.0" mnemonicParsing="false" onAction="#switchToHome" text="Back to Homscreen" />
-      <TextField fx:id="numberField" layoutX="162.0" layoutY="179.0" />
-      <Label layoutX="171.0" layoutY="143.0" text="Account Number" />
-      <Label layoutX="426.0" layoutY="152.0" text="Amount to Withdrawal" />
-      <Label layoutX="162.0" layoutY="249.0" text="Name of Bank" />
-      <TextField fx:id="amtWithdrawalField" layoutX="416.0" layoutY="179.0" />
-      <TextField fx:id="bankNameField" layoutX="162.0" layoutY="272.0" />
-      <TextField fx:id="ssnField" layoutX="157.0" layoutY="381.0" />
-      <Label layoutX="157.0" layoutY="352.0" text="Social Security Number" />
-      <ChoiceBox fx:id="typeAccount" layoutX="416.0" layoutY="272.0" prefWidth="150.0" />
-      <Label layoutX="426.0" layoutY="249.0" text="Type of Account" />
-      <Button layoutX="416.0" layoutY="369.0" mnemonicParsing="false" onAction="#onSubmit" text="Submit" />
+      <TextField fx:id="amount" layoutX="187.0" layoutY="300.0" />
+      <Label layoutX="199.0" layoutY="266.0" text="Amount to Deduct" />
+      <TextArea fx:id="bankInfo" layoutX="584.0" layoutY="160.0" prefHeight="388.0" prefWidth="411.0" />
+      <Label layoutX="655.0" layoutY="107.0" prefHeight="17.0" prefWidth="58.0" text="Bank Info" />
+      <Button layoutX="223.0" layoutY="402.0" mnemonicParsing="false" onAction="#onSubmit" text="Submit" />
+      <Button layoutX="595.0" layoutY="565.0" mnemonicParsing="false" onAction="#removeBank" text="Remove Bank" />
+      <Button layoutX="595.0" layoutY="611.0" mnemonicParsing="false" onAction="#switchToAddBank" text="Add Bank" />
    </children>
 </AnchorPane>

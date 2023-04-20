@@ -10,6 +10,8 @@ import java.io.IOException;
 import java.util.Optional;
 
 public class AddSubController {
+  Alert error = new Alert(Alert.AlertType.ERROR);
+  Alert con = new Alert(Alert.AlertType.CONFIRMATION);
 
   @FXML
   private TextField amtField;
@@ -21,27 +23,27 @@ public class AddSubController {
   void onSubmit(ActionEvent event) {
       if(amtField == null || userField == null)
       {
-        Database.error.setTitle("Error");
-        Database.error.setContentText("One or both of the textfields are blank.");
-        Database.error.showAndWait();
+        error.setTitle("Error");
+        error.setContentText("One or both of the textfields are blank.");
+        error.showAndWait();
       } else {
         try {
           String user = userField.getText();
           int amt = Integer.parseInt(amtField.getText());
 
-          Database.con.setTitle("Confirmation");
-          Database.con.setContentText("You will be applying $" + amt +  " to " + user + "'s account.\n Press ok to confirm.");
+          con.setTitle("Confirmation");
+          con.setContentText("You will be applying $" + amt +  " to " + user + "'s account.\n Press ok to confirm.");
 
-          Optional<ButtonType> result = Database.con.showAndWait();
+          Optional<ButtonType> result = con.showAndWait();
           if (result.isPresent() && result.get() == ButtonType.OK) {
             Database.addSubOwe(user, amt);
 
             App.setRoot("addsub");
           }
         } catch (Exception e) {
-          Database.error.setTitle("Error");
-          Database.error.setContentText("You may not have entered something in the right format.\nTry again.");
-          Database.error.showAndWait();
+          error.setTitle("Error");
+          error.setContentText("You may not have entered something in the right format.\nTry again.");
+          error.showAndWait();
         }
       }
   }

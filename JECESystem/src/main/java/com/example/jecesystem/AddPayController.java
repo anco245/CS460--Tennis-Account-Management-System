@@ -1,68 +1,81 @@
 package com.example.jecesystem;
 
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
-import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.Alert;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
-
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
 public class AddPayController implements Initializable {
 
-  @FXML
-  private TextField amtWithdrawalField;
-  @FXML
-  private TextField bankNameField;
-  @FXML
-  private TextField numberField;
-  @FXML
-  private TextField ssnField;
+  Alert info = new Alert(Alert.AlertType.INFORMATION);
+  Alert error = new Alert(Alert.AlertType.ERROR);
+  Alert con = new Alert(Alert.AlertType.CONFIRMATION);
 
   @FXML
-  private ChoiceBox<String> typeAccount;
+  private TextField amount;
 
-  ObservableList type = FXCollections.observableArrayList();
+  @FXML
+  private TextArea bankInfo;
 
   @Override
   public void initialize(URL url, ResourceBundle resourceBundle) {
-    type.addAll("Checking", "Saving");
-    typeAccount.getItems().addAll(type);
-  }
-
-  @FXML
-  void onSubmit(ActionEvent event) {
-
-    //make new co;imn in directory
-
-    //set late boolean to false
-
-    //if username associated with bank account in table
-    //show pay screen along with bank info . one bank at a time
-    //can remove bank account
-    //display amount owed and enter into textbox how much you want to pay
-    //else show add a bank account screen
-    try{
-      int amt = Integer.parseInt(amtWithdrawalField.getText());
-      String bank = bankNameField.getText();
-      String accountNum = numberField.getText();
-      String ssn = ssnField.getText();
-      String cos = typeAccount.getValue();
-
-      //Database.addBank(Database.memberUser, bank, accountNum, cos, ssn);
-
-    } catch (Exception e) {
-
+    if(!Database.hasBankAccount(Database.memberUser))
+    {
+      bankInfo.setText("You haven't added a bank yet");
+    } else {
+      bankInfo.setText("");
+      //String str = Database.getBankInfo();
+      //bankInfo.setText(str);
     }
   }
 
   @FXML
+  void onSubmit(ActionEvent event) {
+    try {
+
+      if(!Database.hasBankAccount(Database.memberUser))
+      {
+        System.out.println("here");
+        error.setTitle("Error");
+        error.setContentText("You haven't added a bank account yet");
+        error.showAndWait();
+      } else {
+        int amt = Integer.parseInt(amount.getText());
+
+        Database.setLate(Database.memberUser, false);
+        Database.addSubOwe(Database.memberUser, amt*(-1));
+
+        info.setTitle("Success");
+        info.setContentText("You've deducted $" + amt);
+        info.showAndWait();
+
+        App.setRoot("addpay");
+      }
+    } catch (Exception e) {
+      error.setTitle("Error");
+      error.setContentText("An error occurred. Check your inputs and try again.");
+    }
+  }
+
+  @FXML
+  void removeBank(ActionEvent event) throws IOException {
+      //Database.removeBank();
+
+      App.setRoot("addpay");
+  }
+
+  @FXML
+  void switchToAddBank(ActionEvent event) throws IOException {
+      App.setRoot("addbank");
+  }
+
+  @FXML
   void switchToHome(ActionEvent event) throws IOException {
-    App.setRoot("memscreen");
+      App.setRoot("memscreen");
   }
 }
