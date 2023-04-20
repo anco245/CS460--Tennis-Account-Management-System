@@ -24,7 +24,7 @@ public class App extends Application {
       Database.updateCourts();
     }
 
-    scene = new Scene(loadFXML("login"), 1280, 720);
+    scene = new Scene(loadFXML("login"), 1280, 680);
     stage.setScene(scene);
     stage.show();
   }

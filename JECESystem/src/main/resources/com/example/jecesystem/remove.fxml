@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.shape.Rectangle?>
 
-<AnchorPane prefHeight="720.0" prefWidth="1280.0" stylesheets="@theme.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.jecesystem.RemoveController">
+<AnchorPane prefHeight="680.0" prefWidth="1280.0" stylesheets="@theme.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.jecesystem.RemoveController">
    <children>
       <Rectangle arcHeight="40.0" arcWidth="40.0" fill="#d9d9d9" height="200.0" layoutX="401.0" layoutY="27.0" opacity="0.28" stroke="BLACK" strokeType="INSIDE" translateY="160.0" width="500.0">
          <effect>
@@ -17,6 +17,6 @@
       <TextField fx:id="field" layoutX="545.0" layoutY="257.0" />
       <Label layoutX="445.0" layoutY="227.0" text="Enter the Username of the account you want to remove" />
       <Button layoutX="612.0" layoutY="312.0" mnemonicParsing="false" onAction="#onSubmit" text="Submit" />
-      <Button layoutX="46.0" layoutY="668.0" mnemonicParsing="false" onAction="#switchToHomeScreen" text="Back to Homescreen" />
+      <Button layoutX="43.0" layoutY="630.0" mnemonicParsing="false" onAction="#switchToHomeScreen" text="Back to Homescreen" />
    </children>
 </AnchorPane>

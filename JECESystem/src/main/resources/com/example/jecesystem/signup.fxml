@@ -14,14 +14,14 @@
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
-<VBox alignment="CENTER" maxHeight="720.0" maxWidth="1280.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720" prefWidth="1280" spacing="20.0" stylesheets="@theme.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.jecesystem.SignUpController">
+<VBox alignment="CENTER" maxHeight="720.0" maxWidth="1280.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="680.0" prefWidth="1280" spacing="20.0" stylesheets="@theme.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.jecesystem.SignUpController">
     <children>
-      <Rectangle arcHeight="40.0" arcWidth="40.0" fill="#d9d9d9" height="640.0" opacity="0.28" stroke="BLACK" strokeType="INSIDE" translateY="370.0" width="780.0">
+      <Rectangle arcHeight="40.0" arcWidth="40.0" fill="#d9d9d9" height="640.0" opacity="0.28" stroke="BLACK" strokeType="INSIDE" translateY="350.0" width="780.0">
          <effect>
             <InnerShadow />
          </effect>
       </Rectangle>
-      <GridPane minHeight="-Infinity" prefHeight="720.0" prefWidth="1280.0" translateY="-330.0">
+      <GridPane minHeight="-Infinity" prefHeight="680.0" prefWidth="1280.0" translateX="-20.0" translateY="-330.0">
         <columnConstraints>
           <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
           <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />

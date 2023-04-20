@@ -79,7 +79,7 @@ public class InfoController implements Initializable {
     //String str = "$" + Database.owe;
     forOwe.setText("$" + Database.owe);
     //forRes.setText(Database.printReservations(Database.memberUser));
-    forGuest.setText("Current Guest Count: " + Database.guests + "\nYou're allowed " + (6 - Database.guests) + " more guests for the month");
+    forGuest.setText("Current Guest Count: " + Database.guests + "\nYou're allowed " + (6 - Database.guests) + " more \nguests for the month");
 
     disAddress.setText(Database.addr);
     disAge.setText(String.valueOf(Database.age));

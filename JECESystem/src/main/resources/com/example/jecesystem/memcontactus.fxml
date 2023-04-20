@@ -6,9 +6,9 @@
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Text?>
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" stylesheets="@theme.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.jecesystem.ContactUsController">
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="680.0" prefWidth="1280.0" stylesheets="@theme.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.jecesystem.ContactUsController">
   <children>
-      <Rectangle arcHeight="40.0" arcWidth="40.0" fill="#d9d9d9" height="500.0" opacity="0.28" stroke="BLACK" strokeType="INSIDE" translateX="390.0" translateY="100.0" width="500.0">
+      <Rectangle arcHeight="40.0" arcWidth="40.0" fill="#d9d9d9" height="500.0" opacity="0.28" stroke="BLACK" strokeType="INSIDE" translateX="390.0" translateY="90.0" width="500.0">
          <effect>
             <InnerShadow />
          </effect>

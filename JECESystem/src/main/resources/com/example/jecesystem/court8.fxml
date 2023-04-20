@@ -7,9 +7,9 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.jecesystem.Court8Controller">
+<AnchorPane prefHeight="680.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.jecesystem.Court8Controller">
   <children>
-    <Button layoutX="48.0" layoutY="664.0" mnemonicParsing="false" onAction="#switchToHome" text="Back to Homescreen" />
+    <Button layoutX="52.0" layoutY="638.0" mnemonicParsing="false" onAction="#switchToHome" text="Back to Homescreen" />
     <Button layoutX="971.0" layoutY="14.0" mnemonicParsing="false" onAction="#switchToCourt10" text="Court 10" />
     <Button layoutX="868.3" layoutY="14.0" mnemonicParsing="false" onAction="#switchToCourt9" text="Court 9" />
     <Button layoutX="662.9" layoutY="14.0" mnemonicParsing="false" onAction="#switchToCourt7" text="Court 7" />

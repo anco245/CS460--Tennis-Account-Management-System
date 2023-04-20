@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.Button?>
 <?import javafx.scene.effect.InnerShadow?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Text?>
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" stylesheets="@theme.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.jecesystem.ContactUsController">
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="680.0" prefWidth="1280.0" stylesheets="@theme.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.jecesystem.ContactUsController">
   <children>
       <Rectangle arcHeight="40.0" arcWidth="40.0" fill="#d9d9d9" height="500.0" opacity="0.28" stroke="BLACK" strokeType="INSIDE" translateX="390.0" translateY="100.0" width="500.0">
          <effect>
@@ -15,5 +16,6 @@
     <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Phone Number for Main Desk: 215-436-2231" translateX="520.0" translateY="-350.0" wrappingWidth="239.8203125" />
     <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Phone Number for Technical Support: 215-663-2133" translateX="445.0" translateY="-300.0" />
     <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Email for any questions: askquestion@tennis.com" translateX="450.0" translateY="-250.0" />
+      <Button mnemonicParsing="false" text="Back to Home Screen" translateX="50.0" translateY="40.0" />
   </children>
 </VBox>

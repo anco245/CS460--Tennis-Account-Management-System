@@ -684,6 +684,15 @@ public class Database {
           keep = resultSet.getBoolean("keepAccount");
           keepConfirm = resultSet.getBoolean("keepConfirm");
 
+          if(age < 18)
+          {
+            monthly = 250;
+          } else if (age < 65) {
+            monthly = 400;
+          } else {
+            monthly = 300;
+          }
+
           return true;
         }
       }
