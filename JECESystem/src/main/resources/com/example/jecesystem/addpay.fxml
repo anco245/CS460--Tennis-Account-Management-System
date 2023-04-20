@@ -6,20 +6,19 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 
-
 <AnchorPane prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.jecesystem.AddPayController">
    <children>
       <Button layoutX="52.0" layoutY="658.0" mnemonicParsing="false" onAction="#switchToHome" text="Back to Homscreen" />
-      <TextField layoutX="162.0" layoutY="179.0" />
-      <Label layoutX="171.0" layoutY="143.0" text="Bank Account Number" />
-      <Label layoutX="426.0" layoutY="152.0" text="Amount to Withdrawl" />
+      <TextField fx:id="numberField" layoutX="162.0" layoutY="179.0" />
+      <Label layoutX="171.0" layoutY="143.0" text="Account Number" />
+      <Label layoutX="426.0" layoutY="152.0" text="Amount to Withdrawal" />
       <Label layoutX="162.0" layoutY="249.0" text="Name of Bank" />
-      <TextField layoutX="416.0" layoutY="179.0" />
-      <TextField layoutX="162.0" layoutY="272.0" />
-      <TextField layoutX="157.0" layoutY="381.0" />
+      <TextField fx:id="amtWithdrawalField" layoutX="416.0" layoutY="179.0" />
+      <TextField fx:id="bankNameField" layoutX="162.0" layoutY="272.0" />
+      <TextField fx:id="ssnField" layoutX="157.0" layoutY="381.0" />
       <Label layoutX="157.0" layoutY="352.0" text="Social Security Number" />
-      <ChoiceBox layoutX="416.0" layoutY="272.0" prefWidth="150.0" />
+      <ChoiceBox fx:id="typeAccount" layoutX="416.0" layoutY="272.0" prefWidth="150.0" />
       <Label layoutX="426.0" layoutY="249.0" text="Type of Account" />
-      <Button layoutX="416.0" layoutY="369.0" mnemonicParsing="false" text="Submit" />
+      <Button layoutX="416.0" layoutY="369.0" mnemonicParsing="false" onAction="#onSubmit" text="Submit" />
    </children>
 </AnchorPane>

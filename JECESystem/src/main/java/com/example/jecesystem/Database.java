@@ -289,15 +289,27 @@ public class Database {
   public static boolean isUpdated() {
     try (Connection connection = DriverManager.getConnection(url, username, password)) {
 
-      boolean isUp = true;
+      boolean isUp = false;
 
-      String sql = "select count(*) as count from court1 where dayAndTime < NOW()";
+      String sql = "select count(*) as count from court1 where date(dayAndTime) < date(NOW())";
       PreparedStatement preparedStatement = connection.prepareStatement(sql);
 
       ResultSet rs = preparedStatement.executeQuery();
 
       while (rs.next()) {
+        //if 0, is updated
+        //if not 0, not been updated
+
+        System.out.println("Value of count: " + rs.getInt("count"));
+
         isUp = rs.getInt("count") == 0;
+
+        if(isUp)
+        {
+          System.out.println("Is Updated");
+        } else {
+          System.out.println("Is Not Updated");
+        }
       }
 
       preparedStatement.close();
@@ -310,17 +322,13 @@ public class Database {
 
   public static void updateCourts()
   {
-    //need to delete yesterday
-    //need to add next week
-    //if dayAndTime
-
     try (Connection connection = DriverManager.getConnection(url, username, password)) {
 
       for(int i = 1; i < 13; i++)
       {
         String court = "court" + i;
         System.out.println(formatDay);
-        String sql = "delete from " + court + " where dayAndTime < NOW()";
+        String sql = "delete from " + court + " where date(dayAndTime) < date(NOW())";
         PreparedStatement preparedStatement =
           connection.prepareStatement(sql);
         preparedStatement.executeUpdate();

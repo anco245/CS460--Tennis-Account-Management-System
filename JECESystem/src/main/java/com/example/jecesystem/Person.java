@@ -46,7 +46,7 @@ public class Person {
   ObservableList sd = FXCollections.observableArrayList();
 
   public void loadData() {
-    guest.addAll(1, 2, 3);
+    guest.addAll(0, 1, 2, 3);
     guests.getItems().addAll(guest);
 
     sd.addAll("Single", "Double");

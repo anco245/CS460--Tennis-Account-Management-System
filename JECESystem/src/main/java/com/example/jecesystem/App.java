@@ -21,6 +21,8 @@ public class App extends Application {
     {
       Database.populateCourts();
     } else if (!Database.isUpdated()){
+      System.out.println(Database.isUpdated());
+      System.out.println("The database was found to be not updated");
       Database.updateCourts();
     }
 

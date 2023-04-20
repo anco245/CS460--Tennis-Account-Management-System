@@ -57,7 +57,6 @@ public class SignUpController implements Initializable {
   private TextField fieldUser;
   @FXML
   private TextField fieldZipcode;
-
   @FXML
   private CheckBox securitycheck;
 
