@@ -24,8 +24,8 @@
       <TableView fx:id="courtDisplay" layoutX="140.0" layoutY="100.0" prefHeight="477.0" prefWidth="1000.0">
         <columns>
           <TableColumn fx:id="dayAndTime" prefWidth="286.39996337890625" text="Day and Tme" />
-          <TableColumn fx:id="status" minWidth="0.0" prefWidth="91.2000732421875" text="Status" />
-            <TableColumn fx:id="singleDouble" prefWidth="210.4000244140625" text="Single / Double" />
+          <TableColumn fx:id="status" minWidth="0.0" prefWidth="161.0" text="Status" />
+            <TableColumn fx:id="singleDouble" prefWidth="142.0" text="Single / Double" />
           <TableColumn fx:id="reserve" prefWidth="200.79998779296875" text="Reserve" />
           <TableColumn fx:id="guests" prefWidth="212.79998779296875" text="Guests" />
         </columns>
