@@ -4,10 +4,12 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import java.io.IOException;
 import java.net.URL;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class AddPayController implements Initializable {
@@ -25,15 +27,14 @@ public class AddPayController implements Initializable {
   @Override
   public void initialize(URL url, ResourceBundle resourceBundle) {
 
-    String str = "Amount owed: " + Database.owe;
+    String str = "Amount owed: " + Database.owe + "\n\n";
 
     if(!Database.hasBankAccount(Database.memberUser))
     {
-      bankInfo.setText(str + "\n\nYou haven't added a bank yet");
+      bankInfo.setText(str + "You haven't added a bank yet");
     } else {
+      str = str + Database.getBankInfo(Database.memberUser);
       bankInfo.setText(str);
-      //String str = Database.getBankInfo();
-      //bankInfo.setText(str);
     }
   }
 
@@ -43,15 +44,22 @@ public class AddPayController implements Initializable {
 
       if(!Database.hasBankAccount(Database.memberUser))
       {
-        System.out.println("here");
         error.setTitle("Error");
         error.setContentText("You haven't added a bank account yet");
+        error.showAndWait();
+      } else if (amount.getText() == null) {
+        error.setTitle("Error");
+        error.setContentText("You didn't enter an amount.\nTry Again");
+        error.showAndWait();
+      } else if (!amount.getText().matches(".*\\d+.*")) {
+        error.setTitle("Error");
+        error.setContentText("You didn't enter a valid number");
         error.showAndWait();
       } else {
         int amt = Integer.parseInt(amount.getText());
 
         Database.setLate(Database.memberUser, false);
-        Database.addSubOwe(Database.memberUser, amt*(-1));
+        Database.addSubOwe(Database.memberUser, amt * (-1));
 
         info.setTitle("Success");
         info.setContentText("You've deducted $" + amt);
@@ -67,14 +75,29 @@ public class AddPayController implements Initializable {
 
   @FXML
   void removeBank(ActionEvent event) throws IOException {
-      //Database.removeBank();
+      con.setTitle("Confirmation");
+      con.setContentText("Are you sure you want to delete the bank you have?\n" +
+        "Press ok to confirm.");
 
-      App.setRoot("addpay");
+      Optional<ButtonType> result = con.showAndWait();
+      if (result.isPresent() && result.get() == ButtonType.OK) {
+        Database.deleteBank(Database.memberUser);
+        App.setRoot("addpay");
+      }
   }
 
   @FXML
   void switchToAddBank(ActionEvent event) throws IOException {
+
+    if(Database.hasBankAccount(Database.memberUser))
+    {
+      error.setTitle("Error");
+      error.setContentText("You already have a bank account linked.\n" +
+        "If you would like to add a new one, click remove first.");
+      error.showAndWait();
+    } else {
       App.setRoot("addbank");
+    }
   }
 
   @FXML

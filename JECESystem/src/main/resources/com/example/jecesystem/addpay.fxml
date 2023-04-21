@@ -5,13 +5,17 @@
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
 
 <AnchorPane prefHeight="680.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.jecesystem.AddPayController">
    <children>
       <Button layoutX="35.0" layoutY="636.0" mnemonicParsing="false" onAction="#switchToHome" text="Back to Homscreen" />
       <TextField fx:id="amount" layoutX="187.0" layoutY="300.0" />
       <Label layoutX="199.0" layoutY="266.0" text="Amount to Deduct" />
-      <TextArea fx:id="bankInfo" layoutX="584.0" layoutY="160.0" prefHeight="388.0" prefWidth="411.0" />
+      <TextArea fx:id="bankInfo" layoutX="526.0" layoutY="162.0" prefHeight="288.0" prefWidth="428.0">
+         <font>
+            <Font size="20.0" />
+         </font></TextArea>
       <Label layoutX="655.0" layoutY="107.0" prefHeight="17.0" prefWidth="58.0" text="Bank Info" />
       <Button layoutX="223.0" layoutY="402.0" mnemonicParsing="false" onAction="#onSubmit" text="Submit" />
       <Button layoutX="595.0" layoutY="565.0" mnemonicParsing="false" onAction="#removeBank" text="Remove Bank" />

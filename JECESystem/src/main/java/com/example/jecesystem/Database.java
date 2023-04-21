@@ -378,14 +378,48 @@ public class Database {
     }
   }
 
+
+  public static String getBankInfo(String user)
+  {
+    try (Connection connection = DriverManager.getConnection(url, username, password)) {
+      PreparedStatement preparedStatement =
+        connection.prepareStatement("SELECT * from bank where username = ?");
+
+      preparedStatement.setString(1, user);
+
+      ResultSet rs = preparedStatement.executeQuery();
+
+      String bName = "";
+      String aNum = "";
+      String ssn = "";
+      String type = "";
+
+      while(rs.next())
+      {
+        bName = rs.getString("bankName");
+        aNum = rs.getString("accountNum");
+        ssn = rs.getString("ssn");
+        type = rs.getString("accountType");
+      }
+
+      preparedStatement.close();
+
+      return "Name of Bank: " + bName + "\nAccount Number: " + aNum +
+        "\nSocial Security Number: " + ssn + "\nAccount Type: " + type;
+
+    } catch (SQLException e) {
+      throw new IllegalStateException("Cannot connect to the database!", e);
+    }
+  }
+
   public static boolean deleteBank(String user)
   {
     try (Connection connection = DriverManager.getConnection(url, username, password)) {
       PreparedStatement preparedStatement =
-        connection.prepareStatement("DELETE * from bank where username = ?");
+        connection.prepareStatement("DELETE from bank where username = ?");
 
       preparedStatement.setString(1, user);
-      preparedStatement.setString(1, user);
+      preparedStatement.executeUpdate();
       preparedStatement.close();
 
       return false;
@@ -575,7 +609,7 @@ public class Database {
   public static void deleteFromDb(String u, String db) {
     try (Connection connection = DriverManager.getConnection(url, username, password)) {
 
-      String sql = "DELETE FROM " + db + " directory WHERE username = ?";
+      String sql = "DELETE FROM " + db + " WHERE username = ?";
       PreparedStatement preparedStatement =
         connection.prepareStatement(sql);
 
@@ -633,7 +667,6 @@ public class Database {
       preparedStatement.setInt(14, 0);
       preparedStatement.setBoolean(15, true);
       preparedStatement.setBoolean(16, false);
-
 
       //if(coupon) preparedStatement.setInt(12, 500) else preparedStatement.setInt(12, 1000);
 

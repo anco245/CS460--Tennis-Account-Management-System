@@ -15,6 +15,7 @@ import java.util.ResourceBundle;
 public class AddBankController implements Initializable {
 
   Alert info = new Alert(Alert.AlertType.INFORMATION);
+  Alert error = new Alert(Alert.AlertType.ERROR);
 
   @FXML
   private TextField bankNameField;
@@ -36,22 +37,31 @@ public class AddBankController implements Initializable {
 
   @FXML
   void onSubmit(ActionEvent event) {
-    try{
+    try {
       String bank = bankNameField.getText();
       String accountNum = numberField.getText();
       String ssn = ssnField.getText();
       String cos = typeAccount.getValue();
 
-      Database.addBank(Database.memberUser, bank, accountNum, ssn, cos);
+      if(bankNameField.getText() == null || numberField.getText() == null || ssnField.getText() == null
+         || typeAccount.getValue() == null || !ssn.matches("[0-9]{9}"))
+      {
+        error.setTitle("Error");
+        error.setContentText("Something went wrong. Check your inputs and try again.");
+        error.showAndWait();
+      } else {
+        Database.addBank(Database.memberUser, bank, accountNum, ssn, cos);
 
-      info.setTitle("Success");
-      info.setContentText("You've successfully added a bank account");
-      info.showAndWait();
+        info.setTitle("Success");
+        info.setContentText("You've successfully added a bank account");
+        info.showAndWait();
 
-      App.setRoot("addpay");
-
+        App.setRoot("addpay");
+      }
     } catch (Exception e) {
-
+        error.setTitle("Error");
+        error.setContentText("Something went wrong. Check your inputs and try again.");
+        error.showAndWait();
     }
   }
 
