@@ -15,7 +15,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="680.0" prefWidth="1280.0" stylesheets="@theme.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.jecesystem.InfoController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="680.0" prefWidth="1280.0" stylesheets="@theme.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.jecesystem.InfoController">
   <children>
     <GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="680.0" prefWidth="1280.0">
       <columnConstraints>
@@ -46,24 +46,24 @@
                <effect>
                   <InnerShadow />
                </effect></Rectangle>
-        <Label text="Last Name: " translateX="150.0" GridPane.rowIndex="3" />
-        <Label text="Age: " translateX="150.0" GridPane.rowIndex="4" />
-        <Label text="Address: " translateX="150.0" GridPane.rowIndex="5" />
-        <Label text="Phone: " translateX="150.0" GridPane.rowIndex="6" />
-        <Label text="Email: " translateX="150.0" GridPane.rowIndex="7" />
-        <Label text="Username: " translateX="150.0" GridPane.rowIndex="8" />
-        <Label text="Password: " translateX="150.0" GridPane.rowIndex="9" />
+        <Label text="Last Name: " textFill="WHITE" translateX="150.0" GridPane.rowIndex="3" />
+        <Label text="Age: " textFill="WHITE" translateX="150.0" GridPane.rowIndex="4" />
+        <Label text="Address: " textFill="WHITE" translateX="150.0" GridPane.rowIndex="5" />
+        <Label text="Phone: " textFill="WHITE" translateX="150.0" GridPane.rowIndex="6" />
+        <Label text="Email: " textFill="WHITE" translateX="150.0" GridPane.rowIndex="7" />
+        <Label text="Username: " textFill="WHITE" translateX="150.0" GridPane.rowIndex="8" />
+        <Label text="Password: " textFill="WHITE" translateX="150.0" GridPane.rowIndex="9" />
         <Button mnemonicParsing="false" onAction="#switchToHomescreen" text="Back to Homescreen" translateX="175.0" GridPane.rowIndex="12" />
         <Button mnemonicParsing="false" onAction="#cancelMembership" text="Cancel Membership" translateX="80.0" GridPane.columnIndex="2" GridPane.rowIndex="12" />
-        <Label text="Reservation" GridPane.columnIndex="1" GridPane.rowIndex="2">
+        <Label text="Reservation" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="2">
           <font>
             <Font size="22.0" />
           </font></Label>
-        <Label text="Guests" translateX="60.0" GridPane.columnIndex="2" GridPane.rowIndex="4">
+        <Label text="Guests" textFill="WHITE" translateX="60.0" GridPane.columnIndex="2" GridPane.rowIndex="4">
           <font>
             <Font size="22.0" />
           </font></Label>
-        <Label text="First Name: " translateX="150.0" GridPane.rowIndex="2" />
+        <Label text="First Name: " textFill="WHITE" translateX="150.0" GridPane.rowIndex="2" />
         <Text fx:id="disfname" strokeType="OUTSIDE" strokeWidth="0.0" translateX="250.0" GridPane.rowIndex="2" />
         <Text fx:id="dislname" strokeType="OUTSIDE" strokeWidth="0.0" translateX="250.0" GridPane.rowIndex="3" />
         <Text fx:id="disAge" strokeType="OUTSIDE" strokeWidth="0.0" translateX="200.0" GridPane.rowIndex="4" />
@@ -75,7 +75,7 @@
         <Text fx:id="disEmail" strokeType="OUTSIDE" strokeWidth="0.0" translateX="215.0" GridPane.rowIndex="7" />
         <Text fx:id="disUser" strokeType="OUTSIDE" strokeWidth="0.0" translateX="250.0" GridPane.rowIndex="8" />
         <Text fx:id="disPass" strokeType="OUTSIDE" strokeWidth="0.0" translateX="240.0" GridPane.rowIndex="9" />
-        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Amount Due: " GridPane.columnIndex="1" GridPane.rowIndex="10">
+        <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Amount Due: " GridPane.columnIndex="1" GridPane.rowIndex="10">
           <font>
             <Font size="22.0" />
           </font>
