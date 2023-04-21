@@ -16,6 +16,6 @@
     <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Phone Number for Main Desk: 215-436-2231" translateX="520.0" translateY="-350.0" wrappingWidth="239.8203125" />
     <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Phone Number for Technical Support: 215-663-2133" translateX="445.0" translateY="-300.0" />
     <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Email for any questions: askquestion@tennis.com" translateX="450.0" translateY="-250.0" />
-      <Button mnemonicParsing="false" text="Back to Home Screen" translateX="50.0" translateY="40.0" />
+      <Button mnemonicParsing="false" onAction="#switchToLogin" text="Back to Home Screen" translateX="50.0" translateY="40.0" />
   </children>
 </VBox>

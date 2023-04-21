@@ -979,13 +979,12 @@ public class Database {
   {
     try (Connection connection = DriverManager.getConnection(url, username, password)) {
 
-      for(int i = 0; i < 13; i++)
+      for(int i = 1; i < 13; i++)
       {
         String court = "court" + i;
 
         String sql = "SELECT dayAndTime FROM " + court + " WHERE username = ?";
         PreparedStatement p = connection.prepareStatement(sql);
-
         p.setString(1, user);
 
         ResultSet rs = p.executeQuery();
@@ -996,7 +995,6 @@ public class Database {
           cancelReservation(i, date);
         }
 
-        p.executeUpdate();
         p.close();
 
       }
