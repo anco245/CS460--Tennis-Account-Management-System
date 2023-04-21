@@ -61,6 +61,9 @@ public class LoginController implements Initializable {
         } else if (Database.extension.equals("admin.com")) {
           App.setRoot("adminscreen");
         } else {
+
+          //If they haven't paid their annual payment by april 1,
+          //their account is removed.
           LocalDateTime now = LocalDateTime.now();
           if(now.getMonthValue() == 4 && now.getDayOfMonth() == 1) {
             if (Database.isLate) {

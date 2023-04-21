@@ -42,15 +42,14 @@ public class MemController implements Initializable {
       if(Database.isLate)
       {
         Database.addSubOwe(Database.memberUser, Database.monthly + 50);
-      } else {
-        Database.addSubOwe(Database.memberUser, Database.monthly);
-        Database.setLate(Database.memberUser, true);
       }
 
       Database.setGuests(0);
     }
 
-    if (now.getMonthValue() == 1 && now.getDayOfMonth() == 1 && !Database.keepConfirm) {
+    //Keep confirm just allows the "do you want to keep your account" message to appear
+    //once. Otherwise, it'll come up every time they log in on this day
+    if (now.getMonthValue() == 10 && now.getDayOfMonth() == 1 && !Database.keepConfirm) {
 
       con.setTitle("Keep Account");
       con.setContentText("Do you want to keep your Account?\n" +
@@ -87,20 +86,6 @@ public class MemController implements Initializable {
     if (now.getMonthValue() == 1 || now.getMonthValue() == 2) {
       String keepMessage = "Your annual payment is due by March 1st";
       keep.setText(keepMessage);
-    }
-
-    /*
-      If it's march 2nd, and this user still hasn't paid their
-      annual membership, then their account is penalized with a $50
-      late fee in addition to their .
-     */
-    if(now.getMonthValue() == 3 && now.getDayOfMonth() == 2 ||
-        now.getMonthValue() == 1 && now.getDayOfMonth() == 1) {
-      if(Database.isLate && !Database.penalized)
-      {
-        Database.addSubOwe(Database.memberUser, 50);
-        Database.setPenalized(Database.memberUser, true);
-      }
     }
 
     if(Database.isLate) {
