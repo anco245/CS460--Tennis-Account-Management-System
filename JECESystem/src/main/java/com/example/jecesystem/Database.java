@@ -65,9 +65,29 @@ public class Database {
   static String formatSun = nextSunday.format(formatter);
   static String formatDay = dateTime.format(formatter);
 
+  public static void setGuests(int amt) {
+    try (Connection connection = DriverManager.getConnection(url, username, password)) {
 
+      PreparedStatement stmt =
+        connection.prepareStatement("UPDATE directory set guests = ? WHERE username = ?");
+      stmt.setInt(1, amt);
+      stmt.setString(2, memberUser);
+      ResultSet result = stmt.executeQuery();
+
+      int total = 0;
+      while(result.next()) {
+        //total = result.getInt("total");
+      }
+
+      stmt.close();
+      result.close();
+
+    } catch (SQLException e) {
+      throw new IllegalStateException("Cannot connect to the database!", e);
+    }
+  }
   //Removes people from directory who opted to
-  // not keep their account when asked on 1/1
+  //not keep their account when asked on 1/1
   public static void removeNonKeeps() {
     try (Connection connection = DriverManager.getConnection(url, username, password)) {
       PreparedStatement preparedStatement =
@@ -132,6 +152,7 @@ public class Database {
     }
   }
 
+  //Takes user's information in waitlist and adds them to database
   public static void addFromWait() {
     try (Connection connection = DriverManager.getConnection(url, username, password)) {
 
@@ -218,6 +239,8 @@ public class Database {
     }
   }
 
+  //Sets whether the user has opted to keep their account
+  //when asked on 1/1
   public static void setKeep(String user, boolean b) {
     try (Connection connection = DriverManager.getConnection(url, username, password)) {
       PreparedStatement preparedStatement =
@@ -238,6 +261,12 @@ public class Database {
     }
   }
 
+  /*
+      When a member is on their homescreen, it is checked to see if
+      they have late fees on their account when the due date has passed.
+      If so, this Used for determining if when a member is on their homescreen
+
+   */
   public static void setPenalized(String user, boolean b) {
     try (Connection connection = DriverManager.getConnection(url, username, password)) {
       PreparedStatement preparedStatement =
@@ -377,7 +406,6 @@ public class Database {
       throw new IllegalStateException("Cannot connect to the database!", e);
     }
   }
-
 
   public static String getBankInfo(String user)
   {
@@ -735,140 +763,6 @@ public class Database {
       connection.close();
       return false;
 
-    } catch (SQLException e) {
-      throw new IllegalStateException("Cannot connect to the database!", e);
-    }
-  }
-
-  public static void setFirstName(String first) {
-    fName = first;
-
-    try (Connection connection = DriverManager.getConnection(url, username, password)) {
-      PreparedStatement preparedStatement =
-        connection.prepareStatement("UPDATE directory SET firstName = ? WHERE username = ?");
-
-      preparedStatement.setString(1, first);
-      preparedStatement.setString(2, memberUser);
-      preparedStatement.executeUpdate();
-
-      preparedStatement.close();
-    } catch (SQLException e) {
-      throw new IllegalStateException("Cannot connect to the database!", e);
-    }
-  }
-
-  /*
-      Used for if we want to allow the user
-      to change their "shown in directory"
-      status in their info page
-   */
-  public static void changeShown() {
-    try (Connection connection = DriverManager.getConnection(url, username, password)) {
-      PreparedStatement preparedStatement =
-        connection.prepareStatement("UPDATE directory SET shown = ? WHERE username = ?");
-
-      preparedStatement.setBoolean(1, !isShown);
-
-      preparedStatement.setString(2, memberUser);
-      preparedStatement.executeUpdate();
-
-      preparedStatement.close();
-    } catch (SQLException e) {
-      throw new IllegalStateException("Cannot connect to the database!", e);
-    }
-  }
-
-  public static void setLastName(String last) {
-    lName = last;
-
-    try (Connection connection = DriverManager.getConnection(url, username, password)) {
-      PreparedStatement preparedStatement =
-        connection.prepareStatement("UPDATE directory SET lastName = ? WHERE username = ?");
-
-      preparedStatement.setString(1, last);
-      preparedStatement.setString(2, memberUser);
-      preparedStatement.executeUpdate();
-
-      preparedStatement.close();
-    } catch (SQLException e) {
-      throw new IllegalStateException("Cannot connect to the database!", e);
-    }
-  }
-
-  public static void setAddress(String a) {
-    addr = a;
-
-    try (Connection connection = DriverManager.getConnection(url, username, password)) {
-      PreparedStatement preparedStatement =
-        connection.prepareStatement("UPDATE directory address age = ? WHERE username = ?");
-
-      preparedStatement.setString(1, a);
-      preparedStatement.setString(2, memberUser);
-      preparedStatement.executeUpdate();
-
-      preparedStatement.close();
-    } catch (SQLException e) {
-      throw new IllegalStateException("Cannot connect to the database!", e);
-    }
-  }
-
-  public static void setPhone(String p) {
-    phone = p;
-
-    try (Connection connection = DriverManager.getConnection(url, username, password)) {
-      PreparedStatement preparedStatement =
-        connection.prepareStatement("UPDATE directory SET phone = ? WHERE username = ?");
-
-      preparedStatement.setString(1, p);
-      preparedStatement.setString(2, memberUser);
-      preparedStatement.executeUpdate();
-
-      preparedStatement.close();
-    } catch (SQLException e) {
-      throw new IllegalStateException("Cannot connect to the database!", e);
-    }
-  }
-
-  public static void setUser(String u) {
-    memberUser = u;
-
-    try (Connection connection = DriverManager.getConnection(url, username, password)) {
-
-      //For directory database
-      PreparedStatement preparedStatement =
-        connection.prepareStatement("UPDATE directory SET username = ? WHERE username = ?");
-
-      preparedStatement.setString(1, u);
-      preparedStatement.setString(2, memberUser);
-      preparedStatement.executeUpdate();
-      preparedStatement.close();
-      connection.close();
-
-      //For reservation database
-      PreparedStatement preparedStatement2 =
-        connection.prepareStatement("UPDATE reservation SET username = ? WHERE username = ?");
-
-      preparedStatement2.setString(1, u);
-      preparedStatement2.setString(2, memberUser);
-      preparedStatement2.executeUpdate();
-      preparedStatement2.close();
-    } catch (SQLException e) {
-      throw new IllegalStateException("Cannot connect to the database!", e);
-    }
-  }
-
-  public static void setPass(String p) {
-    memberPass = p;
-
-    try (Connection connection = DriverManager.getConnection(url, username, password)) {
-      PreparedStatement preparedStatement =
-        connection.prepareStatement("UPDATE directory SET pword = ? WHERE username = ?");
-
-      preparedStatement.setString(1, p);
-      preparedStatement.setString(2, memberUser);
-      preparedStatement.executeUpdate();
-
-      preparedStatement.close();
     } catch (SQLException e) {
       throw new IllegalStateException("Cannot connect to the database!", e);
     }

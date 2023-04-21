@@ -32,31 +32,22 @@ public class MemController implements Initializable {
   public void initialize(URL url, ResourceBundle rb) {
 
     Alert con = new Alert(Alert.AlertType.CONFIRMATION);
+    LocalDateTime now = LocalDateTime.now();
 
     String welcomeMessage = "Welcome " + Database.fName + " " + Database.lName + "!";
     welcome.setText(welcomeMessage);
-
-    //need to make it so that it adds annual payment to owed
-    //along with 50 every month
-
-    LocalDateTime now = LocalDateTime.now();
-
 
     if(now.getDayOfMonth() == 1)
     {
       if(Database.isLate)
       {
-        Database.addSubOwe(Database.memberUser, Database.monthly);
-      } else {
         Database.addSubOwe(Database.memberUser, Database.monthly + 50);
+      } else {
+        Database.addSubOwe(Database.memberUser, Database.monthly);
+        Database.setLate(Database.memberUser, true);
       }
 
-      Database.guests = 0;
-    }
-
-    if(now.getMonthValue() != 1 && now.getDayOfMonth() != 1)
-    {
-      Database.setConfirm(false);
+      Database.setGuests(0);
     }
 
     if (now.getMonthValue() == 1 && now.getDayOfMonth() == 1 && !Database.keepConfirm) {
@@ -100,13 +91,14 @@ public class MemController implements Initializable {
 
     /*
       If it's march 2nd, and this user still hasn't paid their
-      annual membership, then their account is penalized.
+      annual membership, then their account is penalized with a $50
+      late fee in addition to their .
      */
-    if(now.getMonthValue() == 3 && now.getDayOfMonth() == 2)
-    {
+    if(now.getMonthValue() == 3 && now.getDayOfMonth() == 2 ||
+        now.getMonthValue() == 1 && now.getDayOfMonth() == 1) {
       if(Database.isLate && !Database.penalized)
       {
-        Database.addSubOwe(Database.memberUser, 1050);
+        Database.addSubOwe(Database.memberUser, 50);
         Database.setPenalized(Database.memberUser, true);
       }
     }
