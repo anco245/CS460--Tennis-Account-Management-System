@@ -7,7 +7,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="680.0" prefWidth="1280.0" stylesheets="@theme.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.jecesystem.Court6Controller">
+<AnchorPane prefHeight="680.0" prefWidth="1280.0" stylesheets="@theme.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.jecesystem.Court6Controller">
   <children>
     <Button layoutX="40.0" layoutY="638.0" mnemonicParsing="false" onAction="#switchToHome" text="Back to Homescreen" />
     <Button layoutX="971.0" layoutY="14.0" mnemonicParsing="false" onAction="#switchToCourt10" text="Court 10" />
@@ -20,8 +20,8 @@
     <Button layoutX="252.1" layoutY="14.0" mnemonicParsing="false" onAction="#switchToCourt3" text="Court 3" />
     <Button layoutX="149.4" layoutY="14.0" mnemonicParsing="false" onAction="#switchToCourt2" text="Court 2" />
     <Button layoutX="1176.4" layoutY="14.0" mnemonicParsing="false" onAction="#switchToCourt12" text="Court 12" />
-    <Button layoutX="1073.7" layoutY="14.0" mnemonicParsing="false" onAction="#switchToCourt11" prefHeight="25.0" prefWidth="62.0" text="Court 11" />
-    <TableView fx:id="courtDisplay" layoutX="455.0" layoutY="112.0" prefHeight="538.0" prefWidth="549.0">
+    <Button layoutX="1073.7" layoutY="14.0" mnemonicParsing="false" onAction="#switchToCourt11" prefHeight="25.0" text="Court 11" />
+    <TableView fx:id="courtDisplay" layoutX="140.0" layoutY="100.0" prefHeight="477.0" prefWidth="1000.0">
       <columns>
         <TableColumn fx:id="dayAndTime" prefWidth="286.39996337890625" text="Day and Time" />
         <TableColumn fx:id="status" minWidth="0.0" prefWidth="161.0" text="Status" />
