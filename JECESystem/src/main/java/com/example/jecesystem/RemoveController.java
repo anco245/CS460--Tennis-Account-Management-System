@@ -35,6 +35,7 @@ public class RemoveController {
 
           Database.deleteFromDb(name, "directory");
           Database.deleteFromCourts(name);
+
           Database.addFromWait();
 
           App.setRoot("ctscreen");

@@ -159,7 +159,7 @@ public class Database {
     try (Connection connection = DriverManager.getConnection(url, username, password)) {
 
       PreparedStatement preparedStatement =
-        connection.prepareStatement("SELECT * FROM waiting WHERE priority = 1");
+        connection.prepareStatement("SELECT * FROM waiting LIMIT 0,1");
 
       ResultSet resultSet = preparedStatement.executeQuery();
 
@@ -215,8 +215,7 @@ public class Database {
 
       PreparedStatement preparedStatement =
         connection.prepareStatement("INSERT INTO waiting (firstName, lastName, age, address, phone, " +
-          "email, username, pword, shown, owe) "
-          + "VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+          "email, username, pword, shown, owe) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
 
       //Just makes the first letter of the person's first and last name capital
       String first = fname.substring(0, 1).toUpperCase() + fname.substring(1);
