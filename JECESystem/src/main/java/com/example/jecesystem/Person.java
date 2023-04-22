@@ -34,7 +34,6 @@ public class Person {
   String userPass = "";
   boolean isShown = false;
   boolean isLate = false;
-  boolean penalized = false;
   boolean keep = true;
   int userAge = 0;
   int owe = 0;
@@ -42,12 +41,12 @@ public class Person {
   int userCourt = 1;
   String date = "";
 
-  ObservableList guest = FXCollections.observableArrayList();
+  ObservableList guestList = FXCollections.observableArrayList();
   ObservableList sd = FXCollections.observableArrayList();
 
   public void loadData() {
-    guest.addAll(0, 1, 2, 3);
-    guests.getItems().addAll(guest);
+    guestList.addAll(0, 1, 2, 3);
+    guests.getItems().addAll(guestList);
 
     sd.addAll("Single", "Double");
     singleDouble.getItems().addAll(sd);
@@ -94,9 +93,9 @@ public class Person {
           error.setTitle("Error");
           error.setContentText("You need to pick either single or double.");
           error.showAndWait();
-        } else if (Integer.parseInt(guests.getValue().toString())+Database.guests > 6) {
+        } else if (Integer.parseInt(guests.getValue().toString())+Database.guestsFromDatabase > 6) {
           error.setTitle("Error");
-          error.setContentText("You've exceeded your guest limit by " + (Integer.parseInt(guests.getValue().toString())+Database.guests - 6)
+          error.setContentText("You've exceeded your guest limit by " + (Integer.parseInt(guests.getValue().toString())+Database.guestsFromDatabase - 6)
             + "\nTry again.");
           error.showAndWait();
         } else if (guests.getValue() != null && singleDouble != null &&
@@ -130,11 +129,17 @@ public class Person {
           Optional<ButtonType> result = con.showAndWait();
           if (result.isPresent() && result.get() == ButtonType.OK) {
 
+            int numGuests = Integer.parseInt(guests.getValue().toString());
+
             if(guests.getValue() != null)
             {
-              Database.addSubGuests(Integer.parseInt(guests.getValue().toString()));
-              Database.addSubOwe(Database.memberUser, Integer.parseInt(guests.getValue().toString()) * 10);
-              Database.makeRes(cNumber, Database.memberUser, date, 1 + Integer.parseInt(guests.getValue().toString()));
+              Database.guestsFromDatabase = numGuests;
+
+              System.out.println(Database.guestsFromDatabase);
+
+              Database.addSubGuests(numGuests);
+              Database.addSubOwe(Database.memberUser, numGuests * 10);
+              Database.makeRes(cNumber, Database.memberUser, date, 1 + numGuests);
             } else {
               Database.makeRes(cNumber, Database.memberUser, date, 1);
             }

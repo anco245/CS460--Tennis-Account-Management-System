@@ -32,7 +32,7 @@ public class Database {
   static boolean verified = false;
   public static boolean isLate = false;
   public static int owe = 0;
-  public static int guests = 0;
+  public static int guestsFromDatabase = 0;
   public static boolean keep = true;
   public static boolean penalized = false;
   public static boolean keepConfirm = false;
@@ -86,6 +86,8 @@ public class Database {
       throw new IllegalStateException("Cannot connect to the database!", e);
     }
   }
+
+
   //Removes people from directory who opted to
   //not keep their account when asked on 1/1
   public static void removeNonKeeps() {
@@ -378,26 +380,25 @@ public class Database {
   public static void addSubGuests(int num) {
     try (Connection connection = DriverManager.getConnection(url, username, password)) {
       PreparedStatement preparedStatement =
-        connection.prepareStatement("SELECT * FROM directory");
+        connection.prepareStatement("SELECT * FROM directory where username = ?");
+      preparedStatement.setString(1, memberUser);
 
       ResultSet resultSet = preparedStatement.executeQuery();
 
       while (resultSet.next()) {
-        String uname = resultSet.getString("username");
-        guests = resultSet.getInt("guests");
+        guestsFromDatabase = resultSet.getInt("guests");
+        guestsFromDatabase = guestsFromDatabase + num;
 
-        if (uname.equals(memberUser)) {
-          PreparedStatement p2 =
-            connection.prepareStatement("UPDATE directory SET guests = ? WHERE username = ?");
+        PreparedStatement p2 =
+          connection.prepareStatement("UPDATE directory SET guests = ? WHERE username = ?");
 
-          guests = guests + num;
+        System.out.println(guestsFromDatabase);
 
-          p2.setInt(1, guests);
-          p2.setString(2, memberUser);
+        p2.setInt(1, guestsFromDatabase);
+        p2.setString(2, memberUser);
 
-          p2.executeUpdate();
-          p2.close();
-        }
+        p2.executeUpdate();
+        p2.close();
       }
 
       preparedStatement.close();
@@ -740,7 +741,7 @@ public class Database {
           age = resultSet.getInt("age");
           addr = resultSet.getString("address");
           phone = resultSet.getString("phone");
-          guests = resultSet.getInt("guests");
+          guestsFromDatabase = resultSet.getInt("guests");
           penalized = resultSet.getBoolean("penalized");
           keep = resultSet.getBoolean("keepAccount");
           keepConfirm = resultSet.getBoolean("keepConfirm");

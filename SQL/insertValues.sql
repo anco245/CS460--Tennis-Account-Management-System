@@ -8,4 +8,4 @@ INSERT INTO directory (firstName, lastName, age, address, phone, email, username
 VALUES ("Adam", "Fincher", 33, "123 Second Street, \nEast Hartford, CT, 06108", "7598495847", "admin9999@admin.com", "admin", "pass", true, false, false, false, 0, 0, true, true);
 
 INSERT INTO bank (username, bankName, accountNum, ssn, accountType) 
-values ("jsmith", "citizens bank", "123456789", "123456789", "Checking")
+values ("jsmith", "citizens bank", "123456789", "123456789", "Checking");
