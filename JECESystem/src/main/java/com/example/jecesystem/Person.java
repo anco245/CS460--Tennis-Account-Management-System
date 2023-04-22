@@ -90,9 +90,14 @@ public class Person {
           error.setTitle("Error");
           error.setContentText("That timeslot is not available.\nTry another.");
           error.showAndWait();
-        } else if (guests.getValue() != null && singleDouble == null) {
+        } else if (singleDouble == null) {
           error.setTitle("Error");
           error.setContentText("You need to pick either single or double.");
+          error.showAndWait();
+        } else if (Integer.parseInt(guests.getValue().toString())+Database.guests > 6) {
+          error.setTitle("Error");
+          error.setContentText("You've exceeded your guest limit by " + (Integer.parseInt(guests.getValue().toString())+Database.guests - 6)
+            + "\nTry again.");
           error.showAndWait();
         } else if (guests.getValue() != null && singleDouble != null &&
                   singleDouble.getValue().toString().equals("Double") &&
