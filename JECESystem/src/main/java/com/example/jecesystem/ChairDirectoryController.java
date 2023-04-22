@@ -41,8 +41,6 @@ public class ChairDirectoryController implements Initializable {
   @FXML
   private TableColumn<Person, Integer> owe;
   @FXML
-  private TableColumn<Person, Boolean> penalized;
-  @FXML
   private TableView<Person> table;
   @FXML
   private TableColumn<Person, String> user;
@@ -64,7 +62,6 @@ public class ChairDirectoryController implements Initializable {
     notify.setCellValueFactory(new PropertyValueFactory<>("notify"));
     denotify.setCellValueFactory(new PropertyValueFactory<>("denotify"));
     keep.setCellValueFactory(new PropertyValueFactory<>("keep"));
-    penalized.setCellValueFactory(new PropertyValueFactory<>("penalized"));
     owe.setCellValueFactory(new PropertyValueFactory<>("owe"));
 
     try (Connection connection = DriverManager.getConnection(Database.url, Database.username, Database.password)) {
@@ -91,9 +88,8 @@ public class ChairDirectoryController implements Initializable {
         boolean shown = resultSet.getBoolean("shown");
         boolean late = resultSet.getBoolean("late");
         boolean keep = resultSet.getBoolean("keepAccount");
-        boolean penalized = resultSet.getBoolean("penalized");
 
-        Person person = new Person(userName, userAge, userAddr, userPhone, userEmail, shown, late, penalized,
+        Person person = new Person(userName, userAge, userAddr, userPhone, userEmail, shown, late,
           userOwe, userUser, userPass, keep);
 
         list.add(person);

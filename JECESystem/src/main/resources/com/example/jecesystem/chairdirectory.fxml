@@ -5,7 +5,7 @@
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="680.0" prefWidth="1280.0" stylesheets="@theme.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.jecesystem.ChairDirectoryController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="680.0" prefWidth="1280.0" stylesheets="@theme.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.jecesystem.ChairDirectoryController">
    <children>
       <TableView fx:id="table" prefHeight="720.0" prefWidth="1280.0" AnchorPane.bottomAnchor="34.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <columns>
@@ -16,13 +16,12 @@
             <TableColumn fx:id="email" minWidth="0.0" prefWidth="172.0" text="Email" />
             <TableColumn fx:id="user" prefWidth="126.0" text="Username" />
             <TableColumn fx:id="pass" prefWidth="135.0" text="Password" />
-            <TableColumn fx:id="shown" minWidth="0.0" prefWidth="62.0" text="Shown" />
-            <TableColumn fx:id="late" prefWidth="44.0" text="Late" />
-            <TableColumn fx:id="penalized" prefWidth="84.0" text="Penalized" />
-            <TableColumn fx:id="owe" prefWidth="77.0" text="Owe" />
-            <TableColumn fx:id="keep" prefWidth="50.0" text="Keep" />
-            <TableColumn fx:id="notify" prefWidth="58.0" text="Notify" />
-            <TableColumn fx:id="denotify" minWidth="0.0" text="Denotify" />
+            <TableColumn fx:id="shown" minWidth="0.0" prefWidth="78.0" text="Shown" />
+            <TableColumn fx:id="late" prefWidth="77.0" text="Late" />
+            <TableColumn fx:id="owe" prefWidth="94.0" text="Owe" />
+            <TableColumn fx:id="keep" prefWidth="61.0" text="Keep" />
+            <TableColumn fx:id="notify" prefWidth="63.0" text="Notify" />
+            <TableColumn fx:id="denotify" minWidth="0.0" prefWidth="82.0" text="Denotify" />
         </columns>
       </TableView>
       <Button layoutX="14.0" layoutY="646.0" mnemonicParsing="false" onAction="#backToHomescreen" prefHeight="34.0" prefWidth="194.0" text="Back to Homescreen" />

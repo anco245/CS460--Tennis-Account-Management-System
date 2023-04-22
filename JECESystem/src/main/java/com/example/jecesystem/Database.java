@@ -992,6 +992,8 @@ public class Database {
         while(rs.next())
         {
           String date = String.valueOf(rs.getTimestamp("dayAndTime"));
+          date = date.substring(0, date.length() - 2);
+
           cancelReservation(i, date);
         }
 

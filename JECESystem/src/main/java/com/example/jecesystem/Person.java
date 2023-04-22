@@ -170,7 +170,7 @@ public class Person {
   }
 
   public Person(String name, int age, String address, String phone, String email, boolean s,
-                boolean l, boolean p, int o, String user, String pass, boolean k) {
+                boolean l, int o, String user, String pass, boolean k) {
 
     this.userName = name;
     this.userAge = age;
@@ -183,7 +183,6 @@ public class Person {
     this.userPass = pass;
     this.notify = new Button("notify");
     this.denotify = new Button("denotify");
-    this.penalized = p;
     this.keep = k;
     this.owe = o;
 
@@ -289,9 +288,6 @@ public class Person {
 
   public void setPass(String p) { userPass = p; }
   public String getPass() { return userPass; }
-
-  public void setPenalized(boolean p) { penalized = p; }
-  public boolean getPenalized() { return penalized; }
 
   public void setKeep(boolean k) { keep = k; }
   public boolean getKeep() { return keep; }
