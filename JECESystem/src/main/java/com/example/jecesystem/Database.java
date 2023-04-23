@@ -66,22 +66,17 @@ public class Database {
   static String formatDay = dateTime.format(formatter);
 
   //Used for reseting the amount of guests for a user in the database
-  public static void resetGuests(int amt) {
+  public static void resetGuests() {
     try (Connection connection = DriverManager.getConnection(url, username, password)) {
 
       PreparedStatement stmt =
         connection.prepareStatement("UPDATE directory set guests = ? WHERE username = ?");
-      stmt.setInt(1, amt);
+      stmt.setInt(1, 0);
       stmt.setString(2, memberUser);
-      ResultSet result = stmt.executeQuery();
 
-      int total = 0;
-      while(result.next()) {
-        //total = result.getInt("total");
-      }
+      stmt.executeUpdate();
 
       stmt.close();
-      result.close();
 
     } catch (SQLException e) {
       throw new IllegalStateException("Cannot connect to the database!", e);
@@ -98,8 +93,10 @@ public class Database {
 
       ResultSet resultSet = preparedStatement.executeQuery();
 
+      String user = "";
+
       while (resultSet.next()) {
-        String user = resultSet.getString("username");
+        user = resultSet.getString("username");
         deleteFromDb(user, "directory");
         deleteFromCourts(user);
       }
@@ -263,27 +260,6 @@ public class Database {
     }
   }
 
-  /*
-      When a member is on their homescreen, it is checked to see if
-      they have late fees on their account when the due date has passed.
-      If so, this Used for determining if when a member is on their homescreen
-
-   */
-  public static void setPenalized(String user, boolean b) {
-    try (Connection connection = DriverManager.getConnection(url, username, password)) {
-      PreparedStatement preparedStatement =
-        connection.prepareStatement("UPDATE directory SET penalized = ? WHERE username = ?");
-
-      preparedStatement.setBoolean(1, b);
-      preparedStatement.setString(2, user);
-      preparedStatement.executeUpdate();
-
-      preparedStatement.close();
-    } catch (SQLException e) {
-      throw new IllegalStateException("Cannot connect to the database!", e);
-    }
-  }
-
   public static boolean hasPassed(String slot) {
     Calendar rightNow = Calendar.getInstance();
     int hour = rightNow.get(Calendar.HOUR_OF_DAY);
@@ -321,19 +297,7 @@ public class Database {
       ResultSet rs = preparedStatement.executeQuery();
 
       while (rs.next()) {
-        //if 0, is updated
-        //if not 0, not been updated
-
-        System.out.println("Value of count: " + rs.getInt("count"));
-
         isUp = rs.getInt("count") == 0;
-
-        if(isUp)
-        {
-          System.out.println("Is Updated");
-        } else {
-          System.out.println("Is Not Updated");
-        }
       }
 
       preparedStatement.close();
@@ -351,7 +315,6 @@ public class Database {
       for(int i = 1; i < 13; i++)
       {
         String court = "court" + i;
-        System.out.println(formatDay);
         String sql = "delete from " + court + " where date(dayAndTime) < date(NOW())";
         PreparedStatement preparedStatement =
           connection.prepareStatement(sql);
@@ -359,9 +322,11 @@ public class Database {
 
         toArray();
 
+        String sql2 = "";
+
         for(int j = 140; j < 160; j++)
         {
-          String sql2 = "INSERT INTO " + court + " (dayAndTime, occupied) VALUES (?, ?)";
+          sql2 = "INSERT INTO " + court + " (dayAndTime, occupied) VALUES (?, ?)";
           PreparedStatement preparedStatement2 = connection.prepareStatement(sql2);
 
           preparedStatement2.setTimestamp(1, Timestamp.valueOf(full[j]));
@@ -391,8 +356,6 @@ public class Database {
 
         PreparedStatement p2 =
           connection.prepareStatement("UPDATE directory SET guests = ? WHERE username = ?");
-
-        System.out.println(guestsFromDatabase);
 
         p2.setInt(1, guestsFromDatabase);
         p2.setString(2, memberUser);
@@ -496,13 +459,6 @@ public class Database {
 
       preparedStatement.close();
 
-      if(x)
-      {
-        System.out.println("Already has account");
-      } else {
-        System.out.println("Doesn't have account");
-      }
-
       return x;
     } catch (SQLException e) {
       throw new IllegalStateException("Cannot connect to the database!", e);
@@ -517,9 +473,12 @@ public class Database {
 
       ResultSet resultSet = preparedStatement.executeQuery();
 
+      String uname = "";
+      int amtOwed = 0;
+
       while (resultSet.next()) {
-        String uname = resultSet.getString("username");
-        int amtOwed = resultSet.getInt("owe");
+        uname = resultSet.getString("username");
+        amtOwed = resultSet.getInt("owe");
 
         if (uname.equals(user)) {
           PreparedStatement p2 =
@@ -568,25 +527,23 @@ public class Database {
   public static boolean inDirectory(String user) {
     try (Connection connection = DriverManager.getConnection(url, username, password)) {
       PreparedStatement preparedStatement =
-        connection.prepareStatement("SELECT * FROM directory");
+        connection.prepareStatement("SELECT EXISTS (SELECT * FROM directory WHERE username = ?) AS result");
+
+      preparedStatement.setString(1, user);
 
       ResultSet resultSet = preparedStatement.executeQuery();
 
-      while (resultSet.next()) {
-        String uname = resultSet.getString("username");
+      boolean res = false;
 
-        if (uname.equals(user)) {
-          preparedStatement.close();
-          resultSet.close();
-          connection.close();
-          return true;
-        }
+      while (resultSet.next()) {
+        res = resultSet.getBoolean("result");
       }
 
       preparedStatement.close();
       resultSet.close();
       connection.close();
-      return false;
+
+      return res;
     } catch (SQLException e) {
       throw new IllegalStateException("Cannot connect to the database!", e);
     }
@@ -605,18 +562,19 @@ public class Database {
 
       ResultSet rs = preparedStatement.executeQuery();;
 
+      int result = 0;
+
       while(rs.next())
       {
         if(rs.getInt("occupied") != 0)
         {
-          return rs.getInt("occupied") - 1;
+          result = rs.getInt("occupied") - 1;
         }
       }
 
-      preparedStatement.executeUpdate();
       preparedStatement.close();
 
-      return 0;
+      return result;
     } catch (SQLException e) {
       throw new IllegalStateException("Cannot connect to the database!", e);
     }
@@ -741,9 +699,6 @@ public class Database {
   public static boolean login(String user, String pass) {
     try (Connection connection = DriverManager.getConnection(url, username, password)) {
 
-      //PreparedStatement preparedStatement =
-        //connection.prepareStatement("SELECT * FROM directory");
-
       PreparedStatement ps =
         connection.prepareStatement("SELECT * FROM directory WHERE username = ? AND pword = ?");
       ps.setString(1, user);
@@ -862,12 +817,14 @@ public class Database {
     try (Connection connection = DriverManager.getConnection(url, username, password)) {
 
       int x = 0;
+      String court = "";
+      String sql = "";
 
       for (int j = 1; j < 13; j++) {
-        String court = "court" + j;
+        court = "court" + j;
 
         //date has to be wrapped in quotes for some reason
-        String sql = "SELECT count(*) AS count from " + court + " where username = ? AND date(dayAndTime) = date(\"" + dayTime + "\")";
+        sql = "SELECT count(*) AS count from " + court + " where username = ? AND date(dayAndTime) = date(\"" + dayTime + "\")";
 
         PreparedStatement preparedStatement = connection.prepareStatement(sql);
         preparedStatement.setString(1, memberUser);
@@ -949,10 +906,11 @@ public class Database {
 
     Arrays.sort(exactDays);
 
+    String str = "";
     int count = 0;
     for (int i = 0; i < 8; i++) {
       for (int j = 0; j < 20; j++) {
-        String str = exactDays[i] + " " + times[j];
+        str = exactDays[i] + " " + times[j];
         full[count] = str;
         count++;
       }
@@ -981,10 +939,13 @@ public class Database {
   {
     try (Connection connection = DriverManager.getConnection(url, username, password)) {
 
+      String cnum = "";
+      String sql = "";
+
      for(int i = 1; i < 12; i++)
      {
-       String cnum = "court" + i;
-       String sql = "SELECT username AS user FROM " + cnum + " WHERE dayAndTime = \"" + slot + "\"";
+       cnum = "court" + i;
+       sql = "SELECT username AS user FROM " + cnum + " WHERE dayAndTime = \"" + slot + "\"";
 
        PreparedStatement preparedStatement = connection.prepareStatement(sql);
        ResultSet rs = preparedStatement.executeQuery();
@@ -1010,11 +971,15 @@ public class Database {
   {
     try (Connection connection = DriverManager.getConnection(url, username, password)) {
 
+      String court = "";
+      String sql = "";
+      String date = "";
+
       for(int i = 1; i < 13; i++)
       {
-        String court = "court" + i;
+        court = "court" + i;
 
-        String sql = "SELECT dayAndTime FROM " + court + " WHERE username = ?";
+        sql = "SELECT dayAndTime FROM " + court + " WHERE username = ?";
         PreparedStatement p = connection.prepareStatement(sql);
         p.setString(1, user);
 
@@ -1022,7 +987,7 @@ public class Database {
 
         while(rs.next())
         {
-          String date = String.valueOf(rs.getTimestamp("dayAndTime"));
+          date = String.valueOf(rs.getTimestamp("dayAndTime"));
           date = date.substring(0, date.length() - 2);
 
           cancelReservation(i, date);
@@ -1041,11 +1006,14 @@ public class Database {
 
       toArray();
 
+      String court = "";
+      String sql = "";
+
       for (int i = 1; i < 13; i++) {
         for (int j = 0; j < 160; j++) {
-          String court = "court" + i;
+          court = "court" + i;
 
-          String sql = "INSERT INTO " + court + " (dayAndTime, occupied) VALUES (?, ?)";
+          sql = "INSERT INTO " + court + " (dayAndTime, occupied) VALUES (?, ?)";
           PreparedStatement preparedStatement = connection.prepareStatement(sql);
 
           preparedStatement.setTimestamp(1, Timestamp.valueOf(full[j]));
