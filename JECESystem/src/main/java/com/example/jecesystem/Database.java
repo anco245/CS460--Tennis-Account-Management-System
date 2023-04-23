@@ -36,7 +36,7 @@ public class Database {
   public static boolean keep = true;
   public static boolean penalized = false;
   public static boolean keepConfirm = false;
-  public static int monthly = 0;
+  public static int annual = 0;
 
   static DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
@@ -711,13 +711,13 @@ public class Database {
       int x = 1000;
       if(age < 18)
       {
-        monthly = 250;
+        annual = 250;
         x = x + 250;
       } else if (age < 65) {
-        monthly = 400;
+        annual = 400;
         x = x + 400;
       } else {
-        monthly = 300;
+        annual = 300;
         x = x + 300;
       }
 
@@ -777,11 +777,11 @@ public class Database {
 
           if(age < 18)
           {
-            monthly = 250;
+            annual = 250;
           } else if (age < 65) {
-            monthly = 400;
+            annual = 400;
           } else {
-            monthly = 300;
+            annual = 300;
           }
 
           return true;

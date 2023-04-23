@@ -41,7 +41,7 @@ public class MemController implements Initializable {
     {
       if(Database.isLate)
       {
-        Database.addSubOwe(Database.memberUser, Database.monthly + 50);
+        Database.addSubOwe(Database.memberUser, 50);
       }
 
       Database.setGuests(0);
@@ -90,7 +90,7 @@ public class MemController implements Initializable {
 
     if(Database.isLate) {
       String late = """
-        You haven't paid your monthly
+        You haven't paid your annual
         fee. If you don't pay by April
         1st, your account will be
         removed.""";
@@ -109,8 +109,8 @@ public class MemController implements Initializable {
   }
 
   @FXML
-  void contactUs(ActionEvent event) throws IOException {
-    App.setRoot("contactus");
+  void contactUsMem(ActionEvent event) throws IOException {
+      App.setRoot("memcontactus");
   }
 
   @FXML

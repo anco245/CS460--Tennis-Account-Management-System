@@ -5,7 +5,7 @@
 -- select * from court1 where username = "jsmith";
 -- select * from court8 where username = "jsmith";
 
-select * from directory
+
 -- SELECT * FROM waiting LIMIT 0,1
 -- select * from waiting
 -- delete email from directory where firstName = "Jane"

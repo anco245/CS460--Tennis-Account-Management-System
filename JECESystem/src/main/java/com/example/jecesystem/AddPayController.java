@@ -63,8 +63,13 @@ public class AddPayController implements Initializable {
           "deduct more than what's owed.\nTry again.");
         error.showAndWait();
       } else {
-        Database.setLate(Database.memberUser, false);
         Database.addSubOwe(Database.memberUser, amt * (-1));
+
+        if(Database.owe < Database.annual)
+        {
+          Database.setLate(Database.memberUser, false);
+          Database.isLate = false;
+        }
 
         info.setTitle("Success");
         info.setContentText("You've deducted $" + amt);
