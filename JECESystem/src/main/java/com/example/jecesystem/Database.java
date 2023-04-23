@@ -591,6 +591,7 @@ public class Database {
     }
   }
 
+
   public static int getOccupied(int c, String time)
   {
     try (Connection connection = DriverManager.getConnection(url, username, password)) {

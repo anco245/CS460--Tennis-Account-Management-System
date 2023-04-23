@@ -2,12 +2,24 @@ package com.example.jecesystem;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import java.io.IOException;
+import java.net.URL;
 import java.util.Optional;
+import java.util.ResourceBundle;
+import javafx.scene.control.TextArea;
 
-public class AdminController {
+public class AdminController implements Initializable {
+
+  @FXML
+  private TextArea textInfo;
+
+  @Override
+  public void initialize(URL url, ResourceBundle resourceBundle) {
+      textInfo.setText("Administrator Homescreen:\nWelcome, " + Database.fName + " " + Database.lName + "!");
+  }
 
   @FXML
   void reset(ActionEvent event) {
@@ -26,5 +38,6 @@ public class AdminController {
   void switchToLogin(ActionEvent event) throws IOException {
     App.setRoot("login");
   }
+
 
 }

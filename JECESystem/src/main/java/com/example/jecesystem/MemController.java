@@ -34,7 +34,7 @@ public class MemController implements Initializable {
     Alert con = new Alert(Alert.AlertType.CONFIRMATION);
     LocalDateTime now = LocalDateTime.now();
 
-    String welcomeMessage = "Welcome " + Database.fName + " " + Database.lName + "!";
+    String welcomeMessage = "Member Homescreen:\nWelcome " + Database.fName + " " + Database.lName + "!";
     welcome.setText(welcomeMessage);
 
     if(now.getDayOfMonth() == 1)
