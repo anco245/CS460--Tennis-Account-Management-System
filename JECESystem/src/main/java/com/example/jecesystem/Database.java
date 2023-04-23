@@ -65,7 +65,8 @@ public class Database {
   static String formatSun = nextSunday.format(formatter);
   static String formatDay = dateTime.format(formatter);
 
-  public static void setGuests(int amt) {
+  //Used for reseting the amount of guests for a user in the database
+  public static void resetGuests(int amt) {
     try (Connection connection = DriverManager.getConnection(url, username, password)) {
 
       PreparedStatement stmt =

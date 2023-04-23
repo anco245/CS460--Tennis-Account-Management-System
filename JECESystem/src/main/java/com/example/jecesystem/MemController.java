@@ -44,7 +44,7 @@ public class MemController implements Initializable {
         Database.addSubOwe(Database.memberUser, 50);
       }
 
-      Database.setGuests(0);
+      Database.resetGuests(0);
     }
 
     //Keep confirm just allows the "do you want to keep your account" message to appear

@@ -80,6 +80,8 @@ public class LoginController implements Initializable {
         info.showAndWait();
       }
     } else {
+
+      System.out.println(Database.login(name, pass));
       error.setTitle("Error");
       error.setContentText("""
         Either the username and password is wrong, or
