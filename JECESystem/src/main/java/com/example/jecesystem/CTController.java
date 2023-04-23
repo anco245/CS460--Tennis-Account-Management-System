@@ -31,8 +31,5 @@ public class CTController {
     App.setRoot("login");
   }
 
-  @FXML
-  void viewInfo(ActionEvent event) throws IOException {
-    App.setRoot("info");
-  }
+
 }
