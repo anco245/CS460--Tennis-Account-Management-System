@@ -735,60 +735,60 @@ public class Database {
     }
   }
 
-  //Loops through the database to find where both username and password are used together
-  //Also saves the extension of their email, to later determine which type of account this is
+  //Sees if the given username and password belong to any single entry
+  //Saves all information stores in database into global variables
   public static boolean login(String user, String pass) {
     try (Connection connection = DriverManager.getConnection(url, username, password)) {
 
-      PreparedStatement preparedStatement =
-        connection.prepareStatement("SELECT * FROM directory");
+      //PreparedStatement preparedStatement =
+        //connection.prepareStatement("SELECT * FROM directory");
 
-      ResultSet resultSet = preparedStatement.executeQuery();
+      PreparedStatement ps =
+        connection.prepareStatement("SELECT * FROM directory WHERE username = ? AND pword = ?");
+      ps.setString(1, user);
+      ps.setString(2, pass);
+
+      ResultSet resultSet = ps.executeQuery();
 
       while (resultSet.next()) {
-        String uname = resultSet.getString("username");
-        String pword = resultSet.getString("pword");
+        memberUser = user;
 
-        if (uname.equals(user) && pword.equals(pass)) {
-          memberUser = user;
+        //makes it so that the first letters of the first and last name are capital
+        fName = resultSet.getString("firstName").substring(0, 1).toUpperCase() +
+          resultSet.getString("firstName").substring(1);
+        lName = resultSet.getString("lastName").substring(0, 1).toUpperCase() +
+          resultSet.getString("lastName").substring(1);
 
-          //makes it so that the first letters of the first and last name are capital
-          fName = resultSet.getString("firstName").substring(0, 1).toUpperCase() +
-            resultSet.getString("firstName").substring(1);
-          lName = resultSet.getString("lastName").substring(0, 1).toUpperCase() +
-            resultSet.getString("lastName").substring(1);
+        //Used for extracting the extension from the given email in the database
+        //Gives back gmail.com, admin.com, tennis.com
+        email = resultSet.getString("email");
+        extension = email.substring(email.lastIndexOf("@") + 1);
 
-          //Used for extracting the extension from the given email in the database
-          //Gives back gmail.com, admin.com, tennis.com
-          email = resultSet.getString("email");
-          extension = email.substring(email.lastIndexOf("@") + 1);
+        isShown = resultSet.getBoolean("shown");
+        isLate = resultSet.getBoolean("late");
+        owe = resultSet.getInt("owe");
+        verified = resultSet.getBoolean("verified");
+        age = resultSet.getInt("age");
+        addr = resultSet.getString("address");
+        phone = resultSet.getString("phone");
+        guestsFromDatabase = resultSet.getInt("guests");
+        penalized = resultSet.getBoolean("penalized");
+        keep = resultSet.getBoolean("keepAccount");
+        keepConfirm = resultSet.getBoolean("keepConfirm");
 
-          isShown = resultSet.getBoolean("shown");
-          isLate = resultSet.getBoolean("late");
-          owe = resultSet.getInt("owe");
-          verified = resultSet.getBoolean("verified");
-          age = resultSet.getInt("age");
-          addr = resultSet.getString("address");
-          phone = resultSet.getString("phone");
-          guestsFromDatabase = resultSet.getInt("guests");
-          penalized = resultSet.getBoolean("penalized");
-          keep = resultSet.getBoolean("keepAccount");
-          keepConfirm = resultSet.getBoolean("keepConfirm");
-
-          if(age < 18)
-          {
-            annual = 250;
-          } else if (age < 65) {
-            annual = 400;
-          } else {
-            annual = 300;
-          }
-
-          return true;
+        if(age < 18)
+        {
+          annual = 250;
+        } else if (age < 65) {
+          annual = 400;
+        } else {
+          annual = 300;
         }
+
+        return true;
       }
 
-      preparedStatement.close();
+      ps.close();
       resultSet.close();
       connection.close();
       return false;
