@@ -23,7 +23,6 @@ public class Person {
   Button reserve = new Button();
 
   ChoiceBox guests = new ChoiceBox();
-
   ChoiceBox singleDouble = new ChoiceBox();
 
   String userName = "";
@@ -165,6 +164,9 @@ public class Person {
 
     cancel.setPrefWidth(100.0);
     this.cancel.setOnAction(e -> {
+
+      int peopleToSub = Database.getOccupied(court, dateTime);
+      Database.addSubGuests(peopleToSub * -1);
       Database.cancelReservation(this.userCourt, this.date);
       try {
         App.setRoot("info");

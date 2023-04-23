@@ -27,7 +27,7 @@ public class AddPayController implements Initializable {
   @Override
   public void initialize(URL url, ResourceBundle resourceBundle) {
 
-    String str = "Amount owed: " + Database.owe + "\n\n";
+    String str = "Amount owed: $" + Database.owe + "\n\n";
 
     if(!Database.hasBankAccount(Database.memberUser))
     {
@@ -42,6 +42,8 @@ public class AddPayController implements Initializable {
   void onSubmit(ActionEvent event) {
     try {
 
+      int amt = Integer.parseInt(amount.getText());
+
       if(!Database.hasBankAccount(Database.memberUser))
       {
         error.setTitle("Error");
@@ -55,9 +57,12 @@ public class AddPayController implements Initializable {
         error.setTitle("Error");
         error.setContentText("You didn't enter a valid number");
         error.showAndWait();
+      } else if (Database.owe == 0 || amt > Database.owe) {
+        error.setTitle("Error");
+        error.setContentText("Either there's nothing to deduct or you're trying to\n" +
+          "deduct more than what's owed.\nTry again.");
+        error.showAndWait();
       } else {
-        int amt = Integer.parseInt(amount.getText());
-
         Database.setLate(Database.memberUser, false);
         Database.addSubOwe(Database.memberUser, amt * (-1));
 

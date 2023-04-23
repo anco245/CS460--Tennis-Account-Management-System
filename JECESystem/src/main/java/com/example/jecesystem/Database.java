@@ -591,6 +591,35 @@ public class Database {
     }
   }
 
+  public static int getOccupied(int c, String time)
+  {
+    try (Connection connection = DriverManager.getConnection(url, username, password)) {
+
+      String court = "court" + c;
+
+      String sql = "Select occupied from "+ court +" WHERE DayAndTime = \"" + time + "\"";
+      PreparedStatement preparedStatement =
+        connection.prepareStatement(sql);
+
+      ResultSet rs = preparedStatement.executeQuery();;
+
+      while(rs.next())
+      {
+        if(rs.getInt("occupied") != 0)
+        {
+          return rs.getInt("occupied") - 1;
+        }
+      }
+
+      preparedStatement.executeUpdate();
+      preparedStatement.close();
+
+      return 0;
+    } catch (SQLException e) {
+      throw new IllegalStateException("Cannot connect to the database!", e);
+    }
+  }
+
   //Sets a user's verified status to true
   public static void setApprove(String u) {
     try (Connection connection = DriverManager.getConnection(url, username, password)) {
