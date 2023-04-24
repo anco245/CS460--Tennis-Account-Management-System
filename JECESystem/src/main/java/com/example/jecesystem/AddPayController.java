@@ -56,6 +56,10 @@ public class AddPayController implements Initializable {
         error.setTitle("Error");
         error.setContentText("You didn't enter a valid number");
         error.showAndWait();
+      } else if (amt > Database.bankBalance) {
+        error.setTitle("Error");
+        error.setContentText("You don't have enough money in your bank account");
+        error.showAndWait();
       } else {
 
         //If member still hasn't paid off all of annual fee or 1000 initial payment
@@ -74,6 +78,8 @@ public class AddPayController implements Initializable {
           //else if annual is already paid off, deduct from owe (guest reservations)
           Database.addSubOwe(Database.memberUser, amt * (-1));
         }
+
+        Database.subBank(amt);
 
         info.setTitle("Success");
         info.setContentText("You've deducted $" + amt);

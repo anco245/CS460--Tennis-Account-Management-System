@@ -39,6 +39,8 @@ public class Database {
   public static boolean keepConfirm = false;
   public static int annual = 0;
 
+  public static int bankBalance = 0;
+
 
   static DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
@@ -418,6 +420,64 @@ public class Database {
     }
   }
 
+  public static void subBank(int num) {
+    try (Connection connection = DriverManager.getConnection(url, username, password)) {
+      PreparedStatement preparedStatement =
+        connection.prepareStatement("SELECT total FROM bank WHERE username = ?");
+      preparedStatement.setString(1, memberUser);
+
+      ResultSet resultSet = preparedStatement.executeQuery();
+
+      int amt = 0;
+
+      while (resultSet.next()) {
+        amt = resultSet.getInt("total");
+
+        PreparedStatement p2 =
+          connection.prepareStatement("UPDATE bank SET total = ? WHERE username = ?");
+
+          amt = amt - num;
+
+          p2.setInt(1, amt);
+          p2.setString(2, memberUser);
+
+          p2.executeUpdate();
+          p2.close();
+      }
+
+      preparedStatement.close();
+      resultSet.close();
+    } catch (SQLException e) {
+      throw new IllegalStateException("Cannot connect to the database!", e);
+    }
+  }
+
+  public static int getAnnual(String user)
+  {
+    try (Connection connection = DriverManager.getConnection(url, username, password)) {
+
+      int total = 0;
+
+      PreparedStatement stmt =
+        connection.prepareStatement("SELECT annual from directory WHERE username = ?");
+      stmt.setString(1, user);
+
+      ResultSet result = stmt.executeQuery();
+
+      while(result.next()) {
+        total = result.getInt("annual");
+      }
+
+      stmt.close();
+      result.close();
+
+      return total;
+
+    } catch (SQLException e) {
+      throw new IllegalStateException("Cannot connect to the database!", e);
+    }
+  }
+
   public static String getBankInfo(String user)
   {
     try (Connection connection = DriverManager.getConnection(url, username, password)) {
@@ -442,6 +502,8 @@ public class Database {
         type = rs.getString("accountType");
         totAmount = rs.getInt("total");
       }
+
+      bankBalance = totAmount;
 
       preparedStatement.close();
 
