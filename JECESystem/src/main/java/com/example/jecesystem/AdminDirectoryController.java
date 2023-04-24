@@ -66,30 +66,34 @@ public class AdminDirectoryController implements Initializable {
       ResultSet resultSet = preparedStatement.executeQuery();
 
       while(resultSet.next()) {
-        String first = resultSet.getString("firstName").substring(0, 1).toUpperCase() +
-          resultSet.getString("firstName").substring(1);
-        String last = resultSet.getString("lastName").substring(0, 1).toUpperCase() +
-          resultSet.getString("lastName").substring(1);
+        boolean v = resultSet.getBoolean("verified");
 
-        String userName = first + " " + last;
-        int userAge = resultSet.getInt("age");
-        int userOwe = resultSet.getInt("owe");
-        String userAddr = resultSet.getString("address");
-        String userPhone = resultSet.getString("phone");
-        String userEmail = resultSet.getString("email");
-        String userUser = resultSet.getString("username");
-        String userPass = resultSet.getString("pword");
-        boolean keeping = resultSet.getBoolean("keepAccount");
+        if(v) {
+          String first = resultSet.getString("firstName").substring(0, 1).toUpperCase() +
+            resultSet.getString("firstName").substring(1);
+          String last = resultSet.getString("lastName").substring(0, 1).toUpperCase() +
+            resultSet.getString("lastName").substring(1);
 
-        userOwe = userOwe + Database.getAnnual(userUser);
+          String userName = first + " " + last;
+          int userAge = resultSet.getInt("age");
+          int userOwe = resultSet.getInt("owe");
+          String userAddr = resultSet.getString("address");
+          String userPhone = resultSet.getString("phone");
+          String userEmail = resultSet.getString("email");
+          String userUser = resultSet.getString("username");
+          String userPass = resultSet.getString("pword");
+          boolean keeping = resultSet.getBoolean("keepAccount");
 
-        boolean shown = resultSet.getBoolean("shown");
-        boolean late = resultSet.getBoolean("late");
+          userOwe = userOwe + Database.getAnnual(userUser);
 
-        Person person = new Person(userName, userAge, userAddr, userPhone, userEmail, shown, late,
-          userOwe, userUser, userPass, keeping);
+          boolean shown = resultSet.getBoolean("shown");
+          boolean late = resultSet.getBoolean("late");
 
-        list.add(person);
+          Person person = new Person(userName, userAge, userAddr, userPhone, userEmail, shown, late,
+            userOwe, userUser, userPass, keeping);
+
+          list.add(person);
+        }
       }
 
       preparedStatement.close();

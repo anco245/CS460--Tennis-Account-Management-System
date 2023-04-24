@@ -53,6 +53,8 @@ public class ApproveController implements Initializable {
     username.setCellValueFactory(new PropertyValueFactory<>("user"));
     password.setCellValueFactory(new PropertyValueFactory<>("pass"));
     shown.setCellValueFactory(new PropertyValueFactory<>("shown"));
+
+
     approve.setCellValueFactory(new PropertyValueFactory<>("approve"));
     reject.setCellValueFactory(new PropertyValueFactory<>("reject"));
 

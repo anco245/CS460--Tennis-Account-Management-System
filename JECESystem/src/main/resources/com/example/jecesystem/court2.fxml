@@ -21,11 +21,6 @@
     <Button layoutX="252.1" layoutY="14.0" mnemonicParsing="false" onAction="#switchToCourt3" text="Court 3" />
     <Button layoutX="1176.4" layoutY="14.0" mnemonicParsing="false" onAction="#switchToCourt12" text="Court 12" />
     <Button layoutX="1073.7" layoutY="14.0" mnemonicParsing="false" onAction="#switchToCourt11" prefHeight="25.0" text="Court 11" />
-    <Text fx:id="courtNum" layoutX="917.0" layoutY="233.0" strokeType="OUTSIDE" strokeWidth="0.0">
-      <font>
-        <Font size="44.0" />
-      </font>
-    </Text>
     <TableView fx:id="courtDisplay" layoutX="140.0" layoutY="100.0" prefHeight="477.0" prefWidth="1000.0">
       <columns>
         <TableColumn fx:id="dayAndTime" prefWidth="286.39996337890625" text="Day and Time" />

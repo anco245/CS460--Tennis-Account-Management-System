@@ -757,6 +757,30 @@ public class Database {
     }
   }
 
+  public static int getVerified() {
+    try (Connection connection = DriverManager.getConnection(url, username, password)) {
+
+      PreparedStatement preparedStatement =
+        connection.prepareStatement("SELECT count(*) AS count FROM directory WHERE verified = false");
+
+      ResultSet rs = preparedStatement.executeQuery();
+
+      int nonV = 0;
+
+      while(rs.next())
+      {
+        nonV = rs.getInt("count");
+      }
+
+      preparedStatement.close();
+
+      return nonV;
+
+    } catch (SQLException e) {
+      throw new IllegalStateException("Cannot connect to the database!", e);
+    }
+  }
+
   //Creates a new Account and sets global variables for all user's information
   public static void nAccount(String fname, String lname, int age, String addr,
                               String phone, String email, String u, String p,
@@ -781,7 +805,7 @@ public class Database {
       preparedStatement.setString(8, p);
       preparedStatement.setBoolean(9, false);
       preparedStatement.setBoolean(10, sho);
-      preparedStatement.setBoolean(11, false);
+      preparedStatement.setBoolean(11, true);
       preparedStatement.setBoolean(12, false);
 
       int x = 1000;

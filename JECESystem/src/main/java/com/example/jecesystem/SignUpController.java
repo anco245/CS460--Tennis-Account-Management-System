@@ -196,8 +196,8 @@ public class SignUpController implements Initializable {
 
           info.setTitle("Success");
           info.setContentText("Your account has been created!\n" +
-            "You won't be able to log in until the chairman approves " +
-            "your account.");
+            "You won't be able to log in until your " +
+            "account is  approved.");
           info.showAndWait();
 
           App.setRoot("login");

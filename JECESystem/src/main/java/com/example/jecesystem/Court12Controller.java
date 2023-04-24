@@ -30,16 +30,12 @@ public class Court12Controller implements Initializable {
   private TableColumn<Person, ChoiceBox> guests;
   @FXML
   private TableColumn<Person, ChoiceBox> singleDouble;
-  @FXML
-  private Text courtNum;
 
   ObservableList<Person> list = FXCollections.observableArrayList();
   Person person;
 
   @Override
   public void initialize(URL url, ResourceBundle resourceBundle) {
-
-    courtNum.setText("Court 12");
 
     dayAndTime.setCellValueFactory(new PropertyValueFactory<>("date"));
     status.setCellValueFactory(new PropertyValueFactory<>("status"));

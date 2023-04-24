@@ -31,23 +31,18 @@ public class Court4Controller implements Initializable {
   @FXML
   private TableColumn<Person, ChoiceBox> singleDouble;
 
-  @FXML
-  private Text courtNum;
-
   ObservableList<Person> list = FXCollections.observableArrayList();
   Person person;
 
   @Override
   public void initialize(URL url, ResourceBundle resourceBundle) {
 
-    courtNum.setText("Court 4");
-
     dayAndTime.setCellValueFactory(new PropertyValueFactory<>("date"));
     status.setCellValueFactory(new PropertyValueFactory<>("status"));
     reserve.setCellValueFactory(new PropertyValueFactory<>("reserve"));
     guests.setCellValueFactory(new PropertyValueFactory<>("guests"));
     singleDouble.setCellValueFactory(new PropertyValueFactory<>("singleDouble"));
-    
+
     try (Connection connection = DriverManager.getConnection(Database.url, Database.username, Database.password)) {
 
       PreparedStatement preparedStatement = connection.prepareStatement("select * from court4");

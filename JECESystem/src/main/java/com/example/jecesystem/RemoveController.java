@@ -29,8 +29,8 @@ public class RemoveController {
       } else if (name.equals(Database.memberUser)) {
         error.setTitle("Error");
         error.setContentText("You entered your own username.\n" +
-          "If you would like to cancel your account, you need to go to\n" +
-          "have another chairman delete it for you");
+          "If you would like to cancel your account, you need to\n" +
+          "have another administrator delete it for you");
         error.showAndWait();
       } else {
         con.setTitle("Confirmation");

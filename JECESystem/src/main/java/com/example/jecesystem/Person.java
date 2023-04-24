@@ -177,7 +177,6 @@ public class Person {
     });
   }
 
-
   //Used for treasurer
   public Person(String name, String address, String phone, String email,
                 boolean l, int o, String user) {
@@ -213,8 +212,23 @@ public class Person {
     });
   }
 
+  //used for wait list
+  public Person(String name, int age, String address, String phone, String email, boolean s,
+                int o, String user, String pass) {
 
-  //used for admin
+    this.userName = name;
+    this.userAge = age;
+    this.userAddress = address;
+    this.userPhone = phone;
+    this.userEmail = email;
+    this.isShown = s;
+    this.owe = o;
+    this.userUser = user;
+    this.userPass = pass;
+  }
+
+
+  //used for admin directory
   public Person(String name, int age, String address, String phone, String email, boolean s,
                 boolean l, int o, String user, String pass, boolean k) {
 
@@ -226,13 +240,12 @@ public class Person {
     this.isShown = s;
     this.isLate = l;
     this.userUser = user;
-    this.notify = new Button("notify");
-    this.denotify = new Button("denotify");
     this.keep = k;
     this.owe = o;
     this.userPass = pass;
   }
 
+  //used for admin approve
   public Person(String name, int age, String address, String phone, String email, String u, String p, boolean s) {
 
     this.userName = name;
@@ -247,8 +260,16 @@ public class Person {
     approve.setPrefWidth(100.0);
     approve.setOnAction(e -> {
       try {
-        Database.setApprove(userUser);
-        App.setRoot("approve");
+
+        if(Database.getSize() >= 4)
+        {
+          error.setTitle("Error");
+          error.setContentText("Database is at capacity");
+          error.showAndWait();
+        } else {
+          Database.setApprove(userUser);
+          App.setRoot("approve");
+        }
       } catch (IOException ex) {
         throw new RuntimeException(ex);
       }

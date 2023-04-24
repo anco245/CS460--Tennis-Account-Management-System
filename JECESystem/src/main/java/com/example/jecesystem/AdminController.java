@@ -18,7 +18,14 @@ public class AdminController implements Initializable {
 
   @Override
   public void initialize(URL url, ResourceBundle resourceBundle) {
-      textInfo.setText("Administrator Homescreen:\nWelcome, " + Database.fName + " " + Database.lName + "!");
+
+    if(Database.getVerified() == 0)
+    {
+      textInfo.setText("Administrator Homescreen:\nWelcome, " + Database.fName + " " + Database.lName + "!\n");
+    } else {
+      textInfo.setText("Administrator Homescreen:\nWelcome, " + Database.fName + " " + Database.lName + "!\n\n" +
+        "You have " + Database.getVerified() + " account(s) waiting\nfor approval.\n");
+    }
   }
 
   @FXML

@@ -31,16 +31,11 @@ public class Court10Controller implements Initializable {
   @FXML
   private TableColumn<Person, ChoiceBox> singleDouble;
 
-  @FXML
-  private Text courtNum;
-
   ObservableList<Person> list = FXCollections.observableArrayList();
   Person person;
 
   @Override
   public void initialize(URL url, ResourceBundle resourceBundle) {
-
-    courtNum.setText("Court 10");
 
     dayAndTime.setCellValueFactory(new PropertyValueFactory<>("date"));
     status.setCellValueFactory(new PropertyValueFactory<>("status"));
