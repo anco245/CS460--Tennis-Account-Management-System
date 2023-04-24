@@ -757,6 +757,39 @@ public class Database {
     }
   }
 
+  public static String printReservations(String user){
+    try (Connection connection = DriverManager.getConnection(url, username, password)) {
+
+      String str = "";
+
+      for(Integer i = 1; i < 13; i++)
+      {
+        String court = "court" + i.toString();
+        String sql = "select * from " + court + " where username = ?";
+        PreparedStatement preparedStatement = connection.prepareStatement(sql);
+
+        preparedStatement.setString(1, user);
+
+        ResultSet resultSet = preparedStatement.executeQuery();
+
+        while (resultSet.next()) {
+          String date = String.valueOf(resultSet.getTimestamp("dayAndTime"));
+          date = date.substring(0, 16);
+          String entry = "Court " + i.toString() + ": " + date;
+
+          str = str + entry + "\n";
+        }
+
+        preparedStatement.close();
+        resultSet.close();
+      }
+
+      return str;
+    } catch (SQLException e) {
+      throw new IllegalStateException("Cannot connect to the database!", e);
+    }
+  }
+
   public static int getVerified() {
     try (Connection connection = DriverManager.getConnection(url, username, password)) {
 

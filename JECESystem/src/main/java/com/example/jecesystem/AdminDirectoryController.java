@@ -37,6 +37,8 @@ public class AdminDirectoryController implements Initializable {
   @FXML
   private TableColumn<Person, Integer> owe;
   @FXML
+  private TableColumn<Person, String> reservations;
+  @FXML
   private TableView<Person> table;
   @FXML
   private TableColumn<Person, String> user;
@@ -57,6 +59,7 @@ public class AdminDirectoryController implements Initializable {
     shown.setCellValueFactory(new PropertyValueFactory<>("shown"));
     keep.setCellValueFactory(new PropertyValueFactory<>("keep"));
     owe.setCellValueFactory(new PropertyValueFactory<>("owe"));
+    reservations.setCellValueFactory(new PropertyValueFactory<>("reservations"));
 
     try (Connection connection = DriverManager.getConnection(Database.url, Database.username, Database.password)) {
 
@@ -89,7 +92,14 @@ public class AdminDirectoryController implements Initializable {
           boolean shown = resultSet.getBoolean("shown");
           boolean late = resultSet.getBoolean("late");
 
-          Person person = new Person(userName, userAge, userAddr, userPhone, userEmail, shown, late,
+          String res = Database.printReservations(userUser);
+
+          if(res.equals(""))
+          {
+            res = "No reservations";
+          }
+
+          Person person = new Person(userName, userAge, res, userAddr, userPhone, userEmail, shown, late,
             userOwe, userUser, userPass, keeping);
 
           list.add(person);

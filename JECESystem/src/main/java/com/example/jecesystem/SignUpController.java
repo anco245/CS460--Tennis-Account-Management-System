@@ -105,7 +105,7 @@ public class SignUpController implements Initializable {
 
       Matcher matcher = emailPattern.matcher(inputEmail);
 
-      if (Database.getSize() == 4) {
+      if (Database.getVerified() == 4) {
         if (!fieldCoupon.getText().trim().isEmpty() && !inputCoupon.equals("abcd")) {
           error.setTitle("Error");
           error.setContentText("Not a valid coupon code.\n" +
@@ -113,6 +113,9 @@ public class SignUpController implements Initializable {
           error.showAndWait();
         } else if (inputCoupon.equals("abcd")) {
           inputOwe = 500;
+
+          inputAddr = inputAddr + ",\n" + inputCity + ", " + state.getValue() + ",\n" + inputZipcode;
+
           Database.insertIntoWait(inputfName, inputlName, inputAge, inputAddr, inputPhone,
             inputEmail, inputUser, inputPass, inputShow, inputOwe);
 
@@ -123,6 +126,8 @@ public class SignUpController implements Initializable {
           info.showAndWait();
         } else {
           inputOwe =  1000;
+
+          inputAddr = inputAddr + ",\n" + inputCity + "," + state.getValue() + ",\n" + inputZipcode;
 
           Database.insertIntoWait(inputfName, inputlName, inputAge, inputAddr, inputPhone,
             inputEmail, inputUser, inputPass, inputShow, inputOwe);
@@ -189,7 +194,7 @@ public class SignUpController implements Initializable {
           error.showAndWait();
         } else {
 
-          inputAddr = inputAddr + ",\n" + inputCity + ", " + state.getValue() + ", " + inputZipcode;
+          inputAddr = inputAddr + ",\n" + inputCity + ", " + state.getValue() + ",\n" + inputZipcode;
 
           Database.nAccount(inputfName, inputlName, inputAge, inputAddr, inputPhone,
             inputEmail, inputUser, inputPass, inputShow, inputOwe);

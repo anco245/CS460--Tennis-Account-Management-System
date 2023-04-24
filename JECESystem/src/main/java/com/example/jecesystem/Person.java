@@ -31,6 +31,7 @@ public class Person {
   String userEmail = "";
   String userUser = "";
   String userPass = "";
+  String userReservations = "";
   boolean isShown = false;
   boolean isLate = false;
   boolean keep = true;
@@ -41,6 +42,8 @@ public class Person {
   String date = "";
 
   ObservableList guestList = FXCollections.observableArrayList();
+
+  //single double
   ObservableList sd = FXCollections.observableArrayList();
 
   public void loadData() {
@@ -229,11 +232,12 @@ public class Person {
 
 
   //used for admin directory
-  public Person(String name, int age, String address, String phone, String email, boolean s,
+  public Person(String name, int age, String res, String address, String phone, String email, boolean s,
                 boolean l, int o, String user, String pass, boolean k) {
 
     this.userName = name;
     this.userAge = age;
+    this.userReservations = res;
     this.userAddress = address;
     this.userPhone = phone;
     this.userEmail = email;
@@ -285,6 +289,9 @@ public class Person {
       }
     });
   }
+
+  public void setReservations(String reservations) {userReservations = reservations;}
+  public String getReservations() {return userReservations;}
 
   public void setGuests(ChoiceBox g) {guests = g;}
   public ChoiceBox getGuests() {return guests;}
