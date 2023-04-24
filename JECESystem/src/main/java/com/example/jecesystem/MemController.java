@@ -37,14 +37,39 @@ public class MemController implements Initializable {
     String welcomeMessage = "Member Homescreen:\nWelcome " + Database.fName + " " + Database.lName + "!";
     welcome.setText(welcomeMessage);
 
+
+    //if january or february, notify that annual payment is due soon
+    if (now.getMonthValue() == 1 || now.getMonthValue() == 2)
+    {
+      String keepMessage = "Your annual payment is due by March 1st";
+      keep.setText(keepMessage);
+    }
+
+    //If first of the month, reset guest count to 0
     if(now.getDayOfMonth() == 1)
     {
-      if(Database.isLate)
-      {
-        Database.addSubOwe(Database.memberUser, 50);
-      }
-
       Database.resetGuests();
+    }
+
+    //If march 1st (when annual payment is due), add annual payment amount to amount
+    if(now.getMonthValue() == 3 && now.getMonthValue() == 1)
+    {
+      if(Database.age < 18)
+      {
+        Database.annual = Database.annual + 250;
+      } else if (Database.age < 65) {
+        Database.annual = Database.annual + 400;
+      } else {
+        Database.annual = Database.annual + 300;
+      }
+    }
+
+    //If it's past the due date for the annual payment, and they haven't paid
+    //their annual payment, their account is marked late
+    if(now.getMonthValue() == 3 && now.getMonthValue() == 2 && Database.annual > 0)
+    {
+      Database.addSubAnnual(Database.memberUser, 50);
+      Database.setLate(Database.memberUser, true);
     }
 
     //Keep confirm just allows the "do you want to keep your account" message to appear
@@ -81,11 +106,6 @@ public class MemController implements Initializable {
           throw new RuntimeException(e);
         }
       }
-    }
-
-    if (now.getMonthValue() == 1 || now.getMonthValue() == 2) {
-      String keepMessage = "Your annual payment is due by March 1st";
-      keep.setText(keepMessage);
     }
 
     if(Database.isLate) {

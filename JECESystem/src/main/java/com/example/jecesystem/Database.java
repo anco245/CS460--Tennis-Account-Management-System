@@ -10,6 +10,7 @@ import java.time.format.DateTimeFormatter;
 import java.time.temporal.TemporalAdjusters;
 import java.util.Arrays;
 import java.util.Calendar;
+import java.util.Random;
 
 public class Database {
 
@@ -38,6 +39,7 @@ public class Database {
   public static boolean keepConfirm = false;
   public static int annual = 0;
 
+
   static DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
   static String[] full = new String[160];
@@ -64,6 +66,8 @@ public class Database {
   static String formatSat = nextSaturday.format(formatter);
   static String formatSun = nextSunday.format(formatter);
   static String formatDay = dateTime.format(formatter);
+
+  static Random rand = new Random();
 
   //Used for reseting the amount of guests for a user in the database
   public static void resetGuests() {
@@ -371,6 +375,47 @@ public class Database {
     }
   }
 
+  public static void addSubAnnual(String user, int num)
+  {
+    try (Connection connection = DriverManager.getConnection(url, username, password)) {
+      PreparedStatement preparedStatement =
+        connection.prepareStatement("SELECT * FROM directory");
+
+      ResultSet resultSet = preparedStatement.executeQuery();
+
+      String uname = "";
+      int amtOwed = 0;
+
+      while (resultSet.next()) {
+        uname = resultSet.getString("username");
+        amtOwed = resultSet.getInt("annual");
+
+        if (uname.equals(user)) {
+          PreparedStatement p2 =
+            connection.prepareStatement("UPDATE directory SET annual = ? WHERE username = ?");
+
+          amtOwed = amtOwed + num;
+
+          if(user.equals(memberUser))
+          {
+            annual = amtOwed;
+          }
+
+          p2.setInt(1, amtOwed);
+          p2.setString(2, user);
+
+          p2.executeUpdate();
+          p2.close();
+        }
+      }
+
+      preparedStatement.close();
+      resultSet.close();
+    } catch (SQLException e) {
+      throw new IllegalStateException("Cannot connect to the database!", e);
+    }
+  }
+
   public static String getBankInfo(String user)
   {
     try (Connection connection = DriverManager.getConnection(url, username, password)) {
@@ -385,6 +430,7 @@ public class Database {
       String aNum = "";
       String ssn = "";
       String type = "";
+      int totAmount = 0;
 
       while(rs.next())
       {
@@ -392,12 +438,14 @@ public class Database {
         aNum = rs.getString("accountNum");
         ssn = rs.getString("ssn");
         type = rs.getString("accountType");
+        totAmount = rs.getInt("total");
       }
 
       preparedStatement.close();
 
       return "Name of Bank: " + bName + "\nAccount Number: " + aNum +
-        "\nSocial Security Number: " + ssn + "\nAccount Type: " + type;
+        "\nSocial Security Number: " + ssn + "\nAccount Type: " + type +
+        "\nCurrent Balance: " + totAmount;
 
     } catch (SQLException e) {
       throw new IllegalStateException("Cannot connect to the database!", e);
@@ -424,13 +472,17 @@ public class Database {
   {
     try (Connection connection = DriverManager.getConnection(url, username, password)) {
       PreparedStatement preparedStatement =
-        connection.prepareStatement("INSERT INTO bank VALUES (?, ?, ?, ?, ?)");
+        connection.prepareStatement("INSERT INTO bank VALUES (?, ?, ?, ?, ?, ?)");
+
+      int max = 10000;
+      int min = 100;
 
       preparedStatement.setString(1, user);
       preparedStatement.setString(2, bankName);
       preparedStatement.setString(3, accNum);
       preparedStatement.setString(4, social);
       preparedStatement.setString(5, typeAcc);
+      preparedStatement.setInt(6, rand.nextInt(max - min + 1) + min);
 
       preparedStatement.executeUpdate();
 
@@ -648,7 +700,7 @@ public class Database {
 
       PreparedStatement preparedStatement =
         connection.prepareStatement("INSERT INTO directory "
-          + "VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+          + "VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
 
       //Just makes the first letter of the person's first and last name capital
       String first = fname.substring(0, 1).toUpperCase() + fname.substring(1);
@@ -680,10 +732,11 @@ public class Database {
         x = x + 300;
       }
 
-      preparedStatement.setInt(13, x);
+      preparedStatement.setInt(13, 0);
       preparedStatement.setInt(14, 0);
       preparedStatement.setBoolean(15, true);
       preparedStatement.setBoolean(16, false);
+      preparedStatement.setInt(17, x);
 
       //if(coupon) preparedStatement.setInt(12, 500) else preparedStatement.setInt(12, 1000);
 
@@ -731,15 +784,7 @@ public class Database {
         penalized = resultSet.getBoolean("penalized");
         keep = resultSet.getBoolean("keepAccount");
         keepConfirm = resultSet.getBoolean("keepConfirm");
-
-        if(age < 18)
-        {
-          annual = 250;
-        } else if (age < 65) {
-          annual = 400;
-        } else {
-          annual = 300;
-        }
+        annual = resultSet.getInt("annual");
 
         return true;
       }

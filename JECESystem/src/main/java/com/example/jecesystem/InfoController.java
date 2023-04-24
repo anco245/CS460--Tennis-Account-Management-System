@@ -76,7 +76,7 @@ public class InfoController implements Initializable {
   @Override
   public void initialize(URL url, ResourceBundle rb) {
 
-    forOwe.setText("$" + Database.owe);
+    forOwe.setText("$" + (Database.owe + Database.annual));
     forGuest.setText("Current Guest Count: " + Database.guestsFromDatabase + "\nYou're allowed " + (6 - Database.guestsFromDatabase) + " more \nguests for the month");
 
     disAddress.setText(Database.addr);

@@ -134,8 +134,6 @@ public class Person {
             {
               Database.guestsFromDatabase = numGuests;
 
-              System.out.println(Database.guestsFromDatabase);
-
               Database.addSubGuests(numGuests);
               Database.addSubOwe(Database.memberUser, numGuests * 10);
               Database.makeRes(cNumber, Database.memberUser, date, 1 + numGuests);
