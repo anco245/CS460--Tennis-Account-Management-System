@@ -34,12 +34,10 @@
                   <InnerShadow />
                </effect>
             </Rectangle>
-            <Button mnemonicParsing="false" onAction="#showTresDir" prefHeight="25.0" prefWidth="600.0" text="View Directory / Notify if Late" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-            <Button mnemonicParsing="false" onAction="#approve" prefHeight="25.0" prefWidth="600.0" text="Approve New Accounts" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <Button mnemonicParsing="false" onAction="#showTresDir" prefHeight="25.0" prefWidth="600.0" text="View Directory / Notify if Late" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="2" />
             <Button alignment="CENTER" mnemonicParsing="false" onAction="#switchToLogin" prefHeight="25.0" prefWidth="200.0" text="Back to Login" textFill="WHITE" translateX="115.0" GridPane.columnIndex="1" GridPane.rowIndex="7" />
-            <Button mnemonicParsing="false" onAction="#remove" prefHeight="25.0" prefWidth="600.0" text="Remove Member" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-            <Button mnemonicParsing="false" onAction="#addSub" prefHeight="25.0" prefWidth="600.0" text="Add or Subtract Amount Owed" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-            <Button mnemonicParsing="false" onAction="#viewBankInfo" prefWidth="600.0" text="View Bank Information for Members" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+            <Button mnemonicParsing="false" onAction="#addSub" prefHeight="25.0" prefWidth="600.0" text="Add or Subtract Amount Owed" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+            <Button mnemonicParsing="false" onAction="#viewBankInfo" prefWidth="600.0" text="View Bank Information for Members" GridPane.columnIndex="1" GridPane.rowIndex="4" />
             <TextArea fx:id="textInfo" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="115.0" prefWidth="289.0" translateX="105.0" GridPane.columnIndex="2" GridPane.rowIndex="1" />
          </children>
       </GridPane>

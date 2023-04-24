@@ -16,7 +16,7 @@ public class CTController implements Initializable {
 
   @Override
   public void initialize(URL url, ResourceBundle resourceBundle) {
-      textInfo.setText("Chairman / Treasurer Homescreen:\n\nWelcome, " + Database.fName + " " + Database.lName + "!");
+      textInfo.setText("Treasurer Homescreen:\n\nWelcome, " + Database.fName + " " + Database.lName + "!");
   }
 
   @FXML

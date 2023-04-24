@@ -99,6 +99,6 @@ public class ApproveController implements Initializable {
 
   @FXML
   void switchToHomescreen(ActionEvent event) throws IOException {
-    App.setRoot("ctscreen");
+    App.setRoot("adminscreen");
   }
 }

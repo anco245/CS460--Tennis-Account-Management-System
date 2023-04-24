@@ -35,9 +35,22 @@ public class AdminController implements Initializable {
   }
 
   @FXML
+  void showDirectory(ActionEvent event) throws IOException {
+    App.setRoot("chairDirectory");
+  }
+
+  @FXML
+  void approve(ActionEvent event) throws IOException {
+      App.setRoot("approve");
+  }
+
+  @FXML
+  void remove(ActionEvent event) throws IOException {
+      App.setRoot("remove");
+  }
+
+  @FXML
   void switchToLogin(ActionEvent event) throws IOException {
     App.setRoot("login");
   }
-
-
 }

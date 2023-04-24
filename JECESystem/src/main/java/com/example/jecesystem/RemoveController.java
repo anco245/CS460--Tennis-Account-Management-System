@@ -51,7 +51,7 @@ public class RemoveController {
 
   @FXML
   void switchToHomeScreen(ActionEvent event) throws IOException {
-    App.setRoot("ctscreen");
+    App.setRoot("adminscreen");
   }
 
 }
