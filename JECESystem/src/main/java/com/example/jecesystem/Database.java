@@ -66,7 +66,6 @@ public class Database {
   static String formatSat = nextSaturday.format(formatter);
   static String formatSun = nextSunday.format(formatter);
   static String formatDay = dateTime.format(formatter);
-
   static Random rand = new Random();
 
   //Used for reseting the amount of guests for a user in the database
@@ -86,7 +85,6 @@ public class Database {
       throw new IllegalStateException("Cannot connect to the database!", e);
     }
   }
-
 
   //Removes people from directory who opted to
   //not keep their account when asked on 1/1
@@ -264,6 +262,7 @@ public class Database {
     }
   }
 
+  //Sees if the given time slot has already passed
   public static boolean hasPassed(String slot) {
     Calendar rightNow = Calendar.getInstance();
     int hour = rightNow.get(Calendar.HOUR_OF_DAY);
@@ -290,6 +289,8 @@ public class Database {
     return (resHour != hour || minute >= resMin) && hour >= resHour;
   }
 
+  //Checks to see if the tables court1-12 only have the days from
+  //today to a week from now.
   public static boolean isUpdated() {
     try (Connection connection = DriverManager.getConnection(url, username, password)) {
 
@@ -375,6 +376,7 @@ public class Database {
     }
   }
 
+  //adds or subtracts amount that is owed for the annual payment
   public static void addSubAnnual(String user, int num)
   {
     try (Connection connection = DriverManager.getConnection(url, username, password)) {
@@ -517,7 +519,8 @@ public class Database {
     }
   }
 
-  //adds or subtracts amount owed
+  //adds or subtracts amount that's not a part of the annual fee
+  //for example the guest fee
   public static void addSubOwe(String user, int priceOfGuests) {
     try (Connection connection = DriverManager.getConnection(url, username, password)) {
       PreparedStatement preparedStatement =
@@ -601,7 +604,7 @@ public class Database {
     }
   }
 
-
+  //Returns the amount of people in a given court at a given time
   public static int getOccupied(int c, String time)
   {
     try (Connection connection = DriverManager.getConnection(url, username, password)) {
@@ -799,6 +802,7 @@ public class Database {
     }
   }
 
+  //Sets whether the user has opted to keep their account or not
   public static void setConfirm(boolean b) {
     try (Connection connection = DriverManager.getConnection(url, username, password)) {
       PreparedStatement preparedStatement =
@@ -858,6 +862,8 @@ public class Database {
     }
   }
 
+  //determines whether or not the member has exceeded their 2 guests per
+  //month limit
   public static boolean exceededResLimit(String dayTime) throws SQLException {
     try (Connection connection = DriverManager.getConnection(url, username, password)) {
 
@@ -980,6 +986,8 @@ public class Database {
     }
   }
 
+  //Used to see if the given member has reserved a court at the same time
+  //but in a different court
   public static boolean sameTimeOtherCourt(String member, String slot, String court)
   {
     try (Connection connection = DriverManager.getConnection(url, username, password)) {
@@ -1046,6 +1054,8 @@ public class Database {
     }
   }
 
+  //Courts tables need to be repopulated every day, to get rid of previous day
+  //and add the day a week from now
   public static void populateCourts() {
     try (Connection connection = DriverManager.getConnection(url, username, password)) {
 

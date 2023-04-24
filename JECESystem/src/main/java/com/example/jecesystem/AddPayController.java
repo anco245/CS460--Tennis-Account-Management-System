@@ -20,21 +20,20 @@ public class AddPayController implements Initializable {
 
   @FXML
   private TextField amount;
-
   @FXML
   private TextArea bankInfo;
 
   @Override
   public void initialize(URL url, ResourceBundle resourceBundle) {
 
-    String str = "Amount owed: $" + (Database.owe + Database.annual)  + "\n\n";
+    String totalAmountOwedStatement = "Amount owed: $" + (Database.owe + Database.annual)  + "\n\n";
 
     if(!Database.hasBankAccount(Database.memberUser))
     {
-      bankInfo.setText(str + "You haven't added a bank yet");
+      bankInfo.setText(totalAmountOwedStatement + "You haven't added a bank yet");
     } else {
-      str = str + Database.getBankInfo(Database.memberUser);
-      bankInfo.setText(str);
+      totalAmountOwedStatement = totalAmountOwedStatement + Database.getBankInfo(Database.memberUser);
+      bankInfo.setText(totalAmountOwedStatement);
     }
   }
 
@@ -59,8 +58,10 @@ public class AddPayController implements Initializable {
         error.showAndWait();
       } else {
 
+        //If member still hasn't paid off all of annual fee or 1000 initial payment
         if(Database.annual > 0)
         {
+          //If member wants to deduct the amount that they owe, set late to false
           if(amt >= Database.annual)
           {
             Database.setLate(Database.memberUser, false);
@@ -69,6 +70,8 @@ public class AddPayController implements Initializable {
 
           Database.addSubAnnual(Database.memberUser, amt * (-1));
         } else {
+
+          //else if annual is already paid off, deduct from owe (guest reservations)
           Database.addSubOwe(Database.memberUser, amt * (-1));
         }
 

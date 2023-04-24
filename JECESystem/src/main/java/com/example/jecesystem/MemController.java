@@ -51,7 +51,7 @@ public class MemController implements Initializable {
       Database.resetGuests();
     }
 
-    //If march 1st (when annual payment is due), add annual payment amount to amount
+    //If march 1st (when annual payment is due), add annual payment to annual variable
     if(now.getMonthValue() == 3 && now.getMonthValue() == 1)
     {
       if(Database.age < 18)
@@ -65,7 +65,7 @@ public class MemController implements Initializable {
     }
 
     //If it's past the due date for the annual payment, and they haven't paid
-    //their annual payment, their account is marked late
+    //it yet, their account is marked late
     if(now.getMonthValue() == 3 && now.getMonthValue() == 2 && Database.annual > 0)
     {
       Database.addSubAnnual(Database.memberUser, 50);
