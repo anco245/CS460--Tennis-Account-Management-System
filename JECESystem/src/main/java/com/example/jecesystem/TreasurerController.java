@@ -9,34 +9,23 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class CTController implements Initializable {
-
+public class TreasurerController implements Initializable {
   @FXML
   private TextArea textInfo;
 
   @Override
   public void initialize(URL url, ResourceBundle resourceBundle) {
-      textInfo.setText("Treasurer Homescreen:\n\nWelcome, " + Database.fName + " " + Database.lName + "!");
+    textInfo.setText("Treasurer Homescreen:\n\nWelcome, " + Database.fName + " " + Database.lName + "!");
   }
 
   @FXML
   void addSub(ActionEvent event) throws IOException {
-      App.setRoot("addsub");
-  }
-
-  @FXML
-  void approve(ActionEvent event) throws IOException {
-    App.setRoot("approve");
-  }
-
-  @FXML
-  void remove(ActionEvent event) throws IOException {
-    App.setRoot("remove");
+    App.setRoot("addsub");
   }
 
   @FXML
   void showTresDir(ActionEvent event) throws IOException {
-    App.setRoot("chairdirectory");
+    App.setRoot("treasurerdirectory");
   }
 
   @FXML
@@ -45,8 +34,10 @@ public class CTController implements Initializable {
   }
 
   @FXML
-  void viewBankInfo(ActionEvent event) {
-
+  void viewBankInfo(ActionEvent event) throws IOException {
+    //App.setRoot("bankDisplay");
   }
+
+
 
 }

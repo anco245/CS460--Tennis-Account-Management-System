@@ -51,6 +51,7 @@ public class Person {
     singleDouble.getItems().addAll(sd);
   }
 
+  //used for member directory
   public Person(String name, int age, String address, String phone, String email) {
     this.userName = name;
     this.userAge = age;
@@ -59,6 +60,7 @@ public class Person {
     this.userEmail = email;
   }
 
+  //displaying courts in court reservation screen
   public Person(String slot, String s, int c) {
 
     loadData();
@@ -156,6 +158,7 @@ public class Person {
     });
   }
 
+  // displaying court reservations on info screen
   public Person(int court, String dateTime) {
     this.userCourt = court;
     this.date = dateTime;
@@ -174,6 +177,44 @@ public class Person {
     });
   }
 
+
+  //Used for treasurer
+  public Person(String name, String address, String phone, String email,
+                boolean l, int o, String user) {
+
+    this.userName = name;
+    this.userAddress = address;
+    this.userPhone = phone;
+    this.userEmail = email;
+    this.isLate = l;
+    this.userUser = user;
+    this.notify = new Button("notify");
+    this.denotify = new Button("denotify");
+    this.owe = o;
+
+    notify.setPrefWidth(100.0);
+    notify.setOnAction(e -> {
+      try {
+        Database.setLate(userUser, true);
+        App.setRoot("treasurerdirectory");
+      } catch (IOException ex) {
+        throw new RuntimeException(ex);
+      }
+    });
+
+    denotify.setPrefWidth(100.0);
+    denotify.setOnAction(e -> {
+      try {
+        Database.setLate(userUser, false);
+        App.setRoot("treasurerdirectory");
+      } catch (IOException ex) {
+        throw new RuntimeException(ex);
+      }
+    });
+  }
+
+
+  //used for admin
   public Person(String name, int age, String address, String phone, String email, boolean s,
                 boolean l, int o, String user, String pass, boolean k) {
 
@@ -185,31 +226,11 @@ public class Person {
     this.isShown = s;
     this.isLate = l;
     this.userUser = user;
-    this.userPass = pass;
     this.notify = new Button("notify");
     this.denotify = new Button("denotify");
     this.keep = k;
     this.owe = o;
-
-    notify.setPrefWidth(100.0);
-    notify.setOnAction(e -> {
-      try {
-        Database.setLate(userUser, true);
-        App.setRoot("chairdirectory");
-      } catch (IOException ex) {
-        throw new RuntimeException(ex);
-      }
-    });
-
-    denotify.setPrefWidth(100.0);
-    denotify.setOnAction(e -> {
-      try {
-        Database.setLate(userUser, false);
-        App.setRoot("chairdirectory");
-      } catch (IOException ex) {
-        throw new RuntimeException(ex);
-      }
-    });
+    this.userPass = pass;
   }
 
   public Person(String name, int age, String address, String phone, String email, String u, String p, boolean s) {

@@ -14,22 +14,18 @@ import java.net.URL;
 import java.sql.*;
 import java.util.ResourceBundle;
 
-public class ChairDirectoryController implements Initializable {
+public class AdminDirectoryController implements Initializable {
 
   @FXML
   private TableColumn<Person, String> address;
   @FXML
   private TableColumn<Person, Integer> age;
   @FXML
-  private TableColumn<Person, Button> denotify;
-  @FXML
   private TableColumn<Person, String> email;
   @FXML
   private TableColumn<Person, Boolean> late;
   @FXML
   private TableColumn<Person, String> name;
-  @FXML
-  private TableColumn<Person, Button> notify;
   @FXML
   private TableColumn<Person, String> pass;
   @FXML
@@ -59,8 +55,6 @@ public class ChairDirectoryController implements Initializable {
     pass.setCellValueFactory(new PropertyValueFactory<>("pass"));
     late.setCellValueFactory(new PropertyValueFactory<>("late"));
     shown.setCellValueFactory(new PropertyValueFactory<>("shown"));
-    notify.setCellValueFactory(new PropertyValueFactory<>("notify"));
-    denotify.setCellValueFactory(new PropertyValueFactory<>("denotify"));
     keep.setCellValueFactory(new PropertyValueFactory<>("keep"));
     owe.setCellValueFactory(new PropertyValueFactory<>("owe"));
 
@@ -84,16 +78,16 @@ public class ChairDirectoryController implements Initializable {
         String userPhone = resultSet.getString("phone");
         String userEmail = resultSet.getString("email");
         String userUser = resultSet.getString("username");
+        String userPass = resultSet.getString("pword");
+        boolean keeping = resultSet.getBoolean("keepAccount");
 
         userOwe = userOwe + Database.getAnnual(userUser);
 
-        String userPass = resultSet.getString("pword");
         boolean shown = resultSet.getBoolean("shown");
         boolean late = resultSet.getBoolean("late");
-        boolean keep = resultSet.getBoolean("keepAccount");
 
         Person person = new Person(userName, userAge, userAddr, userPhone, userEmail, shown, late,
-          userOwe, userUser, userPass, keep);
+          userOwe, userUser, userPass, keeping);
 
         list.add(person);
       }
@@ -110,7 +104,7 @@ public class ChairDirectoryController implements Initializable {
 
   @FXML
   void backToHomescreen(ActionEvent event) throws IOException {
-    App.setRoot("ctscreen");
+    App.setRoot("adminscreen");
   }
 
 }

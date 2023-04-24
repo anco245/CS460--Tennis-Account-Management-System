@@ -9,4 +9,4 @@ VALUES ("Adam", "Fincher", 33, "123 Second Street, \nEast Hartford, CT, 06108", 
 INSERT INTO bank (username, bankName, accountNum, ssn, accountType, total) 
 values ("jsmith", "citizens bank", "123456789", "123456789", "Checking", 8000);
 
-INSERT INTO waiting (firstName, lastName, age, address, phone, email, username, pword, shown, owe) VALUES ("j", "yep", 32, "378t", "1234567898", "7586@gmail.com", "jzee", "pass", true, 0);
+INSERT INTO waiting (firstName, lastName, age, address, phone, email, username, pword, shown, owe) VALUES ("Trinity", "Last", 32, "378t", "1234567898", "7586@gmail.com", "tlast", "pass", true, 0);

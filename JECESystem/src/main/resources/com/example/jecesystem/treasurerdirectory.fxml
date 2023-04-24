@@ -1,14 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="com.example.jecesystem.Treasurerdirectory"
-            prefHeight="400.0" prefWidth="600.0">
-
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="680.0" prefWidth="1280.0" stylesheets="@theme.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.jecesystem.TreasurerDirectoryController">
+  <children>
+    <TableView fx:id="table" prefHeight="564.0" prefWidth="1067.0" AnchorPane.bottomAnchor="36.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <columns>
+        <TableColumn fx:id="name" prefWidth="216.0" text="Name" />
+        <TableColumn fx:id="address" prefWidth="211.0" text="Address" />
+        <TableColumn fx:id="phone" prefWidth="217.0" text="Phone" />
+        <TableColumn fx:id="email" prefWidth="203.0" text="Email" />
+        <TableColumn fx:id="owed" prefWidth="134.0" text="Amount Owed" />
+            <TableColumn fx:id="late" prefWidth="92.0" text="Late" />
+            <TableColumn fx:id="notify" prefWidth="93.0" text="Notify" />
+            <TableColumn fx:id="denotify" prefWidth="113.0" text="Denotify" />
+      </columns>
+    </TableView>
+    <Button layoutX="14.0" layoutY="644.0" mnemonicParsing="false" onAction="#switchToHome" prefHeight="34.0" prefWidth="187.0" text="Back to Homescreen" />
+  </children>
 </AnchorPane>

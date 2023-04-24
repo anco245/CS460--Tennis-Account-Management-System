@@ -44,7 +44,7 @@ public class RemoveController {
 
           Database.addFromWait();
 
-          App.setRoot("ctscreen");
+          App.setRoot("adminscreen");
         }
       }
   }

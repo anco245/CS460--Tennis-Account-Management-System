@@ -49,6 +49,6 @@ public class AddSubController {
 
   @FXML
   void switchToHome(ActionEvent event) throws IOException {
-      App.setRoot("ctscreen");
+      App.setRoot("treasurer");
   }
 }

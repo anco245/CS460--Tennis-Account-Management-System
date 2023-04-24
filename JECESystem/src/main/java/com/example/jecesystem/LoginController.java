@@ -57,7 +57,7 @@ public class LoginController implements Initializable {
       if(Database.verified(name))
       {
         if(Database.extension.equals("tennis.com")) {
-          App.setRoot("ctscreen");
+          App.setRoot("treasurer");
         } else if (Database.extension.equals("admin.com")) {
           App.setRoot("adminscreen");
         } else {
