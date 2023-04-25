@@ -883,6 +883,7 @@ public class Database {
 
       while (resultSet.next()) {
         memberUser = user;
+        memberPass = pass;
 
         //makes it so that the first letters of the first and last name are capital
         fName = resultSet.getString("firstName").substring(0, 1).toUpperCase() +

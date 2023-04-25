@@ -29,13 +29,13 @@
         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
       </rowConstraints>
       <children>
-        <Rectangle arcHeight="40.0" arcWidth="40.0" fill="#d9d9d9" height="600.0" opacity="0.28" stroke="BLACK" strokeType="INSIDE" translateX="350.0" width="580.0" GridPane.rowIndex="4">
+        <Rectangle arcHeight="40.0" arcWidth="40.0" fill="#d9d9d9" height="600.0" opacity="0.28" stroke="BLACK" strokeType="INSIDE" translateX="390.0" width="580.0" GridPane.rowIndex="4">
           <effect>
             <InnerShadow />
           </effect>
         </Rectangle>
         <Button mnemonicParsing="false" onAction="#showTresDir" prefHeight="25.0" prefWidth="600.0" text="View Directory / Notify if Late" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-        <Button alignment="CENTER" mnemonicParsing="false" onAction="#switchToLogin" prefHeight="25.0" prefWidth="200.0" text="Back to Login" textFill="WHITE" translateX="115.0" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+        <Button alignment="CENTER" mnemonicParsing="false" onAction="#switchToLogin" prefHeight="25.0" prefWidth="200.0" text="Back to Login" textFill="WHITE" translateX="130.0" GridPane.columnIndex="1" GridPane.rowIndex="7" />
         <Button mnemonicParsing="false" onAction="#addSub" prefHeight="25.0" prefWidth="600.0" text="Add or Subtract Amount Owed" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="3" />
         <Button mnemonicParsing="false" onAction="#viewBankInfo" prefWidth="600.0" text="View Bank Information for Members" GridPane.columnIndex="1" GridPane.rowIndex="4" />
         <TextArea fx:id="textInfo" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="115.0" prefWidth="289.0" translateX="105.0" GridPane.columnIndex="2" GridPane.rowIndex="1" />

@@ -9,23 +9,23 @@
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="695.0" prefWidth="1366.0" stylesheets="@theme.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.jecesystem.AddPayController">
+<AnchorPane prefHeight="695.0" prefWidth="1366.0" stylesheets="@theme.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.jecesystem.AddPayController">
    <children>
-      <Rectangle arcHeight="40.0" arcWidth="40.0" fill="#e9e9e9" height="500.0" layoutX="240.0" layoutY="70.0" opacity="0.28" stroke="BLACK" strokeType="INSIDE" width="800.0">
+      <Rectangle arcHeight="40.0" arcWidth="40.0" fill="#e9e9e9" height="500.0" layoutX="240.0" layoutY="70.0" opacity="0.28" stroke="BLACK" strokeType="INSIDE" translateX="40.0" width="800.0">
          <effect>
             <InnerShadow />
          </effect>
       </Rectangle>
       <Button layoutX="35.0" layoutY="636.0" mnemonicParsing="false" onAction="#switchToHome" text="Back to Homscreen" />
-      <TextField fx:id="amount" layoutX="270.0" layoutY="300.0" />
+      <TextField fx:id="amount" layoutX="270.0" layoutY="300.0" translateX="40.0" />
       <Label layoutX="300.0" layoutY="266.0" text="Amount to Deduct" textFill="WHITE" />
-      <TextArea fx:id="bankInfo" layoutX="526.0" layoutY="162.0" prefHeight="288.0" prefWidth="428.0">
+      <TextArea fx:id="bankInfo" layoutX="526.0" layoutY="162.0" prefHeight="288.0" prefWidth="428.0" translateX="40.0">
          <font>
             <Font size="20.0" />
          </font></TextArea>
-      <Label layoutX="700.0" layoutY="100.0" prefHeight="17.0" text="Bank Info" textFill="WHITE" />
-      <Button layoutX="340.0" layoutY="402.0" mnemonicParsing="false" onAction="#onSubmit" text="Submit" />
-      <Button layoutX="560.0" layoutY="500.0" mnemonicParsing="false" onAction="#removeBank" text="Remove Bank" />
-      <Button layoutX="800.0" layoutY="500.0" mnemonicParsing="false" onAction="#switchToAddBank" text="Add Bank" />
+      <Label layoutX="700.0" layoutY="100.0" prefHeight="17.0" text="Bank Info" textFill="WHITE" translateX="40.0" />
+      <Button layoutX="340.0" layoutY="402.0" mnemonicParsing="false" onAction="#onSubmit" text="Submit" translateX="40.0" />
+      <Button layoutX="560.0" layoutY="500.0" mnemonicParsing="false" onAction="#removeBank" text="Remove Bank" translateX="40.0" />
+      <Button layoutX="800.0" layoutY="500.0" mnemonicParsing="false" onAction="#switchToAddBank" text="Add Bank" translateX="40.0" />
    </children>
 </AnchorPane>

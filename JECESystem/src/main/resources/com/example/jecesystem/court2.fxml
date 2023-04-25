@@ -21,7 +21,7 @@
     <Button layoutX="252.1" layoutY="14.0" mnemonicParsing="false" onAction="#switchToCourt3" text="Court 3" />
     <Button layoutX="1176.4" layoutY="14.0" mnemonicParsing="false" onAction="#switchToCourt12" text="Court 12" />
     <Button layoutX="1073.7" layoutY="14.0" mnemonicParsing="false" onAction="#switchToCourt11" prefHeight="25.0" text="Court 11" />
-    <TableView fx:id="courtDisplay" layoutX="140.0" layoutY="100.0" prefHeight="477.0" prefWidth="1000.0">
+    <TableView fx:id="courtDisplay" layoutX="140.0" layoutY="100.0" prefHeight="477.0" prefWidth="1000.0" translateX="40.0">>
       <columns>
         <TableColumn fx:id="dayAndTime" prefWidth="286.39996337890625" text="Day and Time" />
         <TableColumn fx:id="status" minWidth="0.0" prefWidth="161.0" text="Status" />

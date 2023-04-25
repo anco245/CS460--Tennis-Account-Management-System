@@ -15,19 +15,8 @@ import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class InfoController implements Initializable {
-
-  /*
-        if username is changed
-        - change username in courtres database
-
-    Phone Number for Main Desk: 215-436-2231
-    Phone Number for Technical Support: 215-663-2133
-    Email for any questions: askquestion@tennis.com
-
-
     //Add how much they're paying per month
     //Next payment`
-  */
 
   @FXML
   private Text disAddress;

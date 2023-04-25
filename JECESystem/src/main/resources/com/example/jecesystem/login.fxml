@@ -66,7 +66,7 @@
                   <Font name="Corbel" size="18.0" />
                </font>
             </Label>
-            <Button mnemonicParsing="false" onAction="#toContactUs" prefHeight="34.0" prefWidth="133.0" text="Contact Us" textFill="WHITE" translateX="195.0" translateY="-30.0" GridPane.columnIndex="1" GridPane.rowIndex="4">
+            <Button mnemonicParsing="false" onAction="#toContactUs" prefHeight="34.0" prefWidth="133.0" text="Contact Us" textFill="WHITE" translateX="217.0" translateY="-30.0" GridPane.columnIndex="1" GridPane.rowIndex="4">
                <font>
                   <Font name="Corbel" size="18.0" />
                </font></Button>

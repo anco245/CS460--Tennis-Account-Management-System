@@ -7,7 +7,7 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="695.0" prefWidth="1366.0" stylesheets="@theme.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.jecesystem.AdminDirectoryController">
   <children>
-    <TableView fx:id="table" prefHeight="680.0" prefWidth="1300.0" AnchorPane.bottomAnchor="34.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+    <TableView fx:id="table" prefHeight="625.0" prefWidth="1366.0" AnchorPane.bottomAnchor="70.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
       <columns>
         <TableColumn fx:id="name" prefWidth="117.0" text="Name" />
         <TableColumn fx:id="age" minWidth="2.0" prefWidth="42.0" text="Age" />
@@ -15,12 +15,12 @@
         <TableColumn fx:id="address" prefWidth="170.0" text="Address" />
         <TableColumn fx:id="phone" prefWidth="123.0" text="Phone" />
         <TableColumn fx:id="email" minWidth="0.0" prefWidth="224.0" text="Email" />
-        <TableColumn fx:id="user" prefWidth="92.0" text="Username" />
-        <TableColumn fx:id="pass" prefWidth="87.0" text="Password" />
+        <TableColumn fx:id="user" prefWidth="124.0" text="Username" />
+        <TableColumn fx:id="pass" prefWidth="97.0" text="Password" />
         <TableColumn fx:id="shown" minWidth="0.0" prefWidth="72.0" text="Shown" />
         <TableColumn fx:id="late" prefWidth="59.0" text="Late" />
-        <TableColumn fx:id="owe" prefWidth="53.0" text="Owe" />
-        <TableColumn fx:id="keep" prefWidth="54.0" text="Keep" />
+        <TableColumn fx:id="owe" prefWidth="67.0" text="Owe" />
+        <TableColumn fx:id="keep" prefWidth="66.0" text="Keep" />
       </columns>
     </TableView>
     <Button layoutX="14.0" layoutY="646.0" mnemonicParsing="false" onAction="#backToHomescreen" prefHeight="34.0" prefWidth="194.0" text="Back to Homescreen" />

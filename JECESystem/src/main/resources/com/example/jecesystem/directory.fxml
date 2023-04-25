@@ -5,15 +5,15 @@
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="695.0" prefWidth="1366.0" stylesheets="@theme.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.jecesystem.DirectoryController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="695.0" prefWidth="1366.0" stylesheets="@theme.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.jecesystem.DirectoryController">
    <children>
-      <TableView fx:id="table" prefHeight="564.0" prefWidth="1067.0" AnchorPane.bottomAnchor="36.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <TableView fx:id="table" prefHeight="619.0" prefWidth="1366.0" AnchorPane.bottomAnchor="76.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <columns>
-          <TableColumn fx:id="name" prefWidth="216.0" text="Name" />
-          <TableColumn fx:id="age" prefWidth="211.0" text="Age" />
-            <TableColumn fx:id="address" prefWidth="233.0" text="Address" />
-            <TableColumn fx:id="phone" prefWidth="290.0" text="Phone" />
-            <TableColumn fx:id="email" prefWidth="329.0" text="Email" />
+          <TableColumn fx:id="name" prefWidth="226.0" text="Name" />
+          <TableColumn fx:id="age" prefWidth="193.0" text="Age" />
+            <TableColumn fx:id="address" prefWidth="477.0" text="Address" />
+            <TableColumn fx:id="phone" prefWidth="242.0" text="Phone" />
+            <TableColumn fx:id="email" prefWidth="227.0" text="Email" />
         </columns>
       </TableView>
       <Button layoutX="14.0" layoutY="644.0" mnemonicParsing="false" onAction="#switchToHome" prefHeight="34.0" prefWidth="187.0" text="Back to Homescreen" />

@@ -14,9 +14,9 @@
         <TableColumn fx:id="phone" prefWidth="217.0" text="Phone" />
         <TableColumn fx:id="email" prefWidth="203.0" text="Email" />
         <TableColumn fx:id="owed" prefWidth="134.0" text="Amount Owed" />
-            <TableColumn fx:id="late" prefWidth="92.0" text="Late" />
-            <TableColumn fx:id="notify" prefWidth="93.0" text="Notify" />
-            <TableColumn fx:id="denotify" prefWidth="113.0" text="Denotify" />
+            <TableColumn fx:id="late" prefWidth="128.0" text="Late" />
+            <TableColumn fx:id="notify" prefWidth="129.0" text="Notify" />
+            <TableColumn fx:id="denotify" prefWidth="127.0" text="Denotify" />
       </columns>
     </TableView>
     <Button layoutX="14.0" layoutY="644.0" mnemonicParsing="false" onAction="#switchToHome" prefHeight="34.0" prefWidth="187.0" text="Back to Homescreen" />

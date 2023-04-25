@@ -10,21 +10,21 @@
 
 <AnchorPane prefHeight="695.0" prefWidth="1366.0" stylesheets="@theme.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.jecesystem.AddBankController">
   <children>
-      <Rectangle arcHeight="40.0" arcWidth="40.0" fill="#e9e9e9" height="350.0" layoutX="390.0" layoutY="120.0" opacity="0.28" stroke="BLACK" strokeType="INSIDE" width="500.0">
+      <Rectangle arcHeight="40.0" arcWidth="40.0" fill="#e9e9e9" height="350.0" layoutX="390.0" layoutY="120.0" opacity="0.28" stroke="BLACK" strokeType="INSIDE" translateX="30.0" width="500.0">
          <effect>
             <InnerShadow />
          </effect>
       </Rectangle>
     <Button layoutX="98.0" layoutY="616.0" mnemonicParsing="false" onAction="#switchToHome" text="Back to Homscreen" />
-    <TextField fx:id="numberField" layoutX="430.0" layoutY="179.0" />
-    <Label layoutX="450.0" layoutY="143.0" text="Account Number" />
-    <Label layoutX="450.0" layoutY="244.0" text="Name of Bank" />
-    <TextField fx:id="bankNameField" layoutX="430.0" layoutY="272.0" />
-    <TextField fx:id="ssnField" layoutX="430.0" layoutY="381.0" />
-    <Label layoutX="450.0" layoutY="352.0" text="Social Security Number" />
-    <ChoiceBox fx:id="typeAccount" layoutX="700.0" layoutY="179.0" prefWidth="150.0" />
-    <Label layoutX="700.0" layoutY="135.0" text="Type of Account" />
-    <Button layoutX="730.0" layoutY="380.0" mnemonicParsing="false" onAction="#onSubmit" text="Submit" />
-      <Button layoutX="1038.0" layoutY="616.0" mnemonicParsing="false" onAction="#switchToPay" text="Back to Add Payment" />
+    <TextField fx:id="numberField" layoutX="430.0" layoutY="179.0" translateX="30.0" />
+    <Label layoutX="450.0" layoutY="143.0" text="Account Number" translateX="50.0" />
+    <Label layoutX="450.0" layoutY="244.0" text="Name of Bank" translateX="65.0" />
+    <TextField fx:id="bankNameField" layoutX="430.0" layoutY="272.0" translateX="30.0" />
+    <TextField fx:id="ssnField" layoutX="430.0" layoutY="381.0" translateX="30.0" />
+    <Label layoutX="450.0" layoutY="352.0" text="Social Security Number" translateX="30.0" />
+    <ChoiceBox fx:id="typeAccount" layoutX="700.0" layoutY="179.0" prefWidth="150.0" translateX="30.0" />
+    <Label layoutX="700.0" layoutY="135.0" text="Type of Account" translateX="40.0" />
+    <Button layoutX="730.0" layoutY="380.0" mnemonicParsing="false" onAction="#onSubmit" text="Submit" translateX="40.0" />
+      <Button layoutX="1108.0" layoutY="613.0" mnemonicParsing="false" onAction="#switchToPay" text="Back to Add Payment" />
   </children>
 </AnchorPane>

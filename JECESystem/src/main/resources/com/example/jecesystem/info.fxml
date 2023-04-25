@@ -15,7 +15,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="695.0" prefWidth="1366.0" stylesheets="@theme.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.jecesystem.InfoController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="695.0" prefWidth="1366.0" stylesheets="@theme.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.jecesystem.InfoController">
   <children>
     <GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="695.0" prefWidth="1366.0">
       <columnConstraints>
@@ -42,19 +42,19 @@
         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
       </rowConstraints>
       <children>
-        <Rectangle arcHeight="40.0" arcWidth="40.0" fill="#d9d9d9" height="560.0" opacity="0.28" stroke="BLACK" strokeType="INSIDE" translateX="120.0" translateY="-80.0" width="1040.0" GridPane.rowIndex="9">
+        <Rectangle arcHeight="40.0" arcWidth="40.0" fill="#d9d9d9" height="560.0" opacity="0.28" stroke="BLACK" strokeType="INSIDE" translateX="160.0" translateY="-80.0" width="1040.0" GridPane.rowIndex="9">
                <effect>
                   <InnerShadow />
                </effect></Rectangle>
-        <Label text="Last Name: " textFill="WHITE" translateX="150.0" GridPane.rowIndex="3" />
-        <Label text="Age: " textFill="WHITE" translateX="150.0" GridPane.rowIndex="4" />
-        <Label text="Address: " textFill="WHITE" translateX="150.0" GridPane.rowIndex="5" />
-        <Label text="Phone: " textFill="WHITE" translateX="150.0" GridPane.rowIndex="6" />
-        <Label text="Email: " textFill="WHITE" translateX="150.0" GridPane.rowIndex="7" />
-        <Label text="Username: " textFill="WHITE" translateX="150.0" GridPane.rowIndex="8" />
-        <Label text="Password: " textFill="WHITE" translateX="150.0" GridPane.rowIndex="9" />
-        <Button mnemonicParsing="false" onAction="#switchToHomescreen" text="Back to Homescreen" translateX="175.0" GridPane.rowIndex="12" />
-        <Button mnemonicParsing="false" onAction="#cancelMembership" text="Cancel Membership" translateX="80.0" GridPane.columnIndex="2" GridPane.rowIndex="12" />
+        <Label text="Last Name: " textFill="WHITE" translateX="190.0" GridPane.rowIndex="3" />
+        <Label text="Age: " textFill="WHITE" translateX="190.0" GridPane.rowIndex="4" />
+        <Label text="Address: " textFill="WHITE" translateX="190.0" GridPane.rowIndex="5" />
+        <Label text="Phone: " textFill="WHITE" translateX="190.0" GridPane.rowIndex="6" />
+        <Label text="Email: " textFill="WHITE" translateX="190.0" GridPane.rowIndex="7" />
+        <Label text="Username: " textFill="WHITE" translateX="190.0" GridPane.rowIndex="8" />
+        <Label text="Password: " textFill="WHITE" translateX="190.0" GridPane.rowIndex="9" />
+        <Button mnemonicParsing="false" onAction="#switchToHomescreen" text="Back to Homescreen" translateX="215.0" GridPane.rowIndex="12" />
+        <Button mnemonicParsing="false" onAction="#cancelMembership" text="Cancel Membership" translateX="70.0" GridPane.columnIndex="2" GridPane.rowIndex="12" />
         <Label text="Reservation" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="2">
           <font>
             <Font size="22.0" />
@@ -63,24 +63,24 @@
           <font>
             <Font size="22.0" />
           </font></Label>
-        <Label text="First Name: " textFill="WHITE" translateX="150.0" GridPane.rowIndex="2" />
-        <Text fx:id="disfname" strokeType="OUTSIDE" strokeWidth="0.0" translateX="250.0" GridPane.rowIndex="2" />
-        <Text fx:id="dislname" strokeType="OUTSIDE" strokeWidth="0.0" translateX="250.0" GridPane.rowIndex="3" />
-        <Text fx:id="disAge" strokeType="OUTSIDE" strokeWidth="0.0" translateX="200.0" GridPane.rowIndex="4" />
-        <Text fx:id="disAddress" strokeType="OUTSIDE" strokeWidth="0.0" translateX="225.0" GridPane.rowIndex="5">
+        <Label text="First Name: " textFill="WHITE" translateX="190.0" GridPane.rowIndex="2" />
+        <Text fx:id="disfname" strokeType="OUTSIDE" strokeWidth="0.0" translateX="290.0" GridPane.rowIndex="2" />
+        <Text fx:id="dislname" strokeType="OUTSIDE" strokeWidth="0.0" translateX="290.0" GridPane.rowIndex="3" />
+        <Text fx:id="disAge" strokeType="OUTSIDE" strokeWidth="0.0" translateX="240.0" GridPane.rowIndex="4" />
+        <Text fx:id="disAddress" strokeType="OUTSIDE" strokeWidth="0.0" translateX="265.0" GridPane.rowIndex="5">
                <GridPane.margin>
                   <Insets />
                </GridPane.margin></Text>
-        <Text fx:id="disPhone" strokeType="OUTSIDE" strokeWidth="0.0" translateX="215.0" GridPane.rowIndex="6" />
-        <Text fx:id="disEmail" strokeType="OUTSIDE" strokeWidth="0.0" translateX="215.0" GridPane.rowIndex="7" />
-        <Text fx:id="disUser" strokeType="OUTSIDE" strokeWidth="0.0" translateX="250.0" GridPane.rowIndex="8" />
-        <Text fx:id="disPass" strokeType="OUTSIDE" strokeWidth="0.0" translateX="240.0" GridPane.rowIndex="9" />
-        <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Amount Due: " GridPane.columnIndex="1" GridPane.rowIndex="10">
+        <Text fx:id="disPhone" strokeType="OUTSIDE" strokeWidth="0.0" translateX="255.0" GridPane.rowIndex="6" />
+        <Text fx:id="disEmail" strokeType="OUTSIDE" strokeWidth="0.0" translateX="255.0" GridPane.rowIndex="7" />
+        <Text fx:id="disUser" strokeType="OUTSIDE" strokeWidth="0.0" translateX="290.0" GridPane.rowIndex="8" />
+        <Text fx:id="disPass" strokeType="OUTSIDE" strokeWidth="0.0" translateX="280.0" GridPane.rowIndex="9" />
+        <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Amount Due: " translateX="100.0" GridPane.columnIndex="1" GridPane.rowIndex="10">
           <font>
             <Font size="22.0" />
           </font>
         </Text>
-            <TextArea fx:id="forOwe" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="72.0" prefWidth="238.0" translateY="-70.0" GridPane.columnIndex="1" GridPane.rowIndex="13">
+            <TextArea fx:id="forOwe" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="72.0" prefWidth="238.0" translateX="100.0" translateY="-70.0" GridPane.columnIndex="1" GridPane.rowIndex="13">
                <font>
                   <Font size="37.0" />
                </font>
