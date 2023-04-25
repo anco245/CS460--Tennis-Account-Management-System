@@ -8,15 +8,9 @@ import javafx.scene.text.Text;
 import javafx.fxml.FXML;
 import java.io.IOException;
 import java.net.URL;
-import java.util.Objects;
 import java.util.Optional;
 import java.util.ResourceBundle;
 import java.time.LocalDateTime;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 
 public class MemController implements Initializable {
 
@@ -114,14 +108,18 @@ public class MemController implements Initializable {
       }
     }
 
-    if(Database.isLate) {
+    if(Database.isLate && now.getMonthValue() == 3) {
       String late = """
         You haven't paid your annual
         fee. If you don't pay by April
         1st, your account will be
         removed.""";
       lateMessage.setText(late);
+    } else if (Database.isLate && now.getMonthValue() != 3) {
+      String late = "You haven't paid your initial\nfee.";
+      lateMessage.setText(late);
     }
+
   }
 
   @FXML
