@@ -4,18 +4,24 @@
 <?import javafx.scene.effect.InnerShadow?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="680.0" prefWidth="1280.0" stylesheets="@theme.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.jecesystem.ContactUsMem">
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="695.0" prefWidth="1366.0" stylesheets="@theme.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.jecesystem.ContactUsMem">
   <children>
-    <Rectangle arcHeight="40.0" arcWidth="40.0" fill="#d9d9d9" height="500.0" opacity="0.28" stroke="BLACK" strokeType="INSIDE" translateX="390.0" translateY="100.0" width="500.0">
+    <Rectangle arcHeight="40.0" arcWidth="40.0" fill="#d9d9d9" height="500.0" opacity="0.66" stroke="BLACK" strokeType="INSIDE" translateX="390.0" translateY="100.0" width="500.0">
       <effect>
         <InnerShadow />
       </effect>
     </Rectangle>
-    <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Phone Number for Main Desk: 215-436-2231" translateX="520.0" translateY="-350.0" wrappingWidth="239.8203125" />
-    <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Phone Number for Technical Support: 215-663-2133" translateX="445.0" translateY="-300.0" />
-    <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Email for any questions: askquestion@tennis.com" translateX="450.0" translateY="-250.0" />
-    <Button mnemonicParsing="false" onAction="#switchToHome" text="Back to Home Screen" translateX="50.0" translateY="40.0" />
+    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="JESE Tennis Club is Located at: 123 Main Street, Hartford, CT, 06117" textAlignment="CENTER" translateX="490.0" translateY="-375.0" underline="true" wrappingWidth="295.224609375">
+      <font>
+        <Font size="21.0" />
+      </font>
+    </Text>
+    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Phone Number for Main Desk: 215-436-2231" textAlignment="CENTER" translateX="520.0" translateY="-300.0" wrappingWidth="239.8203125" />
+    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Phone Number for Technical Support: 215-663-2133" textAlignment="CENTER" translateX="500.0" translateY="-250.0" wrappingWidth="284.0888671875" />
+    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Email for any questions: askquestion@tennis.com" textAlignment="CENTER" translateX="540.0" translateY="-200.0" wrappingWidth="202.5576171875" />
+    <Button mnemonicParsing="false" onAction="#switchToHome" text="Back to Home Screen" translateX="50.0" translateY="-100.0" />
   </children>
 </VBox>

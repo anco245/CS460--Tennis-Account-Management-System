@@ -8,9 +8,15 @@ import javafx.scene.text.Text;
 import javafx.fxml.FXML;
 import java.io.IOException;
 import java.net.URL;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.ResourceBundle;
 import java.time.LocalDateTime;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 
 public class MemController implements Initializable {
 

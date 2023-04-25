@@ -9,7 +9,7 @@
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="680.0" prefWidth="1280.0" stylesheets="@theme.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.jecesystem.AddPayController">
+<AnchorPane prefHeight="695.0" prefWidth="1366.0" stylesheets="@theme.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.jecesystem.AddPayController">
    <children>
       <Rectangle arcHeight="40.0" arcWidth="40.0" fill="#e9e9e9" height="500.0" layoutX="240.0" layoutY="70.0" opacity="0.28" stroke="BLACK" strokeType="INSIDE" width="800.0">
          <effect>

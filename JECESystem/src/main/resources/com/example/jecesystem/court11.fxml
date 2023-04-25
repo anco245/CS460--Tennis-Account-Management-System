@@ -7,7 +7,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="680.0" prefWidth="1280.0" stylesheets="@theme.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.jecesystem.Court11Controller">
+<AnchorPane prefHeight="695.0" prefWidth="1366.0" stylesheets="@theme.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.jecesystem.Court11Controller">
   <children>
     <Button layoutX="47.0" layoutY="631.0" mnemonicParsing="false" onAction="#switchToHome" text="Back to Homescreen" />
     <Button layoutX="868.3" layoutY="14.0" mnemonicParsing="false" onAction="#switchToCourt9" text="Court 9" />
