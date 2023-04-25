@@ -59,7 +59,7 @@
           <font>
             <Font size="22.0" />
           </font></Label>
-        <Label text="Guests" textFill="WHITE" translateX="60.0" GridPane.columnIndex="2" GridPane.rowIndex="4">
+        <Label text="Guests" textFill="WHITE" translateX="60.0" GridPane.columnIndex="2" GridPane.rowIndex="2">
           <font>
             <Font size="22.0" />
           </font></Label>
@@ -85,7 +85,7 @@
                   <Font size="37.0" />
                </font>
             </TextArea>
-            <TextArea fx:id="forGuest" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="209.0" prefWidth="198.0" translateX="60.0" translateY="40.0" GridPane.columnIndex="2" GridPane.rowIndex="6" />
+            <TextArea fx:id="forGuest" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="122.0" prefWidth="198.0" translateX="60.0" translateY="40.0" GridPane.columnIndex="2" GridPane.rowIndex="3" />
             <TableView fx:id="table" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="221.0" prefWidth="407.0" translateY="-45.0" GridPane.columnIndex="1" GridPane.rowIndex="6">
               <columns>
                 <TableColumn fx:id="court" prefWidth="65.0" text="Court" />
@@ -93,6 +93,12 @@
                   <TableColumn fx:id="cancel" prefWidth="126.0" text="Cancel" />
               </columns>
             </TableView>
+            <TextArea fx:id="annualPayment" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="89.0" prefWidth="240.0" GridPane.columnIndex="2" GridPane.rowIndex="10">
+               <font>
+                  <Font size="37.0" />
+               </font>
+            </TextArea>
+            <Label text="Annual Payment:" GridPane.columnIndex="2" GridPane.rowIndex="8" />
       </children>
     </GridPane>
   </children>

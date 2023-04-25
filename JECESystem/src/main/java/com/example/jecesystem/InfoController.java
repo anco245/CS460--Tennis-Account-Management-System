@@ -15,8 +15,6 @@ import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class InfoController implements Initializable {
-    //Add how much they're paying per month
-    //Next payment`
 
   @FXML
   private Text disAddress;
@@ -60,6 +58,9 @@ public class InfoController implements Initializable {
   @FXML
   private TableView<Person> table;
 
+  @FXML
+  private TextArea annualPayment;
+
   ObservableList<Person> list = FXCollections.observableArrayList();
 
   @Override
@@ -67,6 +68,8 @@ public class InfoController implements Initializable {
 
     forOwe.setText("$" + (Database.owe + Database.annual));
     forGuest.setText("Current Guest Count: " + Database.guestsFromDatabase + "\nYou're allowed " + (6 - Database.guestsFromDatabase) + " more \nguests for the month");
+
+    annualPayment.setText("$" + Database.annual);
 
     disAddress.setText(Database.addr);
     disAge.setText(String.valueOf(Database.age));
