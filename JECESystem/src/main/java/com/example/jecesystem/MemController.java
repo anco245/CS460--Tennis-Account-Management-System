@@ -16,10 +16,8 @@ public class MemController implements Initializable {
 
   @FXML
   private Text keep;
-
   @FXML
   private Text lateMessage;
-
   @FXML
   private Text welcome;
 
@@ -36,7 +34,6 @@ public class MemController implements Initializable {
 
     String welcomeMessage = "Member Homescreen:\nWelcome " + Database.fName + " " + Database.lName + "!";
     welcome.setText(welcomeMessage);
-
 
     //if january or february, notify that annual payment is due soon
     if (now.getMonthValue() == 1 || now.getMonthValue() == 2)

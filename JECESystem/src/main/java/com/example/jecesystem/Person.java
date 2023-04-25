@@ -55,12 +55,13 @@ public class Person {
   }
 
   //used for member directory
-  public Person(String name, int age, String address, String phone, String email) {
+  public Person(String name, int age, String address, String phone, String email, String res) {
     this.userName = name;
     this.userAge = age;
     this.userAddress = address;
     this.userPhone = phone;
     this.userEmail = email;
+    this.userReservations = res;
   }
 
   //displaying courts in court reservation screen

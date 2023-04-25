@@ -9,11 +9,12 @@
    <children>
       <TableView fx:id="table" prefHeight="619.0" prefWidth="1366.0" AnchorPane.bottomAnchor="76.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <columns>
-          <TableColumn fx:id="name" prefWidth="226.0" text="Name" />
-          <TableColumn fx:id="age" prefWidth="193.0" text="Age" />
-            <TableColumn fx:id="address" prefWidth="477.0" text="Address" />
-            <TableColumn fx:id="phone" prefWidth="242.0" text="Phone" />
-            <TableColumn fx:id="email" prefWidth="227.0" text="Email" />
+          <TableColumn fx:id="name" prefWidth="174.0" text="Name" />
+          <TableColumn fx:id="age" prefWidth="167.0" text="Age" />
+            <TableColumn fx:id="reservations" prefWidth="330.0" text="Reservations" />
+            <TableColumn fx:id="email" prefWidth="289.0" text="Email" />
+            <TableColumn fx:id="phone" prefWidth="172.0" text="Phone" />
+            <TableColumn fx:id="address" prefWidth="233.0" text="Address" />
         </columns>
       </TableView>
       <Button layoutX="14.0" layoutY="644.0" mnemonicParsing="false" onAction="#switchToHome" prefHeight="34.0" prefWidth="187.0" text="Back to Homescreen" />

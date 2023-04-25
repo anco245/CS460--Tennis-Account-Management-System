@@ -19,6 +19,9 @@ public class DirectoryController implements Initializable {
   private TableColumn<Person, String> address;
 
   @FXML
+  private TableColumn<Person, String> reservations;
+
+  @FXML
   private TableColumn<Person, Integer> age;
 
   @FXML
@@ -42,6 +45,7 @@ public class DirectoryController implements Initializable {
     address.setCellValueFactory(new PropertyValueFactory<>("address"));
     phone.setCellValueFactory(new PropertyValueFactory<>("phone"));
     email.setCellValueFactory(new PropertyValueFactory<>("email"));
+    reservations.setCellValueFactory(new PropertyValueFactory<>("reservations"));
 
     try (Connection connection = DriverManager.getConnection(Database.url, Database.username, Database.password)) {
 
@@ -51,8 +55,6 @@ public class DirectoryController implements Initializable {
       ResultSet resultSet = preparedStatement.executeQuery();
 
       while(resultSet.next()) {
-
-
 
         String first = resultSet.getString("firstName").substring(0, 1).toUpperCase() +
           resultSet.getString("firstName").substring(1);
@@ -68,9 +70,18 @@ public class DirectoryController implements Initializable {
         boolean v = resultSet.getBoolean("verified");
         boolean shown = resultSet.getBoolean("shown");
 
+        String userRes = "";
+
+        if(Database.printReservations(resultSet.getString("username")).equals(""))
+        {
+          userRes = "No reservations";
+        } else {
+          userRes = Database.printReservations(resultSet.getString("username"));
+        }
+
         if(shown && v)
         {
-          Person person = new Person(userName, userAge, userAddr, userPhone, userEmail);
+          Person person = new Person(userName, userAge, userAddr, userPhone, userEmail, userRes);
           list.add(person);
         }
       }
