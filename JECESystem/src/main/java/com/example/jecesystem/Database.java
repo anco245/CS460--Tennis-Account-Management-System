@@ -909,15 +909,6 @@ public class Database {
         keepConfirm = resultSet.getBoolean("keepConfirm");
         annual = resultSet.getInt("annual");
 
-        if(age < 18)
-        {
-          annual = 250;
-        } else if (age < 65) {
-          annual = 400;
-        } else {
-          annual = 300;
-        }
-
         return true;
       }
 

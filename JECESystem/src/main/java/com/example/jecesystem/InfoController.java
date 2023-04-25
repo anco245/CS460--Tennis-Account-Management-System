@@ -18,46 +18,32 @@ public class InfoController implements Initializable {
 
   @FXML
   private Text disAddress;
-
   @FXML
   private Text disAge;
-
   @FXML
   private Text disEmail;
-
   @FXML
   private Text disPass;
-
   @FXML
   private Text disPhone;
-
   @FXML
   private Text disUser;
-
   @FXML
   private Text disfname;
-
   @FXML
   private Text dislname;
-
   @FXML
   private TextArea forOwe;
-
   @FXML
   private TextArea forGuest;
-
   @FXML
   private TableColumn<Person, Button> cancel;
-
   @FXML
   private TableColumn<Person, Integer> court;
-
   @FXML
   private TableColumn<Person, String> dayTime;
-
   @FXML
   private TableView<Person> table;
-
   @FXML
   private TextArea annualPayment;
 
@@ -69,7 +55,18 @@ public class InfoController implements Initializable {
     forOwe.setText("$" + (Database.owe + Database.annual));
     forGuest.setText("Current Guest Count: " + Database.guestsFromDatabase + "\nYou're allowed " + (6 - Database.guestsFromDatabase) + " more \nguests for the month");
 
-    annualPayment.setText("$" + Database.annual);
+    int ann = 0;
+
+    if(Database.age < 18)
+    {
+      ann = 250;
+    } else if (Database.age < 65) {
+      ann = 400;
+    } else {
+      ann = 300;
+    }
+
+    annualPayment.setText("$" + ann);
 
     disAddress.setText(Database.addr);
     disAge.setText(String.valueOf(Database.age));
