@@ -43,6 +43,10 @@ public class InfoController implements Initializable {
   @FXML
   private TableColumn<Person, String> dayTime;
   @FXML
+  private TableColumn<Person, Integer> guestCol;
+  @FXML
+  private TableColumn<Person, String> typeCol;
+  @FXML
   private TableView<Person> table;
   @FXML
   private TextArea annualPayment;
@@ -80,28 +84,50 @@ public class InfoController implements Initializable {
     court.setCellValueFactory(new PropertyValueFactory<>("court"));
     dayTime.setCellValueFactory(new PropertyValueFactory<>("date"));
     cancel.setCellValueFactory(new PropertyValueFactory<>("cancel"));
+    typeCol.setCellValueFactory(new PropertyValueFactory<>("gameType"));
+    guestCol.setCellValueFactory(new PropertyValueFactory<>("numOfGuests"));
 
     try (Connection connection = DriverManager.getConnection(Database.url, Database.username, Database.password)) {
 
+      Date d;
+      Time t;
+      String date = "";
+      int gs = 0;
+      String typeGame = "";
+
+      //Loops through each court
       for (int i = 1; i < 13; i++) {
         String court = "court" + i;
         String sql = "select * from " + court + " where username = ?";
+
         PreparedStatement preparedStatement = connection.prepareStatement(sql);
-
         preparedStatement.setString(1, Database.memberUser);
-
         ResultSet resultSet = preparedStatement.executeQuery();
 
         while (resultSet.next()) {
-          Date d = resultSet.getDate("dayAndTime");
-          Time t = resultSet.getTime("dayAndTime");
-          String date = d.toString() + " " + t.toString();
+          d = resultSet.getDate("dayAndTime");
+          t = resultSet.getTime("dayAndTime");
 
-          date = date.substring(0, 16);
+          date = d.toString() + " " + t.toString();
+          
+          //If they have a reservation but it's already passed
+          //don't display it
+          if(!Database.hasPassed(date))
+          {
+            date = date.substring(0, 16);
+            gs = resultSet.getInt("occupied") - 1;
 
-          Person person = new Person(i, date);
+            if(resultSet.getBoolean("typeGame"))
+            {
+              typeGame = "Double";
+            } else {
+              typeGame = "Single";
+            }
 
-          list.add(person);
+            Person person = new Person(i, date, typeGame, gs);
+
+            list.add(person);
+          }
         }
 
         table.setItems(list);

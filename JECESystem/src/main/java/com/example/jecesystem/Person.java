@@ -30,11 +30,14 @@ public class Person {
   String userUser = "";
   String userPass = "";
   String userReservations = "";
+  String gameType = "";
+
   boolean isShown = false;
   boolean isLate = false;
   boolean keep = true;
   int userAge = 0;
   int owe = 0;
+  int numOfGuests = 0;
   String status = "";
   int userCourt = 1;
   String date = "";
@@ -131,9 +134,6 @@ public class Person {
 
           if(singleDouble.getValue().equals("Double")) {x = true;}
 
-          System.out.println(singleDouble.getValue() == null);
-          System.out.println(singleDouble.getValue());
-
           Optional<ButtonType> result = con.showAndWait();
           if (result.isPresent() && result.get() == ButtonType.OK) {
 
@@ -164,9 +164,11 @@ public class Person {
   }
 
   // displaying court reservations on info screen
-  public Person(int court, String dateTime) {
+  public Person(int court, String dateTime, String singDoub, int guestsInCourt) {
     this.userCourt = court;
     this.date = dateTime;
+    this.gameType = singDoub;
+    this.numOfGuests = guestsInCourt;
 
     cancel.setPrefWidth(100.0);
     this.cancel.setOnAction(e -> {
@@ -174,6 +176,8 @@ public class Person {
       int peopleToSub = Database.getOccupied(court, dateTime);
       Database.addSubGuests(peopleToSub * -1);
       Database.cancelReservation(this.userCourt, this.date);
+      Database.addSubOwe(Database.memberUser, (peopleToSub *10) * -1);
+
       try {
         App.setRoot("info");
       } catch (IOException ex) {
@@ -291,6 +295,12 @@ public class Person {
       }
     });
   }
+
+  public void setNumOfGuests(int gs) {numOfGuests = gs;}
+  public int getNumOfGuests() {return numOfGuests;}
+
+  public void setGameType(String gt) {gameType = gt;}
+  public String getGameType() {return gameType;}
 
   public void setReservations(String reservations) {userReservations = reservations;}
   public String getReservations() {return userReservations;}

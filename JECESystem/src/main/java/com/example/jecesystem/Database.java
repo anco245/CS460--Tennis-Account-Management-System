@@ -270,8 +270,11 @@ public class Database {
     int hour = rightNow.get(Calendar.HOUR_OF_DAY);
     int minute = rightNow.get(Calendar.MINUTE);
 
+    System.out.println(slot);
     String day = slot.substring(0, 10);
     String time = slot.substring(11, slot.length() - 1);
+
+    System.out.println(time);
 
     int resMin = Integer.parseInt(time.substring(3, 5));
     int resHour;
@@ -1110,7 +1113,7 @@ public class Database {
       PreparedStatement preparedStatement = connection.prepareStatement(sql);
       preparedStatement.setString(1, memberName);
       preparedStatement.setInt(2, total);
-      preparedStatement.setBoolean(3, false);
+      preparedStatement.setBoolean(3, game);
       preparedStatement.setTimestamp(4, Timestamp.valueOf(slot));
 
       preparedStatement.executeUpdate();
