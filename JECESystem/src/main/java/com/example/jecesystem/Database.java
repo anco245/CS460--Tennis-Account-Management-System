@@ -761,11 +761,17 @@ public class Database {
     try (Connection connection = DriverManager.getConnection(url, username, password)) {
 
       String str = "";
+      String court = "";
+      String sql = "";
+      String date = "";
+      String entry = "";
+      boolean typeGame = false;
+      int gs = 0;
 
       for(Integer i = 1; i < 13; i++)
       {
-        String court = "court" + i.toString();
-        String sql = "select * from " + court + " where username = ?";
+        court = "court" + i;
+        sql = "select * from " + court + " where username = ?";
         PreparedStatement preparedStatement = connection.prepareStatement(sql);
 
         preparedStatement.setString(1, user);
@@ -773,11 +779,18 @@ public class Database {
         ResultSet resultSet = preparedStatement.executeQuery();
 
         while (resultSet.next()) {
-          String date = String.valueOf(resultSet.getTimestamp("dayAndTime"));
+          date = String.valueOf(resultSet.getTimestamp("dayAndTime"));
           date = date.substring(0, 16);
-          String entry = "Court " + i.toString() + ": " + date;
+          entry = "Court " + i + ": " + date;
 
-          str = str + entry + "\n";
+          typeGame = resultSet.getBoolean("typeGame");
+          gs = resultSet.getInt("occupied") - 1;
+
+          if(!typeGame) {
+            str = str + entry + "\nSingle game: " + gs + " guests\n\n";
+          } else {
+            str = str + entry + "\n" + "Double game: " + gs + " guests\n\n";
+          }
         }
 
         preparedStatement.close();
@@ -1089,15 +1102,17 @@ public class Database {
   }
 
   //Assigns a given time slot in a given court to a username.
-  public static void makeRes(String pendingNum, String memberName, String slot, int total) {
+  public static void makeRes(String pendingNum, String memberName, String slot, int total, boolean game) {
     try (Connection connection = DriverManager.getConnection(url, username, password)) {
 
-      String sql = "UPDATE " + pendingNum + " SET username = ?, occupied = ? WHERE dayAndTime = ?";
+      String sql = "UPDATE " + pendingNum + " SET username = ?, occupied = ?, typeGame = ? WHERE dayAndTime = ?";
 
       PreparedStatement preparedStatement = connection.prepareStatement(sql);
       preparedStatement.setString(1, memberName);
       preparedStatement.setInt(2, total);
-      preparedStatement.setTimestamp(3, Timestamp.valueOf(slot));
+      preparedStatement.setBoolean(3, false);
+      preparedStatement.setTimestamp(4, Timestamp.valueOf(slot));
+
       preparedStatement.executeUpdate();
 
       preparedStatement.close();
@@ -1193,6 +1208,7 @@ public class Database {
 
           preparedStatement.setTimestamp(1, Timestamp.valueOf(full[j]));
           preparedStatement.setInt(2, 0);
+
           preparedStatement.executeUpdate();
 
           preparedStatement.close();

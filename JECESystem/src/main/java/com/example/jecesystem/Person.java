@@ -2,10 +2,8 @@ package com.example.jecesystem;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.ButtonType;
-import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.*;
+
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.Optional;
@@ -111,7 +109,6 @@ public class Person {
           error.showAndWait();
         } else {
           con.setTitle("Confirm");
-
           if(singleDouble.getValue() != null)
           {
             if(guests.getValue() != null)
@@ -130,21 +127,25 @@ public class Person {
             con.setContentText("You will be reserving a timeslot for Court " + c + " at\n" + slot +
               "\nPress ok to continue.");
           }
+          boolean x = false;
+
+          if(singleDouble.getValue().equals("Double")) {x = true;}
+
+          System.out.println(singleDouble.getValue() == null);
+          System.out.println(singleDouble.getValue());
 
           Optional<ButtonType> result = con.showAndWait();
           if (result.isPresent() && result.get() == ButtonType.OK) {
 
             int numGuests = Integer.parseInt(guests.getValue().toString());
-
             if(guests.getValue() != null)
             {
               Database.guestsFromDatabase = numGuests;
-
               Database.addSubGuests(numGuests);
               Database.addSubOwe(Database.memberUser, numGuests * 10);
-              Database.makeRes(cNumber, Database.memberUser, date, 1 + numGuests);
+              Database.makeRes(cNumber, Database.memberUser, date, 1 + numGuests, x);
             } else {
-              Database.makeRes(cNumber, Database.memberUser, date, 1);
+              Database.makeRes(cNumber, Database.memberUser, date, 1, x);
             }
 
             try {
