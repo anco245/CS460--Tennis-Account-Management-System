@@ -70,7 +70,7 @@ public class DirectoryController implements Initializable {
         boolean v = resultSet.getBoolean("verified");
         boolean shown = resultSet.getBoolean("shown");
 
-        String userRes = "";
+        String userRes;
 
         if(Database.printReservations(resultSet.getString("username")).equals(""))
         {

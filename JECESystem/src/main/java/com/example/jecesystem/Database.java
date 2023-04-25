@@ -97,7 +97,7 @@ public class Database {
 
       ResultSet resultSet = preparedStatement.executeQuery();
 
-      String user = "";
+      String user;
 
       while (resultSet.next()) {
         user = resultSet.getString("username");
@@ -332,7 +332,7 @@ public class Database {
 
         toArray();
 
-        String sql2 = "";
+        String sql2;
 
         for(int j = 140; j < 160; j++)
         {
@@ -390,8 +390,8 @@ public class Database {
 
       ResultSet resultSet = preparedStatement.executeQuery();
 
-      String uname = "";
-      int amtOwed = 0;
+      String uname;
+      int amtOwed;
 
       while (resultSet.next()) {
         uname = resultSet.getString("username");
@@ -431,7 +431,7 @@ public class Database {
 
       ResultSet resultSet = preparedStatement.executeQuery();
 
-      int amt = 0;
+      int amt;
 
       while (resultSet.next()) {
         amt = resultSet.getInt("total");
@@ -519,7 +519,7 @@ public class Database {
     }
   }
 
-  public static boolean deleteBank(String user)
+  public static void deleteBank(String user)
   {
     try (Connection connection = DriverManager.getConnection(url, username, password)) {
       PreparedStatement preparedStatement =
@@ -529,13 +529,12 @@ public class Database {
       preparedStatement.executeUpdate();
       preparedStatement.close();
 
-      return false;
     } catch (SQLException e) {
       throw new IllegalStateException("Cannot connect to the database!", e);
     }
   }
 
-  public static boolean addBank(String user, String bankName, String accNum, String social, String typeAcc)
+  public static void addBank(String user, String bankName, String accNum, String social, String typeAcc)
   {
     try (Connection connection = DriverManager.getConnection(url, username, password)) {
       PreparedStatement preparedStatement =
@@ -552,10 +551,7 @@ public class Database {
       preparedStatement.setInt(6, rand.nextInt(max - min + 1) + min);
 
       preparedStatement.executeUpdate();
-
       preparedStatement.close();
-
-      return false;
     } catch (SQLException e) {
       throw new IllegalStateException("Cannot connect to the database!", e);
     }
@@ -593,8 +589,8 @@ public class Database {
 
       ResultSet resultSet = preparedStatement.executeQuery();
 
-      String uname = "";
-      int amtOwed = 0;
+      String uname;
+      int amtOwed;
 
       while (resultSet.next()) {
         uname = resultSet.getString("username");
@@ -680,7 +676,7 @@ public class Database {
       PreparedStatement preparedStatement =
         connection.prepareStatement(sql);
 
-      ResultSet rs = preparedStatement.executeQuery();;
+      ResultSet rs = preparedStatement.executeQuery();
 
       int result = 0;
 
@@ -764,14 +760,14 @@ public class Database {
     try (Connection connection = DriverManager.getConnection(url, username, password)) {
 
       String str = "";
-      String court = "";
-      String sql = "";
-      String date = "";
-      String entry = "";
-      boolean typeGame = false;
-      int gs = 0;
+      String court;
+      String sql;
+      String date;
+      String entry;
+      boolean typeGame;
+      int gs;
 
-      for(Integer i = 1; i < 13; i++)
+      for(int i = 1; i < 13; i++)
       {
         court = "court" + i;
         sql = "select * from " + court + " where username = ?";
@@ -1004,8 +1000,8 @@ public class Database {
     try (Connection connection = DriverManager.getConnection(url, username, password)) {
 
       int x = 0;
-      String court = "";
-      String sql = "";
+      String court ;
+      String sql;
 
       for (int j = 1; j < 13; j++) {
         court = "court" + j;
@@ -1093,7 +1089,7 @@ public class Database {
 
     Arrays.sort(exactDays);
 
-    String str = "";
+    String str;
     int count = 0;
     for (int i = 0; i < 8; i++) {
       for (int j = 0; j < 20; j++) {
@@ -1130,8 +1126,8 @@ public class Database {
   {
     try (Connection connection = DriverManager.getConnection(url, username, password)) {
 
-      String cnum = "";
-      String sql = "";
+      String cnum;
+      String sql;
 
      for(int i = 1; i < 12; i++)
      {
@@ -1162,9 +1158,9 @@ public class Database {
   {
     try (Connection connection = DriverManager.getConnection(url, username, password)) {
 
-      String court = "";
-      String sql = "";
-      String date = "";
+      String court;
+      String sql;
+      String date;
 
       for(int i = 1; i < 13; i++)
       {
@@ -1199,8 +1195,8 @@ public class Database {
 
       toArray();
 
-      String court = "";
-      String sql = "";
+      String court;
+      String sql;
 
       for (int i = 1; i < 13; i++) {
         for (int j = 0; j < 160; j++) {

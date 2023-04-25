@@ -130,9 +130,7 @@ public class Person {
             con.setContentText("You will be reserving a timeslot for Court " + c + " at\n" + slot +
               "\nPress ok to continue.");
           }
-          boolean x = false;
-
-          if(singleDouble.getValue().equals("Double")) {x = true;}
+          boolean x = singleDouble.getValue().equals("Double");
 
           Optional<ButtonType> result = con.showAndWait();
           if (result.isPresent() && result.get() == ButtonType.OK) {

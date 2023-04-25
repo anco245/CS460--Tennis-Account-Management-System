@@ -49,7 +49,7 @@ public class MemController implements Initializable {
     }
 
     //If march 1st (when annual payment is due), add annual payment to annual variable
-    if(now.getMonthValue() == 3 && now.getMonthValue() == 1)
+    if(now.getMonthValue() == 3 && now.getDayOfMonth() == 1)
     {
       if(Database.age < 18)
       {
@@ -63,7 +63,7 @@ public class MemController implements Initializable {
 
     //If it's past the due date for the annual payment, and they haven't paid
     //it yet, their account is marked late
-    if(now.getMonthValue() == 3 && now.getMonthValue() == 2 && Database.annual > 0)
+    if(now.getMonthValue() == 3 && now.getDayOfMonth() == 2 && Database.annual > 0)
     {
       Database.addSubAnnual(Database.memberUser, 50);
       Database.setLate(Database.memberUser, true);
@@ -105,17 +105,17 @@ public class MemController implements Initializable {
       }
     }
 
+    String late;
     if(Database.isLate && now.getMonthValue() == 3) {
-      String late = """
+      late = """
         You haven't paid your annual
         fee. If you don't pay by April
         1st, your account will be
         removed.""";
-      lateMessage.setText(late);
-    } else if (Database.isLate && now.getMonthValue() != 3) {
-      String late = "You haven't paid your initial\nfee.";
-      lateMessage.setText(late);
+    } else {
+      late = "You haven't paid your initial\nfee.";
     }
+    lateMessage.setText(late);
 
   }
 

@@ -59,7 +59,7 @@ public class InfoController implements Initializable {
     forOwe.setText("$" + (Database.owe + Database.annual));
     forGuest.setText("Current Guest Count: " + Database.guestsFromDatabase + "\nYou're allowed " + (6 - Database.guestsFromDatabase) + " more \nguests for the month");
 
-    int ann = 0;
+    int ann;
 
     if(Database.age < 18)
     {
@@ -91,9 +91,9 @@ public class InfoController implements Initializable {
 
       Date d;
       Time t;
-      String date = "";
-      int gs = 0;
-      String typeGame = "";
+      String date;
+      int gs;
+      String typeGame;
 
       //Loops through each court
       for (int i = 1; i < 13; i++) {
@@ -109,7 +109,7 @@ public class InfoController implements Initializable {
           t = resultSet.getTime("dayAndTime");
 
           date = d.toString() + " " + t.toString();
-          
+
           //If they have a reservation but it's already passed
           //don't display it
           if(!Database.hasPassed(date))
