@@ -264,6 +264,33 @@ public class Database {
     }
   }
 
+  public static String getName(String user)
+  {
+    try (Connection connection = DriverManager.getConnection(url, username, password)) {
+
+      PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM directory WHERE username = ?");
+      preparedStatement.setString(1, user);
+
+      ResultSet rs = preparedStatement.executeQuery();
+
+      String first = "";
+      String last = "";
+
+      while (rs.next()) {
+        first = rs.getString("firstName");
+        last = rs.getString("lastName");
+      }
+
+      String full = first + " " + last;
+
+      preparedStatement.close();
+
+      return full;
+    } catch (SQLException e) {
+      throw new RuntimeException(e);
+    }
+  }
+
   //Sees if the given time slot has already passed
   public static boolean hasPassed(String slot) {
     Calendar rightNow = Calendar.getInstance();

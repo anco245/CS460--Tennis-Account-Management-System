@@ -3,6 +3,7 @@ package com.example.jecesystem;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -42,6 +43,11 @@ public class Person {
   int userCourt = 1;
   String date = "";
 
+  String fullName = "";
+  String bankName = "";
+  String accountType = "";
+  String accountNum = "";
+
   ObservableList guestList = FXCollections.observableArrayList();
 
   //single double
@@ -53,6 +59,14 @@ public class Person {
 
     sd.addAll("Single", "Double");
     singleDouble.getItems().addAll(sd);
+  }
+
+  //For displaying bank info
+  public Person(String full, String bName, String aNum, String aType) {
+      this.fullName = full;
+      this.bankName = bName;
+      this.accountNum = aNum;
+      this.accountType = aType;
   }
 
   //used for member directory
@@ -292,6 +306,19 @@ public class Person {
       }
     });
   }
+
+
+  public void setFullName(String full) {fullName = full;}
+  public String getFullName() {return fullName;}
+
+  public void setBankName(String bName) {bankName = bName;}
+  public String getBankName() {return bankName;}
+
+  public void setAccountNum(String aNum) {accountNum = aNum;}
+  public String getAccountNum() {return accountNum;}
+
+  public void setAccountType(String aType) {accountType = aType;}
+  public String getAccountType() {return accountType;}
 
   public void setNumOfGuests(int gs) {numOfGuests = gs;}
   public int getNumOfGuests() {return numOfGuests;}

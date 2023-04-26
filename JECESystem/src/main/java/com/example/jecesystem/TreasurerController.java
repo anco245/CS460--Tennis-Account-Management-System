@@ -35,7 +35,7 @@ public class TreasurerController implements Initializable {
 
   @FXML
   void viewBankInfo(ActionEvent event) throws IOException {
-    //App.setRoot("bankDisplay");
+    App.setRoot("bankinfo");
   }
 
 

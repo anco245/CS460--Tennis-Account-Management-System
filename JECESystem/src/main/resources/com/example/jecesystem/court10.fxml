@@ -9,7 +9,7 @@
 
 <AnchorPane prefHeight="695.0" prefWidth="1366.0" stylesheets="@theme.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.jecesystem.Court10Controller">
   <children>
-    <Button layoutX="40.0" layoutY="631.0" mnemonicParsing="false" onAction="#switchToHome" text="Back to Homescreen" />
+    <Button layoutX="33.0" layoutY="638.0" mnemonicParsing="false" onAction="#switchToHome" text="Back to Homescreen" />
     <Button layoutX="868.3" layoutY="14.0" mnemonicParsing="false" onAction="#switchToCourt9" text="Court 9" />
     <Button layoutX="765.6" layoutY="14.0" mnemonicParsing="false" onAction="#switchToCourt8" text="Court 8" />
     <Button layoutX="662.9" layoutY="14.0" mnemonicParsing="false" onAction="#switchToCourt7" text="Court 7" />
