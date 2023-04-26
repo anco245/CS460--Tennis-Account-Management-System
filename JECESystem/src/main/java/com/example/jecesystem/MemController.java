@@ -105,18 +105,18 @@ public class MemController implements Initializable {
       }
     }
 
-    String late;
+    String late = "";
     if(Database.isLate && now.getMonthValue() == 3) {
       late = """
         You haven't paid your annual
         fee. If you don't pay by April
         1st, your account will be
         removed.""";
-    } else {
+    } else if (Database.isLate) {
       late = "You haven't paid your initial\nfee.";
     }
-    lateMessage.setText(late);
 
+    lateMessage.setText(late);
   }
 
   @FXML
