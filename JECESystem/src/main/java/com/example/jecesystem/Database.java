@@ -270,11 +270,8 @@ public class Database {
     int hour = rightNow.get(Calendar.HOUR_OF_DAY);
     int minute = rightNow.get(Calendar.MINUTE);
 
-    System.out.println(slot);
     String day = slot.substring(0, 10);
     String time = slot.substring(11, slot.length() - 1);
-
-    System.out.println(time);
 
     int resMin = Integer.parseInt(time.substring(3, 5));
     int resHour;

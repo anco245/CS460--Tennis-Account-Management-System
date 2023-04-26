@@ -159,8 +159,6 @@ public class InfoController implements Initializable {
   @FXML
   void switchToHomescreen(ActionEvent event) throws IOException {
 
-    System.out.println(Database.extension);
-
       if(Database.extension.equals("tennis.com"))
       {
         App.setRoot("ctscreen");
