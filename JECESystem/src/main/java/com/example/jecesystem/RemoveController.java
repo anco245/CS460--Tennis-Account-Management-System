@@ -42,6 +42,7 @@ public class RemoveController {
 
           Database.deleteFromDb(name, "directory");
           Database.deleteFromCourts(name);
+          Database.deleteBank(name);
 
           Database.addFromWait();
 

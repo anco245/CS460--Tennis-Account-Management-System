@@ -151,6 +151,7 @@ public class InfoController implements Initializable {
       if (result.isPresent() && result.get() == ButtonType.OK){
         Database.deleteFromCourts(Database.memberUser);
         Database.deleteFromDb(Database.memberUser, "directory");
+        Database.deleteBank(Database.memberUser);
         Database.addFromWait();
         App.setRoot("login");
       }

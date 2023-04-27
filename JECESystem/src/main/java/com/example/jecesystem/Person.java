@@ -282,7 +282,7 @@ public class Person {
     approve.setPrefWidth(100.0);
     approve.setOnAction(e -> {
       try {
-        if(Database.getSize() == 5)
+        if(Database.getSize() == 1002)
         {
           error.setTitle("Error");
           error.setContentText("Database is at capacity");

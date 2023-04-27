@@ -105,7 +105,7 @@ public class SignUpController implements Initializable {
 
       Matcher matcher = emailPattern.matcher(inputEmail);
 
-      if (Database.getSize() == 4) {
+      if (Database.getSize() == 1000) {
         if (!fieldCoupon.getText().trim().isEmpty() && !inputCoupon.equals("abcd")) {
           error.setTitle("Error");
           error.setContentText("Not a valid coupon code.\n" +
